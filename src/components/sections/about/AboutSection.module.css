@@ -1,0 +1,52 @@
+/* AboutSection Component Styles */
+.aboutSection {
+  padding: 4rem 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.title {
+  font-size: var(--font-size-4xl, 2.25rem);
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: var(--fg-primary, rgba(255, 255, 255, 0.8));
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.info {
+  /* Personal info styles */
+}
+
+.bio {
+  font-size: var(--font-size-lg, 1.125rem);
+  line-height: var(--line-height-relaxed, 1.625);
+  color: var(--fg-primary, rgba(255, 255, 255, 0.7));
+}
+
+.carousel {
+  height: 400px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fg-primary, rgba(255, 255, 255, 0.5));
+}
+
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}

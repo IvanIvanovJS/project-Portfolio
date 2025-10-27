@@ -105,6 +105,7 @@ portfolio-site/
 ### Core UI Components
 
 #### GlassContainer Component
+
 ```typescript
 interface GlassContainerProps {
   children: React.ReactNode;
@@ -118,6 +119,7 @@ interface GlassContainerProps {
 ```
 
 #### GlassButton Component
+
 ```typescript
 interface GlassButtonProps {
   children: React.ReactNode;
@@ -131,6 +133,7 @@ interface GlassButtonProps {
 ```
 
 #### ThemeToggle Component
+
 ```typescript
 interface ThemeToggleProps {
   className?: string;
@@ -140,6 +143,7 @@ interface ThemeToggleProps {
 ### Layout Components
 
 #### Header Component
+
 ```typescript
 interface HeaderProps {
   isScrolled: boolean;
@@ -147,6 +151,7 @@ interface HeaderProps {
 ```
 
 #### Navigation Component
+
 ```typescript
 interface NavigationItem {
   id: string;
@@ -164,6 +169,7 @@ interface NavigationProps {
 ### Section Components
 
 #### HeroSection Component
+
 ```typescript
 interface HeroSectionProps {
   title: string;
@@ -174,6 +180,7 @@ interface HeroSectionProps {
 ```
 
 #### ThreeScene Component
+
 ```typescript
 interface ThreeSceneProps {
   theme: 'light' | 'dark';
@@ -182,6 +189,7 @@ interface ThreeSceneProps {
 ```
 
 #### ProjectCard Component
+
 ```typescript
 interface Project {
   id: string;
@@ -200,6 +208,7 @@ interface ProjectCardProps {
 ```
 
 #### ImageCarousel Component
+
 ```typescript
 interface CarouselImage {
   id: string;
@@ -218,6 +227,7 @@ interface ImageCarouselProps {
 ## Data Models
 
 ### Theme Configuration
+
 ```typescript
 interface ThemeColors {
   background: string;
@@ -239,6 +249,7 @@ interface Theme {
 ```
 
 ### Project Data Model
+
 ```typescript
 interface ProjectData {
   id: string;
@@ -270,6 +281,7 @@ type ProjectCategory = 'web' | 'mobile' | 'desktop' | 'api' | 'other';
 ```
 
 ### About Data Model
+
 ```typescript
 interface AboutData {
   personalInfo: {
@@ -317,12 +329,14 @@ interface Education {
 ### Color Schemes
 
 #### CSS Custom Properties Structure
+
 ```css
 :root {
   /* Typography */
-  --font-family-primary: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-primary:
+    'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-family-mono: 'SF Mono', Monaco, monospace;
-  
+
   /* Responsive Font Sizes */
   --font-size-xs: clamp(0.7rem, 0.66rem + 0.2vw, 0.75rem);
   --font-size-sm: clamp(0.8rem, 0.75rem + 0.25vw, 0.875rem);
@@ -335,14 +349,14 @@ interface Education {
   --font-size-5xl: clamp(2rem, 1.75rem + 1.25vw, 3rem);
   --font-size-6xl: clamp(2.5rem, 2rem + 2.5vw, 3.75rem);
   --font-size-7xl: clamp(3rem, 2.5rem + 2.5vw, 4.5rem);
-  
+
   /* Line Heights */
   --line-height-tight: 1.25em;
   --line-height-snug: 1.375em;
   --line-height-normal: 1.5em;
   --line-height-relaxed: 1.625em;
   --line-height-loose: 2em;
-  
+
   /* Letter Spacing */
   --letter-spacing-tighter: -0.05em;
   --letter-spacing-tight: -0.025em;
@@ -350,7 +364,7 @@ interface Education {
   --letter-spacing-wide: 0.025em;
   --letter-spacing-wider: 0.05em;
   --letter-spacing-widest: 0.1em;
-  
+
   /* Spacing */
   --spacing-1: 0.25em;
   --spacing-2: 0.5em;
@@ -363,7 +377,7 @@ interface Education {
   --spacing-12: 3em;
   --spacing-16: 4em;
   --spacing-20: 5em;
-  
+
   /* Responsive Spacing */
   --spacing-xs: clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem);
   --spacing-sm: clamp(0.75rem, 0.6rem + 0.75vw, 1rem);
@@ -376,64 +390,85 @@ interface Education {
 ```
 
 #### Dark Theme
+
 ```css
-:root[data-theme="dark"] {
+:root[data-theme='dark'] {
   /* Colors */
   --bg-primary: #171717;
   --fg-primary: rgba(255, 255, 255, 0.8);
   --color-primary: #baffe9;
   --color-secondary: #4a5568;
   --color-accent: #9f7aea;
-  
+
   /* Glassmorphism */
   --glass-bg: rgba(255, 255, 255, 0.05);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-highlight: rgba(255, 255, 255, 0.2);
   --glass-shadow: rgba(0, 0, 0, 0.3);
-  
+
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-  --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-accent)
+  );
+  --gradient-glass: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05)
+  );
 }
 ```
 
 #### Light Theme
+
 ```css
-:root[data-theme="light"] {
+:root[data-theme='light'] {
   /* Colors */
   --bg-primary: #fafafa;
   --fg-primary: rgba(23, 23, 23, 0.8);
   --color-primary: #ff8800;
   --color-secondary: #718096;
   --color-accent: #805ad5;
-  
+
   /* Glassmorphism */
   --glass-bg: rgba(255, 255, 255, 0.25);
   --glass-border: rgba(255, 255, 255, 0.3);
   --glass-highlight: rgba(255, 255, 255, 0.4);
   --glass-shadow: rgba(0, 0, 0, 0.1);
-  
+
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-  --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-accent)
+  );
+  --gradient-glass: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.1)
+  );
 }
 ```
 
 ### Glassmorphism Variants
 
 #### Card Variant
+
 - Background: `rgba(255, 255, 255, 0.05)`
 - Backdrop Filter: `blur(10px)`
 - Border: `1px solid rgba(255, 255, 255, 0.1)`
 - Box Shadow: `0 8px 32px rgba(0, 0, 0, 0.1)`
 
 #### Button Variant
+
 - Background: `rgba(255, 255, 255, 0.1)`
 - Backdrop Filter: `blur(15px)`
 - Hover Effects: Glow animation
 - Active States: Scale transform
 
 #### Panel Variant
+
 - Background: `rgba(255, 255, 255, 0.03)`
 - Backdrop Filter: `blur(20px)`
 - Enhanced borders and shadows
@@ -441,12 +476,15 @@ interface Education {
 ### Typography System
 
 #### Font Families
+
 ```css
---font-family-primary: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+--font-family-primary:
+  'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 --font-family-mono: 'SF Mono', Monaco, monospace;
 ```
 
 #### Responsive Typography Scale (using clamp for fluid scaling)
+
 ```css
 --font-size-xs: clamp(0.7rem, 0.66rem + 0.2vw, 0.75rem);
 --font-size-sm: clamp(0.8rem, 0.75rem + 0.25vw, 0.875rem);
@@ -462,6 +500,7 @@ interface Education {
 ```
 
 #### Line Heights (using em for relative scaling)
+
 ```css
 --line-height-tight: 1.25em;
 --line-height-snug: 1.375em;
@@ -471,6 +510,7 @@ interface Education {
 ```
 
 #### Letter Spacing (using em for relative scaling)
+
 ```css
 --letter-spacing-tighter: -0.05em;
 --letter-spacing-tight: -0.025em;
@@ -481,6 +521,7 @@ interface Education {
 ```
 
 ### Spacing System (using em for relative scaling)
+
 ```css
 --spacing-1: 0.25em;
 --spacing-2: 0.5em;
@@ -498,6 +539,7 @@ interface Education {
 ```
 
 ### Responsive Spacing (using clamp for fluid scaling)
+
 ```css
 --spacing-xs: clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem);
 --spacing-sm: clamp(0.75rem, 0.6rem + 0.75vw, 1rem);
@@ -511,17 +553,19 @@ interface Education {
 ## Responsive Design
 
 ### Breakpoints
+
 ```typescript
 const breakpoints = {
   sm: '480px',
   md: '768px',
   lg: '992px',
   xl: '1280px',
-  '2xl': '1536px'
+  '2xl': '1536px',
 };
 ```
 
 ### Mobile-First Approach
+
 - Base styles for mobile (320px+)
 - Progressive enhancement for larger screens
 - Touch-friendly interactions
@@ -530,6 +574,7 @@ const breakpoints = {
 ### Layout Adaptations
 
 #### Mobile (< 768px)
+
 - Single column layout
 - Collapsible navigation
 - Reduced glassmorphism complexity
@@ -537,12 +582,14 @@ const breakpoints = {
 - Simplified Three.js scenes
 
 #### Tablet (768px - 1024px)
+
 - Two-column layouts where appropriate
 - Enhanced glassmorphism effects
 - Full Three.js capabilities
 - Hover states enabled
 
 #### Desktop (> 1024px)
+
 - Multi-column layouts
 - Full glassmorphism effects
 - Complex animations
@@ -551,30 +598,32 @@ const breakpoints = {
 ## Animation Strategy
 
 ### Framer Motion Variants
+
 ```typescript
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: "easeOut" }
+  transition: { duration: 0.6, ease: 'easeOut' },
 };
 
 const staggerContainer = {
   animate: {
     transition: {
-      staggerChildren: 0.1
-    }
-  }
+      staggerChildren: 0.1,
+    },
+  },
 };
 
 const glassHover = {
   hover: {
     scale: 1.02,
-    transition: { duration: 0.2 }
-  }
+    transition: { duration: 0.2 },
+  },
 };
 ```
 
 ### Three.js Scene Design
+
 - Floating glassmorphism shapes
 - Particle systems
 - Interactive elements responding to mouse movement
@@ -584,12 +633,14 @@ const glassHover = {
 ## Error Handling
 
 ### Error Boundaries
+
 - Component-level error boundaries
 - Graceful fallbacks for Three.js scenes
 - Image loading error handling
 - Network request error handling
 
 ### Loading States
+
 - Skeleton loaders for content
 - Progressive image loading
 - Three.js scene loading indicators
@@ -598,24 +649,28 @@ const glassHover = {
 ## Testing Strategy
 
 ### Unit Testing
+
 - Component rendering tests
 - Hook functionality tests
 - Utility function tests
 - Theme switching tests
 
 ### Integration Testing
+
 - Navigation flow tests
 - Theme persistence tests
 - Responsive behavior tests
 - Animation completion tests
 
 ### Performance Testing
+
 - Lighthouse audits
 - Three.js performance monitoring
 - Mobile performance optimization
 - Bundle size analysis
 
 ### Accessibility Testing
+
 - Screen reader compatibility
 - Keyboard navigation
 - Color contrast validation
@@ -624,18 +679,21 @@ const glassHover = {
 ## SEO and Performance
 
 ### Next.js Optimizations
+
 - Static generation where possible
 - Image optimization with next/image
 - Font optimization
 - Bundle splitting
 
 ### Meta Tags and Schema
+
 - Dynamic meta tags per section
 - Open Graph tags
 - Twitter Card tags
 - JSON-LD structured data
 
 ### Performance Targets
+
 - First Contentful Paint: < 1.5s
 - Largest Contentful Paint: < 2.5s
 - Cumulative Layout Shift: < 0.1
@@ -644,12 +702,14 @@ const glassHover = {
 ## Deployment Configuration
 
 ### Vercel Settings
+
 - Environment variables for themes
 - Build optimizations
 - Edge functions for dynamic content
 - Analytics integration
 
 ### Build Process
+
 - TypeScript compilation
 - CSS optimization
 - Image optimization

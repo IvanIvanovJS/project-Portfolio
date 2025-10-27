@@ -1,6 +1,6 @@
-"use client";
-import { useState } from "react";
-import { GlassContainer } from "../ui/apple-glass-effect";
+'use client';
+import { useState } from 'react';
+import { GlassContainer } from '../ui/apple-glass-effect';
 import {
   Play,
   Pause,
@@ -18,13 +18,13 @@ import {
   Flashlight,
   Calculator,
   MessagesSquareIcon as Messages,
-  Bell
-} from "lucide-react";
-import Image from "next/image";
+  Bell,
+} from 'lucide-react';
+import Image from 'next/image';
 
 export const GlassExamples = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const volume = 75;
 
   return (
@@ -60,7 +60,6 @@ export const GlassExamples = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/30 to-pink-900/20" />
       </div>
 
-
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Top Row - Control Center Style */}
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
@@ -87,7 +86,9 @@ export const GlassExamples = () => {
                   <h3 className="text-md sm:text-lg font-semibold text-white">
                     Now Playing
                   </h3>
-                  <p className="text-white/80 text-sm sm:text-base">Until I Found You</p>
+                  <p className="text-white/80 text-sm sm:text-base">
+                    Until I Found You
+                  </p>
                   <p className="text-white/60 text-sm">Stephen Sanchez</p>
                 </div>
                 <Heart className="w-6 h-6 text-white/60 hover:text-red-400 cursor-pointer transition-colors hidden sm:block" />
@@ -290,24 +291,24 @@ export const GlassExamples = () => {
             <div className="flex items-center gap-4">
               {[
                 {
-                  src: "/assets/images/apple-glass-effect/finder.webp",
-                  alt: "finder",
+                  src: '/assets/images/apple-glass-effect/finder.webp',
+                  alt: 'finder',
                 },
                 {
-                  src: "/assets/images/apple-glass-effect/map.webp",
-                  alt: "maps",
+                  src: '/assets/images/apple-glass-effect/map.webp',
+                  alt: 'maps',
                 },
                 {
-                  src: "/assets/images/apple-glass-effect/safari.webp",
-                  alt: "safari",
+                  src: '/assets/images/apple-glass-effect/safari.webp',
+                  alt: 'safari',
                 },
                 {
-                  src: "/assets/images/apple-glass-effect/books.webp",
-                  alt: "books",
+                  src: '/assets/images/apple-glass-effect/books.webp',
+                  alt: 'books',
                 },
                 {
-                  src: "/assets/images/apple-glass-effect/messages.webp",
-                  alt: "messages",
+                  src: '/assets/images/apple-glass-effect/messages.webp',
+                  alt: 'messages',
                 },
               ].map((app, index) => (
                 <div
