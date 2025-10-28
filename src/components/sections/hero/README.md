@@ -21,3 +21,9 @@ import { HeroSection } from '@/components/sections/hero/HeroSection';
   onCtaClick={() => console.log('CTA clicked')}
 />;
 ```
+
+Следващи стъпки (ако искаш):
+Добавяне на текстури с икони на всяка плочка
+Интерактивност - кликване на плочки
+По-сложна анимация - реално "разбъркване" като Rubik's Cube
+Различни цветове за всяка плочка
