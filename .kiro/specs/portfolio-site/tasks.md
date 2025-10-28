@@ -194,14 +194,14 @@
   - Test navigation mode switching and layout adaptation
   - _Requirements: 3.1, 3.5_
 
-- [ ] 5. Hero Section with Three.js Integration
+- [x] 5. Hero Section with Three.js Integration
   - Create Hero section layout with glassmorphism elements that takes full viewport height
   - Implement Three.js scene with 3D glassmorphism sphere made of technology tiles
   - Add smooth scroll animations between sections with glassmorphism effects
   - Integrate CTA button with glassmorphism styling
   - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5_
 
-- [ ] 5.1 Create HeroSection component structure
+- [x] 5.1 Create HeroSection component structure
   - Implement HeroSection layout with full viewport height (100vh)
   - Add title, subtitle, and CTA button with glassmorphism styling
   - Create responsive layout that works on all screen sizes
@@ -209,7 +209,7 @@
   - Add smooth scroll trigger to reveal subsequent sections with animations
   - _Requirements: 4.1, 4.3, 4.4_
 
-- [ ] 5.2 Implement Three.js 3D glassmorphism sphere
+- [x] 5.2 Implement Three.js 3D glassmorphism sphere
   - Create ThreeScene component using @react-three/fiber
   - Create a 3D glassmorphism sphere made of small square tiles (disco ball style)
   - Each tile displays an icon of a front-end technology (React, Vue, Angular, Svelte, etc.)
@@ -219,7 +219,7 @@
   - Optimize scene performance for mobile devices
   - _Requirements: 4.2, 4.5_
 
-- [ ] 5.3 Add interactive 3D animations and scroll behavior
+- [x] 5.3 Add interactive 3D animations and scroll behavior
   - Implement mouse movement tracking for camera and sphere interactions
   - Create floating and rotation animations for the technology sphere
   - Add smooth scroll-triggered animations for section transitions
@@ -227,7 +227,7 @@
   - Add particle system with glassmorphism materials floating around the sphere
   - _Requirements: 4.2, 4.5_
 
-- [ ] 5.4 Integrate CTA button with actions
+- [x] 5.4 Integrate CTA button with actions
   - Add CTA button with glassmorphism styling from reference CSS
   - Implement button click handlers for navigation or contact actions
   - Add hover animations and interactive feedback
