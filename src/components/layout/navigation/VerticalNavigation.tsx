@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-import { Navigation } from './Navigation';
 import { ThemeToggle } from '../../ui/theme-toggle/ThemeToggle';
 import { NavigationToggle } from '../../ui/navigation-toggle/NavigationToggle';
 import { Menu, X, Home, User, Briefcase, Mail } from 'lucide-react';
