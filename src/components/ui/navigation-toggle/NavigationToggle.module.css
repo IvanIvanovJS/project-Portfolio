@@ -1,0 +1,91 @@
+/* Navigation Toggle Button Styles */
+.toggleButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--glass-bg, rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+  border-radius: 8px;
+  color: var(--fg-primary, rgba(255, 255, 255, 0.8));
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.toggleButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(
+    --gradient-primary,
+    linear-gradient(135deg, var(--color-primary), var(--color-accent))
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.toggleButton:hover {
+  background: var(--glass-highlight, rgba(255, 255, 255, 0.1));
+  color: var(--color-primary, #baffe9);
+  transform: scale(1.05);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.1),
+    0 0 20px rgba(186, 255, 233, 0.2);
+}
+
+.toggleButton:hover::before {
+  opacity: 0.1;
+}
+
+.toggleButton:focus {
+  outline: 2px solid var(--color-primary, #baffe9);
+  outline-offset: 2px;
+}
+
+.toggleButton:active {
+  transform: scale(0.95);
+}
+
+/* Icon animation */
+.toggleButton svg {
+  transition: transform 0.3s ease;
+}
+
+.toggleButton:hover svg {
+  transform: rotate(5deg);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .toggleButton {
+    width: 36px;
+    height: 36px;
+  }
+
+  .toggleButton svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .toggleButton {
+    width: 32px;
+    height: 32px;
+  }
+
+  .toggleButton svg {
+    width: 14px;
+    height: 14px;
+  }
+}

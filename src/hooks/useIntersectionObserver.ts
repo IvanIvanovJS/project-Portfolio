@@ -1,39 +1,74 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 
 interface UseIntersectionObserverOptions {
-  threshold?: number;
+  threshold?: number | number[];
   rootMargin?: string;
+  root?: Element | null;
+  triggerOnce?: boolean;
+}
+
+interface UseIntersectionObserverReturn {
+  ref: React.RefObject<HTMLElement | null>;
+  isIntersecting: boolean;
+  entry: IntersectionObserverEntry | null;
 }
 
 export const useIntersectionObserver = (
-  _options: UseIntersectionObserverOptions = {}
-) => {
+  options: UseIntersectionObserverOptions = {}
+): UseIntersectionObserverReturn => {
+  const {
+    threshold = 0.1,
+    rootMargin = '0px',
+    root = null,
+    triggerOnce = false,
+  } = options;
+
   const [isIntersecting, setIsIntersecting] = useState(false);
+  const [entry, setEntry] = useState<IntersectionObserverEntry | null>(null);
   const ref = useRef<HTMLElement>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  const handleIntersection = useCallback(
+    (entries: IntersectionObserverEntry[]) => {
+      const [observerEntry] = entries;
+      setEntry(observerEntry);
+      setIsIntersecting(observerEntry.isIntersecting);
+
+      // If triggerOnce is true and element is intersecting, disconnect observer
+      if (triggerOnce && observerEntry.isIntersecting && observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    },
+    [triggerOnce]
+  );
 
   useEffect(() => {
-    // Intersection observer implementation will be added later
-    // This will be properly implemented in later tasks
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsIntersecting(entry.isIntersecting);
-      },
-      { threshold: 0.1 }
-    );
+    const element = ref.current;
 
-    const currentRef = ref.current;
-    if (currentRef) {
-      observer.observe(currentRef);
+    if (!element) return;
+
+    // Clean up previous observer
+    if (observerRef.current) {
+      observerRef.current.disconnect();
     }
 
+    // Create new observer
+    observerRef.current = new IntersectionObserver(handleIntersection, {
+      threshold,
+      rootMargin,
+      root,
+    });
+
+    observerRef.current.observe(element);
+
     return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
+      if (observerRef.current) {
+        observerRef.current.disconnect();
       }
     };
-  }, []);
+  }, [threshold, rootMargin, root, handleIntersection]);
 
-  return { ref, isIntersecting };
+  return { ref, isIntersecting, entry };
 };
 
 export default useIntersectionObserver;

@@ -1,0 +1,51 @@
+/* Layout Wrapper Styles */
+.layoutWrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Horizontal Navigation Mode */
+.horizontalMode {
+  padding-top: 0;
+}
+
+/* Vertical Navigation Mode */
+.verticalMode {
+  padding-top: 0;
+}
+
+/* Main Content */
+.mainContent {
+  flex: 1;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+/* Main content with vertical navigation open */
+.mainContent.withVerticalNav {
+  margin-left: 280px;
+  width: calc(100% - 280px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .mainContent.withVerticalNav {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+/* Smooth transitions for layout changes */
+.layoutWrapper * {
+  transition:
+    margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Ensure content doesn't jump during transitions */
+.mainContent > * {
+  max-width: 100%;
+  overflow-x: hidden;
+}
