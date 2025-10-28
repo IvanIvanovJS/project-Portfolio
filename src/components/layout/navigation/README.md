@@ -17,13 +17,26 @@ This directory contains the implementation of an adaptive navigation system that
 ### VerticalNavigation
 
 - **Location**: `VerticalNavigation.tsx`
-- **Purpose**: Sidebar navigation component for vertical mode
+- **Purpose**: Enhanced sidebar navigation component for vertical mode
 - **Features**:
   - Fixed positioning on the left side (desktop)
   - Glassmorphism styling with blur effects
-  - Smooth animations for navigation items
+  - Enhanced navigation items with icons and descriptions
+  - Smooth animations and hover effects
+  - Navigation mode toggle button integrated
   - Keyboard navigation support (Escape key)
   - Mobile responsive (slides from right on mobile)
+  - Divider lines with glassmorphism effects
+
+### MobileHeader
+
+- **Location**: `src/components/layout/header/MobileHeader.tsx`
+- **Purpose**: Mobile header for vertical navigation mode
+- **Features**:
+  - Fixed positioning at top on mobile devices
+  - Navigation toggle and theme toggle buttons
+  - Mobile menu button for accessing navigation
+  - Glassmorphism styling consistent with design system
 
 ### MobileNavigation
 
@@ -90,7 +103,10 @@ function MyComponent() {
 ### Mobile (< 768px)
 
 - **Horizontal Mode**: Mobile overlay slides from top (full screen)
-- **Vertical Mode**: Mobile overlay slides from right (80% width)
+- **Vertical Mode**:
+  - Mobile header with navigation controls
+  - Mobile overlay slides from right (80% width)
+  - Enhanced navigation items with icons and descriptions
 - Touch gestures supported for closing navigation
 
 ## Touch Gestures
