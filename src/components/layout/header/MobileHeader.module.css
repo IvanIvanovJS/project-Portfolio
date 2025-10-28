@@ -1,0 +1,103 @@
+/* Mobile Header Component Styles */
+.mobileHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--glass-bg, rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.1);
+  padding: var(--spacing-3, 0.75rem) 0;
+}
+
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--spacing-4, 1rem);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logoText {
+  font-size: var(--font-size-lg, 1.125rem);
+  font-weight: 700;
+  color: var(--color-primary, #baffe9);
+  letter-spacing: var(--letter-spacing-wide, 0.025em);
+  transition: all 0.3s ease;
+}
+
+.logoText:hover {
+  text-shadow: 0 0 20px var(--color-primary, #baffe9);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2, 0.5rem);
+}
+
+/* Mobile Menu Button */
+.mobileMenuButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--glass-bg, rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+  border-radius: 8px;
+  color: var(--fg-primary, rgba(255, 255, 255, 0.8));
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.mobileMenuButton:hover {
+  background: var(--glass-highlight, rgba(255, 255, 255, 0.1));
+  color: var(--color-primary, #baffe9);
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.mobileMenuButton:focus {
+  outline: 2px solid var(--color-primary, #baffe9);
+  outline-offset: 2px;
+}
+
+.mobileMenuButton.open {
+  background: var(--glass-highlight, rgba(255, 255, 255, 0.1));
+  color: var(--color-primary, #baffe9);
+  box-shadow: 0 0 20px rgba(186, 255, 233, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 var(--spacing-3, 0.75rem);
+  }
+
+  .logoText {
+    font-size: var(--font-size-base, 1rem);
+  }
+
+  .controls {
+    gap: var(--spacing-1, 0.25rem);
+  }
+
+  .mobileMenuButton {
+    width: 36px;
+    height: 36px;
+  }
+}

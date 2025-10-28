@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { Header } from './header/Header';
+import { MobileHeader } from './header/MobileHeader';
 import { Footer } from './footer/Footer';
 import { VerticalNavigation } from './navigation/VerticalNavigation';
 import { MobileNavigation } from './navigation/MobileNavigation';
@@ -115,11 +116,21 @@ export const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
         />
       )}
 
-      {/* Header (only in horizontal mode) */}
-      <Header
-        onMobileMenuToggle={handleMobileNavToggle}
-        isMobileMenuOpen={isMobileNavOpen}
-      />
+      {/* Header - different for each mode */}
+      {navigationMode === 'horizontal' ? (
+        <Header
+          onMobileMenuToggle={handleMobileNavToggle}
+          isMobileMenuOpen={isMobileNavOpen}
+        />
+      ) : (
+        // Show mobile header only on mobile devices in vertical mode
+        isMobile && (
+          <MobileHeader
+            onMobileMenuToggle={handleMobileNavToggle}
+            isMobileMenuOpen={isMobileNavOpen}
+          />
+        )
+      )}
 
       {/* Main Content */}
       <main

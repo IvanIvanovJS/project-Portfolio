@@ -2,13 +2,19 @@
 import React from 'react';
 import { Navigation } from './Navigation';
 import { ThemeToggle } from '../../ui/theme-toggle/ThemeToggle';
-import { Menu, X } from 'lucide-react';
+import { NavigationToggle } from '../../ui/navigation-toggle/NavigationToggle';
+import { Menu, X, Home, User, Briefcase, Mail } from 'lucide-react';
 import styles from './VerticalNavigation.module.css';
 
 interface NavigationItem {
   id: string;
   label: string;
   href: string;
+}
+
+interface NavigationItemWithIcon extends NavigationItem {
+  icon: React.ReactNode;
+  description: string;
 }
 
 interface VerticalNavigationProps {
@@ -28,6 +34,40 @@ export const VerticalNavigation: React.FC<VerticalNavigationProps> = ({
   onItemClick,
   onToggleNavigation,
 }) => {
+  // Enhanced navigation items with icons and descriptions
+  const enhancedItems: NavigationItemWithIcon[] = items.map((item) => {
+    let icon: React.ReactNode;
+    let description: string;
+
+    switch (item.id) {
+      case 'hero':
+        icon = <Home size={18} />;
+        description = 'Welcome & Introduction';
+        break;
+      case 'about':
+        icon = <User size={18} />;
+        description = 'Read Bio';
+        break;
+      case 'projects':
+        icon = <Briefcase size={18} />;
+        description = 'View Case Studies';
+        break;
+      case 'contact':
+        icon = <Mail size={18} />;
+        description = 'Get In Touch';
+        break;
+      default:
+        icon = <Menu size={18} />;
+        description = 'Navigation';
+    }
+
+    return {
+      ...item,
+      icon,
+      description,
+    };
+  });
+
   const handleItemClick = (href: string) => {
     onItemClick(href);
     // Close mobile navigation after clicking an item
@@ -79,16 +119,42 @@ export const VerticalNavigation: React.FC<VerticalNavigationProps> = ({
 
         {/* Navigation Content */}
         <div className={styles.navContent}>
-          <Navigation
-            items={items}
-            activeSection={activeSection}
-            isMobile={false}
-            onItemClick={handleItemClick}
-          />
+          <nav className={styles.verticalNavigation}>
+            <ul className={styles.navList}>
+              {enhancedItems.map((item, index) => (
+                <li
+                  key={item.id}
+                  className={styles.navItem}
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <a
+                    href={item.href}
+                    className={`${styles.navLink} ${activeSection === item.id ? styles.active : ''}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleItemClick(item.href);
+                    }}
+                  >
+                    <div className={styles.navLinkContent}>
+                      <div className={styles.navIcon}>{item.icon}</div>
+                      <div className={styles.navText}>
+                        <span className={styles.navLabel}>{item.label}</span>
+                        <span className={styles.navDescription}>
+                          {item.description}
+                        </span>
+                      </div>
+                    </div>
+                    <div className={styles.navDivider}></div>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
 
         {/* Navigation Footer */}
         <div className={styles.navFooter}>
+          <NavigationToggle />
           <ThemeToggle />
         </div>
       </aside>
