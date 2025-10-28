@@ -1,53 +1,229 @@
 /* GlassButton Component Styles */
 .glassButton {
-  background: rgba(255, 255, 255, 0.1);
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
   cursor: pointer;
-  transition: all 0.3s ease;
   font-weight: 500;
-  position: relative;
+  letter-spacing: 1px;
+  text-decoration: none;
   overflow: hidden;
+  z-index: 1;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 15px 15px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  outline: none;
+  user-select: none;
+}
+
+/* Theme-aware properties */
+:global([data-theme='dark']) .glassButton {
+  color: rgba(255, 255, 255, 0.8);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme='light']) .glassButton {
+  color: rgba(23, 23, 23, 0.8);
+  background: rgba(255, 255, 255, 0.25);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Button content wrapper */
+.buttonContent {
+  position: relative;
+  z-index: 2;
+  transition: letter-spacing 0.5s ease;
+}
+
+/* Hover effects */
+.glassButton:hover .buttonContent {
+  letter-spacing: 3px;
 }
 
 .glassButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 20px 25px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.15);
 }
 
-.glassButton:disabled {
+/* Shimmer effect */
+.shimmerEffect {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.15), transparent);
+  transform: skewX(45deg) translateX(-100%);
+  transition: transform 0.5s ease;
+  filter: blur(0px);
+}
+
+.glassButton:hover .shimmerEffect {
+  transform: skewX(45deg) translateX(200px);
+}
+
+/* Glow effect */
+.glowEffect {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -5px;
+  top: -5px;
+  width: 30px;
+  height: 10px;
+  background: var(--glow-color, var(--color-primary, #baffe9));
+  border-radius: 10px;
+  transition: all 0.5s ease;
+  transition-delay: 0.5s;
+  opacity: 0;
+}
+
+.glassButton:hover .glowEffect {
+  bottom: 0;
+  top: 0;
+  height: 100%;
+  width: 80%;
+  border-radius: 30px;
+  opacity: 0.3;
+  box-shadow:
+    0 0 5px var(--glow-color, var(--color-primary, #baffe9)),
+    0 0 15px var(--glow-color, var(--color-primary, #baffe9)),
+    0 0 30px var(--glow-color, var(--color-primary, #baffe9)),
+    0 0 60px var(--glow-color, var(--color-primary, #baffe9));
+}
+
+/* Focus styles for accessibility */
+.glassButton:focus-visible {
+  outline: 2px solid var(--color-primary, #baffe9);
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+.disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  pointer-events: none;
 }
 
-/* Sizes */
+.disabled:hover {
+  transform: none;
+  letter-spacing: 1px;
+}
+
+.disabled .shimmerEffect,
+.disabled .glowEffect {
+  display: none;
+}
+
+/* Size variants */
 .sm {
   padding: 8px 16px;
-  font-size: 14px;
+  font-size: var(--font-size-sm, 0.875rem);
+  min-height: 36px;
+  min-width: 80px;
 }
 
 .md {
   padding: 12px 24px;
-  font-size: 16px;
+  font-size: var(--font-size-base, 1rem);
+  min-height: 44px;
+  min-width: 100px;
 }
 
 .lg {
   padding: 16px 32px;
-  font-size: 18px;
+  font-size: var(--font-size-lg, 1.125rem);
+  min-height: 52px;
+  min-width: 120px;
 }
 
-/* Variants */
+/* Color variants */
 .primary {
-  color: var(--fg-primary, rgba(255, 255, 255, 0.8));
+  --glow-color: var(--color-primary, #baffe9);
+}
+
+:global([data-theme='dark']) .primary {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+:global([data-theme='light']) .primary {
+  color: rgba(23, 23, 23, 0.9);
 }
 
 .secondary {
+  --glow-color: var(--color-secondary, #718096);
   color: var(--color-secondary, #718096);
 }
 
 .cta {
+  --glow-color: var(--color-primary, #baffe9);
   color: var(--color-primary, #baffe9);
   border-color: var(--color-primary, #baffe9);
+  background: rgba(186, 255, 233, 0.1);
+}
+
+:global([data-theme='light']) .cta {
+  --glow-color: var(--color-primary, #ff8800);
+  color: var(--color-primary, #ff8800);
+  border-color: var(--color-primary, #ff8800);
+  background: rgba(255, 136, 0, 0.1);
+}
+
+/* Active state */
+.glassButton:active {
+  transform: translateY(0);
+  transition-duration: 0.1s;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .glassButton {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .sm {
+    padding: 10px 18px;
+    min-height: 40px;
+  }
+
+  .md {
+    padding: 14px 26px;
+    min-height: 48px;
+  }
+
+  .lg {
+    padding: 18px 34px;
+    min-height: 56px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .glassButton,
+  .buttonContent,
+  .shimmerEffect,
+  .glowEffect {
+    transition: none;
+  }
+
+  .glassButton:hover {
+    transform: none;
+  }
+
+  .glassButton:hover .buttonContent {
+    letter-spacing: 1px;
+  }
 }

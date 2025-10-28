@@ -19,7 +19,7 @@
   - Create placeholder files with proper naming conventions
   - _Requirements: 1.1_
 
-- [ ] 1.3 Configure development tools and linting
+- [x] 1.3 Configure development tools and linting
   - Set up ESLint configuration with Next.js and TypeScript rules
   - Configure Prettier for consistent code formatting
   - Set up TypeScript configuration with strict mode
@@ -32,35 +32,35 @@
   - Add contribution guidelines and project structure explanation
   - _Requirements: 1.1_
 
-- [ ] 2. Theme System and Core UI Components
+- [x] 2. Theme System and Core UI Components
   - Implement theme provider with light/dark mode switching
   - Create base glassmorphism components (GlassContainer, GlassButton)
   - Set up global styles and CSS custom properties for themes
   - Implement theme persistence using localStorage
   - _Requirements: 1.1, 1.2, 1.3, 7.1, 7.2, 7.3, 7.4, 7.5_
 
-- [ ] 2.1 Create theme system and provider
+- [x] 2.1 Create theme system and provider
   - Implement ThemeProvider with React Context for theme state management
   - Define theme configurations for light and dark modes with specified colors
   - Create useTheme custom hook for theme access and switching
   - Set up theme persistence in localStorage with proper hydration
   - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5_
 
-- [ ] 2.2 Implement GlassContainer component
+- [x] 2.2 Implement GlassContainer component
   - Create reusable GlassContainer component with configurable glassmorphism properties
   - Implement blur, highlight, glow, and specular intensity controls
   - Add variant support for different glassmorphism styles (card, button, panel)
   - Create CSS module with responsive glassmorphism effects
   - _Requirements: 1.1, 1.4_
 
-- [ ] 2.3 Create GlassButton component
+- [x] 2.3 Create GlassButton component
   - Implement GlassButton with glassmorphism styling based on reference CSS
   - Add hover animations with glow effects and letter spacing
   - Implement size variants (sm, md, lg) and color variants (primary, secondary, cta)
   - Add proper accessibility attributes and keyboard navigation
   - _Requirements: 1.1, 1.4, 4.3, 4.4_
 
-- [ ] 2.4 Set up global styles and CSS custom properties
+- [x] 2.4 Set up global styles and CSS custom properties
   - Create global CSS with comprehensive CSS custom properties using clamp functions for responsive typography
   - Implement IBM Plex Sans and SF Mono font families as CSS variables
   - Set up responsive font sizes using clamp() for fluid scaling across devices
@@ -75,266 +75,306 @@
   - Document component APIs and usage examples
   - _Requirements: 1.1, 7.1_
 
-- [ ] 3. Layout Components and Navigation
+- [ ] 3. Contact Form Section
+  - Create Contact section with glassmorphism form styling
+  - Implement form validation and submission handling
+  - Add interactive form elements with glassmorphism effects
+  - Integrate email sending functionality or form service
+  - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5_
+
+- [ ] 3.1 Create ContactSection component structure
+  - Implement Contact section layout with glassmorphism form container
+  - Add section title and contact information display
+  - Create responsive layout that works on all screen sizes
+  - Implement proper semantic HTML structure for accessibility
+  - _Requirements: 6.1, 6.3, 6.5_
+
+- [ ] 3.2 Implement ContactForm component
+  - Create contact form with glassmorphism input styling
+  - Add form fields: name, email, subject, message
+  - Implement glassmorphism styling for inputs, textarea, and submit button
+  - Add proper form labels and accessibility attributes
+  - _Requirements: 6.2, 6.4, 6.5_
+
+- [ ] 3.3 Add form validation and submission
+  - Implement client-side form validation with error messages
+  - Add form submission handling with loading states
+  - Create success and error feedback with glassmorphism styling
+  - Integrate with email service or form handling API
+  - _Requirements: 6.2, 6.3, 6.4_
+
+- [ ]\* 3.4 Write contact form tests
+  - Test form validation and error handling
+  - Test form submission and feedback states
+  - Test responsive behavior of contact form
+  - Document form integration and customization options
+  - _Requirements: 6.1, 6.5_
+
+- [ ] 4. Layout Components and Navigation
   - Create Header component with glassmorphism navigation bar
   - Implement responsive navigation with mobile menu
   - Add scroll spy functionality for active section highlighting
   - Create Footer component with glassmorphism styling
   - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 8.1, 8.2, 8.3, 8.4, 8.5_
 
-- [ ] 3.1 Implement Header and Navigation components
+- [ ] 4.1 Implement Header and Navigation components
   - Create Header component with glassmorphism styling that responds to scroll
   - Implement Navigation component with smooth scroll to sections
   - Add mobile-responsive hamburger menu with glassmorphism overlay
   - Implement active section highlighting based on scroll position
   - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5_
 
-- [ ] 3.2 Create scroll spy and navigation logic
+- [ ] 4.2 Create scroll spy and navigation logic
   - Implement useScrollSpy hook for detecting active sections
   - Add smooth scrolling behavior for navigation links
   - Create intersection observer for section visibility detection
   - Handle navigation state management and active link styling
   - _Requirements: 3.2, 3.3, 3.5_
 
-- [ ] 3.3 Implement Footer component
+- [ ] 4.3 Implement Footer component
   - Create Footer component with glassmorphism styling
   - Add contact information and social media links
   - Implement responsive layout for different screen sizes
   - Add proper accessibility attributes and semantic HTML
   - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5_
 
-- [ ]\* 3.4 Write navigation tests and documentation
+- [ ]\* 4.4 Write navigation tests and documentation
   - Test scroll spy functionality and active section detection
   - Test mobile navigation menu interactions
   - Document navigation component usage and customization
   - Write accessibility tests for keyboard navigation
   - _Requirements: 3.1, 3.5_
 
-- [ ] 4. Hero Section with Three.js Integration
-  - Create Hero section layout with glassmorphism elements
-  - Implement Three.js scene with glassmorphism 3D objects
-  - Add interactive 3D animations and mouse movement responses
+- [ ] 5. Hero Section with Three.js Integration
+  - Create Hero section layout with glassmorphism elements that takes full viewport height
+  - Implement Three.js scene with 3D glassmorphism sphere made of technology tiles
+  - Add smooth scroll animations between sections with glassmorphism effects
   - Integrate CTA button with glassmorphism styling
   - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5_
 
-- [ ] 4.1 Create HeroSection component structure
-  - Implement HeroSection layout with title, subtitle, and CTA button
-  - Add glassmorphism background elements and overlays
+- [ ] 5.1 Create HeroSection component structure
+  - Implement HeroSection layout with full viewport height (100vh)
+  - Add title, subtitle, and CTA button with glassmorphism styling
   - Create responsive layout that works on all screen sizes
   - Implement proper semantic HTML structure for accessibility
+  - Add smooth scroll trigger to reveal subsequent sections with animations
   - _Requirements: 4.1, 4.3, 4.4_
 
-- [ ] 4.2 Implement Three.js scene component
+- [ ] 5.2 Implement Three.js 3D glassmorphism sphere
   - Create ThreeScene component using @react-three/fiber
-  - Implement glassmorphism 3D objects (spheres, planes, particles)
-  - Add ambient lighting and material configurations for glass effects
+  - Create a 3D glassmorphism sphere made of small square tiles (disco ball style)
+  - Each tile displays an icon of a front-end technology (React, Vue, Angular, Svelte, etc.)
+  - Include up to 30 known and popular front-end technologies as tile icons
+  - Add realistic lighting, depth, and reflections for futuristic glass style
+  - Set dark minimal background (#171717) for the 3D scene
   - Optimize scene performance for mobile devices
   - _Requirements: 4.2, 4.5_
 
-- [ ] 4.3 Add interactive 3D animations
-  - Implement mouse movement tracking for camera and object interactions
-  - Create floating animations for glassmorphism objects
-  - Add particle system with glassmorphism materials
-  - Implement smooth camera movements and transitions
+- [ ] 5.3 Add interactive 3D animations and scroll behavior
+  - Implement mouse movement tracking for camera and sphere interactions
+  - Create floating and rotation animations for the technology sphere
+  - Add smooth scroll-triggered animations for section transitions
+  - Implement glassmorphism shadows and effects for section reveals
+  - Add particle system with glassmorphism materials floating around the sphere
   - _Requirements: 4.2, 4.5_
 
-- [ ] 4.4 Integrate CTA button with actions
+- [ ] 5.4 Integrate CTA button with actions
   - Add CTA button with glassmorphism styling from reference CSS
   - Implement button click handlers for navigation or contact actions
   - Add hover animations and interactive feedback
   - Ensure button accessibility and keyboard navigation
   - _Requirements: 4.3, 4.4_
 
-- [ ]\* 4.5 Optimize Three.js performance and add fallbacks
+- [ ]\* 5.5 Optimize Three.js performance and add fallbacks
   - Implement performance monitoring for Three.js scenes
   - Add fallback UI for devices that don't support WebGL
   - Optimize 3D models and textures for faster loading
   - Test performance across different devices and browsers
   - _Requirements: 4.2, 4.5_
 
-- [ ] 5. Projects Gallery Section
+- [ ] 6. Projects Gallery Section
   - Create Projects section with grid layout
   - Implement ProjectCard components with glassmorphism styling
   - Add project data management and filtering capabilities
   - Implement hover effects and project detail modals
   - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5_
 
-- [ ] 5.1 Create ProjectsSection component
+- [ ] 6.1 Create ProjectsSection component
   - Implement Projects section layout with responsive grid
   - Add section title and optional filtering/sorting controls
   - Create proper semantic structure for project listings
   - Implement loading states and error handling for project data
   - _Requirements: 5.1, 5.5_
 
-- [ ] 5.2 Implement ProjectCard component
+- [ ] 6.2 Implement ProjectCard component
   - Create ProjectCard with glassmorphism styling based on reference CSS
   - Add project image, title, description, and technology tags
   - Implement hover effects with glassmorphism animations
   - Add links to live demo and GitHub repository
   - _Requirements: 5.2, 5.3, 5.4, 5.5_
 
-- [ ] 5.3 Add project data management
+- [ ] 6.3 Add project data management
   - Create project data structure and TypeScript interfaces
   - Implement project data loading and state management
   - Add support for project categories and filtering
   - Create mock project data for demonstration
   - _Requirements: 5.1, 5.4_
 
-- [ ]\* 5.4 Implement project detail modals
+- [ ]\* 6.4 Implement project detail modals
   - Create modal component for detailed project information
   - Add image gallery and extended project descriptions
   - Implement modal animations with Framer Motion
   - Add proper accessibility for modal interactions
   - _Requirements: 5.4_
 
-- [ ]\* 5.5 Write project section tests
+- [ ]\* 6.5 Write project section tests
   - Test project card rendering and interactions
   - Test project filtering and sorting functionality
   - Test responsive behavior of project grid
   - Document project data structure and component usage
   - _Requirements: 5.1, 5.5_
 
-- [ ] 6. About Section with Image Carousel
+- [ ] 7. About Section with Image Carousel
   - Create About section layout with personal information
   - Implement image carousel with glassmorphism controls
   - Add skills display and experience timeline
   - Integrate responsive design for mobile devices
   - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5_
 
-- [ ] 6.1 Create AboutSection component structure
+- [ ] 7.1 Create AboutSection component structure
   - Implement About section layout with two-column design
   - Add personal information display with glassmorphism styling
   - Create responsive layout that stacks on mobile devices
   - Add proper semantic HTML for accessibility
   - _Requirements: 6.1, 6.3, 6.5_
 
-- [ ] 6.2 Implement ImageCarousel component
+- [ ] 7.2 Implement ImageCarousel component
   - Create image carousel with glassmorphism navigation controls
   - Add automatic slideshow with manual navigation options
   - Implement smooth transitions between images
   - Add touch/swipe support for mobile devices
   - _Requirements: 6.1, 6.2, 6.4, 6.5_
 
-- [ ] 6.3 Add personal information and skills display
+- [ ] 7.3 Add personal information and skills display
   - Create components for displaying personal bio and contact info
   - Implement skills visualization with progress bars or charts
   - Add experience timeline with glassmorphism styling
   - Create responsive layout for different content sections
   - _Requirements: 6.3, 6.5_
 
-- [ ]\* 6.4 Write about section tests and documentation
+- [ ]\* 7.4 Write about section tests and documentation
   - Test carousel functionality and navigation
   - Test responsive behavior of about section layout
   - Document personal information data structure
   - Write accessibility tests for carousel controls
   - _Requirements: 6.1, 6.5_
 
-- [ ] 7. Responsive Design and Mobile Optimization
+- [ ] 8. Responsive Design and Mobile Optimization
   - Implement responsive breakpoints and mobile-first design
   - Optimize glassmorphism effects for mobile performance
   - Add touch interactions and mobile navigation
   - Test and optimize for various screen sizes and devices
   - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5_
 
-- [ ] 7.1 Implement responsive breakpoints and layouts
+- [ ] 8.1 Implement responsive breakpoints and layouts
   - Set up Chakra UI responsive breakpoints and utilities
   - Implement mobile-first responsive design for all components
   - Add responsive typography and spacing scales
   - Test layouts across different screen sizes and orientations
   - _Requirements: 2.1, 2.2, 2.5_
 
-- [ ] 7.2 Optimize glassmorphism for mobile performance
+- [ ] 8.2 Optimize glassmorphism for mobile performance
   - Reduce glassmorphism complexity on mobile devices
   - Implement performance-aware blur and transparency effects
   - Add CSS media queries for mobile-specific optimizations
   - Test performance on various mobile devices and browsers
   - _Requirements: 2.3, 2.4_
 
-- [ ] 7.3 Add touch interactions and mobile navigation
+- [ ] 8.3 Add touch interactions and mobile navigation
   - Implement touch-friendly navigation and interactions
   - Add swipe gestures for carousel and navigation
   - Optimize button sizes and touch targets for mobile
   - Test touch interactions across different mobile devices
   - _Requirements: 2.2, 2.5_
 
-- [ ]\* 7.4 Comprehensive responsive testing
+- [ ]\* 8.4 Comprehensive responsive testing
   - Test all components across different screen sizes
   - Validate mobile performance and user experience
   - Test glassmorphism effects on various devices
   - Document responsive design patterns and best practices
   - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5_
 
-- [ ] 8. Integration and Final Polish
+- [ ] 9. Integration and Final Polish
   - Integrate all sections into main page layout
   - Add smooth scrolling and page transitions
   - Implement loading states and error boundaries
   - Optimize performance and bundle size
   - _Requirements: 1.1, 1.4, 3.2, 7.5_
 
-- [ ] 8.1 Integrate all sections into main layout
+- [ ] 9.1 Integrate all sections into main layout
   - Combine all sections into cohesive page layout
   - Implement proper section spacing and transitions
-  - Add scroll-based animations between sections
+  - Add scroll-based animations between sections with glassmorphism effects
   - Ensure consistent glassmorphism theming throughout
   - _Requirements: 1.1, 1.4_
 
-- [ ] 8.2 Add page transitions and animations
+- [ ] 9.2 Add page transitions and animations
   - Implement Framer Motion page and section animations
-  - Add scroll-triggered animations for content reveal
+  - Add scroll-triggered animations for content reveal with glassmorphism shadows
   - Create smooth transitions between theme changes
   - Optimize animation performance for mobile devices
   - _Requirements: 3.2, 7.5_
 
-- [ ] 8.3 Implement loading states and error handling
+- [ ] 9.3 Implement loading states and error handling
   - Add loading skeletons for all major components
   - Implement error boundaries for graceful error handling
   - Add fallback UI for failed image loads and Three.js scenes
   - Create proper loading indicators for async operations
   - _Requirements: 1.1_
 
-- [ ] 8.4 Performance optimization and bundle analysis
+- [ ] 9.4 Performance optimization and bundle analysis
   - Analyze and optimize bundle size using Next.js analyzer
   - Implement code splitting for Three.js and heavy components
   - Optimize images and assets for web delivery
   - Add performance monitoring and Core Web Vitals tracking
   - _Requirements: 1.1, 1.4_
 
-- [ ]\* 8.5 Final testing and documentation
+- [ ]\* 9.5 Final testing and documentation
   - Conduct comprehensive cross-browser testing
   - Test accessibility compliance and screen reader support
   - Write deployment documentation and environment setup
   - Create user guide for content management and updates
   - _Requirements: 1.1_
 
-- [ ] 9. Deployment and Production Setup
+- [ ] 10. Deployment and Production Setup
   - Configure Vercel deployment settings
   - Set up environment variables and build optimization
   - Add analytics and monitoring
   - Test production deployment and performance
   - _Requirements: 1.1_
 
-- [ ] 9.1 Configure Vercel deployment
+- [ ] 10.1 Configure Vercel deployment
   - Set up Vercel project and deployment configuration
   - Configure build settings and environment variables
   - Set up custom domain and SSL certificates
   - Configure deployment previews and branch deployments
   - _Requirements: 1.1_
 
-- [ ] 9.2 Add production optimizations
+- [ ] 10.2 Add production optimizations
   - Configure Next.js production optimizations
   - Set up image optimization and CDN delivery
   - Add compression and caching strategies
   - Implement SEO optimizations and meta tags
   - _Requirements: 1.1_
 
-- [ ]\* 9.3 Set up monitoring and analytics
+- [ ]\* 10.3 Set up monitoring and analytics
   - Add Vercel Analytics for performance monitoring
   - Implement error tracking and logging
   - Set up Core Web Vitals monitoring
   - Add user analytics and behavior tracking
   - _Requirements: 1.1_
 
-- [ ]\* 9.4 Production testing and validation
+- [ ]\* 10.4 Production testing and validation
   - Test production deployment across different devices
   - Validate performance metrics and Core Web Vitals
   - Test all functionality in production environment

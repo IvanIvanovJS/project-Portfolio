@@ -1,6 +1,52 @@
-// Theme configuration for the portfolio
-// This will be used with CSS custom properties instead of Chakra UI theme system
+import { Theme, ThemeColors } from '../types/theme';
 
+// Dark theme configuration
+const darkThemeColors: ThemeColors = {
+  background: '#171717',
+  foreground: 'rgba(255, 255, 255, 0.8)',
+  primary: '#baffe9',
+  secondary: '#4a5568',
+  accent: '#9f7aea',
+};
+
+// Light theme configuration
+const lightThemeColors: ThemeColors = {
+  background: '#fafafa',
+  foreground: 'rgba(23, 23, 23, 0.8)',
+  primary: '#ff8800',
+  secondary: '#718096',
+  accent: '#805ad5',
+};
+
+// Dark theme
+export const darkTheme: Theme = {
+  name: 'dark',
+  colors: darkThemeColors,
+  glassmorphism: {
+    blur: 10,
+    opacity: 0.05,
+    borderOpacity: 0.1,
+  },
+};
+
+// Light theme
+export const lightTheme: Theme = {
+  name: 'light',
+  colors: lightThemeColors,
+  glassmorphism: {
+    blur: 10,
+    opacity: 0.25,
+    borderOpacity: 0.3,
+  },
+};
+
+// Theme map for easy access
+export const themes = {
+  dark: darkTheme,
+  light: lightTheme,
+} as const;
+
+// Chakra UI theme configuration (for components that still use Chakra)
 export const portfolioTheme = {
   colors: {
     brand: {

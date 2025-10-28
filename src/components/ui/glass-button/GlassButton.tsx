@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import styles from './GlassButton.module.css';
 
 interface GlassButtonProps {
@@ -9,6 +9,9 @@ interface GlassButtonProps {
   glowColor?: string;
   disabled?: boolean;
   className?: string;
+  type?: 'button' | 'submit' | 'reset';
+  'aria-label'?: string;
+  tabIndex?: number;
 }
 
 export const GlassButton: React.FC<GlassButtonProps> = ({
@@ -19,19 +22,43 @@ export const GlassButton: React.FC<GlassButtonProps> = ({
   glowColor,
   disabled = false,
   className = '',
+  type = 'button',
+  'aria-label': ariaLabel,
+  tabIndex,
 }) => {
+  const customStyle: CSSProperties = glowColor
+    ? ({ '--glow-color': glowColor } as CSSProperties)
+    : {};
+
+  const handleClick = (_event: React.MouseEvent<HTMLButtonElement>) => {
+    if (!disabled && onClick) {
+      onClick();
+    }
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (!disabled && (event.key === 'Enter' || event.key === ' ')) {
+      event.preventDefault();
+      if (onClick) {
+        onClick();
+      }
+    }
+  };
+
   return (
     <button
-      className={`${styles.glassButton} ${styles[variant]} ${styles[size]} ${className}`}
-      onClick={onClick}
+      type={type}
+      className={`${styles.glassButton} ${styles[variant]} ${styles[size]} ${disabled ? styles.disabled : ''} ${className}`}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
       disabled={disabled}
-      style={
-        glowColor
-          ? ({ '--glow-color': glowColor } as React.CSSProperties)
-          : undefined
-      }
+      style={customStyle}
+      aria-label={ariaLabel}
+      tabIndex={disabled ? -1 : tabIndex}
     >
-      {children}
+      <span className={styles.buttonContent}>{children}</span>
+      <div className={styles.glowEffect} />
+      <div className={styles.shimmerEffect} />
     </button>
   );
 };

@@ -1,11 +1,7 @@
-// Theme hook implementation will be added later
+import { useThemeContext } from '../providers/ThemeProvider';
+
 export const useTheme = () => {
-  // Placeholder implementation
-  return {
-    theme: 'dark' as 'light' | 'dark',
-    toggleTheme: () => {},
-    setTheme: (_theme: 'light' | 'dark') => {},
-  };
+  return useThemeContext();
 };
 
 export default useTheme;
