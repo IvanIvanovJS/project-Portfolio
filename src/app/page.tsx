@@ -2,6 +2,7 @@
 
 import { HeroSection } from '../components/sections/hero/HeroSection';
 import { ProjectsSection } from '../components/sections/projects/ProjectsSection';
+import { AboutSection } from '../components/sections/about/AboutSection';
 
 export default function Home() {
   return (
@@ -10,6 +11,9 @@ export default function Home() {
 
       {/* Projects Gallery Section */}
       <ProjectsSection />
+
+      {/* About Section with Image Carousel */}
+      <AboutSection />
 
       <section
         id="contact"

@@ -3,18 +3,76 @@
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  min-height: 500px;
+  border-radius: 16px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--glass-bg, rgba(255, 255, 255, 0.05));
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+  box-shadow: 0 8px 32px var(--glass-shadow, rgba(0, 0, 0, 0.1));
+  user-select: none;
 }
 
 .imageContainer {
   width: 100%;
   height: 100%;
   position: relative;
+  overflow: hidden;
+}
+
+.imageWrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+}
+
+.imageWrapper:active {
+  cursor: grabbing;
+}
+
+/* Placeholder for images (since we don't have actual images) */
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    rgba(186, 255, 233, 0.1),
+    rgba(159, 122, 234, 0.1)
+  );
+  position: relative;
+}
+
+.imageContent {
+  text-align: center;
+  padding: var(--spacing-lg, 2rem);
+}
+
+.imageIcon {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: var(--spacing-md, 1rem);
+  filter: grayscale(0.3);
+}
+
+.imageAlt {
+  font-size: var(--font-size-xl, 1.25rem);
+  font-weight: 600;
+  color: var(--fg-primary, rgba(255, 255, 255, 0.9));
+  margin-bottom: var(--spacing-2, 0.5rem);
+}
+
+.imageCaption {
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--fg-primary, rgba(255, 255, 255, 0.6));
+  font-style: italic;
 }
 
 .placeholder {
@@ -22,14 +80,227 @@
   align-items: center;
   justify-content: center;
   height: 100%;
+  min-height: 500px;
   color: var(--fg-primary, rgba(255, 255, 255, 0.5));
+  font-size: var(--font-size-lg, 1.125rem);
 }
 
-.controls {
+/* Navigation Buttons */
+.navButton {
   position: absolute;
-  bottom: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--glass-bg, rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fg-primary, rgba(255, 255, 255, 0.8));
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.navButton:hover {
+  background: var(--glass-bg, rgba(255, 255, 255, 0.15));
+  border-color: var(--color-primary, #baffe9);
+  color: var(--color-primary, #baffe9);
+  box-shadow: 0 0 20px rgba(186, 255, 233, 0.3);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.navButton:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.navButtonPrev {
+  left: var(--spacing-md, 1rem);
+}
+
+.navButtonNext {
+  right: var(--spacing-md, 1rem);
+}
+
+/* Bottom Controls */
+.bottomControls {
+  position: absolute;
+  bottom: var(--spacing-md, 1.5rem);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 0.5rem;
+  align-items: center;
+  gap: var(--spacing-md, 1rem);
+  background: var(--glass-bg, rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
+  border-radius: 24px;
+  padding: var(--spacing-2, 0.5rem) var(--spacing-4, 1rem);
+  z-index: 10;
+}
+
+/* Indicators */
+.indicators {
+  display: flex;
+  gap: var(--spacing-2, 0.5rem);
+  align-items: center;
+}
+
+.indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.indicator:hover {
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(1.2);
+}
+
+.indicatorActive {
+  background: var(--color-primary, #baffe9);
+  width: 24px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px var(--color-primary, #baffe9);
+}
+
+/* Play/Pause Button */
+.playPauseButton {
+  background: var(--glass-bg, rgba(255, 255, 255, 0.1));
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fg-primary, rgba(255, 255, 255, 0.8));
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.playPauseButton:hover {
+  background: var(--glass-bg, rgba(255, 255, 255, 0.15));
+  border-color: var(--color-primary, #baffe9);
+  color: var(--color-primary, #baffe9);
+  box-shadow: 0 0 15px rgba(186, 255, 233, 0.3);
+  transform: scale(1.1);
+}
+
+.playPauseButton:active {
+  transform: scale(0.95);
+}
+
+/* Counter */
+.counter {
+  position: absolute;
+  top: var(--spacing-md, 1rem);
+  right: var(--spacing-md, 1rem);
+  background: var(--glass-bg, rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
+  border-radius: 12px;
+  padding: var(--spacing-2, 0.5rem) var(--spacing-3, 0.75rem);
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: 600;
+  color: var(--fg-primary, rgba(255, 255, 255, 0.8));
+  z-index: 10;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .carousel {
+    min-height: 350px;
+  }
+
+  .placeholder {
+    min-height: 350px;
+  }
+
+  .navButton {
+    width: 40px;
+    height: 40px;
+  }
+
+  .navButtonPrev {
+    left: var(--spacing-sm, 0.75rem);
+  }
+
+  .navButtonNext {
+    right: var(--spacing-sm, 0.75rem);
+  }
+
+  .bottomControls {
+    bottom: var(--spacing-sm, 1rem);
+    padding: var(--spacing-2, 0.5rem) var(--spacing-3, 0.75rem);
+  }
+
+  .counter {
+    top: var(--spacing-sm, 0.75rem);
+    right: var(--spacing-sm, 0.75rem);
+    font-size: var(--font-size-xs, 0.75rem);
+  }
+
+  .imageIcon {
+    font-size: 3rem;
+  }
+
+  .imageAlt {
+    font-size: var(--font-size-lg, 1.125rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel {
+    min-height: 300px;
+    border-radius: 12px;
+  }
+
+  .placeholder {
+    min-height: 300px;
+  }
+
+  .navButton {
+    width: 36px;
+    height: 36px;
+  }
+
+  .bottomControls {
+    gap: var(--spacing-2, 0.5rem);
+    padding: var(--spacing-1, 0.25rem) var(--spacing-2, 0.5rem);
+  }
+
+  .playPauseButton {
+    width: 28px;
+    height: 28px;
+  }
+
+  .indicator {
+    width: 6px;
+    height: 6px;
+  }
+
+  .indicatorActive {
+    width: 18px;
+  }
+
+  .imageContent {
+    padding: var(--spacing-md, 1rem);
+  }
+
+  .imageIcon {
+    font-size: 2.5rem;
+  }
 }
