@@ -154,27 +154,28 @@
   - Ensure smooth color transitions between theme changes
   - _Requirements: 4.3_
 
-- [ ] 7. Set up per-instance attributes for tiles
+- [x] 7. Set up per-instance attributes for tiles
   - Create utility function to assign UV coordinates to each tile
   - Distribute icons evenly across all tiles
   - Initialize glow intensity and animation phase for each tile
   - _Requirements: 3.2, 3.3, 3.5, 4.4_
 
-- [ ] 7.1 Create setupTileAttributes utility function
+- [x] 7.1 Create setupTileAttributes utility function
   - Create `src/components/sections/hero/utils/tileAttributes.ts`
   - Implement `setupTileAttributes()` function taking mesh, atlas, and tile count
   - Create Float32Arrays for uvOffset, uvScale, glowIntensity, animationPhase
   - Calculate UV coordinates from atlas frame data
   - _Requirements: 3.2, 3.3_
 
-- [ ] 7.2 Implement icon distribution logic
+- [x] 7.2 Implement icon distribution logic
   - Cycle through available icons using modulo operator (i % iconCount)
+
   - Ensure even distribution across all 54 tiles
   - Map icon names to frame coordinates from atlas metadata
   - Handle case where tile count exceeds icon count
   - _Requirements: 3.2, 3.5_
 
-- [ ] 7.3 Initialize animation attributes
+- [x] 7.3 Initialize animation attributes
   - Set initial glow intensity to 0.3 for all tiles
   - Randomize animation phase (0 to 2π) for staggered pulsing effect
   - Create InstancedBufferAttribute for each attribute array
