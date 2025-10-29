@@ -29,7 +29,7 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
     const rots: THREE.Quaternion[] = [];
 
     const gridSize = 3; // 3x3 grid per face
-    const tileSize = 0.3;
+    const tileSize = 0.45; // Increased from 0.3 to 0.45 (50% larger)
     const gap = 0.05;
     const cubeSize = (gridSize * (tileSize + gap)) / 2;
     const sphereRadius = 3;
@@ -114,9 +114,11 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
 
   // Load atlas on component mount (Subtask 10.1)
   useEffect(() => {
+    console.log('🎨 RubikSphere mounted, loading atlas...');
     loadIconAtlas()
       .then((loadedAtlas) => {
         if (loadedAtlas) {
+          console.log('✓ Atlas loaded successfully');
           setAtlas(loadedAtlas);
         } else {
           console.error('Failed to load icon atlas, using fallback material');
@@ -126,6 +128,10 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
         console.error('Error loading icon atlas:', err);
         // Fallback: render without icons (existing material will be used)
       });
+
+    return () => {
+      console.log('🎨 RubikSphere unmounting...');
+    };
   }, []);
 
   // Setup materials and attributes when atlas loads (Subtasks 10.2, 10.3, 10.4, 10.5)
@@ -263,7 +269,8 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
   return (
     <group ref={groupRef}>
       <instancedMesh ref={tilesRef} args={[undefined, undefined, tileCount]}>
-        <boxGeometry args={[0.28, 0.28, 0.05]} />
+        <boxGeometry args={[0.42, 0.42, 0.075]} />{' '}
+        {/* Increased from 0.28 to 0.42 (50% larger) */}
         <meshPhysicalMaterial
           transparent
           opacity={0.9}
@@ -397,6 +404,8 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({ theme, isVisible }) => {
   if (!hasWebGL) {
     return <ErrorFallback />;
   }
+
+  console.log('🎬 Rendering ThreeScene canvas');
 
   return (
     <div

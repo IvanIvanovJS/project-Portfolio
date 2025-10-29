@@ -243,6 +243,128 @@ const technologies = [
     category: 'tool',
     color: '#000000',
   },
+
+  // Backend & Databases
+  {
+    name: 'mongodb',
+    displayName: 'MongoDB',
+    category: 'database',
+    color: '#47A248',
+  },
+  {
+    name: 'postgresql',
+    displayName: 'PostgreSQL',
+    category: 'database',
+    color: '#4169E1',
+  },
+  {
+    name: 'redis',
+    displayName: 'Redis',
+    category: 'database',
+    color: '#DC382D',
+  },
+  {
+    name: 'graphql',
+    displayName: 'GraphQL',
+    category: 'tool',
+    color: '#E10098',
+  },
+  {
+    name: 'express',
+    displayName: 'Express',
+    category: 'framework',
+    color: '#000000',
+  },
+
+  // Cloud & Hosting
+  {
+    name: 'vercel',
+    displayName: 'Vercel',
+    category: 'platform',
+    color: '#000000',
+  },
+  {
+    name: 'netlify',
+    displayName: 'Netlify',
+    category: 'platform',
+    color: '#00C7B7',
+  },
+  {
+    name: 'digitalocean',
+    displayName: 'DigitalOcean',
+    category: 'platform',
+    color: '#0080FF',
+  },
+  {
+    name: 'firebase',
+    displayName: 'Firebase',
+    category: 'platform',
+    color: '#FFCA28',
+  },
+
+  // State Management
+  {
+    name: 'redux',
+    displayName: 'Redux',
+    category: 'tool',
+    color: '#764ABC',
+  },
+  {
+    name: 'recoil',
+    displayName: 'Recoil',
+    category: 'tool',
+    color: '#3578E5',
+  },
+
+  // Additional Tools
+  {
+    name: 'postman',
+    displayName: 'Postman',
+    category: 'tool',
+    color: '#FF6C37',
+  },
+  {
+    name: 'framer',
+    displayName: 'Framer Motion',
+    category: 'tool',
+    color: '#0055FF',
+  },
+  {
+    name: 'prisma',
+    displayName: 'Prisma',
+    category: 'tool',
+    color: '#2D3748',
+  },
+  {
+    name: 'socketdotio',
+    displayName: 'Socket.io',
+    category: 'tool',
+    color: '#010101',
+  },
+  {
+    name: 'python',
+    displayName: 'Python',
+    category: 'language',
+    color: '#3776AB',
+  },
+  {
+    name: 'rust',
+    displayName: 'Rust',
+    category: 'language',
+    color: '#000000',
+  },
+  {
+    name: 'go',
+    displayName: 'Go',
+    category: 'language',
+    color: '#00ADD8',
+  },
+  {
+    name: 'linux',
+    displayName: 'Linux',
+    category: 'platform',
+    color: '#FCC624',
+  },
 ];
 
 module.exports = {
