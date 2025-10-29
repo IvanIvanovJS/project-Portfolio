@@ -119,36 +119,37 @@
   - Add timeout for slow network connections (10 seconds)
   - _Requirements: 8.3, 8.4_
 
-- [ ] 6. Implement custom tile material with shader
+- [x] 6. Implement custom tile material with shader
   - Create custom ShaderMaterial for per-instance UV mapping
   - Implement vertex and fragment shaders for icon display
   - Add glow effect support in shader code
   - Maintain glassmorphism aesthetic in material properties
   - _Requirements: 3.3, 3.4, 4.1, 4.2, 4.3_
 
-- [ ] 6.1 Create TileMaterial.ts class
+- [x] 6.1 Create TileMaterial.ts class
   - Create `src/components/sections/hero/materials/TileMaterial.ts`
   - Extend THREE.ShaderMaterial with custom uniforms
   - Add uniforms: `uAtlasTexture`, `uAtlasSize`, `uTime`, `uThemeColor`
   - Define per-instance attributes: `uvOffset`, `uvScale`, `glowIntensity`, `animationPhase`
   - _Requirements: 3.3, 3.4, 4.1_
 
-- [ ] 6.2 Implement vertex shader
+- [x] 6.2 Implement vertex shader
   - Write vertex shader to pass UV coordinates and glow intensity to fragment shader
   - Apply instance matrix for proper tile positioning
   - Pass through animation phase for time-based effects
   - Calculate proper UV coordinates using offset and scale attributes
   - _Requirements: 3.3, 3.4_
 
-- [ ] 6.3 Implement fragment shader
+- [x] 6.3 Implement fragment shader
   - Write fragment shader to sample texture atlas at correct UV coordinates
   - Blend icon color with glassmorphism base color (70% blend)
   - Add emissive glow using theme color and glow intensity
   - Set transparency to 0.9 to maintain glass effect
   - _Requirements: 3.4, 4.1, 4.2, 4.3_
 
-- [ ] 6.4 Add theme color support
+- [x] 6.4 Add theme color support
   - Update shader uniforms when theme changes (light/dark)
+
   - Use cyan (#baffe9) for dark theme, orange (#ff8800) for light theme
   - Ensure smooth color transitions between theme changes
   - _Requirements: 4.3_
