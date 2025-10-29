@@ -85,6 +85,7 @@ export async function loadIconAtlas(): Promise<LoadedAtlas | null> {
     texture.magFilter = THREE.LinearFilter;
     texture.anisotropy = 16; // Maximum anisotropic filtering for sharp icons
     texture.generateMipmaps = true;
+    texture.flipY = false; // Don't flip texture (we flip UV in shader instead)
     texture.needsUpdate = true;
 
     // Extract icon names from frames

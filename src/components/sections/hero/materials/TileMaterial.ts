@@ -27,7 +27,9 @@ export class TileMaterial extends THREE.ShaderMaterial {
         
         void main() {
           // Calculate UV coordinates from atlas using offset and scale
-          vUv = uv * uvScale + uvOffset;
+          // Flip both U and V coordinates to correct orientation
+          vec2 flippedUv = vec2(1.0 - uv.x, 1.0 - uv.y);
+          vUv = flippedUv * uvScale + uvOffset;
           
           // Pass glow intensity to fragment shader
           vGlow = glowIntensity;
@@ -54,16 +56,15 @@ export class TileMaterial extends THREE.ShaderMaterial {
           vec4 iconColor = texture2D(uAtlasTexture, vUv);
           
           // Glassmorphism base color (blend icon with white/glass)
-          // 70% blend maintains icon visibility while keeping glass aesthetic
-          vec3 glassColor = mix(vec3(1.0), iconColor.rgb, 0.7);
+          // Use the icon color directly with some brightness boost
+          vec3 glassColor = iconColor.rgb * 1.5; // Boost brightness
           
           // Add emissive glow using theme color and glow intensity
-          vec3 glowColor = uThemeColor * vGlow;
+          vec3 glowColor = uThemeColor * vGlow * 0.3;
           vec3 finalColor = glassColor + glowColor;
           
-          // Set transparency to 0.9 to maintain glass effect
-          // Use icon alpha for proper transparency handling
-          float alpha = iconColor.a * 0.9;
+          // Use full opacity for now to see the icons
+          float alpha = max(iconColor.a, 0.9);
           
           gl_FragColor = vec4(finalColor, alpha);
         }

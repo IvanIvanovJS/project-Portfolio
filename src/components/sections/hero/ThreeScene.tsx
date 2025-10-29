@@ -22,6 +22,29 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
   const interactionHandlerRef = useRef<InteractionHandler | null>(null);
   const { gl, camera } = useThree();
 
+  // Create material when atlas is available
+  const tileMaterial = useMemo(() => {
+    if (!atlas) return null;
+
+    console.log('🎨 Creating TileMaterial...', {
+      textureLoaded: atlas.texture.image !== undefined,
+      textureSize: `${atlas.texture.image?.width}x${atlas.texture.image?.height}`,
+      atlasSize: atlas.metadata.meta.size,
+      iconCount: atlas.iconNames.length,
+    });
+
+    const material = new TileMaterial(atlas.texture, atlas.metadata.meta.size);
+    material.updateThemeColor(theme === 'dark');
+
+    console.log('✅ TileMaterial created', {
+      uniforms: material.uniforms,
+      transparent: material.transparent,
+      side: material.side,
+    });
+
+    return material;
+  }, [atlas, theme]);
+
   // Generate cube grid positions and sphere positions
   const { cubePositions, spherePositions, rotations } = useMemo(() => {
     const cubePos: THREE.Vector3[] = [];
@@ -138,26 +161,34 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
   useEffect(() => {
     if (!atlas || !tilesRef.current) return;
 
+    console.log('🔧 Setting up icon system...', {
+      tileCount,
+      meshInstanceCount: tilesRef.current.count,
+      atlasIconCount: atlas.iconNames.length,
+    });
+
     try {
-      // Subtask 10.2: Initialize custom material when atlas loads
-      const material = new TileMaterial(
-        atlas.texture,
-        atlas.metadata.meta.size
-      );
-
-      // Update theme color based on current theme
-      material.updateThemeColor(theme === 'dark');
-
-      // Replace default material with custom material
-      tilesRef.current.material = material;
-
-      // Subtask 10.3: Set up tile attributes
+      // Subtask 10.3: Set up tile attributes FIRST (before changing material)
       setupTileAttributes(tilesRef.current, atlas, tileCount);
 
+      // Verify attributes were created
+      const geometry = tilesRef.current.geometry;
+      console.log('📊 Geometry attributes:', {
+        uvOffset: geometry.getAttribute('uvOffset'),
+        uvScale: geometry.getAttribute('uvScale'),
+        glowIntensity: geometry.getAttribute('glowIntensity'),
+        animationPhase: geometry.getAttribute('animationPhase'),
+      });
+
       // Subtask 10.4: Initialize animation controller
-      const glowAttribute = tilesRef.current.geometry.getAttribute(
+      const glowAttribute = geometry.getAttribute(
         'glowIntensity'
       ) as THREE.InstancedBufferAttribute;
+
+      if (!glowAttribute) {
+        console.error('❌ glowIntensity attribute not found after setup!');
+        return;
+      }
 
       animationControllerRef.current = new AnimationController(
         tileCount,
@@ -176,7 +207,7 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
 
       console.log('✓ Icon system fully integrated into RubikSphere');
     } catch (error) {
-      console.error('Error setting up icon system:', error);
+      console.error('❌ Error setting up icon system:', error);
     }
 
     // Cleanup function
@@ -266,21 +297,17 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
       Math.sin(state.clock.elapsedTime * 0.05) * 0.1;
   });
 
+  // Don't render until atlas and material are ready
+  if (!atlas || !tileMaterial) {
+    console.log('⏳ Waiting for atlas and material...');
+    return null;
+  }
+
   return (
     <group ref={groupRef}>
       <instancedMesh ref={tilesRef} args={[undefined, undefined, tileCount]}>
-        <boxGeometry args={[0.42, 0.42, 0.075]} />{' '}
-        {/* Increased from 0.28 to 0.42 (50% larger) */}
-        <meshPhysicalMaterial
-          transparent
-          opacity={0.9}
-          roughness={0.2}
-          metalness={0.3}
-          transmission={0.6}
-          thickness={0.3}
-          clearcoat={1.0}
-          clearcoatRoughness={0.1}
-        />
+        <boxGeometry args={[0.42, 0.42, 0.075]} />
+        <primitive object={tileMaterial} attach="material" />
       </instancedMesh>
     </group>
   );

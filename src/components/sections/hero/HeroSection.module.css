@@ -42,7 +42,7 @@
   width: 100%;
   max-width: 1200px;
   height: 100%;
-  z-index: 1;
+  z-index: 10;
   pointer-events: auto;
 }
 
@@ -52,7 +52,7 @@
   bottom: var(--spacing-lg);
   left: 50%;
   transform: translateX(-50%);
-  z-index: 3;
+  z-index: 20;
   animation: bounce 2s infinite;
 }
 
