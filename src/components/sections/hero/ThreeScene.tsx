@@ -1,7 +1,12 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
+import { loadIconAtlas, type LoadedAtlas } from './utils/textureLoader';
+import { setupTileAttributes } from './utils/tileAttributes';
+import { TileMaterial } from './materials/TileMaterial';
+import { AnimationController } from './controllers/AnimationController';
+import { InteractionHandler } from './controllers/InteractionHandler';
 
 interface ThreeSceneProps {
   theme: 'light' | 'dark';
@@ -9,9 +14,13 @@ interface ThreeSceneProps {
 }
 
 // Rubik's Cube style sphere
-function RubikSphere() {
+function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
   const groupRef = useRef<THREE.Group>(null);
   const tilesRef = useRef<THREE.InstancedMesh>(null);
+  const [atlas, setAtlas] = useState<LoadedAtlas | null>(null);
+  const animationControllerRef = useRef<AnimationController | null>(null);
+  const interactionHandlerRef = useRef<InteractionHandler | null>(null);
+  const { gl, camera } = useThree();
 
   // Generate cube grid positions and sphere positions
   const { cubePositions, spherePositions, rotations } = useMemo(() => {
@@ -103,8 +112,104 @@ function RubikSphere() {
   const animationProgress = useRef(0);
   const targetProgress = useRef(1); // 0 = cube, 1 = sphere
 
+  // Load atlas on component mount (Subtask 10.1)
+  useEffect(() => {
+    loadIconAtlas()
+      .then((loadedAtlas) => {
+        if (loadedAtlas) {
+          setAtlas(loadedAtlas);
+        } else {
+          console.error('Failed to load icon atlas, using fallback material');
+        }
+      })
+      .catch((err) => {
+        console.error('Error loading icon atlas:', err);
+        // Fallback: render without icons (existing material will be used)
+      });
+  }, []);
+
+  // Setup materials and attributes when atlas loads (Subtasks 10.2, 10.3, 10.4, 10.5)
+  useEffect(() => {
+    if (!atlas || !tilesRef.current) return;
+
+    try {
+      // Subtask 10.2: Initialize custom material when atlas loads
+      const material = new TileMaterial(
+        atlas.texture,
+        atlas.metadata.meta.size
+      );
+
+      // Update theme color based on current theme
+      material.updateThemeColor(theme === 'dark');
+
+      // Replace default material with custom material
+      tilesRef.current.material = material;
+
+      // Subtask 10.3: Set up tile attributes
+      setupTileAttributes(tilesRef.current, atlas, tileCount);
+
+      // Subtask 10.4: Initialize animation controller
+      const glowAttribute = tilesRef.current.geometry.getAttribute(
+        'glowIntensity'
+      ) as THREE.InstancedBufferAttribute;
+
+      animationControllerRef.current = new AnimationController(
+        tileCount,
+        glowAttribute,
+        tilesRef.current
+      );
+
+      // Subtask 10.5: Initialize interaction handler
+      const canvas = gl.domElement;
+      interactionHandlerRef.current = new InteractionHandler(
+        camera,
+        tilesRef.current,
+        canvas,
+        animationControllerRef.current
+      );
+
+      console.log('✓ Icon system fully integrated into RubikSphere');
+    } catch (error) {
+      console.error('Error setting up icon system:', error);
+    }
+
+    // Cleanup function
+    return () => {
+      if (interactionHandlerRef.current) {
+        interactionHandlerRef.current.dispose();
+        interactionHandlerRef.current = null;
+      }
+    };
+  }, [atlas, theme, tileCount, gl.domElement, camera]);
+
+  // Update material theme color when theme changes
+  useEffect(() => {
+    if (!tilesRef.current || !atlas) return;
+
+    const material = tilesRef.current.material as TileMaterial;
+    if (material && material.updateThemeColor) {
+      material.updateThemeColor(theme === 'dark');
+    }
+  }, [theme, atlas]);
+
   useFrame((state) => {
     if (!tilesRef.current || !groupRef.current) return;
+
+    // Subtask 10.6: Update animation controller
+    if (animationControllerRef.current) {
+      animationControllerRef.current.update(
+        state.clock.getDelta(),
+        state.clock.elapsedTime
+      );
+    }
+
+    // Update material uniforms (uTime, uThemeColor) each frame
+    if (atlas && tilesRef.current.material) {
+      const material = tilesRef.current.material as TileMaterial;
+      if (material.updateTime) {
+        material.updateTime(state.clock.elapsedTime);
+      }
+    }
 
     // Smooth animation progress
     animationProgress.current +=
@@ -328,7 +433,7 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({ theme, isVisible }) => {
         {/* Main content */}
         {isVisible && (
           <>
-            <RubikSphere />
+            <RubikSphere theme={theme} />
             <Particles theme={theme} />
           </>
         )}
