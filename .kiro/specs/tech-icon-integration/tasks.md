@@ -72,20 +72,20 @@
   - Generate conversion report with file sizes
   - _Requirements: 1.3, 1.4_
 
-- [ ] 4. Implement texture atlas generation script
+- [x] 4. Implement texture atlas generation script
   - Create Node.js script to combine PNG icons into single atlas image
   - Generate JSON metadata with frame coordinates for each icon
   - Ensure power-of-two dimensions for WebGL compatibility
   - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5_
 
-- [ ] 4.1 Create generateAtlas.js script
+- [x] 4.1 Create generateAtlas.js script
   - Implement atlas generation using Spritesmith library
   - Configure 2-pixel padding between icons to prevent bleeding
   - Use binary-tree packing algorithm for efficient space usage
   - Calculate power-of-two dimensions (512×512 or 1024×1024)
   - _Requirements: 2.1, 2.2, 2.3_
 
-- [ ] 4.2 Generate JSON metadata file
+- [x] 4.2 Generate JSON metadata file
   - Create metadata object with version, size, and icon count
   - Generate frame data for each icon with x, y, width, height coordinates
   - Add version identifier to filename (e.g., `icons.v1.json`)
