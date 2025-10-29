@@ -12,11 +12,11 @@ export const useScrollSpy = (sectionIds: string[], offset: number = 100) => {
       observerRef.current.disconnect();
     }
 
-    // Create intersection observer
+    // Create intersection observer with improved settings to prevent flickering
     const observerOptions = {
       root: null,
-      rootMargin: `-${offset}px 0px -50% 0px`,
-      threshold: [0, 0.25, 0.5, 0.75, 1],
+      rootMargin: `-${offset}px 0px -40% 0px`,
+      threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
     };
 
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
@@ -34,8 +34,12 @@ export const useScrollSpy = (sectionIds: string[], offset: number = 100) => {
         }
       });
 
-      // If we found a visible section, update active section
-      if (mostVisibleSection && sectionIds.includes(mostVisibleSection)) {
+      // Only update if we have a clear winner (prevents flickering)
+      if (
+        mostVisibleSection &&
+        maxVisibilityRatio > 0.2 &&
+        sectionIds.includes(mostVisibleSection)
+      ) {
         setActiveSection(mostVisibleSection);
       }
     };
@@ -55,16 +59,18 @@ export const useScrollSpy = (sectionIds: string[], offset: number = 100) => {
 
     // Fallback scroll listener for edge cases
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + offset;
+      const scrollPosition = window.scrollY + offset + window.innerHeight / 3;
 
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const sectionId = sectionIds[i];
         const element = document.getElementById(sectionId);
 
         if (element) {
-          const { offsetTop } = element;
+          const { offsetTop, offsetHeight } = element;
+          const sectionBottom = offsetTop + offsetHeight;
 
-          if (scrollPosition >= offsetTop) {
+          // Check if scroll position is within this section
+          if (scrollPosition >= offsetTop && scrollPosition < sectionBottom) {
             setActiveSection(sectionId);
             break;
           }
@@ -75,13 +81,21 @@ export const useScrollSpy = (sectionIds: string[], offset: number = 100) => {
     // Initial check
     handleScroll();
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Debounce scroll handler to prevent excessive updates
+    let scrollTimeout: NodeJS.Timeout;
+    const debouncedScroll = () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(handleScroll, 50);
+    };
+
+    window.addEventListener('scroll', debouncedScroll, { passive: true });
 
     return () => {
       if (observerRef.current) {
         observerRef.current.disconnect();
       }
-      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(scrollTimeout);
+      window.removeEventListener('scroll', debouncedScroll);
     };
   }, [sectionIds, offset]);
 

@@ -105,15 +105,17 @@ export const VerticalNavigation: React.FC<VerticalNavigationProps> = ({
             <span className={styles.logoText}>Portfolio</span>
           </div>
 
-          {/* Toggle Button */}
-          <button
-            className={styles.toggleButton}
-            onClick={onToggleNavigation}
-            aria-label={isOpen ? 'Close navigation' : 'Open navigation'}
-            aria-expanded={isOpen}
-          >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          {/* Toggle Button - Only show on mobile */}
+          {isMobile && (
+            <button
+              className={styles.toggleButton}
+              onClick={onToggleNavigation}
+              aria-label={isOpen ? 'Close navigation' : 'Open navigation'}
+              aria-expanded={isOpen}
+            >
+              {isOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          )}
         </div>
 
         {/* Navigation Content */}
