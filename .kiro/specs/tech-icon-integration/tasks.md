@@ -182,42 +182,42 @@
   - Attach attributes to mesh geometry
   - _Requirements: 4.4, 4.5_
 
-- [ ] 8. Implement animation controller
+- [x] 8. Implement animation controller
   - Create AnimationController class to manage tile animations
   - Implement glow pulsing animation with sine wave
   - Add click-triggered rotation and glow animations
   - Handle animation state per tile
   - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 5.1, 5.2, 5.3, 5.4, 5.5_
 
-- [ ] 8.1 Create AnimationController.ts class
+- [x] 8.1 Create AnimationController.ts class
   - Create `src/components/sections/hero/controllers/AnimationController.ts`
   - Define `TileAnimationState` interface with animation properties
   - Initialize Map to store state for each tile
   - Store reference to glowIntensity attribute for updates
   - _Requirements: 4.4, 4.5, 5.5_
 
-- [ ] 8.2 Implement glow pulsing animation
+- [x] 8.2 Implement glow pulsing animation
   - In `update()` method, calculate pulsing glow using sine wave
   - Use formula: `0.3 + sin(time * 0.5 + tileIndex * 0.1) * 0.1`
   - Stagger animation timing across tiles for wave effect
   - Smoothly interpolate current glow toward target glow
   - _Requirements: 4.1, 4.2, 4.5_
 
-- [ ] 8.3 Implement click animation system
+- [x] 8.3 Implement click animation system
   - Create `triggerClickAnimation()` method to start tile animation
   - Set target glow to 1.0 (maximum intensity)
   - Initialize rotation progress to 0
   - Set animation flag to prevent multiple simultaneous animations
   - _Requirements: 5.1, 5.2, 5.5_
 
-- [ ] 8.4 Implement rotation animation
+- [x] 8.4 Implement rotation animation
   - Update rotation progress in `update()` method (0 to 1 over 1.5 seconds)
   - Calculate rotation quaternion for 360-degree Y-axis rotation
   - Apply rotation to tile's instance matrix
   - Reset animation state when progress reaches 1.0
   - _Requirements: 5.2, 5.3, 5.4_
 
-- [ ] 8.5 Add hover glow control
+- [x] 8.5 Add hover glow control
   - Create `setHoverGlow()` method to adjust glow on hover
   - Set target glow to 0.6 when hovering, 0.3 when not
   - Ignore hover changes for tiles currently animating from click
