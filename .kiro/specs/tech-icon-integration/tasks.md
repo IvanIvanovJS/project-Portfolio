@@ -31,21 +31,22 @@
   - Add `prebuild` hook to run icon pipeline before Next.js build
   - _Requirements: 1.1, 2.1_
 
-- [ ] 2. Implement icon fetching script
+- [x] 2. Implement icon fetching script
   - Create Node.js script to download SVG icons from Simple Icons
   - Implement error handling with retry logic and logging
   - Add progress reporting for download status
   - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5_
 
-- [ ] 2.1 Create fetchIcons.js script
+- [x] 2.1 Create fetchIcons.js script
   - Implement `fetchIcon()` function using https module to download from `cdn.simpleicons.org`
   - Add retry logic with exponential backoff (3 attempts maximum)
   - Create error logging to `logs/icon-fetch.log`
   - Implement progress bar or console output for download status
   - _Requirements: 1.1, 1.2, 1.5_
 
-- [ ] 2.2 Add batch processing and error recovery
+- [x] 2.2 Add batch processing and error recovery
   - Implement `fetchAllIcons()` function to process technology list
+
   - Use Promise.allSettled to continue on individual failures
   - Log successful and failed downloads separately
   - Generate summary report of fetched icons

@@ -64,7 +64,7 @@ const technologies = [
     color: '#E34F26',
   },
   {
-    name: 'css3',
+    name: 'css',
     displayName: 'CSS3',
     category: 'language',
     color: '#1572B6',
@@ -116,7 +116,7 @@ const technologies = [
     color: '#646CFF',
   },
   {
-    name: 'rollup',
+    name: 'rollupdotjs',
     displayName: 'Rollup',
     category: 'tool',
     color: '#EC4A3F',
@@ -160,12 +160,6 @@ const technologies = [
     displayName: 'Cypress',
     category: 'tool',
     color: '#17202C',
-  },
-  {
-    name: 'playwright',
-    displayName: 'Playwright',
-    category: 'tool',
-    color: '#2EAD33',
   },
 
   // Version Control & Platforms
