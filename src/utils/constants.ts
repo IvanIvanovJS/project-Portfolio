@@ -46,7 +46,7 @@ export const GLASSMORPHISM_VARIANTS = {
 
 export const NAVIGATION_ITEMS = [
   { id: 'home', label: 'Home', href: '#home' },
-  { id: 'about', label: 'About', href: '#about' },
   { id: 'projects', label: 'Projects', href: '#projects' },
+  { id: 'about', label: 'About', href: '#about' },
   { id: 'contact', label: 'Contact', href: '#contact' },
 ] as const;
