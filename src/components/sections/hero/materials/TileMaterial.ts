@@ -28,7 +28,8 @@ export class TileMaterial extends THREE.ShaderMaterial {
         void main() {
           // Calculate UV coordinates from atlas using offset and scale
           // Flip both U and V coordinates to correct orientation
-          vec2 flippedUv = vec2(1.0 - uv.x, 1.0 - uv.y);
+          vec2 flippedUv = vec2(uv.x, 1.0 - uv.y); // Flip V coordinate
+
           vUv = flippedUv * uvScale + uvOffset;
           
           // Pass glow intensity to fragment shader
@@ -71,7 +72,8 @@ export class TileMaterial extends THREE.ShaderMaterial {
       `,
       transparent: true,
       side: THREE.DoubleSide,
-      depthWrite: false, // Prevent z-fighting with transparent materials
+      depthWrite: true, // Enable depth writing for proper sorting
+      depthTest: true, // Enable depth testing
     });
   }
 
