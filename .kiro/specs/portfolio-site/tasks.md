@@ -84,14 +84,14 @@
   - Integrate email sending functionality or form service
   - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5_
 
-- [ ] 3.1 Create ContactSection component structure
+- [x] 3.1 Create ContactSection component structure
   - Implement Contact section layout with glassmorphism form container
   - Add section title and contact information display
   - Create responsive layout that works on all screen sizes
   - Implement proper semantic HTML structure for accessibility
   - _Requirements: 6.1, 6.3, 6.5_
 
-- [ ] 3.2 Implement ContactForm component
+- [x] 3.2 Implement ContactForm component
   - Create contact form with glassmorphism input styling
   - Add form fields: name, email, subject, message
   - Implement glassmorphism styling for inputs, textarea, and submit button

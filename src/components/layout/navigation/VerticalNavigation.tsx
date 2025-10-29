@@ -43,13 +43,13 @@ export const VerticalNavigation: React.FC<VerticalNavigationProps> = ({
         icon = <Home size={18} />;
         description = 'Welcome & Introduction';
         break;
-      case 'about':
-        icon = <User size={18} />;
-        description = 'Read Bio';
-        break;
       case 'projects':
         icon = <Briefcase size={18} />;
         description = 'View Case Studies';
+        break;
+      case 'about':
+        icon = <User size={18} />;
+        description = 'Read Bio';
         break;
       case 'contact':
         icon = <Mail size={18} />;

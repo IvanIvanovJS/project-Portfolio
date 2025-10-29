@@ -1,0 +1,274 @@
+.contactSection {
+  min-height: 100vh;
+  padding: var(--spacing-2xl) var(--spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: var(--bg-primary);
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: var(--font-size-5xl);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: var(--spacing-4);
+  color: var(--fg-primary);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.subtitle {
+  font-size: var(--font-size-xl);
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+  color: var(--fg-primary);
+  opacity: 0.8;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-2xl);
+}
+
+/* Glass Card Styling */
+.glassCard {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 1.5rem;
+  padding: var(--spacing-xl);
+  box-shadow: 0 8px 32px var(--glass-shadow);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.glassCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--glass-highlight),
+    transparent
+  );
+  opacity: 0.5;
+}
+
+/* Contact Information Styles */
+.contactInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.infoTitle {
+  font-size: var(--font-size-3xl);
+  font-weight: 600;
+  margin-bottom: var(--spacing-4);
+  color: var(--fg-primary);
+}
+
+.infoDescription {
+  font-size: var(--font-size-base);
+  color: var(--fg-primary);
+  opacity: 0.8;
+  margin-bottom: var(--spacing-8);
+  line-height: var(--line-height-relaxed);
+}
+
+.infoItems {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.infoItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+  padding: var(--spacing-4);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.infoItem:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateX(4px);
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--gradient-primary);
+  flex-shrink: 0;
+}
+
+.icon {
+  color: var(--bg-primary);
+}
+
+.infoContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.infoLabel {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--fg-primary);
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.infoLink {
+  font-size: var(--font-size-lg);
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.infoLink:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+.infoText {
+  font-size: var(--font-size-lg);
+  color: var(--fg-primary);
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+/* Form Container Styles */
+.formContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.formTitle {
+  font-size: var(--font-size-3xl);
+  font-weight: 600;
+  margin-bottom: var(--spacing-6);
+  color: var(--fg-primary);
+}
+
+.formPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl);
+  text-align: center;
+  color: var(--fg-primary);
+  opacity: 0.6;
+  min-height: 400px;
+}
+
+.placeholderIcon {
+  margin-bottom: var(--spacing-4);
+  opacity: 0.5;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+
+  .title {
+    font-size: var(--font-size-4xl);
+  }
+
+  .subtitle {
+    font-size: var(--font-size-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .contactSection {
+    padding: var(--spacing-xl) var(--spacing-sm);
+  }
+
+  .glassCard {
+    padding: var(--spacing-lg);
+  }
+
+  .title {
+    font-size: var(--font-size-3xl);
+  }
+
+  .infoTitle,
+  .formTitle {
+    font-size: var(--font-size-2xl);
+  }
+
+  .infoItem {
+    padding: var(--spacing-3);
+  }
+
+  .iconWrapper {
+    width: 40px;
+    height: 40px;
+  }
+
+  .icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contactSection {
+    padding: var(--spacing-lg) var(--spacing-xs);
+  }
+
+  .glassCard {
+    padding: var(--spacing-md);
+    border-radius: 1rem;
+  }
+
+  .title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .infoTitle,
+  .formTitle {
+    font-size: var(--font-size-xl);
+  }
+
+  .infoDescription {
+    font-size: var(--font-size-sm);
+  }
+
+  .infoItems {
+    gap: var(--spacing-4);
+  }
+}
