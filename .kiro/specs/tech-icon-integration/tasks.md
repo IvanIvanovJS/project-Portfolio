@@ -99,20 +99,20 @@
   - Generate visual preview HTML file for manual inspection
   - _Requirements: 2.1, 2.4_
 
-- [ ] 5. Create texture loading utilities
+- [x] 5. Create texture loading utilities
   - Implement TypeScript utilities to load texture atlas and metadata in Three.js
   - Add error handling and fallback support
   - Create TypeScript interfaces for atlas data structures
   - _Requirements: 3.1, 3.2, 8.4_
 
-- [ ] 5.1 Create textureLoader.ts utility file
+- [x] 5.1 Create textureLoader.ts utility file
   - Create `src/components/sections/hero/utils/textureLoader.ts`
   - Define TypeScript interfaces: `IconFrame`, `AtlasMetadata`, `LoadedAtlas`
   - Implement `loadIconAtlas()` async function using THREE.TextureLoader
   - Configure texture settings: minFilter, magFilter, anisotropy
   - _Requirements: 3.1, 8.4_
 
-- [ ] 5.2 Add error handling and fallback logic
+- [x] 5.2 Add error handling and fallback logic
   - Wrap texture loading in try-catch block
   - Log errors to console with descriptive messages
   - Return null on failure to trigger fallback rendering
