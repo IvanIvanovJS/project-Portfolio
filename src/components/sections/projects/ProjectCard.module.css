@@ -17,12 +17,16 @@
   top: -10px;
   left: 150px;
   width: 23%;
-  height: 110%;
+  height: 105%;
   background: linear-gradient(
-    315,
+    315deg,
     var(--bg-primary),
     var(--color-accent),
-    var(--color-primary-20)
+    var(--color-primary-60),
+    var(--color-primary),
+    var(--color-primary-60),
+    var(--color-accent),
+    var(--bg-primary)
   );
   border-radius: 12px;
   transform: skewX(20deg);
@@ -36,12 +40,16 @@
   top: -10px;
   left: 150px;
   width: 23%;
-  height: 110%;
+  height: 105%;
   background: linear-gradient(
     315deg,
     var(--bg-primary),
     var(--color-accent),
-    var(--color-primary-20)
+    var(--color-primary-60),
+    var(--color-primary),
+    var(--color-primary-60),
+    var(--color-accent),
+    var(--bg-primary)
   );
   border-radius: 12px;
   transform: skewX(20deg);
@@ -69,7 +77,6 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   z-index: 10;
   transition: all 0.5s ease;
-  overflow: hidden;
 }
 
 /* Content wrapper for layered content */
@@ -338,9 +345,46 @@
   transform: translateY(-2px);
 }
 
-/* Mobile toggle button - hidden on desktop */
+/* Mobile toggle button - hidden on desktop by default */
 .mobileToggle {
   display: none;
+}
+
+/* Mobile show/hide logic - works on all screen sizes for testing */
+/* Higher specificity to override hover states */
+.projectCard.mobileShowImage .imageLayer,
+.projectCard.mobileShowImage:hover .imageLayer,
+.projectCard.mobileShowImage:focus-within .imageLayer {
+  opacity: 1 !important;
+  pointer-events: none;
+  z-index: 20;
+  transition:
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    z-index 0s 0s;
+}
+
+.projectCard.mobileShowImage .infoLayer,
+.projectCard.mobileShowImage:hover .infoLayer,
+.projectCard.mobileShowImage:focus-within .infoLayer {
+  opacity: 0 !important;
+  pointer-events: none;
+  z-index: 10;
+  transition:
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    z-index 0s 0.15s;
+}
+
+/* When NOT showing image, ensure info is visible */
+.projectCard:not(.mobileShowImage) .infoLayer {
+  opacity: 1 !important;
+  pointer-events: auto;
+  z-index: 20;
+}
+
+.projectCard:not(.mobileShowImage) .imageLayer {
+  opacity: 0 !important;
+  pointer-events: none;
+  z-index: 10;
 }
 
 /* Responsive design - Tablet */
@@ -364,17 +408,6 @@
 
   .contentWrapper {
     min-height: 450px;
-  }
-
-  .cardBackground,
-  .cardBackgroundBlur {
-    left: 30px;
-  }
-
-  .projectCard:hover .cardBackground,
-  .projectCard:hover .cardBackgroundBlur {
-    left: 10px;
-    width: calc(100% - 60px);
   }
 
   .projectInfo {
@@ -424,38 +457,10 @@
   }
 }
 
-/* Touch device specific styles - disable hover, enable tap-to-toggle */
-@media (hover: none) and (pointer: coarse) {
-  /* Disable hover effects on touch devices */
-  .projectCard:hover .imageLayer {
-    opacity: 0;
-    pointer-events: none;
-    z-index: 10;
-  }
-
-  .projectCard:hover .infoLayer {
-    opacity: 1;
-    pointer-events: auto;
-    z-index: 20;
-  }
-
-  .projectCard:hover .cardBackground,
-  .projectCard:hover .cardBackgroundBlur {
-    transform: skewX(20deg);
-    left: 150px;
-    width: 23%;
-  }
-
-  .projectCard:hover .content {
-    transform: translateX(0);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  }
-
-  .projectCard:hover .projectImage {
-    transform: scale(1);
-  }
-
-  /* Hide desktop action buttons on touch devices */
+/* Mobile/Touch device specific styles - disable hover, enable tap-to-toggle */
+/* This applies to touch devices OR small screens for testing */
+@media (hover: none) and (pointer: coarse), (max-width: 768px) {
+  /* Hide desktop action buttons on mobile */
   .actionButtonsDesktop {
     display: none;
   }
@@ -505,10 +510,6 @@
     background: rgba(255, 255, 255, 0.25);
   }
 
-  .mobileToggle:hover {
-    background: rgba(255, 255, 255, 0.25);
-  }
-
   /* Default state - show info layer */
   .imageLayer {
     opacity: 0;
@@ -538,7 +539,7 @@
   }
 
   .projectCard.mobileShowImage .imageLayer .imageContainer {
-    pointer-events: auto;
+    pointer-events: none;
   }
 
   .projectCard.mobileShowImage .infoLayer {

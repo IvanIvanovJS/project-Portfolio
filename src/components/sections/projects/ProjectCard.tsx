@@ -29,26 +29,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
     },
   };
 
-  const handleMobileToggle = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    console.log(
-      'Toggle clicked! Current state:',
-      showImageOnMobile,
-      'New state will be:',
-      !showImageOnMobile
-    );
+  const handleMobileToggle = () => {
     setShowImageOnMobile(!showImageOnMobile);
-  };
-
-  const handleCardClick = (e: React.MouseEvent) => {
-    // If clicking on the card (not on buttons), and image is shown, go back to info
-    const target = e.target as HTMLElement;
-    const isButton = target.closest('button') || target.closest('a');
-
-    if (!isButton && showImageOnMobile) {
-      console.log('Card clicked, going back to info');
-      setShowImageOnMobile(false);
-    }
   };
 
   return (
@@ -58,7 +40,6 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-100px' }}
-      onClick={handleCardClick}
     >
       {/* Decorative background elements */}
       <div className={styles.cardBackground} />

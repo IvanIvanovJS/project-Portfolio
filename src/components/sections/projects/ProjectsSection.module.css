@@ -196,7 +196,7 @@
 @media (max-width: 1200px) {
   .projectsGrid {
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: var(--spacing-lg);
+    gap: var(--spacing-2xl);
   }
 }
 
@@ -225,7 +225,7 @@
 
   .projectsGrid {
     grid-template-columns: 1fr;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-2xl);
   }
 }
 
@@ -258,7 +258,7 @@
   }
 
   .projectsGrid {
-    gap: var(--spacing-md);
+    gap: var(--spacing-2xl);
   }
 
   .loadingState,

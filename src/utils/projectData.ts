@@ -12,7 +12,8 @@ export const MOCK_PROJECTS: ProjectData[] = [
       'A modern e-commerce platform with real-time inventory management and seamless checkout experience.',
     longDescription:
       'Built a full-stack e-commerce solution featuring real-time inventory tracking, secure payment processing, and an intuitive admin dashboard. Implemented advanced search and filtering capabilities with optimized performance.',
-    image: '/images/Gemini_Generated_Image_plyxp3plyxp3plyx.png',
+    image:
+      'https://images.unsplash.com/photo-1592210454359-9043f067919b?w=800&h=600&fit=crop',
     gallery: [
       '/images/projects/ecommerce-1.jpg',
       '/images/projects/ecommerce-2.jpg',
@@ -49,7 +50,8 @@ export const MOCK_PROJECTS: ProjectData[] = [
       'Collaborative task management application with real-time updates and team collaboration features.',
     longDescription:
       'Developed a comprehensive task management solution with drag-and-drop functionality, real-time collaboration, and advanced project tracking. Features include Kanban boards, Gantt charts, and team analytics.',
-    image: '/images/projects/taskmanager.jpg',
+    image:
+      'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=800&h=600&fit=crop',
     gallery: [
       '/images/projects/taskmanager-1.jpg',
       '/images/projects/taskmanager-2.jpg',
@@ -85,7 +87,8 @@ export const MOCK_PROJECTS: ProjectData[] = [
       'Interactive weather dashboard with real-time data visualization and location-based forecasts.',
     longDescription:
       'Created an elegant weather dashboard featuring interactive maps, detailed forecasts, and historical weather data analysis. Integrated multiple weather APIs for accurate and comprehensive weather information.',
-    image: '/images/projects/weather.jpg',
+    image:
+      'https://images.unsplash.com/photo-1592210454359-9043f067919b?w=800&h=600&fit=crop',
     technologies: [
       { name: 'React', color: '#61DAFB' },
       { name: 'TypeScript', color: '#3178C6' },
@@ -116,7 +119,8 @@ export const MOCK_PROJECTS: ProjectData[] = [
       'Content management system for portfolio websites with drag-and-drop page builder.',
     longDescription:
       'Built a flexible CMS specifically designed for portfolio websites, featuring a visual page builder, media management, and SEO optimization tools. Supports multiple themes and custom component creation.',
-    image: '/images/projects/cms.jpg',
+    image:
+      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
     technologies: [
       { name: 'Next.js', color: '#000000' },
       { name: 'TypeScript', color: '#3178C6' },
@@ -145,7 +149,8 @@ export const MOCK_PROJECTS: ProjectData[] = [
       'RESTful API for fitness tracking applications with comprehensive workout and nutrition data.',
     longDescription:
       'Developed a robust API service for fitness applications, providing endpoints for workout tracking, nutrition logging, and progress analytics. Includes authentication, rate limiting, and comprehensive documentation.',
-    image: '/images/projects/fitness-api.jpg',
+    image:
+      'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&h=600&fit=crop',
     technologies: [
       { name: 'Node.js', color: '#339933' },
       { name: 'Express', color: '#000000' },
@@ -177,7 +182,8 @@ export const MOCK_PROJECTS: ProjectData[] = [
       'Analytics dashboard for social media metrics with AI-powered insights and recommendations.',
     longDescription:
       'Created an advanced analytics platform that aggregates data from multiple social media platforms, providing actionable insights through machine learning algorithms and interactive visualizations.',
-    image: '/images/projects/analytics.jpg',
+    image:
+      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
     technologies: [
       { name: 'React', color: '#61DAFB' },
       { name: 'Python', color: '#3776AB' },
