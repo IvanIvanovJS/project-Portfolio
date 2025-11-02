@@ -26,21 +26,8 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
   const tileMaterial = useMemo(() => {
     if (!atlas) return null;
 
-    console.log('🎨 Creating TileMaterial...', {
-      textureLoaded: atlas.texture.image !== undefined,
-      textureSize: `${atlas.texture.image?.width}x${atlas.texture.image?.height}`,
-      atlasSize: atlas.metadata.meta.size,
-      iconCount: atlas.iconNames.length,
-    });
-
     const material = new TileMaterial(atlas.texture, atlas.metadata.meta.size);
     material.updateThemeColor(theme === 'dark');
-
-    console.log('✅ TileMaterial created', {
-      uniforms: material.uniforms,
-      transparent: material.transparent,
-      side: material.side,
-    });
 
     return material;
   }, [atlas, theme]);
@@ -137,56 +124,32 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
 
   // Load atlas on component mount (Subtask 10.1)
   useEffect(() => {
-    console.log('🎨 RubikSphere mounted, loading atlas...');
     loadIconAtlas()
       .then((loadedAtlas) => {
         if (loadedAtlas) {
-          console.log('✓ Atlas loaded successfully');
           setAtlas(loadedAtlas);
-        } else {
-          console.error('Failed to load icon atlas, using fallback material');
         }
       })
-      .catch((err) => {
-        console.error('Error loading icon atlas:', err);
+      .catch(() => {
         // Fallback: render without icons (existing material will be used)
       });
-
-    return () => {
-      console.log('🎨 RubikSphere unmounting...');
-    };
   }, []);
 
   // Setup materials and attributes when atlas loads (Subtasks 10.2, 10.3, 10.4, 10.5)
   useEffect(() => {
     if (!atlas || !tilesRef.current) return;
 
-    console.log('🔧 Setting up icon system...', {
-      tileCount,
-      meshInstanceCount: tilesRef.current.count,
-      atlasIconCount: atlas.iconNames.length,
-    });
-
     try {
       // Subtask 10.3: Set up tile attributes FIRST (before changing material)
       setupTileAttributes(tilesRef.current, atlas, tileCount);
 
-      // Verify attributes were created
-      const geometry = tilesRef.current.geometry;
-      console.log('📊 Geometry attributes:', {
-        uvOffset: geometry.getAttribute('uvOffset'),
-        uvScale: geometry.getAttribute('uvScale'),
-        glowIntensity: geometry.getAttribute('glowIntensity'),
-        animationPhase: geometry.getAttribute('animationPhase'),
-      });
-
       // Subtask 10.4: Initialize animation controller
+      const geometry = tilesRef.current.geometry;
       const glowAttribute = geometry.getAttribute(
         'glowIntensity'
       ) as THREE.InstancedBufferAttribute;
 
       if (!glowAttribute) {
-        console.error('❌ glowIntensity attribute not found after setup!');
         return;
       }
 
@@ -204,10 +167,8 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
         canvas,
         animationControllerRef.current
       );
-
-      console.log('✓ Icon system fully integrated into RubikSphere');
-    } catch (error) {
-      console.error('❌ Error setting up icon system:', error);
+    } catch {
+      // Silent error handling
     }
 
     // Cleanup function
@@ -299,7 +260,6 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
 
   // Don't render until atlas and material are ready
   if (!atlas || !tileMaterial) {
-    console.log('⏳ Waiting for atlas and material...');
     return null;
   }
 
@@ -432,8 +392,6 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({ theme, isVisible }) => {
     return <ErrorFallback />;
   }
 
-  console.log('🎬 Rendering ThreeScene canvas');
-
   return (
     <div
       style={{
@@ -444,7 +402,7 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({ theme, isVisible }) => {
     >
       <Canvas
         camera={{
-          position: [0, 0, 8],
+          position: [0, 0, 9],
           fov: 50,
         }}
         gl={{
@@ -479,7 +437,7 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({ theme, isVisible }) => {
           enableZoom={false}
           enablePan={false}
           autoRotate
-          autoRotateSpeed={0.5}
+          autoRotateSpeed={1}
         />
       </Canvas>
     </div>
