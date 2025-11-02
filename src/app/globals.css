@@ -113,6 +113,7 @@
   --bg-primary: #171717;
   --bg-secondary: #1f1f1f;
   --bg-tertiary: #2a2a2a;
+  --bg-fourtriary: #4d4d4d;
   --fg-primary: rgba(255, 255, 255, 0.8);
   --fg-secondary: rgba(255, 255, 255, 0.6);
   --fg-tertiary: rgba(255, 255, 255, 0.4);
@@ -173,7 +174,8 @@
   /* Base Colors */
   --bg-primary: #fafafa;
   --bg-secondary: #ffffff;
-  --bg-tertiary: #f7fafc;
+  --bg-tertiary: #ecebeb;
+  --bg-fourtriary: #dcdcdc;
   --fg-primary: rgba(23, 23, 23, 0.8);
   --fg-secondary: rgba(23, 23, 23, 0.6);
   --fg-tertiary: rgba(23, 23, 23, 0.4);

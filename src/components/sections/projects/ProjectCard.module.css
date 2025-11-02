@@ -21,13 +21,15 @@
   height: 105%;
   background: linear-gradient(
     315deg,
-    var(--bg-primary),
-    var(--color-accent),
-    var(--color-primary-60),
     var(--color-primary),
     var(--color-primary-60),
-    var(--color-accent),
-    var(--bg-primary)
+    var(--color-primary-20),
+    var(--bg-fourtriary),
+    var(--bg-tertiary),
+    var(--bg-fourtriary),
+    var(--color-primary-20),
+    var(--color-primary-60),
+    var(--color-primary)
   );
   border-radius: 8px;
   transform: skewX(30deg);
@@ -44,13 +46,15 @@
   height: 105%;
   background: linear-gradient(
     315deg,
-    var(--bg-primary),
-    var(--color-accent),
-    var(--color-primary-60),
     var(--color-primary),
     var(--color-primary-60),
-    var(--color-accent),
-    var(--bg-primary)
+    var(--color-primary-20),
+    var(--bg-fourtriary),
+    var(--bg-tertiary),
+    var(--bg-fourtriary),
+    var(--color-primary-20),
+    var(--color-primary-60),
+    var(--color-primary)
   );
   border-radius: 8px;
   transform: skewX(33deg);
@@ -58,9 +62,7 @@
   filter: blur(30px);
   z-index: 0;
 }
-.projectCard:hover {
-  scale: 1;
-}
+
 .projectCard:hover .cardBackground,
 .projectCard:hover .cardBackgroundBlur {
   transform: skewX(0deg);
@@ -100,8 +102,10 @@
   opacity: 0;
   pointer-events: none;
   z-index: 10;
+
   transition:
     opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     z-index 0s 0.15s;
 }
 
@@ -125,8 +129,10 @@
   opacity: 1;
   pointer-events: auto;
   z-index: 20;
+
   transition:
     opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     z-index 0s 0s;
 }
 
@@ -181,7 +187,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
   pointer-events: none;
 }
 
@@ -431,7 +437,8 @@
 /* Mobile/Touch device specific styles - disable hover, enable tap-to-toggle */
 /* This applies to touch devices OR small screens for testing */
 @media (hover: none) and (pointer: coarse), (max-width: 768px) {
-  /* Disable ALL hover effects on mobile */
+  /* Disable ALL hover effects on mobile - keep everything in default state */
+
   .projectCard:hover .imageLayer {
     opacity: 0 !important;
     pointer-events: none !important;
@@ -444,20 +451,21 @@
     z-index: 20 !important;
   }
 
-  .projectCard:hover .cardBackground,
+  .projectCard:hover .cardBackground {
+    transform: skewX(30deg) !important;
+    left: 33% !important;
+    width: 20% !important;
+  }
+
   .projectCard:hover .cardBackgroundBlur {
-    transform: skewX(20deg) !important;
-    left: 150px !important;
-    width: 23% !important;
+    transform: skewX(33deg) !important;
+    left: 33% !important;
+    width: 30% !important;
   }
 
   .projectCard:hover .content {
     transform: translateX(0) !important;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
-  }
-
-  .projectCard:hover .projectImage {
-    transform: scale(1) !important;
   }
 
   /* Hide desktop action buttons on mobile */
@@ -505,11 +513,6 @@
     pointer-events: auto;
   }
 
-  .mobileToggle:active {
-    transform: scale(0.95);
-    background: rgba(255, 255, 255, 0.25);
-  }
-
   /* Default state - show info layer */
   .imageLayer {
     opacity: 0;
@@ -533,8 +536,10 @@
     opacity: 1 !important;
     pointer-events: none;
     z-index: 20;
+
     transition:
       opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
       z-index 0s 0s;
   }
 
@@ -551,17 +556,20 @@
       z-index 0s 0.15s;
   }
 
-  /* Animate background when showing image on mobile */
+  /* Apply SAME effects as desktop hover when showing image on mobile */
+  /* Apply EXACT SAME effects as desktop hover */
+
   .projectCard.mobileShowImage .cardBackground,
   .projectCard.mobileShowImage .cardBackgroundBlur {
     transform: skewX(0deg) !important;
-    left: 20px !important;
+    left: 50px !important;
     width: calc(100% - 90px) !important;
+    transition: 0.5s;
   }
 
   .projectCard.mobileShowImage .content {
-    transform: translateX(-15px) !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+    /* Content stays in place on mobile */
+    transition: all 0.5s ease;
   }
 
   .projectCard.mobileShowImage .projectImage {
