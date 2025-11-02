@@ -8,6 +8,7 @@
   align-items: center;
   margin: 0 auto;
   transition: transform 0.5s ease;
+  scale: 0.95;
 }
 
 /* Decorative background elements inspired by reference CSS */
@@ -15,8 +16,8 @@
   content: '';
   position: absolute;
   top: -10px;
-  left: 150px;
-  width: 23%;
+  left: 33%;
+  width: 20%;
   height: 105%;
   background: linear-gradient(
     315deg,
@@ -28,9 +29,9 @@
     var(--color-accent),
     var(--bg-primary)
   );
-  border-radius: 12px;
-  transform: skewX(20deg);
-  transition: 0.6s;
+  border-radius: 8px;
+  transform: skewX(30deg);
+  transition: 0.5s;
   z-index: 0;
 }
 
@@ -38,8 +39,8 @@
   content: '';
   position: absolute;
   top: -10px;
-  left: 150px;
-  width: 23%;
+  left: 33%;
+  width: 30%;
   height: 105%;
   background: linear-gradient(
     315deg,
@@ -51,13 +52,15 @@
     var(--color-accent),
     var(--bg-primary)
   );
-  border-radius: 12px;
-  transform: skewX(20deg);
-  transition: 0.6s;
+  border-radius: 8px;
+  transform: skewX(33deg);
+  transition: 0.5s;
   filter: blur(30px);
   z-index: 0;
 }
-
+.projectCard:hover {
+  scale: 1;
+}
 .projectCard:hover .cardBackground,
 .projectCard:hover .cardBackgroundBlur {
   transform: skewX(0deg);
@@ -271,12 +274,13 @@
   padding: var(--spacing-6);
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-3);
+  gap: var(--spacing-12);
   height: 100%;
+  justify-content: center;
 }
 
 .title {
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-5xl);
   font-weight: 700;
   color: var(--fg-primary);
   margin: 0;
@@ -314,7 +318,7 @@
 }
 
 .description {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-xl);
   line-height: var(--line-height-relaxed);
   color: var(--fg-primary);
   margin: 0;
@@ -350,42 +354,8 @@
   display: none;
 }
 
-/* Mobile show/hide logic - works on all screen sizes for testing */
-/* Higher specificity to override hover states */
-.projectCard.mobileShowImage .imageLayer,
-.projectCard.mobileShowImage:hover .imageLayer,
-.projectCard.mobileShowImage:focus-within .imageLayer {
-  opacity: 1 !important;
-  pointer-events: none;
-  z-index: 20;
-  transition:
-    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    z-index 0s 0s;
-}
-
-.projectCard.mobileShowImage .infoLayer,
-.projectCard.mobileShowImage:hover .infoLayer,
-.projectCard.mobileShowImage:focus-within .infoLayer {
-  opacity: 0 !important;
-  pointer-events: none;
-  z-index: 10;
-  transition:
-    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    z-index 0s 0.15s;
-}
-
-/* When NOT showing image, ensure info is visible */
-.projectCard:not(.mobileShowImage) .infoLayer {
-  opacity: 1 !important;
-  pointer-events: auto;
-  z-index: 20;
-}
-
-.projectCard:not(.mobileShowImage) .imageLayer {
-  opacity: 0 !important;
-  pointer-events: none;
-  z-index: 10;
-}
+/* Mobile show/hide logic - only applies on mobile/touch devices */
+/* This is defined here but will be overridden by media queries */
 
 /* Responsive design - Tablet */
 @media (max-width: 1024px) and (min-width: 769px) {
@@ -412,14 +382,15 @@
 
   .projectInfo {
     padding: var(--spacing-4);
+    gap: var(--spacing-4);
   }
 
   .title {
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-3xl);
   }
 
   .description {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-lg);
   }
 }
 
@@ -435,15 +406,15 @@
 
   .projectInfo {
     padding: var(--spacing-3);
-    gap: var(--spacing-2);
+    gap: var(--spacing-3);
   }
 
   .title {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-2xl);
   }
 
   .description {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     line-height: var(--line-height-normal);
   }
 
@@ -460,6 +431,35 @@
 /* Mobile/Touch device specific styles - disable hover, enable tap-to-toggle */
 /* This applies to touch devices OR small screens for testing */
 @media (hover: none) and (pointer: coarse), (max-width: 768px) {
+  /* Disable ALL hover effects on mobile */
+  .projectCard:hover .imageLayer {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    z-index: 10 !important;
+  }
+
+  .projectCard:hover .infoLayer {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    z-index: 20 !important;
+  }
+
+  .projectCard:hover .cardBackground,
+  .projectCard:hover .cardBackgroundBlur {
+    transform: skewX(20deg) !important;
+    left: 150px !important;
+    width: 23% !important;
+  }
+
+  .projectCard:hover .content {
+    transform: translateX(0) !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .projectCard:hover .projectImage {
+    transform: scale(1) !important;
+  }
+
   /* Hide desktop action buttons on mobile */
   .actionButtonsDesktop {
     display: none;
@@ -530,7 +530,7 @@
 
   /* When mobile toggle is active, show image layer and hide info */
   .projectCard.mobileShowImage .imageLayer {
-    opacity: 1;
+    opacity: 1 !important;
     pointer-events: none;
     z-index: 20;
     transition:
@@ -543,12 +543,29 @@
   }
 
   .projectCard.mobileShowImage .infoLayer {
-    opacity: 0;
+    opacity: 0 !important;
     pointer-events: none;
     z-index: 10;
     transition:
       opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
       z-index 0s 0.15s;
+  }
+
+  /* Animate background when showing image on mobile */
+  .projectCard.mobileShowImage .cardBackground,
+  .projectCard.mobileShowImage .cardBackgroundBlur {
+    transform: skewX(0deg) !important;
+    left: 20px !important;
+    width: calc(100% - 90px) !important;
+  }
+
+  .projectCard.mobileShowImage .content {
+    transform: translateX(-15px) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .projectCard.mobileShowImage .projectImage {
+    transform: scale(1.1) !important;
   }
 
   /* Make sure action buttons are clickable when image is shown */

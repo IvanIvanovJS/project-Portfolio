@@ -85,7 +85,7 @@
 .projectsGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 40px;
+  gap: var(--spacing-12);
   margin-bottom: var(--spacing-xl);
   min-height: 400px;
 }

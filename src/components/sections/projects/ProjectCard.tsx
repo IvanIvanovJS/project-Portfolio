@@ -118,37 +118,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
           <div className={styles.infoLayer}>
             <div className={styles.projectInfo}>
               <h3 className={styles.title}>{project.title}</h3>
-
-              {/* Status badge */}
-              <span
-                className={`${styles.statusBadge} ${styles[project.status]}`}
-              >
-                {project.status === 'completed' && 'Completed'}
-                {project.status === 'in-progress' && 'In Progress'}
-                {project.status === 'planned' && 'Planned'}
-              </span>
-
               <p className={styles.description}>{project.description}</p>
-
-              {/* Technology tags */}
-              <div className={styles.technologies}>
-                {project.technologies.slice(0, 4).map((tech, idx) => (
-                  <span
-                    key={idx}
-                    className={styles.techTag}
-                    style={{
-                      borderColor: tech.color || 'rgba(255, 255, 255, 0.2)',
-                    }}
-                  >
-                    {tech.name}
-                  </span>
-                ))}
-                {project.technologies.length > 4 && (
-                  <span className={styles.techTag}>
-                    +{project.technologies.length - 4}
-                  </span>
-                )}
-              </div>
             </div>
           </div>
 

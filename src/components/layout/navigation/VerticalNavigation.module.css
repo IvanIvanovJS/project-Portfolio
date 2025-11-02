@@ -171,8 +171,8 @@
 }
 
 .navLink.active {
-  color: var(--color-primary, #baffe9);
-  text-shadow: 0 0 10px var(--color-primary, #baffe9);
+  color: var(--fg-primary, rgba(255, 255, 255, 0.8));
+  text-shadow: 0 0 10px var(--color-primary-20, rgba(186, 255, 233, 0.2));
 }
 
 .navLink.active::before {
@@ -249,7 +249,7 @@
 }
 
 .navLink.active .navDescription {
-  color: var(--color-primary, #baffe9);
+  color: var(--fg-secondary, rgba(255, 255, 255, 0.6));
 }
 
 /* Navigation Divider */
