@@ -87,8 +87,7 @@
   position: relative;
   width: 100%;
   min-height: 500px;
-  display: flex;
-  flex-direction: column;
+  height: 100%;
 }
 
 .projectCard:hover .content {
@@ -121,6 +120,44 @@
   opacity: 1;
   pointer-events: auto;
   z-index: 20;
+  transition:
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    z-index 0s 0.15s;
+}
+
+/* Hover state - Show image layer, hide info layer */
+.projectCard:hover .imageLayer {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 20;
+  transition:
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    z-index 0s 0s;
+}
+
+.projectCard:hover .infoLayer {
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+  transition:
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    z-index 0s 0.15s;
+}
+
+/* Keyboard focus support - Show image layer when card has focus within */
+.projectCard:focus-within .imageLayer {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 20;
+  transition:
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    z-index 0s 0s;
+}
+
+.projectCard:focus-within .infoLayer {
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
   transition:
     opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     z-index 0s 0.15s;
@@ -213,6 +250,11 @@
 .actionButton:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.5),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+    0 12px 48px rgba(0, 0, 0, 0.15),
+    0 0 0 4px rgba(var(--color-primary-rgb, 99, 102, 241), 0.2);
 }
 
 .comingSoon {

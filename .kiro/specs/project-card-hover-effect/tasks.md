@@ -8,20 +8,20 @@
   - Replace `<img>` with Next.js `Image` component for optimization
   - _Requirements: 1.1, 1.2, 1.3_
 
-- [ ] 2. Implement CSS transitions for hover effect
-  - [ ] 2.1 Create base layer styles with absolute positioning
+- [x] 2. Implement CSS transitions for hover effect
+  - [x] 2.1 Create base layer styles with absolute positioning
     - Add `.contentWrapper` class with relative positioning and defined height
     - Add `.imageLayer` with absolute positioning, full dimensions, initial opacity 0
     - Add `.infoLayer` with absolute positioning, full dimensions, initial opacity 1
     - Set appropriate z-index values for default state
     - _Requirements: 1.1, 1.2, 1.3_
-  - [ ] 2.2 Implement hover state transitions
+  - [x] 2.2 Implement hover state transitions
     - Add hover styles to toggle opacity between layers
     - Implement z-index switching with timing delay
     - Use cubic-bezier easing for smooth transitions (300ms duration)
     - Add pointer-events management to prevent interaction with hidden layer
     - _Requirements: 1.4, 1.5, 2.1, 2.2, 2.3, 2.5_
-  - [ ] 2.3 Add keyboard focus support
+  - [x] 2.3 Add keyboard focus support
     - Implement `:focus-within` styles matching hover behavior
     - Ensure focus indicators are visible on action buttons
     - Maintain proper tab order through layers
