@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
@@ -13,6 +13,8 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
+  const [imageError, setImageError] = useState(false);
+
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
@@ -45,15 +47,18 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
           {/* Image Layer - Hidden by default, shown on hover */}
           <div className={styles.imageLayer}>
             {/* Project image */}
-            {project.image ? (
+            {project.image && !imageError ? (
               <div className={styles.imageContainer}>
                 <Image
                   src={project.image}
-                  alt={project.title}
+                  alt={`${project.title} project screenshot`}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
                   className={styles.projectImage}
                   style={{ objectFit: 'cover' }}
+                  loading="lazy"
+                  onError={() => setImageError(true)}
+                  quality={85}
                 />
                 <div className={styles.imageOverlay} />
               </div>
