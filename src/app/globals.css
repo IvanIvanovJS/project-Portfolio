@@ -120,11 +120,15 @@
 
   /* Brand Colors */
   --color-primary: #baffe9;
+  --color-primary-60: rgba(186, 255, 233, 0.6);
+  --color-primary-20: rgba(186, 255, 233, 0.2);
   --color-primary-hover: #a8f5dc;
   --color-primary-active: #96ebcf;
   --color-secondary: #4a5568;
   --color-secondary-hover: #5a6578;
   --color-accent: #9f7aea;
+  --color-accent-60: rgba(159, 122, 234, 0.6);
+  --color-accent-20: rgba(159, 122, 234, 0.2);
   --color-accent-hover: #b794f6;
 
   /* Semantic Colors */
@@ -177,11 +181,15 @@
 
   /* Brand Colors */
   --color-primary: #ff8800;
+  --color-primary-60: rgba(255, 136, 0, 0.6);
+  --color-primary-20: rgba(255, 136, 0, 0.2);
   --color-primary-hover: #e67300;
   --color-primary-active: #cc5e00;
   --color-secondary: #718096;
   --color-secondary-hover: #4a5568;
   --color-accent: #805ad5;
+  --color-accent-60: rgba(128, 90, 213, 0.6);
+  --color-accent-20: rgba(128, 90, 213, 0.2);
   --color-accent-hover: #6b46c1;
 
   /* Semantic Colors */

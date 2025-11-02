@@ -37,12 +37,6 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
       <div className={styles.cardBackground} />
       <div className={styles.cardBackgroundBlur} />
 
-      {/* Glassmorphism hover effects */}
-      <span className={styles.glassEffect}>
-        <span className={styles.glassEffectBefore} />
-        <span className={styles.glassEffectAfter} />
-      </span>
-
       {/* Card content */}
       <div className={styles.content}>
         {/* Project image */}

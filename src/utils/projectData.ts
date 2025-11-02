@@ -12,7 +12,7 @@ export const MOCK_PROJECTS: ProjectData[] = [
       'A modern e-commerce platform with real-time inventory management and seamless checkout experience.',
     longDescription:
       'Built a full-stack e-commerce solution featuring real-time inventory tracking, secure payment processing, and an intuitive admin dashboard. Implemented advanced search and filtering capabilities with optimized performance.',
-    image: '/images/projects/ecommerce.jpg',
+    image: '/images/Gemini_Generated_Image_plyxp3plyxp3plyx.png',
     gallery: [
       '/images/projects/ecommerce-1.jpg',
       '/images/projects/ecommerce-2.jpg',
