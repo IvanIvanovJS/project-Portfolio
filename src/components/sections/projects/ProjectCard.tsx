@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
 import { ProjectData } from '@/types/project';
@@ -39,78 +40,95 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
 
       {/* Card content */}
       <div className={styles.content}>
-        {/* Project image */}
-        {project.image && (
-          <div className={styles.imageContainer}>
-            <img
-              src={project.image}
-              alt={project.title}
-              className={styles.projectImage}
-              loading="lazy"
-            />
-            <div className={styles.imageOverlay} />
+        {/* Content wrapper for layered content */}
+        <div className={styles.contentWrapper}>
+          {/* Image Layer - Hidden by default, shown on hover */}
+          <div className={styles.imageLayer}>
+            {/* Project image */}
+            {project.image ? (
+              <div className={styles.imageContainer}>
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
+                  className={styles.projectImage}
+                  style={{ objectFit: 'cover' }}
+                />
+                <div className={styles.imageOverlay} />
+              </div>
+            ) : (
+              <div className={styles.imagePlaceholder} />
+            )}
+
+            {/* Action buttons overlay */}
+            <div className={styles.actionButtons}>
+              {project.links.github && (
+                <a
+                  href={project.links.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.actionButton}
+                  aria-label={`View GitHub repository for ${project.title}`}
+                >
+                  <Github size={20} />
+                  <span>GitHub</span>
+                </a>
+              )}
+              {project.links.live && (
+                <a
+                  href={project.links.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.actionButton}
+                  aria-label={`View live demo of ${project.title}`}
+                >
+                  <ExternalLink size={20} />
+                  <span>Live Demo</span>
+                </a>
+              )}
+              {!project.links.github && !project.links.live && (
+                <div className={styles.comingSoon}>Coming Soon</div>
+              )}
+            </div>
           </div>
-        )}
 
-        {/* Project info */}
-        <div className={styles.projectInfo}>
-          <h3 className={styles.title}>{project.title}</h3>
+          {/* Info Layer - Visible by default, hidden on hover */}
+          <div className={styles.infoLayer}>
+            <div className={styles.projectInfo}>
+              <h3 className={styles.title}>{project.title}</h3>
 
-          {/* Status badge */}
-          <span className={`${styles.statusBadge} ${styles[project.status]}`}>
-            {project.status === 'completed' && 'Completed'}
-            {project.status === 'in-progress' && 'In Progress'}
-            {project.status === 'planned' && 'Planned'}
-          </span>
-
-          <p className={styles.description}>{project.description}</p>
-
-          {/* Technology tags */}
-          <div className={styles.technologies}>
-            {project.technologies.slice(0, 4).map((tech, idx) => (
+              {/* Status badge */}
               <span
-                key={idx}
-                className={styles.techTag}
-                style={{
-                  borderColor: tech.color || 'rgba(255, 255, 255, 0.2)',
-                }}
+                className={`${styles.statusBadge} ${styles[project.status]}`}
               >
-                {tech.name}
+                {project.status === 'completed' && 'Completed'}
+                {project.status === 'in-progress' && 'In Progress'}
+                {project.status === 'planned' && 'Planned'}
               </span>
-            ))}
-            {project.technologies.length > 4 && (
-              <span className={styles.techTag}>
-                +{project.technologies.length - 4}
-              </span>
-            )}
-          </div>
 
-          {/* Action links */}
-          <div className={styles.links}>
-            {project.links.live && (
-              <a
-                href={project.links.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.link}
-                aria-label={`View live demo of ${project.title}`}
-              >
-                <ExternalLink size={18} />
-                <span>Live Demo</span>
-              </a>
-            )}
-            {project.links.github && (
-              <a
-                href={project.links.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.link}
-                aria-label={`View GitHub repository for ${project.title}`}
-              >
-                <Github size={18} />
-                <span>GitHub</span>
-              </a>
-            )}
+              <p className={styles.description}>{project.description}</p>
+
+              {/* Technology tags */}
+              <div className={styles.technologies}>
+                {project.technologies.slice(0, 4).map((tech, idx) => (
+                  <span
+                    key={idx}
+                    className={styles.techTag}
+                    style={{
+                      borderColor: tech.color || 'rgba(255, 255, 255, 0.2)',
+                    }}
+                  >
+                    {tech.name}
+                  </span>
+                ))}
+                {project.technologies.length > 4 && (
+                  <span className={styles.techTag}>
+                    +{project.technologies.length - 4}
+                  </span>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>
