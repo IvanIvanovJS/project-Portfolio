@@ -1,8 +1,8 @@
 .projectCard {
   position: relative;
   width: 100%;
-  max-width: 400px;
-  min-height: 500px;
+  max-width: 100%;
+  min-height: 400px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -83,7 +83,7 @@
 .contentWrapper {
   position: relative;
   width: 100%;
-  min-height: 500px;
+  min-height: 400px;
   height: 100%;
 }
 
@@ -403,11 +403,11 @@
 @media (max-width: 768px) {
   .projectCard {
     max-width: 100%;
-    min-height: 450px;
+    min-height: 400px;
   }
 
   .contentWrapper {
-    min-height: 450px;
+    min-height: 400px;
   }
 
   .projectInfo {

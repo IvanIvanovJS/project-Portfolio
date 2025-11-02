@@ -8,9 +8,10 @@
 }
 
 .container {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  padding: 0 var(--spacing-lg);
 }
 
 /* Section header */
@@ -83,9 +84,10 @@
 /* Projects grid */
 .projectsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: var(--spacing-xl);
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
   margin-bottom: var(--spacing-xl);
+  min-height: 400px;
 }
 
 /* Loading state */
@@ -195,8 +197,7 @@
 /* Responsive design */
 @media (max-width: 1200px) {
   .projectsGrid {
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: var(--spacing-2xl);
+    gap: 32px;
   }
 }
 
@@ -226,6 +227,7 @@
   .projectsGrid {
     grid-template-columns: 1fr;
     gap: var(--spacing-2xl);
+    min-height: 400px;
   }
 }
 
