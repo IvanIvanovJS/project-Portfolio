@@ -15,6 +15,7 @@ interface NavigationContextType {
   toggleNavigationMode: () => void;
   toggleVerticalNav: () => void;
   setVerticalNavOpen: (open: boolean) => void;
+  setNavigationMode: (mode: NavigationMode) => void;
 }
 
 const NavigationContext = createContext<NavigationContextType | undefined>(
@@ -115,12 +116,27 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
     setIsVerticalNavOpen(open);
   };
 
+  const setNavigationModeWithLogic = (newMode: NavigationMode) => {
+    setNavigationMode(newMode);
+
+    if (isHydrated) {
+      const isMobile = window.innerWidth < 769;
+
+      if (newMode === 'vertical') {
+        setIsVerticalNavOpen(!isMobile);
+      } else {
+        setIsVerticalNavOpen(false);
+      }
+    }
+  };
+
   const value: NavigationContextType = {
     navigationMode,
     isVerticalNavOpen,
     toggleNavigationMode,
     toggleVerticalNav,
     setVerticalNavOpen,
+    setNavigationMode: setNavigationModeWithLogic,
   };
 
   return (

@@ -1,7 +1,6 @@
 'use client';
 import React from 'react';
-import { NavigationToggle } from '../../ui/navigation-toggle/NavigationToggle';
-import { ThemeToggle } from '../../ui/theme-toggle/ThemeToggle';
+import { UnifiedSwitcher } from '../../ui/unified-switcher/UnifiedSwitcher';
 import { Menu } from 'lucide-react';
 import styles from './MobileHeader.module.css';
 
@@ -22,8 +21,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
         </div>
 
         <div className={styles.controls}>
-          <NavigationToggle />
-          <ThemeToggle />
+          <UnifiedSwitcher />
 
           {/* Mobile Menu Button */}
           <button

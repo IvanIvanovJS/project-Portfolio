@@ -2,7 +2,8 @@
 import React from 'react';
 import { LayoutGrid, Menu } from 'lucide-react';
 import { useNavigation } from '../../../providers/NavigationProvider';
-import styles from './NavigationToggle.module.css';
+import { GlassSwitcher, SwitcherOption } from '../glass-switcher';
+import { NavigationMode } from '../../../providers/NavigationProvider';
 
 interface NavigationToggleProps {
   className?: string;
@@ -11,21 +12,31 @@ interface NavigationToggleProps {
 export const NavigationToggle: React.FC<NavigationToggleProps> = ({
   className,
 }) => {
-  const { navigationMode, toggleNavigationMode } = useNavigation();
+  const { navigationMode, setNavigationMode } = useNavigation();
+
+  const navigationOptions: SwitcherOption[] = [
+    {
+      value: 'horizontal',
+      label: 'Horizontal',
+      icon: <Menu size={18} />,
+      ariaLabel: 'Switch to horizontal navigation',
+    },
+    {
+      value: 'vertical',
+      label: 'Vertical',
+      icon: <LayoutGrid size={18} />,
+      ariaLabel: 'Switch to vertical navigation',
+    },
+  ];
 
   return (
-    <button
-      className={`${styles.toggleButton} ${className || ''}`}
-      onClick={toggleNavigationMode}
-      aria-label={`Switch to ${navigationMode === 'horizontal' ? 'vertical' : 'horizontal'} navigation`}
-      title={`Switch to ${navigationMode === 'horizontal' ? 'vertical' : 'horizontal'} navigation`}
-    >
-      {navigationMode === 'horizontal' ? (
-        <LayoutGrid size={18} />
-      ) : (
-        <Menu size={18} />
-      )}
-    </button>
+    <GlassSwitcher
+      options={navigationOptions}
+      value={navigationMode}
+      onChange={(value) => setNavigationMode(value as NavigationMode)}
+      className={className}
+      legend="Navigation mode selector"
+    />
   );
 };
 

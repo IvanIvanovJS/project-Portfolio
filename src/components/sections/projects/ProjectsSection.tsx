@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { ProjectCard } from './ProjectCard';
+import { GlassSwitcher } from '@/components/ui/glass-switcher';
 import { getAllProjects, getProjectCategories } from '@/utils/projectData';
 import styles from './ProjectsSection.module.css';
 
@@ -84,27 +85,18 @@ export const ProjectsSection: React.FC = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <button
-            className={`${styles.filterButton} ${
-              selectedCategory === 'all' ? styles.active : ''
-            }`}
-            onClick={() => handleCategoryChange('all')}
-            aria-pressed={selectedCategory === 'all'}
-          >
-            All Projects
-          </button>
-          {categories.map((category) => (
-            <button
-              key={category}
-              className={`${styles.filterButton} ${
-                selectedCategory === category ? styles.active : ''
-              }`}
-              onClick={() => handleCategoryChange(category)}
-              aria-pressed={selectedCategory === category}
-            >
-              {category.charAt(0).toUpperCase() + category.slice(1)}
-            </button>
-          ))}
+          <GlassSwitcher
+            options={[
+              { value: 'all', label: 'All Projects' },
+              ...categories.map((cat) => ({
+                value: cat,
+                label: cat.charAt(0).toUpperCase() + cat.slice(1),
+              })),
+            ]}
+            value={selectedCategory}
+            onChange={handleCategoryChange}
+            legend="Project category filter"
+          />
         </motion.div>
 
         {/* Error state */}

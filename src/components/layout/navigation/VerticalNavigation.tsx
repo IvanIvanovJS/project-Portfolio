@@ -1,7 +1,6 @@
 'use client';
 import React from 'react';
-import { ThemeToggle } from '../../ui/theme-toggle/ThemeToggle';
-import { NavigationToggle } from '../../ui/navigation-toggle/NavigationToggle';
+import { UnifiedSwitcher } from '../../ui/unified-switcher/UnifiedSwitcher';
 import { Menu, X, Home, User, Briefcase, Mail } from 'lucide-react';
 import styles from './VerticalNavigation.module.css';
 
@@ -155,8 +154,7 @@ export const VerticalNavigation: React.FC<VerticalNavigationProps> = ({
 
         {/* Navigation Footer */}
         <div className={styles.navFooter}>
-          <NavigationToggle />
-          <ThemeToggle />
+          <UnifiedSwitcher />
         </div>
       </aside>
     </>

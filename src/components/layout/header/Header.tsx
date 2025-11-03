@@ -1,8 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { Navigation } from '../navigation/Navigation';
-import { ThemeToggle } from '../../ui/theme-toggle/ThemeToggle';
-import { NavigationToggle } from '../../ui/navigation-toggle/NavigationToggle';
+import { UnifiedSwitcher } from '../../ui/unified-switcher/UnifiedSwitcher';
 import { useScrollSpy } from '../../../hooks/useScrollSpy';
 import { useNavigation } from '../../../providers/NavigationProvider';
 import styles from './Header.module.css';
@@ -107,8 +106,7 @@ export const Header: React.FC<HeaderProps> = ({
               activeSection={activeSection}
               onItemClick={handleSmoothScroll}
             />
-            <NavigationToggle />
-            <ThemeToggle />
+            <UnifiedSwitcher />
           </div>
 
           {/* Mobile Menu Button */}
@@ -135,8 +133,7 @@ export const Header: React.FC<HeaderProps> = ({
               onItemClick={handleSmoothScroll}
             />
             <div className={styles.mobileThemeToggle}>
-              <NavigationToggle />
-              <ThemeToggle />
+              <UnifiedSwitcher />
             </div>
           </div>
         </div>
