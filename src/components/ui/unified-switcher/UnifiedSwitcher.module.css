@@ -100,8 +100,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 14px;
-  min-width: 56px;
+  padding: 0 16px;
+  width: 68px;
+  flex-shrink: 0;
   height: 100%;
   box-sizing: border-box;
   border-radius: 99em;
@@ -116,8 +117,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 14px;
-  min-width: 56px;
+  padding: 0 16px;
+  width: 68px;
+  flex-shrink: 0;
   height: 100%;
   box-sizing: border-box;
   border-radius: 99em;
@@ -155,10 +157,10 @@
 .switcher::after {
   content: '';
   position: absolute;
-  left: 4px;
+  left: 6px;
   top: 4px;
   display: block;
-  width: 72px;
+  width: 68px;
   height: calc(100% - 10px);
   border-radius: 99em;
   background-color: color-mix(
@@ -213,7 +215,7 @@
 
 /* Dark theme selected (option 2) */
 .switcher:has(input[c-option='2']:checked)::after {
-  translate: calc(100% + 4px) 0;
+  translate: 76px 0;
   animation: scaleToggle2 440ms ease;
 }
 
