@@ -29,6 +29,13 @@
   width: calc(100% - 280px);
 }
 
+/* Footer with vertical navigation open */
+.withVerticalNav {
+  margin-left: 280px;
+  width: calc(100% - 280px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* Vertical mode adjustments */
 .verticalMode .mainContent {
   padding-top: 0;
@@ -47,7 +54,8 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .mainContent.withVerticalNav {
+  .mainContent.withVerticalNav,
+  .withVerticalNav {
     margin-left: 0;
     width: 100%;
   }

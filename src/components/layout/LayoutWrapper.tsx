@@ -144,7 +144,13 @@ export const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
       </main>
 
       {/* Footer */}
-      <Footer />
+      <Footer
+        className={
+          navigationMode === 'vertical' && isVerticalNavOpen && !isMobile
+            ? styles.withVerticalNav
+            : ''
+        }
+      />
     </div>
   );
 };

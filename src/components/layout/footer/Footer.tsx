@@ -58,7 +58,11 @@ const quickLinks = [
   { name: 'Contact', href: '#contact' },
 ];
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  className?: string;
+}
+
+export const Footer: React.FC<FooterProps> = ({ className = '' }) => {
   const handleSmoothScroll = (href: string) => {
     const targetId = href.replace('#', '');
     const targetElement = document.getElementById(targetId);
@@ -77,7 +81,7 @@ export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className={styles.footer}>
+    <footer className={`${styles.footer} ${className}`}>
       <div className={styles.container}>
         {/* Main Footer Content */}
         <div className={styles.mainContent}>
