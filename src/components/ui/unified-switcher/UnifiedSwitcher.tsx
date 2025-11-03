@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { Sun, Moon, LayoutGrid, Menu } from 'lucide-react';
 import { useThemeContext } from '../../../providers/ThemeProvider';
 import { useNavigation } from '../../../providers/NavigationProvider';
@@ -7,21 +7,51 @@ import styles from './UnifiedSwitcher.module.css';
 
 interface UnifiedSwitcherProps {
   className?: string;
+  instanceId?: string;
 }
 
 export const UnifiedSwitcher: React.FC<UnifiedSwitcherProps> = ({
   className = '',
+  instanceId,
 }) => {
   const { theme, setTheme } = useThemeContext();
   const { navigationMode, toggleNavigationMode } = useNavigation();
   const switcherRef = useRef<HTMLFieldSetElement>(null);
-  const prevIndexRef = useRef<number>(0);
+  const prevIndexRef = useRef<number | null>(null);
+  const isInitialMount = useRef(true);
+
+  // Generate unique ID for this instance
+  const [uniqueId] = useState(
+    () =>
+      instanceId ||
+      `unified-switcher-${Date.now()}-${Math.floor(Math.random() * 1000)}`
+  );
 
   // Current index based on theme (0 for light, 1 for dark)
   const currentIndex = theme === 'light' ? 0 : 1;
 
-  useEffect(() => {
-    if (switcherRef.current && currentIndex !== prevIndexRef.current) {
+  // Use useLayoutEffect to ensure synchronous updates before paint
+  useLayoutEffect(() => {
+    // On initial mount, set prevIndexRef to current theme
+    if (isInitialMount.current) {
+      prevIndexRef.current = currentIndex;
+      isInitialMount.current = false;
+      // Force initial c-previous attribute
+      if (switcherRef.current) {
+        switcherRef.current.setAttribute(
+          'c-previous',
+          String(currentIndex + 1)
+        );
+      }
+      return;
+    }
+
+    // On subsequent updates, update the c-previous attribute
+    if (
+      switcherRef.current &&
+      prevIndexRef.current !== null &&
+      currentIndex !== prevIndexRef.current
+    ) {
       switcherRef.current.setAttribute(
         'c-previous',
         String(prevIndexRef.current + 1)
@@ -52,7 +82,7 @@ export const UnifiedSwitcher: React.FC<UnifiedSwitcherProps> = ({
     <fieldset
       ref={switcherRef}
       className={`${styles.switcher} ${className}`}
-      c-previous="1"
+      c-previous={String(currentIndex + 1)}
     >
       <legend className={styles.switcherLegend}>
         Theme and navigation controls
@@ -66,12 +96,11 @@ export const UnifiedSwitcher: React.FC<UnifiedSwitcherProps> = ({
         </defs>
       </svg>
 
-      {/* Light Theme Option */}
-      <label className={styles.switcherOption} htmlFor="unified-switcher-light">
+      <label className={styles.switcherOption} htmlFor={`${uniqueId}-light`}>
         <input
           type="radio"
-          id="unified-switcher-light"
-          name="unified-switcher"
+          id={`${uniqueId}-light`}
+          name={uniqueId}
           value="light"
           checked={theme === 'light'}
           onChange={() => handleOptionClick('light')}
@@ -84,12 +113,11 @@ export const UnifiedSwitcher: React.FC<UnifiedSwitcherProps> = ({
         </span>
       </label>
 
-      {/* Dark Theme Option */}
-      <label className={styles.switcherOption} htmlFor="unified-switcher-dark">
+      <label className={styles.switcherOption} htmlFor={`${uniqueId}-dark`}>
         <input
           type="radio"
-          id="unified-switcher-dark"
-          name="unified-switcher"
+          id={`${uniqueId}-dark`}
+          name={uniqueId}
           value="dark"
           checked={theme === 'dark'}
           onChange={() => handleOptionClick('dark')}
@@ -102,7 +130,6 @@ export const UnifiedSwitcher: React.FC<UnifiedSwitcherProps> = ({
         </span>
       </label>
 
-      {/* Navigation Toggle Button (not a radio) */}
       <button
         type="button"
         className={styles.switcherButton}

@@ -189,7 +189,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
 
         {/* Navigation Footer */}
         <div className={styles.navFooter}>
-          <UnifiedSwitcher />
+          <UnifiedSwitcher instanceId="mobile-nav-switcher" />
         </div>
       </div>
     </>

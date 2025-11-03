@@ -154,7 +154,7 @@ export const VerticalNavigation: React.FC<VerticalNavigationProps> = ({
 
         {/* Navigation Footer */}
         <div className={styles.navFooter}>
-          <UnifiedSwitcher />
+          <UnifiedSwitcher instanceId="vertical-nav-switcher" />
         </div>
       </aside>
     </>

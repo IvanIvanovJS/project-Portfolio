@@ -106,7 +106,7 @@ export const Header: React.FC<HeaderProps> = ({
               activeSection={activeSection}
               onItemClick={handleSmoothScroll}
             />
-            <UnifiedSwitcher />
+            <UnifiedSwitcher instanceId="header-desktop-switcher" />
           </div>
 
           {/* Mobile Menu Button */}
@@ -133,7 +133,7 @@ export const Header: React.FC<HeaderProps> = ({
               onItemClick={handleSmoothScroll}
             />
             <div className={styles.mobileThemeToggle}>
-              <UnifiedSwitcher />
+              <UnifiedSwitcher instanceId="header-mobile-switcher" />
             </div>
           </div>
         </div>
