@@ -1,8 +1,7 @@
 'use client';
 import React from 'react';
-import { Navigation } from './Navigation';
 import { UnifiedSwitcher } from '../../ui/unified-switcher/UnifiedSwitcher';
-import { X } from 'lucide-react';
+import { X, Home, User, Briefcase, Mail, Menu } from 'lucide-react';
 import { useNavigation } from '../../../providers/NavigationProvider';
 import styles from './MobileNavigation.module.css';
 
@@ -10,6 +9,11 @@ interface NavigationItem {
   id: string;
   label: string;
   href: string;
+}
+
+interface NavigationItemWithIcon extends NavigationItem {
+  icon: React.ReactNode;
+  description: string;
 }
 
 interface MobileNavigationProps {
@@ -28,6 +32,40 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
   onClose,
 }) => {
   const { navigationMode } = useNavigation();
+
+  // Enhanced navigation items with icons and descriptions
+  const enhancedItems: NavigationItemWithIcon[] = items.map((item) => {
+    let icon: React.ReactNode;
+    let description: string;
+
+    switch (item.id) {
+      case 'hero':
+        icon = <Home size={18} />;
+        description = 'Welcome & Introduction';
+        break;
+      case 'projects':
+        icon = <Briefcase size={18} />;
+        description = 'View Case Studies';
+        break;
+      case 'about':
+        icon = <User size={18} />;
+        description = 'Read Bio';
+        break;
+      case 'contact':
+        icon = <Mail size={18} />;
+        description = 'Get In Touch';
+        break;
+      default:
+        icon = <Menu size={18} />;
+        description = 'Navigation';
+    }
+
+    return {
+      ...item,
+      icon,
+      description,
+    };
+  });
 
   const handleItemClick = (href: string) => {
     onItemClick(href);
@@ -116,12 +154,37 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
 
         {/* Navigation Content */}
         <div className={styles.navContent}>
-          <Navigation
-            items={items}
-            activeSection={activeSection}
-            isMobile={true}
-            onItemClick={handleItemClick}
-          />
+          <nav className={styles.navigation}>
+            <ul className={styles.navList}>
+              {enhancedItems.map((item, index) => (
+                <li
+                  key={item.id}
+                  className={styles.navItem}
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <a
+                    href={item.href}
+                    className={`${styles.navLink} ${activeSection === item.id ? styles.active : ''}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleItemClick(item.href);
+                    }}
+                  >
+                    <div className={styles.navLinkContent}>
+                      <div className={styles.navIcon}>{item.icon}</div>
+                      <div className={styles.navText}>
+                        <span className={styles.navLabel}>{item.label}</span>
+                        <span className={styles.navDescription}>
+                          {item.description}
+                        </span>
+                      </div>
+                    </div>
+                    <div className={styles.navDivider}></div>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
 
         {/* Navigation Footer */}
