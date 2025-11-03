@@ -1,3 +1,16 @@
+/* Accessibility - Visually hidden text for screen readers */
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .projectCard {
   position: relative;
   width: 100%;
@@ -160,7 +173,12 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(var(--glass-bg-hover), var(--glass-highlight));
+  /* Enhanced overlay for better contrast - ensures 4.5:1 ratio for button text */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0.6)
+  );
   pointer-events: none;
 }
 
@@ -215,6 +233,8 @@
   font-weight: 600;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  /* Enhanced text contrast for WCAG AA compliance */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .actionButton:hover {
@@ -246,6 +266,8 @@
   font-size: var(--font-size-base);
   font-weight: 600;
   opacity: 0.7;
+  /* Enhanced text contrast */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 /* Project info */
@@ -276,24 +298,29 @@
   letter-spacing: var(--letter-spacing-wide);
   width: fit-content;
   backdrop-filter: blur(10px);
+  /* Enhanced text shadow for better contrast */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .statusBadge.completed {
-  background: rgba(186, 255, 233, 0.2);
+  /* Enhanced background opacity for better contrast */
+  background: rgba(186, 255, 233, 0.25);
   color: #baffe9;
-  border: 1px solid rgba(186, 255, 233, 0.3);
+  border: 1px solid rgba(186, 255, 233, 0.4);
 }
 
 .statusBadge.in-progress {
-  background: rgba(255, 136, 0, 0.2);
-  color: #ff8800;
-  border: 1px solid rgba(255, 136, 0, 0.3);
+  /* Enhanced background and brighter text for WCAG AA compliance */
+  background: rgba(255, 136, 0, 0.25);
+  color: #ffaa44;
+  border: 1px solid rgba(255, 136, 0, 0.4);
 }
 
 .statusBadge.planned {
-  background: rgba(159, 122, 234, 0.2);
-  color: #9f7aea;
-  border: 1px solid rgba(159, 122, 234, 0.3);
+  /* Enhanced background and brighter text for better contrast */
+  background: rgba(159, 122, 234, 0.25);
+  color: #b794f6;
+  border: 1px solid rgba(159, 122, 234, 0.4);
 }
 
 .description {
@@ -600,5 +627,104 @@
 
   .projectInfo {
     padding-bottom: 110px;
+  }
+}
+
+/* Accessibility - Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  /* Reduce all transition durations to 100ms */
+  .projectCard {
+    transition: transform 0.1s ease;
+  }
+
+  .cardBackground {
+    transition: 0.1s;
+  }
+
+  .content {
+    transition: all 0.1s ease;
+  }
+
+  .imageLayer {
+    transition:
+      opacity 0.1s linear,
+      transform 0.1s linear,
+      z-index 0s 0.05s;
+  }
+
+  .infoLayer {
+    transition:
+      opacity 0.1s linear,
+      z-index 0s 0.05s;
+  }
+
+  .projectCard:hover .imageLayer,
+  .projectCard:focus-within .imageLayer {
+    transition:
+      opacity 0.1s linear,
+      transform 0.1s linear,
+      z-index 0s 0s;
+  }
+
+  .projectCard:hover .infoLayer,
+  .projectCard:focus-within .infoLayer {
+    transition:
+      opacity 0.1s linear,
+      z-index 0s 0.05s;
+  }
+
+  .projectImage {
+    transition: transform 0.1s ease;
+  }
+
+  .actionButton {
+    transition: all 0.1s linear;
+  }
+
+  .techTag {
+    transition: all 0.1s ease;
+  }
+
+  .mobileToggle {
+    transition: all 0.1s linear;
+  }
+
+  /* Disable scale animations */
+  .projectCard:hover .projectImage {
+    transform: scale(1);
+  }
+
+  .actionButton:hover {
+    transform: scale(1);
+  }
+
+  .techTag:hover {
+    transform: translateY(0);
+  }
+
+  /* Mobile show image state with reduced motion */
+  .projectCard.mobileShowImage .imageLayer {
+    transition:
+      opacity 0.1s linear,
+      transform 0.1s linear,
+      z-index 0s 0s;
+  }
+
+  .projectCard.mobileShowImage .infoLayer {
+    transition:
+      opacity 0.1s linear,
+      z-index 0s 0.05s;
+  }
+
+  .projectCard.mobileShowImage .cardBackground {
+    transition: 0.1s;
+  }
+
+  .projectCard.mobileShowImage .content {
+    transition: all 0.1s ease;
+  }
+
+  .projectCard.mobileShowImage .projectImage {
+    transform: scale(1);
   }
 }

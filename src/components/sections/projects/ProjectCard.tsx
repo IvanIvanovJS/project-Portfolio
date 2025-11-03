@@ -34,16 +34,17 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
   };
 
   return (
-    <motion.div
+    <motion.article
       className={`${styles.projectCard} ${showImageOnMobile ? styles.mobileShowImage : ''}`}
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-100px' }}
+      aria-label={`${project.title} project card`}
     >
       {/* Decorative background elements */}
-      <div className={styles.cardBackground} />
-      <div className={styles.cardBackgroundBlur} />
+      <div className={styles.cardBackground} aria-hidden="true" />
+      <div className={styles.cardBackgroundBlur} aria-hidden="true" />
 
       {/* Card content */}
       <div className={styles.content}>
@@ -61,13 +62,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
         {/* Content wrapper for layered content */}
         <div className={styles.contentWrapper}>
           {/* Image Layer - Hidden by default, shown on hover */}
-          <div className={styles.imageLayer}>
+          <div className={styles.imageLayer} aria-hidden={!showImageOnMobile}>
             {/* Project image */}
             {project.image && !imageError ? (
               <div className={styles.imageContainer}>
                 <Image
                   src={project.image}
-                  alt={`${project.title} project screenshot`}
+                  alt={`Screenshot of ${project.title} project showing the user interface and key features`}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
                   className={styles.projectImage}
@@ -76,10 +77,14 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
                   onError={() => setImageError(true)}
                   quality={85}
                 />
-                <div className={styles.imageOverlay} />
+                <div className={styles.imageOverlay} aria-hidden="true" />
               </div>
             ) : (
-              <div className={styles.imagePlaceholder} />
+              <div
+                className={styles.imagePlaceholder}
+                role="img"
+                aria-label={`Placeholder image for ${project.title} project`}
+              />
             )}
 
             {/* Action buttons overlay - shown on desktop hover */}
@@ -115,9 +120,18 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
           </div>
 
           {/* Info Layer - Visible by default, hidden on hover */}
-          <div className={styles.infoLayer}>
+          <div className={styles.infoLayer} aria-hidden={showImageOnMobile}>
             <div className={styles.projectInfo}>
               <h3 className={styles.title}>{project.title}</h3>
+              <span className={styles.visuallyHidden}>
+                {project.status === 'completed' &&
+                  'Project status: Completed. '}
+                {project.status === 'in-progress' &&
+                  'Project status: In Progress. '}
+                {project.status === 'planned' && 'Project status: Planned. '}
+                {project.links.github && 'GitHub repository available. '}
+                {project.links.live && 'Live demo available. '}
+              </span>
               <p className={styles.description}>{project.description}</p>
             </div>
           </div>
@@ -154,6 +168,6 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
           </div>
         </div>
       </div>
-    </motion.div>
+    </motion.article>
   );
 };
