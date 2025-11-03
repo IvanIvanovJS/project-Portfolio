@@ -149,7 +149,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--glass-bg, rgba(255, 255, 255, 0.05));
+
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid transparent;
@@ -159,17 +159,6 @@
   z-index: -1;
 }
 
-.navLink:hover::before {
-  opacity: 1;
-  border-color: var(--glass-border, rgba(255, 255, 255, 0.1));
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-}
-
-.navLink:hover {
-  color: var(--color-primary, #baffe9);
-  transform: translateX(4px);
-}
-
 .navLink.active {
   color: var(--fg-primary, rgba(255, 255, 255, 0.8));
   text-shadow: 0 0 10px var(--color-primary-20, rgba(186, 255, 233, 0.2));
@@ -177,11 +166,6 @@
 
 .navLink.active::before {
   opacity: 1;
-  background: var(--glass-highlight, rgba(255, 255, 255, 0.1));
-
-  box-shadow:
-    0 0 20px rgba(186, 255, 233, 0.2),
-    0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 /* Navigation Link Content */
@@ -215,7 +199,11 @@
 }
 
 .navLink.active .navIcon {
-  background: var(--color-primary, #baffe9);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-accent)
+  );
   color: var(--bg-primary, #0a0a0a);
   border-color: var(--color-primary, #baffe9);
   box-shadow: 0 0 20px rgba(186, 255, 233, 0.4);
@@ -349,10 +337,6 @@
   50% {
     transform: scale(1.1);
   }
-}
-
-.navLink.active .navIcon {
-  animation: iconPulse 2s ease-in-out infinite;
 }
 
 @keyframes fadeIn {

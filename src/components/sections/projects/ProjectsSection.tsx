@@ -87,7 +87,7 @@ export const ProjectsSection: React.FC = () => {
         >
           <GlassSwitcher
             options={[
-              { value: 'all', label: 'All Projects' },
+              { value: 'all', label: 'All' },
               ...categories.map((cat) => ({
                 value: cat,
                 label: cat.charAt(0).toUpperCase() + cat.slice(1),

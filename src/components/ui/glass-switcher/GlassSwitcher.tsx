@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './GlassSwitcher.module.css';
 
 export interface SwitcherOption {
@@ -25,47 +25,69 @@ export const GlassSwitcher: React.FC<GlassSwitcherProps> = ({
   legend = 'Switch options',
 }) => {
   const switcherRef = useRef<HTMLFieldSetElement>(null);
-  const prevIndexRef = useRef<number>(0);
+  const optionRefs = useRef<(HTMLLabelElement | null)[]>([]);
+  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
 
   const currentIndex = options.findIndex((opt) => opt.value === value);
 
+  // Update indicator position based on active option
   useEffect(() => {
-    if (
-      switcherRef.current &&
-      currentIndex !== -1 &&
-      currentIndex !== prevIndexRef.current
-    ) {
-      switcherRef.current.setAttribute(
-        'c-previous',
-        String(prevIndexRef.current + 1)
-      );
-      prevIndexRef.current = currentIndex;
-    }
-  }, [currentIndex]);
+    const updateIndicator = () => {
+      if (
+        switcherRef.current &&
+        currentIndex !== -1 &&
+        optionRefs.current[currentIndex]
+      ) {
+        const switcherWidth = switcherRef.current.offsetWidth;
+        const padding = 6; // padding from CSS
+        const availableWidth = switcherWidth - padding * 2;
+        const optionCount = options.length;
+        const optionWidth = availableWidth / optionCount;
+
+        // Calculate position for space-evenly distribution
+        const leftPosition = padding + currentIndex * optionWidth;
+
+        setIndicatorStyle({
+          left: leftPosition,
+          width: optionWidth,
+        });
+      }
+    };
+
+    // Small delay to ensure DOM is ready
+    const timer = setTimeout(updateIndicator, 0);
+
+    // Update on window resize
+    window.addEventListener('resize', updateIndicator);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', updateIndicator);
+    };
+  }, [currentIndex, options.length]);
 
   const handleChange = (optionValue: string) => {
     onChange(optionValue);
   };
 
   return (
-    <fieldset
-      ref={switcherRef}
-      className={`${styles.switcher} ${className}`}
-      c-previous="1"
-    >
+    <fieldset ref={switcherRef} className={`${styles.switcher} ${className}`}>
       <legend className={styles.switcherLegend}>{legend}</legend>
 
-      <svg className={styles.switcherFilter}>
-        <defs>
-          <filter id="switcher">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="0" />
-          </filter>
-        </defs>
-      </svg>
+      {/* Sliding indicator */}
+      <div
+        className={styles.indicator}
+        style={{
+          transform: `translateX(${indicatorStyle.left}px)`,
+          width: `${indicatorStyle.width}px`,
+        }}
+      />
 
       {options.map((option, index) => (
         <label
           key={option.value}
+          ref={(el) => {
+            optionRefs.current[index] = el;
+          }}
           className={styles.switcherOption}
           htmlFor={`switcher-${option.value}`}
         >
@@ -77,7 +99,6 @@ export const GlassSwitcher: React.FC<GlassSwitcherProps> = ({
             checked={value === option.value}
             onChange={() => handleChange(option.value)}
             className={styles.switcherInput}
-            c-option={String(index + 1)}
             aria-label={option.ariaLabel || option.label}
           />
           {option.icon ? (
