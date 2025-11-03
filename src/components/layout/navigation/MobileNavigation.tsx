@@ -1,8 +1,7 @@
 'use client';
 import React from 'react';
 import { Navigation } from './Navigation';
-import { ThemeToggle } from '../../ui/theme-toggle/ThemeToggle';
-import { NavigationToggle } from '../../ui/navigation-toggle/NavigationToggle';
+import { UnifiedSwitcher } from '../../ui/unified-switcher/UnifiedSwitcher';
 import { X } from 'lucide-react';
 import { useNavigation } from '../../../providers/NavigationProvider';
 import styles from './MobileNavigation.module.css';
@@ -127,8 +126,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
 
         {/* Navigation Footer */}
         <div className={styles.navFooter}>
-          <NavigationToggle />
-          <ThemeToggle />
+          <UnifiedSwitcher />
         </div>
       </div>
     </>

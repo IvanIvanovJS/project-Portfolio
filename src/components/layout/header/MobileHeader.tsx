@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-import { UnifiedSwitcher } from '../../ui/unified-switcher/UnifiedSwitcher';
 import { Menu } from 'lucide-react';
 import styles from './MobileHeader.module.css';
 
@@ -20,18 +19,14 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
           <span className={styles.logoText}>Portfolio</span>
         </div>
 
-        <div className={styles.controls}>
-          <UnifiedSwitcher />
-
-          {/* Mobile Menu Button */}
-          <button
-            className={`${styles.mobileMenuButton} ${isMobileMenuOpen ? styles.open : ''}`}
-            onClick={onMobileMenuToggle}
-            aria-label="Toggle mobile menu"
-          >
-            <Menu size={20} />
-          </button>
-        </div>
+        {/* Mobile Menu Button */}
+        <button
+          className={`${styles.mobileMenuButton} ${isMobileMenuOpen ? styles.open : ''}`}
+          onClick={onMobileMenuToggle}
+          aria-label="Toggle mobile menu"
+        >
+          <Menu size={20} />
+        </button>
       </div>
     </header>
   );

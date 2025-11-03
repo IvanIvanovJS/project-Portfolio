@@ -40,12 +40,6 @@
   text-shadow: 0 0 20px var(--color-primary, #baffe9);
 }
 
-.controls {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-2, 0.5rem);
-}
-
 /* Mobile Menu Button */
 .mobileMenuButton {
   display: flex;
@@ -90,10 +84,6 @@
 
   .logoText {
     font-size: var(--font-size-base, 1rem);
-  }
-
-  .controls {
-    gap: var(--spacing-1, 0.25rem);
   }
 
   .mobileMenuButton {
