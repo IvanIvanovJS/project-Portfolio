@@ -139,7 +139,7 @@
   --color-info: #4299e1;
 
   /* Glassmorphism Properties */
-  --glass-bg: rgba(23, 23, 23, 0.1);
+  --glass-bg: rgba(42, 42, 42, 0.1);
   --glass-bg-hover: rgba(255, 255, 255, 0.08);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-border-hover: rgba(255, 255, 255, 0.15);
