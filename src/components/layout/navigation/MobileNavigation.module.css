@@ -52,6 +52,16 @@
   animation: slideInFromTop 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Mobile-only header height restriction */
+@media (max-width: 768px) {
+  .mobileNav.horizontal .navHeader,
+  .mobileNav.vertical .navHeader {
+    height: 3rem;
+    max-height: 3rem;
+    min-height: 3rem;
+  }
+}
+
 /* Vertical Mode - Slide from right, 85% width and full height */
 .mobileNav.vertical {
   top: 0;
@@ -69,11 +79,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 var(--spacing-4, 1rem);
+  padding: var(--spacing-4, 1rem);
   border-bottom: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
-  height: 3rem;
-  max-height: 3rem;
-  min-height: 3rem;
   flex-shrink: 0;
 }
 
@@ -83,12 +90,18 @@
 }
 
 .logoText {
-  font-size: 1rem;
+  font-size: var(--font-size-lg, 1.125rem);
   font-weight: 700;
   color: var(--color-primary, #baffe9);
   letter-spacing: var(--letter-spacing-wide, 0.025em);
   transition: all 0.3s ease;
-  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .logoText {
+    font-size: 1rem;
+    line-height: 1;
+  }
 }
 
 .logoText:hover {
@@ -100,8 +113,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  width: 40px;
+  height: 40px;
   background: var(--glass-bg, rgba(255, 255, 255, 0.05));
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -112,6 +125,20 @@
   transition: all 0.3s ease;
   padding: 0;
   flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .closeButton {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .closeButton {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
 }
 
 .closeButton:hover {
