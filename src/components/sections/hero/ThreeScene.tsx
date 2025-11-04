@@ -24,6 +24,25 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
   const normalAnimationBlend = useRef<number>(1);
   const { gl, camera } = useThree();
 
+  // Detect prefers-reduced-motion media query
+  const [reducedMotion, setReducedMotion] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setReducedMotion(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
   // Create material when atlas is available
   const tileMaterial = useMemo(() => {
     if (!atlas) return null;
@@ -163,7 +182,8 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
         tilesRef.current,
         spherePositions,
         rotations,
-        sphereRadius
+        sphereRadius,
+        reducedMotion
       );
 
       // Subtask 10.5: Initialize interaction handler
@@ -194,6 +214,7 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
     spherePositions,
     rotations,
     sphereRadius,
+    reducedMotion,
   ]);
 
   // Update material theme color when theme changes

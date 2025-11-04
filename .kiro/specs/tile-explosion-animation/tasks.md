@@ -125,7 +125,7 @@
   - Minimize calls to setMatrixAt() by batching updates
   - _Requirements: 6.3, 6.4_
 
-- [ ] 11. Implement reduced motion support
+- [x] 11. Implement reduced motion support
   - Detect prefers-reduced-motion media query in ThreeScene
   - Pass reducedMotion flag to AnimationController
   - Adjust animation durations in ExplosionConfig when reduced motion is enabled

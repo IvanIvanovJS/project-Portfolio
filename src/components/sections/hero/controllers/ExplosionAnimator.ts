@@ -58,28 +58,44 @@ export class ExplosionAnimator {
    * @param originalPositions Array of original tile positions
    * @param originalRotations Array of original tile rotations
    * @param originalRadius Radius of the sphere
+   * @param reducedMotion Whether to use reduced motion settings
    */
   constructor(
     tileCount: number,
     originalPositions: THREE.Vector3[],
     originalRotations: THREE.Quaternion[],
-    originalRadius: number
+    originalRadius: number,
+    reducedMotion: boolean = false
   ) {
     this.phase = ExplosionPhase.IDLE;
     this.phaseProgress = 0;
     this.originalRadius = originalRadius;
 
-    // Default configuration
-    this.config = {
-      contractionDuration: 1.6,
-      explosionDuration: 2,
-      returnDuration: 3.2,
-      contractionScale: 0.75,
-      minExplosionVelocity: 15,
-      maxExplosionVelocity: 25,
-      minRotationSpeed: 2,
-      maxRotationSpeed: 5,
-    };
+    // Adjust animation durations based on reduced motion preference
+    if (reducedMotion) {
+      this.config = {
+        contractionDuration: 0.2,
+        explosionDuration: 0.2,
+        returnDuration: 0.3,
+        contractionScale: 0.75,
+        minExplosionVelocity: 15,
+        maxExplosionVelocity: 25,
+        minRotationSpeed: 2,
+        maxRotationSpeed: 5,
+      };
+    } else {
+      // Default configuration
+      this.config = {
+        contractionDuration: 1.6,
+        explosionDuration: 2,
+        returnDuration: 3.2,
+        contractionScale: 0.75,
+        minExplosionVelocity: 15,
+        maxExplosionVelocity: 25,
+        minRotationSpeed: 2,
+        maxRotationSpeed: 5,
+      };
+    }
 
     // Initialize temporary objects for reuse
     this.tempVec3 = new THREE.Vector3();

@@ -39,7 +39,8 @@ export class AnimationController {
     mesh: THREE.InstancedMesh,
     originalPositions: THREE.Vector3[],
     originalRotations: THREE.Quaternion[],
-    sphereRadius: number
+    sphereRadius: number,
+    reducedMotion: boolean = false
   ) {
     this.glowAttribute = glowAttribute;
     this.mesh = mesh;
@@ -51,12 +52,13 @@ export class AnimationController {
     this.tempScale = new THREE.Vector3();
     this.tempRotationQuat = new THREE.Quaternion();
 
-    // Initialize ExplosionAnimator with tile data
+    // Initialize ExplosionAnimator with tile data and reduced motion flag
     this.explosionAnimator = new ExplosionAnimator(
       tileCount,
       originalPositions,
       originalRotations,
-      sphereRadius
+      sphereRadius,
+      reducedMotion
     );
 
     // Initialize state for each tile
