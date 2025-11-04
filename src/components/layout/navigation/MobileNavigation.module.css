@@ -69,9 +69,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--spacing-5, 1.25rem) var(--spacing-4, 1rem);
+  padding: 0 var(--spacing-4, 1rem);
   border-bottom: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
-  min-height: 70px;
+  height: 3rem;
+  max-height: 3rem;
+  min-height: 3rem;
+  flex-shrink: 0;
 }
 
 .logo {
@@ -80,11 +83,12 @@
 }
 
 .logoText {
-  font-size: var(--font-size-lg, 1.125rem);
+  font-size: 1rem;
   font-weight: 700;
   color: var(--color-primary, #baffe9);
   letter-spacing: var(--letter-spacing-wide, 0.025em);
   transition: all 0.3s ease;
+  line-height: 1;
 }
 
 .logoText:hover {
@@ -96,8 +100,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 2rem;
+  height: 2rem;
   background: var(--glass-bg, rgba(255, 255, 255, 0.05));
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -107,6 +111,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   padding: 0;
+  flex-shrink: 0;
 }
 
 .closeButton:hover {
