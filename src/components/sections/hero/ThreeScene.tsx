@@ -348,11 +348,22 @@ function ErrorFallback() {
 
 export const ThreeScene: React.FC<ThreeSceneProps> = ({ theme, isVisible }) => {
   const [isMounted, setIsMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Only render on client side to avoid hydration errors
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMounted(true);
+
+    // Detect mobile device
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   // Check for WebGL support
@@ -402,8 +413,8 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({ theme, isVisible }) => {
     >
       <Canvas
         camera={{
-          position: [0, 0, 9],
-          fov: 50,
+          position: [0, 0, 8],
+          fov: isMobile ? 60 : 55,
         }}
         gl={{
           antialias: true,
