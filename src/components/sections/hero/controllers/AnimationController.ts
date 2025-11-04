@@ -26,6 +26,13 @@ export class AnimationController {
   private explosionAnimator: ExplosionAnimator;
   private isExplosionActive: boolean = false;
 
+  // Pre-allocated temporary objects for performance (reused to avoid allocations)
+  private tempMatrix: THREE.Matrix4;
+  private tempPosition: THREE.Vector3;
+  private tempQuaternion: THREE.Quaternion;
+  private tempScale: THREE.Vector3;
+  private tempRotationQuat: THREE.Quaternion;
+
   constructor(
     tileCount: number,
     glowAttribute: THREE.InstancedBufferAttribute,
@@ -36,6 +43,13 @@ export class AnimationController {
   ) {
     this.glowAttribute = glowAttribute;
     this.mesh = mesh;
+
+    // Pre-allocate temporary objects for reuse in update loops
+    this.tempMatrix = new THREE.Matrix4();
+    this.tempPosition = new THREE.Vector3();
+    this.tempQuaternion = new THREE.Quaternion();
+    this.tempScale = new THREE.Vector3();
+    this.tempRotationQuat = new THREE.Quaternion();
 
     // Initialize ExplosionAnimator with tile data
     this.explosionAnimator = new ExplosionAnimator(
@@ -66,11 +80,6 @@ export class AnimationController {
    * @param elapsedTime Total elapsed time in seconds
    */
   update(deltaTime: number, elapsedTime: number): void {
-    const matrix = new THREE.Matrix4();
-    const position = new THREE.Vector3();
-    const quaternion = new THREE.Quaternion();
-    const scale = new THREE.Vector3();
-
     // Check if explosion is active at start of update
     if (this.isExplosionActive) {
       // Update explosion animation
@@ -78,23 +87,31 @@ export class AnimationController {
 
       // Get glow intensity from explosionAnimator and update all tiles
       const explosionGlow = this.explosionAnimator.getGlowIntensity();
-      this.tileStates.forEach((state, index) => {
-        this.glowAttribute.setX(index, explosionGlow);
-      });
 
-      // Override tile positions and rotations during explosion
+      // Batch update all tiles in a single loop
       this.tileStates.forEach((state, index) => {
+        // Update glow attribute
+        this.glowAttribute.setX(index, explosionGlow);
+
         // Get positions and rotations from explosionAnimator
         const explosionPosition = this.explosionAnimator.getTilePosition(index);
         const explosionRotation = this.explosionAnimator.getTileRotation(index);
 
         // Update instance matrices with explosion positions and rotations
-        this.mesh.getMatrixAt(index, matrix);
-        matrix.decompose(position, quaternion, scale);
+        this.mesh.getMatrixAt(index, this.tempMatrix);
+        this.tempMatrix.decompose(
+          this.tempPosition,
+          this.tempQuaternion,
+          this.tempScale
+        );
 
         // Apply explosion position and rotation
-        matrix.compose(explosionPosition, explosionRotation, scale);
-        this.mesh.setMatrixAt(index, matrix);
+        this.tempMatrix.compose(
+          explosionPosition,
+          explosionRotation,
+          this.tempScale
+        );
+        this.mesh.setMatrixAt(index, this.tempMatrix);
       });
 
       // Check if explosion animation has completed
@@ -104,7 +121,7 @@ export class AnimationController {
         // Resume normal animations (glow pulsing, floating) will happen in next frame
       }
 
-      // Mark instanceMatrix as needsUpdate
+      // Mark instanceMatrix as needsUpdate once after all updates
       this.mesh.instanceMatrix.needsUpdate = true;
       this.glowAttribute.needsUpdate = true;
       return; // Skip normal animations when explosion is active
@@ -139,36 +156,51 @@ export class AnimationController {
         } else {
           // Calculate rotation quaternion for 360-degree Y-axis rotation
           const angle = state.rotationProgress * Math.PI * 2;
-          const rotationQuaternion = new THREE.Quaternion();
-          rotationQuaternion.setFromAxisAngle(state.rotationAxis, angle);
+          this.tempRotationQuat.setFromAxisAngle(state.rotationAxis, angle);
 
           // Get current instance matrix
-          this.mesh.getMatrixAt(index, matrix);
-          matrix.decompose(position, quaternion, scale);
+          this.mesh.getMatrixAt(index, this.tempMatrix);
+          this.tempMatrix.decompose(
+            this.tempPosition,
+            this.tempQuaternion,
+            this.tempScale
+          );
 
-          // Combine initial rotation with animation rotation
-          const finalQuaternion = state.initialQuaternion
-            .clone()
-            .multiply(rotationQuaternion);
+          // Combine initial rotation with animation rotation (reuse tempQuaternion)
+          this.tempQuaternion
+            .copy(state.initialQuaternion)
+            .multiply(this.tempRotationQuat);
 
           // Apply rotation and scale to tile's instance matrix
-          const scaledScale = scale.clone().multiplyScalar(state.currentScale);
-          matrix.compose(position, finalQuaternion, scaledScale);
-          this.mesh.setMatrixAt(index, matrix);
+          this.tempScale.multiplyScalar(state.currentScale);
+          this.tempMatrix.compose(
+            this.tempPosition,
+            this.tempQuaternion,
+            this.tempScale
+          );
+          this.mesh.setMatrixAt(index, this.tempMatrix);
         }
       } else {
         // Apply scale transformation for non-animating tiles (hover effect)
-        this.mesh.getMatrixAt(index, matrix);
-        matrix.decompose(position, quaternion, scale);
+        this.mesh.getMatrixAt(index, this.tempMatrix);
+        this.tempMatrix.decompose(
+          this.tempPosition,
+          this.tempQuaternion,
+          this.tempScale
+        );
 
         // Apply current scale to the tile
-        const scaledScale = scale.clone().multiplyScalar(state.currentScale);
-        matrix.compose(position, quaternion, scaledScale);
-        this.mesh.setMatrixAt(index, matrix);
+        this.tempScale.multiplyScalar(state.currentScale);
+        this.tempMatrix.compose(
+          this.tempPosition,
+          this.tempQuaternion,
+          this.tempScale
+        );
+        this.mesh.setMatrixAt(index, this.tempMatrix);
       }
     });
 
-    // Mark attributes as needing update
+    // Mark attributes as needing update once after all updates
     this.glowAttribute.needsUpdate = true;
     this.mesh.instanceMatrix.needsUpdate = true;
   }
@@ -186,15 +218,14 @@ export class AnimationController {
     state.targetGlow = 1.0; // Maximum intensity
     state.rotationProgress = 0;
 
-    // Store initial quaternion for rotation animation
-    const matrix = new THREE.Matrix4();
-    const position = new THREE.Vector3();
-    const quaternion = new THREE.Quaternion();
-    const scale = new THREE.Vector3();
-
-    this.mesh.getMatrixAt(tileIndex, matrix);
-    matrix.decompose(position, quaternion, scale);
-    state.initialQuaternion.copy(quaternion);
+    // Store initial quaternion for rotation animation (reuse temp objects)
+    this.mesh.getMatrixAt(tileIndex, this.tempMatrix);
+    this.tempMatrix.decompose(
+      this.tempPosition,
+      this.tempQuaternion,
+      this.tempScale
+    );
+    state.initialQuaternion.copy(this.tempQuaternion);
   }
 
   /**

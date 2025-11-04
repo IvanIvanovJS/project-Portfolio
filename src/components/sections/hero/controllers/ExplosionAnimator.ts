@@ -50,6 +50,7 @@ export class ExplosionAnimator {
 
   // Temporary objects for calculations (reused to avoid allocations)
   private tempVec3: THREE.Vector3;
+  private tempVec3_2: THREE.Vector3;
   private tempQuat: THREE.Quaternion;
 
   /**
@@ -83,6 +84,7 @@ export class ExplosionAnimator {
 
     // Initialize temporary objects for reuse
     this.tempVec3 = new THREE.Vector3();
+    this.tempVec3_2 = new THREE.Vector3();
     this.tempQuat = new THREE.Quaternion();
 
     // Initialize tile states
@@ -346,9 +348,10 @@ export class ExplosionAnimator {
     const easedProgress = this.easeOut(this.phaseProgress);
 
     for (const state of this.tileStates) {
-      // Interpolate position back to original
+      // Interpolate position back to original using temp vector to avoid allocation
+      this.tempVec3.copy(state.currentPosition);
       state.currentPosition.lerpVectors(
-        state.currentPosition,
+        this.tempVec3,
         state.originalPosition,
         easedProgress
       );
