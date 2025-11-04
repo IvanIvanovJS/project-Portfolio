@@ -55,9 +55,9 @@
 /* Mobile Menu Button */
 .mobileMenuButton {
   display: none;
-  flex-direction: column;
-  justify-content: center;
+  position: relative;
   align-items: center;
+  justify-content: center;
   width: 40px;
   height: 40px;
   background: var(--glass-bg, rgba(255, 255, 255, 0.05));
@@ -65,6 +65,7 @@
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
   border-radius: 8px;
+  color: var(--fg-primary, rgba(255, 255, 255, 0.8));
   cursor: pointer;
   transition: all 0.3s ease;
   padding: 0;
@@ -73,28 +74,47 @@
 
 .mobileMenuButton:hover {
   background: var(--glass-highlight, rgba(255, 255, 255, 0.1));
+  color: var(--color-primary, #baffe9);
   transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
-.hamburgerLine {
-  width: 20px;
-  height: 2px;
-  background: var(--fg-primary, rgba(255, 255, 255, 0.8));
-  margin: 2px 0;
-  transition: all 0.3s ease;
-  border-radius: 1px;
+.mobileMenuButton:focus {
+  outline: 2px solid var(--color-primary, #baffe9);
+  outline-offset: 2px;
 }
 
-.mobileMenuButton.open .hamburgerLine:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
+.mobileMenuButton.open {
+  background: var(--glass-highlight, rgba(255, 255, 255, 0.1));
+  color: var(--color-primary, #baffe9);
+  box-shadow: 0 0 20px rgba(186, 255, 233, 0.3);
 }
 
-.mobileMenuButton.open .hamburgerLine:nth-child(2) {
+/* Icon animations */
+.menuIcon,
+.closeIcon {
+  position: absolute;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menuIcon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.closeIcon {
   opacity: 0;
+  transform: rotate(90deg) scale(0.8);
 }
 
-.mobileMenuButton.open .hamburgerLine:nth-child(3) {
-  transform: rotate(-45deg) translate(7px, -6px);
+.mobileMenuButton.open .menuIcon {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.8);
+}
+
+.mobileMenuButton.open .closeIcon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
 }
 
 /* Mobile Overlay */

@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Menu } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import styles from './MobileHeader.module.css';
 
 interface MobileHeaderProps {
@@ -25,7 +25,8 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
           onClick={onMobileMenuToggle}
           aria-label="Toggle mobile menu"
         >
-          <Menu size={20} />
+          <Menu size={20} className={styles.menuIcon} />
+          <X size={20} className={styles.closeIcon} />
         </button>
       </div>
     </header>

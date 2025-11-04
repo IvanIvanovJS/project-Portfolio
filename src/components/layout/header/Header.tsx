@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import { Menu, X } from 'lucide-react';
 import { Navigation } from '../navigation/Navigation';
 import { UnifiedSwitcher } from '../../ui/unified-switcher/UnifiedSwitcher';
 import { useScrollSpy } from '../../../hooks/useScrollSpy';
@@ -115,9 +116,8 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={toggleMobileMenu}
             aria-label="Toggle mobile menu"
           >
-            <span className={styles.hamburgerLine}></span>
-            <span className={styles.hamburgerLine}></span>
-            <span className={styles.hamburgerLine}></span>
+            <Menu size={20} className={styles.menuIcon} />
+            <X size={20} className={styles.closeIcon} />
           </button>
         </div>
       </div>
