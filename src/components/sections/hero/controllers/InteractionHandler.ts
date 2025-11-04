@@ -56,6 +56,18 @@ export class InteractionHandler {
    * Update hover state using raycasting
    */
   private updateHover(): void {
+    // Skip raycasting if explosion is active
+    if (this.animationController.isExplosionAnimationActive()) {
+      // Clear any existing hover state
+      if (this.hoveredTileIndex !== null) {
+        this.animationController.setHoverGlow(this.hoveredTileIndex, false);
+        this.hoveredTileIndex = null;
+      }
+      // Maintain cursor as default during explosion
+      this.canvas.style.cursor = 'default';
+      return;
+    }
+
     // Set raycaster from camera and mouse position
     this.raycaster.setFromCamera(this.mouse, this.camera);
 
@@ -92,13 +104,11 @@ export class InteractionHandler {
   }
 
   /**
-   * Handle click events to trigger tile animations
+   * Handle click events to trigger explosion animation
    */
   private onClick = (): void => {
-    // Only trigger animation if a tile is currently hovered
-    if (this.hoveredTileIndex !== null) {
-      this.animationController.triggerClickAnimation(this.hoveredTileIndex);
-    }
+    // Trigger explosion animation (no need to check hover state)
+    this.animationController.triggerExplosion();
   };
 
   /**
@@ -118,11 +128,9 @@ export class InteractionHandler {
       this.raycaster.setFromCamera(this.mouse, this.camera);
       const intersects = this.raycaster.intersectObject(this.mesh);
 
-      // Trigger click animation for touched tile
+      // Trigger explosion animation for touched tile
       if (intersects.length > 0 && intersects[0].instanceId !== undefined) {
-        this.animationController.triggerClickAnimation(
-          intersects[0].instanceId
-        );
+        this.animationController.triggerExplosion();
       }
     }
   };

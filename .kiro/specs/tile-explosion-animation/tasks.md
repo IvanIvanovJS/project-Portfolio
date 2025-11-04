@@ -85,25 +85,25 @@
   - Resume normal animations (glow pulsing, floating)
   - _Requirements: 1.3, 5.6_
 
-- [ ] 5. Add triggerExplosion() method to AnimationController
+- [x] 5. Add triggerExplosion() method to AnimationController
   - Create public triggerExplosion() method
   - Check if explosion is already active, return early if true
   - Set isExplosionActive flag to true
   - Call explosionAnimator.startExplosion()
   - _Requirements: 1.1, 1.2_
 
-- [ ] 6. Extend InteractionHandler to trigger explosions
+- [x] 6. Extend InteractionHandler to trigger explosions
   - Update onClick() method to call animationController.triggerExplosion() instead of triggerClickAnimation()
   - Keep existing raycasting and hover detection logic
   - _Requirements: 1.1_
 
-- [ ] 7. Update InteractionHandler hover behavior during explosion
+- [x] 7. Update InteractionHandler hover behavior during explosion
   - Add check in setHoverGlow() to skip hover effects if explosion is active
   - Add check in updateHover() to skip raycasting if explosion is active
   - Maintain cursor as default during explosion
   - _Requirements: 7.4_
 
-- [ ] 8. Enhance hover effects for better click affordance
+- [x] 8. Enhance hover effects for better click affordance
   - Update setHoverGlow() to set glow intensity to 0.3 (increased from 0.6)
   - Add scale transformation in AnimationController for hovered tiles
   - Store hover scale state in TileAnimationState

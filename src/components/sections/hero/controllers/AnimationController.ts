@@ -11,6 +11,8 @@ interface TileAnimationState {
   rotationProgress: number;
   rotationAxis: THREE.Vector3;
   initialQuaternion: THREE.Quaternion;
+  targetScale: number;
+  currentScale: number;
 }
 
 /**
@@ -52,6 +54,8 @@ export class AnimationController {
         rotationProgress: 0,
         rotationAxis: new THREE.Vector3(0, 1, 0),
         initialQuaternion: new THREE.Quaternion(),
+        targetScale: 1.0,
+        currentScale: 1.0,
       });
     }
   }
@@ -119,6 +123,9 @@ export class AnimationController {
       state.currentGlow += (state.targetGlow - state.currentGlow) * 0.1;
       this.glowAttribute.setX(index, state.currentGlow);
 
+      // Smooth scale transition using interpolation
+      state.currentScale += (state.targetScale - state.currentScale) * 0.1;
+
       // Click animation (rotation)
       if (state.isAnimating) {
         // Update rotation progress (0 to 1 over 1.5 seconds)
@@ -144,10 +151,20 @@ export class AnimationController {
             .clone()
             .multiply(rotationQuaternion);
 
-          // Apply rotation to tile's instance matrix
-          matrix.compose(position, finalQuaternion, scale);
+          // Apply rotation and scale to tile's instance matrix
+          const scaledScale = scale.clone().multiplyScalar(state.currentScale);
+          matrix.compose(position, finalQuaternion, scaledScale);
           this.mesh.setMatrixAt(index, matrix);
         }
+      } else {
+        // Apply scale transformation for non-animating tiles (hover effect)
+        this.mesh.getMatrixAt(index, matrix);
+        matrix.decompose(position, quaternion, scale);
+
+        // Apply current scale to the tile
+        const scaledScale = scale.clone().multiplyScalar(state.currentScale);
+        matrix.compose(position, quaternion, scaledScale);
+        this.mesh.setMatrixAt(index, matrix);
       }
     });
 
@@ -181,16 +198,26 @@ export class AnimationController {
   }
 
   /**
-   * Set hover glow for a specific tile
+   * Set hover glow and scale for a specific tile
    * @param tileIndex Index of the tile
    * @param isHovering Whether the tile is being hovered
    */
   setHoverGlow(tileIndex: number, isHovering: boolean): void {
+    // Skip hover effects if explosion is active
+    if (this.isExplosionActive) return;
+
     const state = this.tileStates.get(tileIndex);
     if (!state || state.isAnimating) return;
 
-    // Set target glow: 0.6 when hovering, 0.3 when not
-    state.targetGlow = isHovering ? 0.6 : 0.3;
+    if (isHovering) {
+      // Set target glow to 0.3 and scale to 1.1 when hovering
+      state.targetGlow = 0.3;
+      state.targetScale = 1.1;
+    } else {
+      // When not hovering, return scale to 1.0
+      // Don't set targetGlow - let the pulsing animation handle it
+      state.targetScale = 1.0;
+    }
   }
 
   /**
@@ -205,5 +232,13 @@ export class AnimationController {
 
     // Call explosionAnimator.startExplosion()
     this.explosionAnimator.startExplosion();
+  }
+
+  /**
+   * Check if explosion animation is currently active
+   * @returns true if explosion is active, false otherwise
+   */
+  isExplosionAnimationActive(): boolean {
+    return this.isExplosionActive;
   }
 }
