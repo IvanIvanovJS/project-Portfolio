@@ -204,15 +204,12 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
     }
   }, [theme, atlas]);
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     if (!tilesRef.current || !groupRef.current) return;
 
     // Subtask 10.6: Update animation controller
     if (animationControllerRef.current) {
-      animationControllerRef.current.update(
-        state.clock.getDelta(),
-        state.clock.elapsedTime
-      );
+      animationControllerRef.current.update(delta, state.clock.elapsedTime);
     }
 
     // Update material uniforms (uTime, uThemeColor) each frame
@@ -223,48 +220,54 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
       }
     }
 
-    // Smooth animation progress
-    animationProgress.current +=
-      (targetProgress.current - animationProgress.current) * 0.02;
+    // Skip normal sphere animation if explosion is active
+    const isExplosionActive =
+      animationControllerRef.current?.isExplosionAnimationActive() || false;
 
-    // Update each tile position and rotation
-    const tempMatrix = new THREE.Matrix4();
-    const tempPosition = new THREE.Vector3();
-    const tempQuaternion = new THREE.Quaternion();
-    const tempScale = new THREE.Vector3(1, 1, 1);
+    if (!isExplosionActive) {
+      // Smooth animation progress
+      animationProgress.current +=
+        (targetProgress.current - animationProgress.current) * 0.02;
 
-    for (let i = 0; i < tileCount; i++) {
-      // Lerp between cube and sphere positions
-      tempPosition.lerpVectors(
-        cubePositions[i],
-        spherePositions[i],
-        animationProgress.current
-      );
+      // Update each tile position and rotation
+      const tempMatrix = new THREE.Matrix4();
+      const tempPosition = new THREE.Vector3();
+      const tempQuaternion = new THREE.Quaternion();
+      const tempScale = new THREE.Vector3(1, 1, 1);
 
-      // Add some floating animation
-      const floatOffset =
-        Math.sin(state.clock.elapsedTime * 0.5 + i * 0.1) * 0.05;
-      tempPosition.y += floatOffset;
+      for (let i = 0; i < tileCount; i++) {
+        // Lerp between cube and sphere positions
+        tempPosition.lerpVectors(
+          cubePositions[i],
+          spherePositions[i],
+          animationProgress.current
+        );
 
-      // Set rotation
-      tempQuaternion.copy(rotations[i]);
+        // Add some floating animation
+        const floatOffset =
+          Math.sin(state.clock.elapsedTime * 0.5 + i * 0.1) * 0.05;
+        tempPosition.y += floatOffset;
 
-      // Add gentle rotation
-      const rotationOffset = new THREE.Quaternion();
-      rotationOffset.setFromEuler(
-        new THREE.Euler(
-          Math.sin(state.clock.elapsedTime * 0.3 + i * 0.05) * 0.1,
-          Math.sin(state.clock.elapsedTime * 0.2 + i * 0.07) * 0.1,
-          0
-        )
-      );
-      tempQuaternion.multiply(rotationOffset);
+        // Set rotation
+        tempQuaternion.copy(rotations[i]);
 
-      tempMatrix.compose(tempPosition, tempQuaternion, tempScale);
-      tilesRef.current.setMatrixAt(i, tempMatrix);
+        // Add gentle rotation
+        const rotationOffset = new THREE.Quaternion();
+        rotationOffset.setFromEuler(
+          new THREE.Euler(
+            Math.sin(state.clock.elapsedTime * 0.3 + i * 0.05) * 0.1,
+            Math.sin(state.clock.elapsedTime * 0.2 + i * 0.07) * 0.1,
+            0
+          )
+        );
+        tempQuaternion.multiply(rotationOffset);
+
+        tempMatrix.compose(tempPosition, tempQuaternion, tempScale);
+        tilesRef.current.setMatrixAt(i, tempMatrix);
+      }
+
+      tilesRef.current.instanceMatrix.needsUpdate = true;
     }
-
-    tilesRef.current.instanceMatrix.needsUpdate = true;
 
     // Rotate entire group slowly
     groupRef.current.rotation.y = state.clock.elapsedTime * 0.1;
