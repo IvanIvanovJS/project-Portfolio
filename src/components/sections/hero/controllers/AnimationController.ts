@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { ExplosionAnimator } from './ExplosionAnimator';
 
 /**
  * Interface defining the animation state for each tile
@@ -14,20 +15,33 @@ interface TileAnimationState {
 
 /**
  * AnimationController manages tile animations including glow pulsing,
- * click-triggered rotations, and hover effects
+ * click-triggered rotations, hover effects, and explosion animations
  */
 export class AnimationController {
   private tileStates: Map<number, TileAnimationState> = new Map();
   private glowAttribute: THREE.InstancedBufferAttribute;
   private mesh: THREE.InstancedMesh;
+  private explosionAnimator: ExplosionAnimator;
+  private isExplosionActive: boolean = false;
 
   constructor(
     tileCount: number,
     glowAttribute: THREE.InstancedBufferAttribute,
-    mesh: THREE.InstancedMesh
+    mesh: THREE.InstancedMesh,
+    originalPositions: THREE.Vector3[],
+    originalRotations: THREE.Quaternion[],
+    sphereRadius: number
   ) {
     this.glowAttribute = glowAttribute;
     this.mesh = mesh;
+
+    // Initialize ExplosionAnimator with tile data
+    this.explosionAnimator = new ExplosionAnimator(
+      tileCount,
+      originalPositions,
+      originalRotations,
+      sphereRadius
+    );
 
     // Initialize state for each tile
     for (let i = 0; i < tileCount; i++) {

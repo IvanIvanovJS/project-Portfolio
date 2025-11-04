@@ -12,36 +12,36 @@
   - Implement randomInRange() helper for velocity and rotation speed randomization
   - _Requirements: 1.1, 1.3, 2.1, 2.2, 2.3, 2.4, 4.1, 4.2, 4.3, 4.4, 4.5, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6_
 
-- [ ] 2. Implement ExplosionAnimator animation phases
-- [ ] 2.1 Implement startExplosion() method
+- [x] 2. Implement ExplosionAnimator animation phases
+- [x] 2.1 Implement startExplosion() method
   - Set phase to CONTRACTING
   - Reset phaseProgress to 0
   - Generate random explosion parameters for each tile (direction, velocity, rotation axis, rotation speed)
   - Store current positions as starting points
   - _Requirements: 1.1, 4.2, 4.3, 4.5_
 
-- [ ] 2.2 Implement contraction phase logic
+- [x] 2.2 Implement contraction phase logic
   - Calculate contracted radius based on progress (originalRadius _ (1.0 - progress _ 0.5))
   - Apply easeIn easing to progress
   - Update tile positions to maintain sphere shape at reduced radius
   - Transition to EXPLODING phase when progress reaches 1.0
   - _Requirements: 2.1, 2.2, 2.3, 2.4_
 
-- [ ] 2.3 Implement explosion phase logic
+- [x] 2.3 Implement explosion phase logic
   - Update each tile position by adding velocity _ direction _ deltaTime
   - Apply random rotation to each tile using rotation axis and speed
   - Maintain linear motion (no easing)
   - Transition to RETURNING phase when progress reaches 1.0
   - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5_
 
-- [ ] 2.4 Implement return phase logic
+- [x] 2.4 Implement return phase logic
   - Interpolate tile positions from current to original using lerp with easeOut
   - Interpolate tile rotations from current to original using slerp
   - Apply easeOut easing to progress
   - Transition to IDLE phase when progress reaches 1.0
   - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6_
 
-- [ ] 2.5 Implement update() method
+- [x] 2.5 Implement update() method
   - Accept deltaTime parameter for frame-independent animation
   - Update phaseProgress based on current phase duration
   - Call appropriate phase update logic based on currentPhase
@@ -49,7 +49,7 @@
   - Update tile positions and rotations in tile states array
   - _Requirements: 6.1, 6.2, 6.3, 6.4_
 
-- [ ] 2.6 Implement getter methods
+- [x] 2.6 Implement getter methods
   - Implement isAnimating() to return true if phase is not IDLE
   - Implement getCurrentPhase() to return current ExplosionPhase
   - Implement getTilePosition(index) to return current tile position
@@ -57,7 +57,7 @@
   - Implement getGlowIntensity() to calculate glow based on phase and progress
   - _Requirements: 1.2, 3.1, 3.2, 3.3, 3.4, 5.4_
 
-- [ ] 3. Extend AnimationController to integrate ExplosionAnimator
+- [x] 3. Extend AnimationController to integrate ExplosionAnimator
   - Add explosionAnimator property to AnimationController class
   - Add isExplosionActive flag to track explosion state
   - Update constructor to accept original positions, rotations, and sphere radius parameters
