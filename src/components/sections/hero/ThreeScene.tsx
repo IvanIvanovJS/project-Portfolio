@@ -42,7 +42,7 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
     const tileSize = 0.45; // Increased from 0.3 to 0.45 (50% larger)
     const gap = 0.05;
     const cubeSize = (gridSize * (tileSize + gap)) / 2;
-    const sphereRadius = 2.8;
+    const sphereRadius = 2.9;
 
     // Generate tiles for all 6 faces of the cube
     const faces = [
