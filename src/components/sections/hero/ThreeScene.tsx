@@ -20,6 +20,8 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
   const [atlas, setAtlas] = useState<LoadedAtlas | null>(null);
   const animationControllerRef = useRef<AnimationController | null>(null);
   const interactionHandlerRef = useRef<InteractionHandler | null>(null);
+  const wasExplosionActive = useRef<boolean>(false);
+  const normalAnimationBlend = useRef<number>(1);
   const { gl, camera } = useThree();
 
   // Create material when atlas is available
@@ -224,7 +226,20 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
     const isExplosionActive =
       animationControllerRef.current?.isExplosionAnimationActive() || false;
 
+    // Detect when explosion just finished
+    if (wasExplosionActive.current && !isExplosionActive) {
+      // Explosion just finished, reset blend to 0 for smooth fade-in
+      normalAnimationBlend.current = 0;
+    }
+    wasExplosionActive.current = isExplosionActive;
+
     if (!isExplosionActive) {
+      // Smoothly blend normal animation back in after explosion
+      normalAnimationBlend.current = Math.min(
+        1,
+        normalAnimationBlend.current + delta * 1
+      );
+
       // Smooth animation progress
       animationProgress.current +=
         (targetProgress.current - animationProgress.current) * 0.02;
@@ -243,20 +258,26 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
           animationProgress.current
         );
 
-        // Add some floating animation
+        // Add some floating animation (blended)
         const floatOffset =
-          Math.sin(state.clock.elapsedTime * 0.5 + i * 0.1) * 0.05;
+          Math.sin(state.clock.elapsedTime * 0.5 + i * 0.1) *
+          0.05 *
+          normalAnimationBlend.current;
         tempPosition.y += floatOffset;
 
         // Set rotation
         tempQuaternion.copy(rotations[i]);
 
-        // Add gentle rotation
+        // Add gentle rotation (blended)
         const rotationOffset = new THREE.Quaternion();
         rotationOffset.setFromEuler(
           new THREE.Euler(
-            Math.sin(state.clock.elapsedTime * 0.3 + i * 0.05) * 0.1,
-            Math.sin(state.clock.elapsedTime * 0.2 + i * 0.07) * 0.1,
+            Math.sin(state.clock.elapsedTime * 0.3 + i * 0.05) *
+              0.1 *
+              normalAnimationBlend.current,
+            Math.sin(state.clock.elapsedTime * 0.2 + i * 0.07) *
+              0.1 *
+              normalAnimationBlend.current,
             0
           )
         );

@@ -140,9 +140,6 @@ export class AnimationController {
       state.currentGlow += (state.targetGlow - state.currentGlow) * 0.1;
       this.glowAttribute.setX(index, state.currentGlow);
 
-      // Smooth scale transition using interpolation
-      state.currentScale += (state.targetScale - state.currentScale) * 0.1;
-
       // Click animation (rotation)
       if (state.isAnimating) {
         // Update rotation progress (0 to 1 over 1.5 seconds)
@@ -171,8 +168,7 @@ export class AnimationController {
             .copy(state.initialQuaternion)
             .multiply(this.tempRotationQuat);
 
-          // Apply rotation and scale to tile's instance matrix
-          this.tempScale.multiplyScalar(state.currentScale);
+          // Apply rotation without scale changes
           this.tempMatrix.compose(
             this.tempPosition,
             this.tempQuaternion,
@@ -180,23 +176,6 @@ export class AnimationController {
           );
           this.mesh.setMatrixAt(index, this.tempMatrix);
         }
-      } else {
-        // Apply scale transformation for non-animating tiles (hover effect)
-        this.mesh.getMatrixAt(index, this.tempMatrix);
-        this.tempMatrix.decompose(
-          this.tempPosition,
-          this.tempQuaternion,
-          this.tempScale
-        );
-
-        // Apply current scale to the tile
-        this.tempScale.multiplyScalar(state.currentScale);
-        this.tempMatrix.compose(
-          this.tempPosition,
-          this.tempQuaternion,
-          this.tempScale
-        );
-        this.mesh.setMatrixAt(index, this.tempMatrix);
       }
     });
 
@@ -229,7 +208,7 @@ export class AnimationController {
   }
 
   /**
-   * Set hover glow and scale for a specific tile
+   * Set hover glow for a specific tile
    * @param tileIndex Index of the tile
    * @param isHovering Whether the tile is being hovered
    */
@@ -241,14 +220,10 @@ export class AnimationController {
     if (!state || state.isAnimating) return;
 
     if (isHovering) {
-      // Set target glow to 0.3 and scale to 1.1 when hovering
+      // Set target glow when hovering
       state.targetGlow = 0.3;
-      state.targetScale = 1.1;
-    } else {
-      // When not hovering, return scale to 1.0
-      // Don't set targetGlow - let the pulsing animation handle it
-      state.targetScale = 1.0;
     }
+    // Don't change targetGlow when not hovering - let the pulsing animation handle it
   }
 
   /**

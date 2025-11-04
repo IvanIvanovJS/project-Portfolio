@@ -71,12 +71,12 @@ export class ExplosionAnimator {
 
     // Default configuration
     this.config = {
-      contractionDuration: 1.5,
+      contractionDuration: 1.6,
       explosionDuration: 2,
       returnDuration: 3.2,
-      contractionScale: 0.7,
-      minExplosionVelocity: 10,
-      maxExplosionVelocity: 18,
+      contractionScale: 0.75,
+      minExplosionVelocity: 15,
+      maxExplosionVelocity: 25,
       minRotationSpeed: 2,
       maxRotationSpeed: 5,
     };
