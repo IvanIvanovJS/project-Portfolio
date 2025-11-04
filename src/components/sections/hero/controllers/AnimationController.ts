@@ -67,6 +67,46 @@ export class AnimationController {
     const quaternion = new THREE.Quaternion();
     const scale = new THREE.Vector3();
 
+    // Check if explosion is active at start of update
+    if (this.isExplosionActive) {
+      // Update explosion animation
+      this.explosionAnimator.update(deltaTime);
+
+      // Get glow intensity from explosionAnimator and update all tiles
+      const explosionGlow = this.explosionAnimator.getGlowIntensity();
+      this.tileStates.forEach((state, index) => {
+        this.glowAttribute.setX(index, explosionGlow);
+      });
+
+      // Override tile positions and rotations during explosion
+      this.tileStates.forEach((state, index) => {
+        // Get positions and rotations from explosionAnimator
+        const explosionPosition = this.explosionAnimator.getTilePosition(index);
+        const explosionRotation = this.explosionAnimator.getTileRotation(index);
+
+        // Update instance matrices with explosion positions and rotations
+        this.mesh.getMatrixAt(index, matrix);
+        matrix.decompose(position, quaternion, scale);
+
+        // Apply explosion position and rotation
+        matrix.compose(explosionPosition, explosionRotation, scale);
+        this.mesh.setMatrixAt(index, matrix);
+      });
+
+      // Check if explosion animation has completed
+      if (!this.explosionAnimator.isAnimating()) {
+        // Reset isExplosionActive flag
+        this.isExplosionActive = false;
+        // Resume normal animations (glow pulsing, floating) will happen in next frame
+      }
+
+      // Mark instanceMatrix as needsUpdate
+      this.mesh.instanceMatrix.needsUpdate = true;
+      this.glowAttribute.needsUpdate = true;
+      return; // Skip normal animations when explosion is active
+    }
+
+    // Normal animations (only when explosion is not active)
     this.tileStates.forEach((state, index) => {
       // Glow pulsing animation (when not animating from click)
       if (!state.isAnimating) {
@@ -151,5 +191,19 @@ export class AnimationController {
 
     // Set target glow: 0.6 when hovering, 0.3 when not
     state.targetGlow = isHovering ? 0.6 : 0.3;
+  }
+
+  /**
+   * Trigger explosion animation for the entire sphere
+   */
+  triggerExplosion(): void {
+    // Check if explosion is already active, return early if true
+    if (this.isExplosionActive) return;
+
+    // Set isExplosionActive flag to true
+    this.isExplosionActive = true;
+
+    // Call explosionAnimator.startExplosion()
+    this.explosionAnimator.startExplosion();
   }
 }

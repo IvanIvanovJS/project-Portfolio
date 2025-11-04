@@ -64,22 +64,22 @@
   - Initialize ExplosionAnimator in constructor with tile data
   - _Requirements: 1.1, 1.2_
 
-- [ ] 4. Update AnimationController.update() method
-- [ ] 4.1 Add explosion animation handling
+- [x] 4. Update AnimationController.update() method
+- [x] 4.1 Add explosion animation handling
   - Check if explosion is active at start of update()
   - If active, call explosionAnimator.update(deltaTime)
   - Get glow intensity from explosionAnimator and update all tiles
   - Skip normal glow pulsing animation when explosion is active
   - _Requirements: 1.3, 3.1, 3.2, 3.3, 3.4, 5.4, 6.1, 6.2_
 
-- [ ] 4.2 Override tile positions during explosion
+- [x] 4.2 Override tile positions during explosion
   - When explosion is active, get positions from explosionAnimator
   - Get rotations from explosionAnimator
   - Update instance matrices with explosion positions and rotations
   - Mark instanceMatrix as needsUpdate
   - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 5.1, 5.2, 5.3, 5.5_
 
-- [ ] 4.3 Handle explosion completion
+- [x] 4.3 Handle explosion completion
   - Check if explosionAnimator.isAnimating() returns false
   - Reset isExplosionActive flag
   - Resume normal animations (glow pulsing, floating)
