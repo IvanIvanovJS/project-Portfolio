@@ -33,88 +33,90 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
   }, [atlas, theme]);
 
   // Generate cube grid positions and sphere positions
-  const { cubePositions, spherePositions, rotations } = useMemo(() => {
-    const cubePos: THREE.Vector3[] = [];
-    const spherePos: THREE.Vector3[] = [];
-    const rots: THREE.Quaternion[] = [];
+  const { cubePositions, spherePositions, rotations, sphereRadius } =
+    useMemo(() => {
+      const cubePos: THREE.Vector3[] = [];
+      const spherePos: THREE.Vector3[] = [];
+      const rots: THREE.Quaternion[] = [];
 
-    const gridSize = 3; // 3x3 grid per face
-    const tileSize = 0.45; // Increased from 0.3 to 0.45 (50% larger)
-    const gap = 0.05;
-    const cubeSize = (gridSize * (tileSize + gap)) / 2;
-    const sphereRadius = 2.9;
+      const gridSize = 3; // 3x3 grid per face
+      const tileSize = 0.45; // Increased from 0.3 to 0.45 (50% larger)
+      const gap = 0.05;
+      const cubeSize = (gridSize * (tileSize + gap)) / 2;
+      const sphereRadius = 2.9;
 
-    // Generate tiles for all 6 faces of the cube
-    const faces = [
-      {
-        normal: new THREE.Vector3(0, 0, 1),
-        right: new THREE.Vector3(1, 0, 0),
-        up: new THREE.Vector3(0, 1, 0),
-      }, // Front
-      {
-        normal: new THREE.Vector3(0, 0, -1),
-        right: new THREE.Vector3(-1, 0, 0),
-        up: new THREE.Vector3(0, 1, 0),
-      }, // Back
-      {
-        normal: new THREE.Vector3(1, 0, 0),
-        right: new THREE.Vector3(0, 0, -1),
-        up: new THREE.Vector3(0, 1, 0),
-      }, // Right
-      {
-        normal: new THREE.Vector3(-1, 0, 0),
-        right: new THREE.Vector3(0, 0, 1),
-        up: new THREE.Vector3(0, 1, 0),
-      }, // Left
-      {
-        normal: new THREE.Vector3(0, 1, 0),
-        right: new THREE.Vector3(1, 0, 0),
-        up: new THREE.Vector3(0, 0, -1),
-      }, // Top
-      {
-        normal: new THREE.Vector3(0, -1, 0),
-        right: new THREE.Vector3(1, 0, 0),
-        up: new THREE.Vector3(0, 0, 1),
-      }, // Bottom
-    ];
+      // Generate tiles for all 6 faces of the cube
+      const faces = [
+        {
+          normal: new THREE.Vector3(0, 0, 1),
+          right: new THREE.Vector3(1, 0, 0),
+          up: new THREE.Vector3(0, 1, 0),
+        }, // Front
+        {
+          normal: new THREE.Vector3(0, 0, -1),
+          right: new THREE.Vector3(-1, 0, 0),
+          up: new THREE.Vector3(0, 1, 0),
+        }, // Back
+        {
+          normal: new THREE.Vector3(1, 0, 0),
+          right: new THREE.Vector3(0, 0, -1),
+          up: new THREE.Vector3(0, 1, 0),
+        }, // Right
+        {
+          normal: new THREE.Vector3(-1, 0, 0),
+          right: new THREE.Vector3(0, 0, 1),
+          up: new THREE.Vector3(0, 1, 0),
+        }, // Left
+        {
+          normal: new THREE.Vector3(0, 1, 0),
+          right: new THREE.Vector3(1, 0, 0),
+          up: new THREE.Vector3(0, 0, -1),
+        }, // Top
+        {
+          normal: new THREE.Vector3(0, -1, 0),
+          right: new THREE.Vector3(1, 0, 0),
+          up: new THREE.Vector3(0, 0, 1),
+        }, // Bottom
+      ];
 
-    faces.forEach((face) => {
-      for (let i = 0; i < gridSize; i++) {
-        for (let j = 0; j < gridSize; j++) {
-          // Cube position
-          const x = (i - (gridSize - 1) / 2) * (tileSize + gap);
-          const y = (j - (gridSize - 1) / 2) * (tileSize + gap);
+      faces.forEach((face) => {
+        for (let i = 0; i < gridSize; i++) {
+          for (let j = 0; j < gridSize; j++) {
+            // Cube position
+            const x = (i - (gridSize - 1) / 2) * (tileSize + gap);
+            const y = (j - (gridSize - 1) / 2) * (tileSize + gap);
 
-          const cubePosition = new THREE.Vector3()
-            .addScaledVector(face.right, x)
-            .addScaledVector(face.up, y)
-            .addScaledVector(face.normal, cubeSize);
+            const cubePosition = new THREE.Vector3()
+              .addScaledVector(face.right, x)
+              .addScaledVector(face.up, y)
+              .addScaledVector(face.normal, cubeSize);
 
-          cubePos.push(cubePosition);
+            cubePos.push(cubePosition);
 
-          // Sphere position (project cube position onto sphere)
-          const spherePosition = cubePosition
-            .clone()
-            .normalize()
-            .multiplyScalar(sphereRadius);
-          spherePos.push(spherePosition);
+            // Sphere position (project cube position onto sphere)
+            const spherePosition = cubePosition
+              .clone()
+              .normalize()
+              .multiplyScalar(sphereRadius);
+            spherePos.push(spherePosition);
 
-          // Rotation to face outward
-          const quaternion = new THREE.Quaternion();
-          const matrix = new THREE.Matrix4();
-          matrix.lookAt(spherePosition, new THREE.Vector3(0, 0, 0), face.up);
-          quaternion.setFromRotationMatrix(matrix);
-          rots.push(quaternion);
+            // Rotation to face outward
+            const quaternion = new THREE.Quaternion();
+            const matrix = new THREE.Matrix4();
+            matrix.lookAt(spherePosition, new THREE.Vector3(0, 0, 0), face.up);
+            quaternion.setFromRotationMatrix(matrix);
+            rots.push(quaternion);
+          }
         }
-      }
-    });
+      });
 
-    return {
-      cubePositions: cubePos,
-      spherePositions: spherePos,
-      rotations: rots,
-    };
-  }, []);
+      return {
+        cubePositions: cubePos,
+        spherePositions: spherePos,
+        rotations: rots,
+        sphereRadius: sphereRadius,
+      };
+    }, []);
 
   const tileCount = cubePositions.length;
 
@@ -156,7 +158,10 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
       animationControllerRef.current = new AnimationController(
         tileCount,
         glowAttribute,
-        tilesRef.current
+        tilesRef.current,
+        spherePositions,
+        rotations,
+        sphereRadius
       );
 
       // Subtask 10.5: Initialize interaction handler
@@ -178,7 +183,16 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
         interactionHandlerRef.current = null;
       }
     };
-  }, [atlas, theme, tileCount, gl.domElement, camera]);
+  }, [
+    atlas,
+    theme,
+    tileCount,
+    gl.domElement,
+    camera,
+    spherePositions,
+    rotations,
+    sphereRadius,
+  ]);
 
   // Update material theme color when theme changes
   useEffect(() => {
