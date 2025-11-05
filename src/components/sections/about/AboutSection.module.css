@@ -33,7 +33,7 @@
 .infoColumn {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md, 2rem);
+  gap: var(--spacing-xl, 2rem);
 }
 
 /* Personal Info Card - No glass effect */
@@ -63,7 +63,7 @@
 
 /* Experience Section - Minimal styling without glass effects */
 .experienceSection {
-  padding: 0;
+  padding: var(--spacing-lg, 2rem);
 }
 
 .experienceSection .sectionHeading {
@@ -149,14 +149,7 @@
   height: 24px;
   flex-shrink: 0;
   object-fit: contain;
-  filter: brightness(0) saturate(100%) invert(89%) sepia(13%) saturate(1043%)
-    hue-rotate(101deg) brightness(103%) contrast(30%);
   transition: filter 0.2s ease;
-}
-
-.skillIcon:hover {
-  filter: brightness(0) saturate(100%) invert(89%) sepia(13%) saturate(1043%)
-    hue-rotate(101deg) brightness(110%) contrast(98%);
 }
 
 .skillIconFallback {
@@ -302,7 +295,7 @@
   top: 100px;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md, 2rem);
+  gap: var(--spacing-xl, 2rem);
 }
 
 .carouselWrapper {
