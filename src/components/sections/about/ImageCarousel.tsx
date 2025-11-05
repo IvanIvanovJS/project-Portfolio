@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Pause, Play } from 'lucide-react';
 import Image from 'next/image';
 import styles from './ImageCarousel.module.css';
@@ -20,24 +19,25 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
-  const [direction, setDirection] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const touchStartX = useRef(0);
-  const touchEndX = useRef(0);
-  const dragStartX = useRef(0);
-  const isTouchInteraction = useRef(false);
-  const isTouchDevice = useRef(false);
 
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const currentIndexRef = useRef(0);
+  const startX = useRef(0);
+  const currentX = useRef(0);
+  const dragDistance = useRef(0);
+  const startTime = useRef(0);
+  const isTouchInteraction = useRef(false);
+
+  // Keep ref in sync with state
   useEffect(() => {
-    isTouchDevice.current =
-      'ontouchstart' in window || navigator.maxTouchPoints > 0;
-  }, []);
+    currentIndexRef.current = currentIndex;
+  }, [currentIndex]);
 
   const goToNext = useCallback(() => {
     if (isDragging || isTransitioning) return;
     setIsTransitioning(true);
-    setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % images.length);
     setTimeout(() => setIsTransitioning(false), 500);
   }, [images.length, isDragging, isTransitioning]);
@@ -45,17 +45,18 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
   const goToPrevious = useCallback(() => {
     if (isDragging || isTransitioning) return;
     setIsTransitioning(true);
-    setDirection(-1);
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
     setTimeout(() => setIsTransitioning(false), 500);
   }, [images.length, isDragging, isTransitioning]);
 
   const goToSlide = useCallback(
     (index: number) => {
-      setDirection(index > currentIndex ? 1 : -1);
+      if (isTransitioning) return;
+      setIsTransitioning(true);
       setCurrentIndex(index);
+      setTimeout(() => setIsTransitioning(false), 500);
     },
-    [currentIndex]
+    [isTransitioning]
   );
 
   const togglePlayPause = useCallback(() => {
@@ -70,51 +71,124 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
     return () => clearInterval(timer);
   }, [isPlaying, interval, goToNext, images.length]);
 
-  // Touch/swipe support
+  // Drag handlers
+  const handleDragStart = (clientX: number) => {
+    if (isTransitioning) return;
+
+    setIsDragging(true);
+    startX.current = clientX;
+    currentX.current = clientX;
+    startTime.current = Date.now();
+
+    // Disable CSS transition during drag
+    if (wrapperRef.current) {
+      wrapperRef.current.style.transition = 'none';
+    }
+  };
+
+  const handleDragMove = (clientX: number) => {
+    if (!isDragging) return;
+
+    currentX.current = clientX;
+    dragDistance.current = currentX.current - startX.current;
+
+    // Apply inline transform during drag (like helper.js)
+    if (wrapperRef.current) {
+      const slideWidth = wrapperRef.current.offsetWidth;
+      const baseTransform = -currentIndexRef.current * slideWidth;
+      const sensitivity = 1.0; // Same as helper.js
+      const dragOffset = dragDistance.current * sensitivity;
+      wrapperRef.current.style.transform = `translateX(${baseTransform + dragOffset}px)`;
+    }
+
+    // Prevent vertical scrolling during horizontal drag
+    if (Math.abs(dragDistance.current) > 10) {
+      // This would need event object, handled in touch/mouse handlers
+    }
+  };
+
+  const handleDragEnd = () => {
+    if (!isDragging) return;
+
+    setIsDragging(false);
+
+    const dragTime = Date.now() - startTime.current;
+    const velocity = Math.abs(dragDistance.current) / dragTime;
+    const threshold = 50;
+
+    // Determine if we should change slides
+    const shouldChangeSlide =
+      Math.abs(dragDistance.current) > threshold || velocity > 0.5;
+
+    if (wrapperRef.current) {
+      // Re-enable CSS transition
+      wrapperRef.current.style.transition =
+        'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+      // Clear inline transform
+      wrapperRef.current.style.transform = '';
+    }
+
+    if (shouldChangeSlide) {
+      setIsTransitioning(true);
+      if (dragDistance.current < 0) {
+        // Dragged left - go to next
+        setCurrentIndex((prev) => (prev + 1) % images.length);
+      } else {
+        // Dragged right - go to previous
+        setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+      }
+      setTimeout(() => setIsTransitioning(false), 400);
+    }
+
+    // Reset drag state
+    dragDistance.current = 0;
+  };
+
+  // Touch events
   const handleTouchStart = (e: React.TouchEvent) => {
-    if (isTransitioning || isDragging) return;
+    if (isTransitioning) return;
     e.stopPropagation();
     isTouchInteraction.current = true;
-    setIsDragging(true);
-    touchStartX.current = e.touches[0].clientX;
-    touchEndX.current = e.touches[0].clientX;
+    handleDragStart(e.touches[0].clientX);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging || isTransitioning) return;
+    if (!isDragging) return;
     e.stopPropagation();
-    touchEndX.current = e.touches[0].clientX;
+    handleDragMove(e.touches[0].clientX);
+
+    // Prevent vertical scrolling during horizontal drag
+    if (Math.abs(dragDistance.current) > 10) {
+      e.preventDefault();
+    }
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
-    if (!isDragging || isTransitioning) {
-      setIsDragging(false);
-      isTouchInteraction.current = false;
-      return;
-    }
-
     e.stopPropagation();
-    const swipeThreshold = 100; // Increased from 80 to 100
-    const diff = touchStartX.current - touchEndX.current;
+    handleDragEnd();
+    isTouchInteraction.current = false;
+  };
 
-    if (Math.abs(diff) > swipeThreshold) {
-      setIsTransitioning(true);
-      if (diff > 0) {
-        setDirection(1);
-        setCurrentIndex((prev) => (prev + 1) % images.length);
-      } else {
-        setDirection(-1);
-        setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-      }
-      setTimeout(() => {
-        setIsTransitioning(false);
-        setIsDragging(false);
-        isTouchInteraction.current = false;
-      }, 600);
-    } else {
-      setIsDragging(false);
-      isTouchInteraction.current = false;
-    }
+  // Mouse events
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (isTransitioning || isTouchInteraction.current) return;
+    e.preventDefault();
+    handleDragStart(e.clientX);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || isTouchInteraction.current) return;
+    handleDragMove(e.clientX);
+  };
+
+  const handleMouseUp = () => {
+    if (isTouchInteraction.current) return;
+    handleDragEnd();
+  };
+
+  const handleMouseLeave = () => {
+    if (isTouchInteraction.current) return;
+    handleDragEnd();
   };
 
   // Keyboard navigation
@@ -134,32 +208,6 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [goToNext, goToPrevious, togglePlayPause]);
 
-  // Get previous, current, and next indices for continuous carousel
-  const getPrevIndex = (index: number) =>
-    (index - 1 + images.length) % images.length;
-  const getNextIndex = (index: number) => (index + 1) % images.length;
-
-  const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? '100%' : '-100%',
-      opacity: 1,
-    }),
-    center: {
-      zIndex: 2,
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction: number) => ({
-      zIndex: 1,
-      x: direction < 0 ? '100%' : '-100%',
-      opacity: 1,
-    }),
-  };
-
-  const swipePower = (offset: number, velocity: number) => {
-    return Math.abs(offset) * velocity;
-  };
-
   if (images.length === 0) {
     return (
       <div className={styles.carousel}>
@@ -178,110 +226,35 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
       aria-label="Image carousel"
     >
       <div className={styles.imageContainer}>
-        <AnimatePresence initial={false} custom={direction}>
-          <motion.div
-            key={currentIndex}
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{
-              x: { type: 'tween', duration: 0.4, ease: 'easeInOut' },
-              opacity: { duration: 0.3 },
-            }}
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.7}
-            dragTransition={{ power: 0.2, timeConstant: 200 }}
-            onDragStart={(e) => {
-              if (isTransitioning || isDragging || isTouchInteraction.current)
-                return;
-              setIsDragging(true);
-              dragStartX.current = (e as MouseEvent).clientX || 0;
-            }}
-            onDragEnd={(_e, { offset, velocity }) => {
-              if (
-                !isDragging ||
-                isTransitioning ||
-                isTouchInteraction.current
-              ) {
-                setIsDragging(false);
-                return;
-              }
-
-              const swipe = swipePower(offset.x, velocity.x);
-              const dragThreshold = 8000;
-
-              if (swipe < -dragThreshold) {
-                setIsTransitioning(true);
-                setDirection(1);
-                setCurrentIndex((prev) => (prev + 1) % images.length);
-                setTimeout(() => {
-                  setIsTransitioning(false);
-                  setIsDragging(false);
-                }, 600);
-              } else if (swipe > dragThreshold) {
-                setIsTransitioning(true);
-                setDirection(-1);
-                setCurrentIndex(
-                  (prev) => (prev - 1 + images.length) % images.length
-                );
-                setTimeout(() => {
-                  setIsTransitioning(false);
-                  setIsDragging(false);
-                }, 600);
-              } else {
-                setIsDragging(false);
-              }
-            }}
-            className={styles.slidesWrapper}
-          >
-            {/* Previous Image */}
-            <div className={styles.slideItem} style={{ left: '-100%' }}>
+        <div
+          ref={wrapperRef}
+          className={styles.slidesWrapper}
+          data-position={currentIndex}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
+        >
+          {images.map((image, index) => (
+            <div key={index} className={styles.slideItem}>
               <Image
-                src={images[getPrevIndex(currentIndex)].src}
-                alt={images[getPrevIndex(currentIndex)].alt}
+                src={image.src}
+                alt={image.alt}
                 fill
                 className={styles.carouselImage}
                 style={{ objectFit: 'cover', objectPosition: 'center' }}
                 sizes="(max-width: 768px) 100vw, 50vw"
+                priority={index === 0}
+                draggable={false}
               />
-            </div>
-
-            {/* Current Image */}
-            <div className={styles.slideItem} style={{ left: '0%' }}>
-              <Image
-                src={images[currentIndex].src}
-                alt={images[currentIndex].alt}
-                fill
-                className={styles.carouselImage}
-                style={{ objectFit: 'cover', objectPosition: 'center' }}
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority={currentIndex === 0}
-              />
-              {images[currentIndex].caption && (
+              {image.caption && (
                 <div className={styles.captionOverlay}>
-                  <p className={styles.captionText}>
-                    {images[currentIndex].caption}
-                  </p>
+                  <p className={styles.captionText}>{image.caption}</p>
                 </div>
               )}
             </div>
-
-            {/* Next Image */}
-            <div className={styles.slideItem} style={{ left: '100%' }}>
-              <Image
-                src={images[getNextIndex(currentIndex)].src}
-                alt={images[getNextIndex(currentIndex)].alt}
-                fill
-                className={styles.carouselImage}
-                style={{ objectFit: 'cover', objectPosition: 'center' }}
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-            </div>
-          </motion.div>
-        </AnimatePresence>
+          ))}
+        </div>
       </div>
 
       {/* Image Counter */}
