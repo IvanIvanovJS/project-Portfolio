@@ -26,6 +26,13 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
   const dragStartX = useRef(0);
+  const isTouchInteraction = useRef(false);
+  const isTouchDevice = useRef(false);
+
+  useEffect(() => {
+    isTouchDevice.current =
+      'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  }, []);
 
   const goToNext = useCallback(() => {
     if (isDragging || isTransitioning) return;
@@ -65,24 +72,29 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
 
   // Touch/swipe support
   const handleTouchStart = (e: React.TouchEvent) => {
-    if (isTransitioning) return;
+    if (isTransitioning || isDragging) return;
+    e.stopPropagation();
+    isTouchInteraction.current = true;
     setIsDragging(true);
     touchStartX.current = e.touches[0].clientX;
     touchEndX.current = e.touches[0].clientX;
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging) return;
+    if (!isDragging || isTransitioning) return;
+    e.stopPropagation();
     touchEndX.current = e.touches[0].clientX;
   };
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = (e: React.TouchEvent) => {
     if (!isDragging || isTransitioning) {
       setIsDragging(false);
+      isTouchInteraction.current = false;
       return;
     }
 
-    const swipeThreshold = 80; // Increased from 50 to 80
+    e.stopPropagation();
+    const swipeThreshold = 100; // Increased from 80 to 100
     const diff = touchStartX.current - touchEndX.current;
 
     if (Math.abs(diff) > swipeThreshold) {
@@ -94,10 +106,15 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
         setDirection(-1);
         setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
       }
-      setTimeout(() => setIsTransitioning(false), 500);
+      setTimeout(() => {
+        setIsTransitioning(false);
+        setIsDragging(false);
+        isTouchInteraction.current = false;
+      }, 600);
+    } else {
+      setIsDragging(false);
+      isTouchInteraction.current = false;
     }
-
-    setIsDragging(false);
   };
 
   // Keyboard navigation
@@ -173,12 +190,17 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
             dragElastic={0.5}
             dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
             onDragStart={(e) => {
-              if (isTransitioning) return;
+              if (isTransitioning || isDragging || isTouchInteraction.current)
+                return;
               setIsDragging(true);
               dragStartX.current = (e as MouseEvent).clientX || 0;
             }}
             onDragEnd={(_e, { offset, velocity }) => {
-              if (!isDragging || isTransitioning) {
+              if (
+                !isDragging ||
+                isTransitioning ||
+                isTouchInteraction.current
+              ) {
                 setIsDragging(false);
                 return;
               }
@@ -190,17 +212,23 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
                 setIsTransitioning(true);
                 setDirection(1);
                 setCurrentIndex((prev) => (prev + 1) % images.length);
-                setTimeout(() => setIsTransitioning(false), 500);
+                setTimeout(() => {
+                  setIsTransitioning(false);
+                  setIsDragging(false);
+                }, 600);
               } else if (swipe > dragThreshold) {
                 setIsTransitioning(true);
                 setDirection(-1);
                 setCurrentIndex(
                   (prev) => (prev - 1 + images.length) % images.length
                 );
-                setTimeout(() => setIsTransitioning(false), 500);
+                setTimeout(() => {
+                  setIsTransitioning(false);
+                  setIsDragging(false);
+                }, 600);
+              } else {
+                setIsDragging(false);
               }
-
-              setIsDragging(false);
             }}
             className={styles.imageWrapper}
           >

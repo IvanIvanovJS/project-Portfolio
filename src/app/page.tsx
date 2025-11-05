@@ -1,9 +1,41 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { HeroSection } from '../components/sections/hero/HeroSection';
-import { ProjectsSection } from '../components/sections/projects/ProjectsSection';
-import { AboutSection } from '../components/sections/about/AboutSection';
-import { ContactSection } from '../components/sections/contact/ContactSection';
+
+// Lazy load sections that are below the fold
+const ProjectsSection = dynamic(
+  () =>
+    import('../components/sections/projects/ProjectsSection').then(
+      (mod) => mod.ProjectsSection
+    ),
+  {
+    loading: () => <div style={{ minHeight: '100vh' }} />,
+    ssr: true,
+  }
+);
+
+const AboutSection = dynamic(
+  () =>
+    import('../components/sections/about/AboutSection').then(
+      (mod) => mod.AboutSection
+    ),
+  {
+    loading: () => <div style={{ minHeight: '100vh' }} />,
+    ssr: true,
+  }
+);
+
+const ContactSection = dynamic(
+  () =>
+    import('../components/sections/contact/ContactSection').then(
+      (mod) => mod.ContactSection
+    ),
+  {
+    loading: () => <div style={{ minHeight: '100vh' }} />,
+    ssr: true,
+  }
+);
 
 export default function Home() {
   return (

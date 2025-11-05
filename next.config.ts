@@ -3,6 +3,7 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   images: {
     qualities: [75, 85],
+    formats: ['image/webp'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -10,14 +11,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // Optimize CSS loading
-  experimental: {
-    optimizeCss: true,
-  },
-  // Reduce preload warnings in development
   devIndicators: {
     position: 'bottom-right',
   },
+  reactStrictMode: true,
 };
 
 export default nextConfig;
