@@ -200,51 +200,6 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
             </div>
 
             {/* Skills Section */}
-            <div className={styles.glassCard}>
-              <h3 className={styles.sectionHeading}>Skills</h3>
-              <div className={styles.skillsGrid}>
-                {skills.map((skill, index) => (
-                  <motion.div
-                    key={skill.name}
-                    className={styles.skillItem}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.05 }}
-                  >
-                    <div className={styles.skillHeader}>
-                      <SkillIcon name={skill.name} size={24} />
-                      <span className={styles.skillName}>{skill.name}</span>
-                      <span className={styles.skillLevel}>{skill.level}%</span>
-                    </div>
-                    <div className={styles.skillBar}>
-                      <motion.div
-                        className={styles.skillProgress}
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, delay: index * 0.05 + 0.2 }}
-                      />
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Image Carousel Column */}
-          <motion.div
-            ref={carouselRef}
-            className={styles.carouselColumn}
-            style={{ height: carouselHeight ? `${carouselHeight}px` : 'auto' }}
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <ImageCarousel images={images} autoPlay={true} interval={5000} />
-
-            {/* Experience Timeline */}
             <motion.div
               className={styles.experienceSection}
               initial={{ opacity: 0, y: 20 }}
@@ -297,6 +252,57 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
                 ))}
               </div>
             </motion.div>
+          </motion.div>
+
+          {/* Image Carousel Column */}
+          <motion.div
+            ref={carouselRef}
+            className={styles.carouselColumn}
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <div
+              className={styles.carouselWrapper}
+              style={{
+                height: carouselHeight ? `${carouselHeight}px` : 'auto',
+              }}
+            >
+              <ImageCarousel images={images} autoPlay={true} interval={5000} />
+            </div>
+
+            {/* Skills Section */}
+            <div className={styles.glassCard}>
+              <h3 className={styles.sectionHeading}>Skills</h3>
+              <div className={styles.skillsGrid}>
+                {skills.map((skill, index) => (
+                  <motion.div
+                    key={skill.name}
+                    className={styles.skillItem}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                  >
+                    <div className={styles.skillHeader}>
+                      <SkillIcon name={skill.name} size={24} />
+                      <span className={styles.skillName}>{skill.name}</span>
+                      <span className={styles.skillLevel}>{skill.level}%</span>
+                    </div>
+                    <div className={styles.skillBar}>
+                      <motion.div
+                        className={styles.skillProgress}
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${skill.level}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, delay: index * 0.05 + 0.2 }}
+                      />
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>
