@@ -158,17 +158,18 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
             }}
             className={styles.imageWrapper}
           >
-            <div className={styles.imagePlaceholder}>
-              <div className={styles.imageContent}>
-                <span className={styles.imageIcon}>🖼️</span>
-                <p className={styles.imageAlt}>{images[currentIndex].alt}</p>
-                {images[currentIndex].caption && (
-                  <p className={styles.imageCaption}>
-                    {images[currentIndex].caption}
-                  </p>
-                )}
+            <img
+              src={images[currentIndex].src}
+              alt={images[currentIndex].alt}
+              className={styles.carouselImage}
+            />
+            {images[currentIndex].caption && (
+              <div className={styles.captionOverlay}>
+                <p className={styles.captionText}>
+                  {images[currentIndex].caption}
+                </p>
               </div>
-            </div>
+            )}
           </motion.div>
         </AnimatePresence>
       </div>

@@ -59,21 +59,27 @@ const defaultData: AboutData = {
   images: [
     {
       id: '1',
-      src: '/images/about/profile-1.jpg',
-      alt: 'Profile photo 1',
-      caption: 'Working on projects',
+      src: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=1000&fit=crop',
+      alt: 'Team collaboration',
+      caption: "👋 Hey, it's me! Working with amazing people",
     },
     {
       id: '2',
-      src: '/images/about/profile-2.jpg',
-      alt: 'Profile photo 2',
-      caption: 'At a tech conference',
+      src: 'https://images.unsplash.com/photo-1511367461989-f85a21fda167?w=800&h=1000&fit=crop',
+      alt: 'Coding passion',
+      caption: '💻 This is one of my hobbies - creating digital experiences',
     },
     {
       id: '3',
-      src: '/images/about/profile-3.jpg',
-      alt: 'Profile photo 3',
-      caption: 'Team collaboration',
+      src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=1000&fit=crop',
+      alt: 'Creative workspace',
+      caption: '🎨 This is something I love to do - bringing ideas to life',
+    },
+    {
+      id: '4',
+      src: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=1000&fit=crop',
+      alt: 'Family time',
+      caption: "❤️ What I'm doing for my family - building a better future",
     },
   ],
 };
