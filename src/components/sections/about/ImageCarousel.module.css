@@ -91,19 +91,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-md, 1rem);
-  background: var(--glass-bg, rgba(255, 255, 255, 0.05));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+  gap: var(--spacing-lg, 1.5rem);
   border-radius: 24px;
-  padding: var(--spacing-2, 0.5rem) var(--spacing-4, 1rem);
 }
 
 /* Indicators */
 .indicators {
   display: flex;
-  gap: var(--spacing-2, 0.5rem);
+  gap: var(--spacing-10, 0.5rem);
   align-items: center;
 }
 
@@ -177,10 +172,6 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .carousel {
-    gap: var(--spacing-sm, 0.75rem);
-  }
-
   .imageContainer {
     border-radius: 12px;
   }
@@ -211,16 +202,11 @@
 }
 
 @media (max-width: 480px) {
-  .carousel {
-    gap: var(--spacing-sm, 0.5rem);
-  }
-
   .imageContainer {
     border-radius: 12px;
   }
 
   .externalControls {
-    gap: var(--spacing-2, 0.5rem);
     padding: var(--spacing-1, 0.25rem) var(--spacing-2, 0.5rem);
   }
 

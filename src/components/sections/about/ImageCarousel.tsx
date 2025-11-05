@@ -21,20 +21,26 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
   const [isPlaying, setIsPlaying] = useState(autoPlay);
   const [direction, setDirection] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+  const dragStartX = useRef(0);
 
   const goToNext = useCallback(() => {
-    if (isDragging) return;
+    if (isDragging || isTransitioning) return;
+    setIsTransitioning(true);
     setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % images.length);
-  }, [images.length, isDragging]);
+    setTimeout(() => setIsTransitioning(false), 500);
+  }, [images.length, isDragging, isTransitioning]);
 
   const goToPrevious = useCallback(() => {
-    if (isDragging) return;
+    if (isDragging || isTransitioning) return;
+    setIsTransitioning(true);
     setDirection(-1);
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-  }, [images.length, isDragging]);
+    setTimeout(() => setIsTransitioning(false), 500);
+  }, [images.length, isDragging, isTransitioning]);
 
   const goToSlide = useCallback(
     (index: number) => {
@@ -58,20 +64,28 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
 
   // Touch/swipe support
   const handleTouchStart = (e: React.TouchEvent) => {
+    if (isTransitioning) return;
     setIsDragging(true);
     touchStartX.current = e.touches[0].clientX;
     touchEndX.current = e.touches[0].clientX;
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging) return;
     touchEndX.current = e.touches[0].clientX;
   };
 
   const handleTouchEnd = () => {
-    const swipeThreshold = 50;
+    if (!isDragging || isTransitioning) {
+      setIsDragging(false);
+      return;
+    }
+
+    const swipeThreshold = 80; // Increased from 50 to 80
     const diff = touchStartX.current - touchEndX.current;
 
     if (Math.abs(diff) > swipeThreshold) {
+      setIsTransitioning(true);
       if (diff > 0) {
         setDirection(1);
         setCurrentIndex((prev) => (prev + 1) % images.length);
@@ -79,9 +93,10 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
         setDirection(-1);
         setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
       }
+      setTimeout(() => setIsTransitioning(false), 500);
     }
 
-    setTimeout(() => setIsDragging(false), 100);
+    setIsDragging(false);
   };
 
   // Keyboard navigation
@@ -118,7 +133,6 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
     }),
   };
 
-  const swipeConfidenceThreshold = 10000;
   const swipePower = (offset: number, velocity: number) => {
     return Math.abs(offset) * velocity;
   };
@@ -155,22 +169,37 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
             }}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={1}
-            onDragStart={() => setIsDragging(true)}
+            dragElastic={0.5}
+            dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
+            onDragStart={(e) => {
+              if (isTransitioning) return;
+              setIsDragging(true);
+              dragStartX.current = (e as MouseEvent).clientX || 0;
+            }}
             onDragEnd={(_e, { offset, velocity }) => {
-              const swipe = swipePower(offset.x, velocity.x);
+              if (!isDragging || isTransitioning) {
+                setIsDragging(false);
+                return;
+              }
 
-              if (swipe < -swipeConfidenceThreshold) {
+              const swipe = swipePower(offset.x, velocity.x);
+              const dragThreshold = 15000; // Increased threshold for more deliberate swipes
+
+              if (swipe < -dragThreshold) {
+                setIsTransitioning(true);
                 setDirection(1);
                 setCurrentIndex((prev) => (prev + 1) % images.length);
-              } else if (swipe > swipeConfidenceThreshold) {
+                setTimeout(() => setIsTransitioning(false), 500);
+              } else if (swipe > dragThreshold) {
+                setIsTransitioning(true);
                 setDirection(-1);
                 setCurrentIndex(
                   (prev) => (prev - 1 + images.length) % images.length
                 );
+                setTimeout(() => setIsTransitioning(false), 500);
               }
 
-              setTimeout(() => setIsDragging(false), 100);
+              setIsDragging(false);
             }}
             className={styles.imageWrapper}
           >
