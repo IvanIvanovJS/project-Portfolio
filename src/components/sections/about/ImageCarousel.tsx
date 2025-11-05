@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Pause, Play } from 'lucide-react';
+import Image from 'next/image';
 import styles from './ImageCarousel.module.css';
 import type { CarouselImage } from '@/types';
 
@@ -203,10 +204,14 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
             }}
             className={styles.imageWrapper}
           >
-            <img
+            <Image
               src={images[currentIndex].src}
               alt={images[currentIndex].alt}
+              fill
               className={styles.carouselImage}
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority={currentIndex === 0}
             />
             {images[currentIndex].caption && (
               <div className={styles.captionOverlay}>
