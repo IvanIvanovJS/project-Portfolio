@@ -24,8 +24,8 @@ const defaultData: AboutData = {
     { name: 'React', level: 95, category: 'frontend', icon: '⚛️' },
     { name: 'TypeScript', level: 90, category: 'frontend', icon: '📘' },
     { name: 'Next.js', level: 88, category: 'frontend', icon: '▲' },
-    { name: 'Three.js', level: 75, category: 'frontend', icon: '🎨' },
-    { name: 'Node.js', level: 85, category: 'backend', icon: '🟢' },
+    { name: 'Node.js', level: 75, category: 'backend', icon: '🟢' },
+    { name: 'Three.js', level: 85, category: 'frontend', icon: '🎨' },
     { name: 'CSS/SCSS', level: 92, category: 'frontend', icon: '🎨' },
   ],
   experience: [
