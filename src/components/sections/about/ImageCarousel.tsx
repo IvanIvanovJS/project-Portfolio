@@ -134,20 +134,25 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [goToNext, goToPrevious, togglePlayPause]);
 
+  // Get previous, current, and next indices for continuous carousel
+  const getPrevIndex = (index: number) =>
+    (index - 1 + images.length) % images.length;
+  const getNextIndex = (index: number) => (index + 1) % images.length;
+
   const slideVariants = {
     enter: (direction: number) => ({
-      x: direction > 0 ? 1000 : -1000,
-      opacity: 0,
+      x: direction > 0 ? '100%' : '-100%',
+      opacity: 1,
     }),
     center: {
-      zIndex: 1,
+      zIndex: 2,
       x: 0,
       opacity: 1,
     },
     exit: (direction: number) => ({
-      zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
-      opacity: 0,
+      zIndex: 1,
+      x: direction < 0 ? '100%' : '-100%',
+      opacity: 1,
     }),
   };
 
@@ -187,7 +192,7 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
             }}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.5}
+            dragElastic={0.2}
             dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
             onDragStart={(e) => {
               if (isTransitioning || isDragging || isTouchInteraction.current)
@@ -206,7 +211,7 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
               }
 
               const swipe = swipePower(offset.x, velocity.x);
-              const dragThreshold = 15000; // Increased threshold for more deliberate swipes
+              const dragThreshold = 15000;
 
               if (swipe < -dragThreshold) {
                 setIsTransitioning(true);
@@ -230,24 +235,51 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
                 setIsDragging(false);
               }
             }}
-            className={styles.imageWrapper}
+            className={styles.slidesWrapper}
           >
-            <Image
-              src={images[currentIndex].src}
-              alt={images[currentIndex].alt}
-              fill
-              className={styles.carouselImage}
-              style={{ objectFit: 'cover', objectPosition: 'center' }}
-              sizes="(max-width: 768px) 100vw, 50vw"
-              priority={currentIndex === 0}
-            />
-            {images[currentIndex].caption && (
-              <div className={styles.captionOverlay}>
-                <p className={styles.captionText}>
-                  {images[currentIndex].caption}
-                </p>
-              </div>
-            )}
+            {/* Previous Image */}
+            <div className={styles.slideItem} style={{ left: '-100%' }}>
+              <Image
+                src={images[getPrevIndex(currentIndex)].src}
+                alt={images[getPrevIndex(currentIndex)].alt}
+                fill
+                className={styles.carouselImage}
+                style={{ objectFit: 'cover', objectPosition: 'center' }}
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
+
+            {/* Current Image */}
+            <div className={styles.slideItem} style={{ left: '0%' }}>
+              <Image
+                src={images[currentIndex].src}
+                alt={images[currentIndex].alt}
+                fill
+                className={styles.carouselImage}
+                style={{ objectFit: 'cover', objectPosition: 'center' }}
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority={currentIndex === 0}
+              />
+              {images[currentIndex].caption && (
+                <div className={styles.captionOverlay}>
+                  <p className={styles.captionText}>
+                    {images[currentIndex].caption}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Next Image */}
+            <div className={styles.slideItem} style={{ left: '100%' }}>
+              <Image
+                src={images[getNextIndex(currentIndex)].src}
+                alt={images[getNextIndex(currentIndex)].alt}
+                fill
+                className={styles.carouselImage}
+                style={{ objectFit: 'cover', objectPosition: 'center' }}
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
           </motion.div>
         </AnimatePresence>
       </div>
