@@ -17,13 +17,13 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
   autoPlay = true,
   interval = 5000,
 }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(1); // Start at 1 (first real image)
   const [isPlaying, setIsPlaying] = useState(autoPlay);
   const [isDragging, setIsDragging] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const currentIndexRef = useRef(0);
+  const currentIndexRef = useRef(1); // Start at 1
   const startX = useRef(0);
   const currentX = useRef(0);
   const dragDistance = useRef(0);
@@ -38,22 +38,62 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
   const goToNext = useCallback(() => {
     if (isDragging || isTransitioning) return;
     setIsTransitioning(true);
-    setCurrentIndex((prev) => (prev + 1) % images.length);
-    setTimeout(() => setIsTransitioning(false), 500);
+
+    setCurrentIndex((prev) => prev + 1);
+
+    setTimeout(() => {
+      setIsTransitioning(false);
+      // If we're at the clone of first image, jump to real first image
+      setCurrentIndex((prev) => {
+        if (prev === images.length + 1) {
+          // Disable transition and jump instantly
+          if (wrapperRef.current) {
+            wrapperRef.current.style.transition = 'none';
+          }
+          setTimeout(() => {
+            if (wrapperRef.current) {
+              wrapperRef.current.style.transition = '';
+            }
+          }, 50);
+          return 1;
+        }
+        return prev;
+      });
+    }, 400);
   }, [images.length, isDragging, isTransitioning]);
 
   const goToPrevious = useCallback(() => {
     if (isDragging || isTransitioning) return;
     setIsTransitioning(true);
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-    setTimeout(() => setIsTransitioning(false), 500);
+
+    setCurrentIndex((prev) => prev - 1);
+
+    setTimeout(() => {
+      setIsTransitioning(false);
+      // If we're at the clone of last image, jump to real last image
+      setCurrentIndex((prev) => {
+        if (prev === 0) {
+          // Disable transition and jump instantly
+          if (wrapperRef.current) {
+            wrapperRef.current.style.transition = 'none';
+          }
+          setTimeout(() => {
+            if (wrapperRef.current) {
+              wrapperRef.current.style.transition = '';
+            }
+          }, 50);
+          return images.length;
+        }
+        return prev;
+      });
+    }, 400);
   }, [images.length, isDragging, isTransitioning]);
 
   const goToSlide = useCallback(
     (index: number) => {
       if (isTransitioning) return;
       setIsTransitioning(true);
-      setCurrentIndex(index);
+      setCurrentIndex(index + 1); // +1 because of clone at start
       setTimeout(() => setIsTransitioning(false), 500);
     },
     [isTransitioning]
@@ -132,12 +172,49 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
       setIsTransitioning(true);
       if (dragDistance.current < 0) {
         // Dragged left - go to next
-        setCurrentIndex((prev) => (prev + 1) % images.length);
+        setCurrentIndex((prev) => prev + 1);
+
+        setTimeout(() => {
+          setIsTransitioning(false);
+          // Check if we need to loop
+          setCurrentIndex((prev) => {
+            if (prev === images.length + 1) {
+              if (wrapperRef.current) {
+                wrapperRef.current.style.transition = 'none';
+              }
+              setTimeout(() => {
+                if (wrapperRef.current) {
+                  wrapperRef.current.style.transition = '';
+                }
+              }, 50);
+              return 1;
+            }
+            return prev;
+          });
+        }, 400);
       } else {
         // Dragged right - go to previous
-        setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+        setCurrentIndex((prev) => prev - 1);
+
+        setTimeout(() => {
+          setIsTransitioning(false);
+          // Check if we need to loop
+          setCurrentIndex((prev) => {
+            if (prev === 0) {
+              if (wrapperRef.current) {
+                wrapperRef.current.style.transition = 'none';
+              }
+              setTimeout(() => {
+                if (wrapperRef.current) {
+                  wrapperRef.current.style.transition = '';
+                }
+              }, 50);
+              return images.length;
+            }
+            return prev;
+          });
+        }, 400);
       }
-      setTimeout(() => setIsTransitioning(false), 400);
     }
 
     // Reset drag state
@@ -235,6 +312,27 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseLeave}
         >
+          {/* Clone of last image for infinite loop */}
+          <div key="clone-last" className={styles.slideItem}>
+            <Image
+              src={images[images.length - 1].src}
+              alt={images[images.length - 1].alt}
+              fill
+              className={styles.carouselImage}
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
+              sizes="(max-width: 768px) 100vw, 50vw"
+              draggable={false}
+            />
+            {images[images.length - 1].caption && (
+              <div className={styles.captionOverlay}>
+                <p className={styles.captionText}>
+                  {images[images.length - 1].caption}
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Original images */}
           {images.map((image, index) => (
             <div key={index} className={styles.slideItem}>
               <Image
@@ -254,13 +352,36 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
               )}
             </div>
           ))}
+
+          {/* Clone of first image for infinite loop */}
+          <div key="clone-first" className={styles.slideItem}>
+            <Image
+              src={images[0].src}
+              alt={images[0].alt}
+              fill
+              className={styles.carouselImage}
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
+              sizes="(max-width: 768px) 100vw, 50vw"
+              draggable={false}
+            />
+            {images[0].caption && (
+              <div className={styles.captionOverlay}>
+                <p className={styles.captionText}>{images[0].caption}</p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
       {/* Image Counter */}
       {images.length > 1 && (
         <div className={styles.counter}>
-          {currentIndex + 1} / {images.length}
+          {currentIndex === 0
+            ? images.length
+            : currentIndex === images.length + 1
+              ? 1
+              : currentIndex}{' '}
+          / {images.length}
         </div>
       )}
 
@@ -272,7 +393,11 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
               <button
                 key={index}
                 className={`${styles.indicator} ${
-                  index === currentIndex ? styles.indicatorActive : ''
+                  index + 1 === currentIndex ||
+                  (index === 0 && currentIndex === images.length + 1) ||
+                  (index === images.length - 1 && currentIndex === 0)
+                    ? styles.indicatorActive
+                    : ''
                 }`}
                 onClick={() => goToSlide(index)}
                 aria-label={`Go to image ${index + 1}`}

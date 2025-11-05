@@ -31,7 +31,7 @@
   user-select: none;
 }
 
-/* Position based on data-position attribute */
+/* Position based on data-position attribute (with clones for infinite loop) */
 .slidesWrapper[data-position='0'] {
   transform: translateX(0%);
 }
@@ -46,6 +46,14 @@
 
 .slidesWrapper[data-position='3'] {
   transform: translateX(-300%);
+}
+
+.slidesWrapper[data-position='4'] {
+  transform: translateX(-400%);
+}
+
+.slidesWrapper[data-position='5'] {
+  transform: translateX(-500%);
 }
 
 .slidesWrapper:active {
