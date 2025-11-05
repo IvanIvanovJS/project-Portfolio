@@ -61,6 +61,15 @@
   box-shadow: 0 8px 4px var(--glass-shadow, rgba(0, 0, 0, 0.15));
 }
 
+/* Experience Section - Minimal styling without glass effects */
+.experienceSection {
+  padding: 0;
+}
+
+.experienceSection .sectionHeading {
+  margin-bottom: var(--spacing-md, 1.5rem);
+}
+
 .sectionHeading {
   font-size: var(--font-size-2xl, 1.5rem);
   font-weight: 600;
@@ -135,7 +144,38 @@
 }
 
 .skillIcon {
-  font-size: var(--font-size-lg, 1.125rem);
+  display: block;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(89%) sepia(13%) saturate(1043%)
+    hue-rotate(101deg) brightness(103%) contrast(98%);
+  transition: filter 0.2s ease;
+}
+
+.skillIcon:hover {
+  filter: brightness(0) saturate(100%) invert(89%) sepia(13%) saturate(1043%)
+    hue-rotate(101deg) brightness(110%) contrast(98%);
+}
+
+.skillIconFallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--color-primary, #baffe9);
+  color: var(--bg-primary, #0a0a0a);
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: 600;
+  transition: transform 0.2s ease;
+}
+
+.skillIconFallback:hover {
+  transform: scale(1.1);
 }
 
 .skillName {
@@ -270,6 +310,14 @@
   .content {
     gap: var(--spacing-md, 2rem);
   }
+
+  .carouselColumn {
+    gap: var(--spacing-md, 1.5rem);
+  }
+
+  .infoColumn {
+    gap: var(--spacing-md, 1.5rem);
+  }
 }
 
 @media (max-width: 768px) {
@@ -285,13 +333,21 @@
   .content {
     grid-template-columns: 1fr;
     gap: var(--spacing-lg, 2rem);
+    display: flex;
+    flex-direction: column;
   }
 
   .carouselColumn {
     position: relative;
     top: 0;
-    order: -1;
+    order: -2;
     min-height: 500px;
+    gap: var(--spacing-lg, 2rem);
+  }
+
+  .infoColumn {
+    order: -1;
+    gap: var(--spacing-lg, 2rem);
   }
 
   .personalInfoCard {
@@ -302,12 +358,21 @@
     padding: var(--spacing-md, 1.5rem);
   }
 
+  .experienceSection {
+    padding: 0;
+    margin-top: var(--spacing-md, 1rem);
+  }
+
   .timeline {
     padding-left: var(--spacing-4, 1.5rem);
   }
 
   .timelineDot {
     left: calc(-1 * var(--spacing-4, 1.5rem) - 5px);
+  }
+
+  .skillsGrid {
+    gap: var(--spacing-3, 0.875rem);
   }
 }
 
@@ -330,5 +395,25 @@
 
   .carouselColumn {
     min-height: 400px;
+    gap: var(--spacing-md, 1.5rem);
+  }
+
+  .infoColumn {
+    gap: var(--spacing-md, 1.5rem);
+  }
+
+  .skillsGrid {
+    gap: var(--spacing-2, 0.625rem);
+  }
+
+  .timeline {
+    padding-left: var(--spacing-3, 1rem);
+    gap: var(--spacing-4, 1.5rem);
+  }
+
+  .timelineDot {
+    left: calc(-1 * var(--spacing-3, 1rem) - 5px);
+    width: 10px;
+    height: 10px;
   }
 }

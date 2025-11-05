@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Phone } from 'lucide-react';
+import Image from 'next/image';
 import styles from './AboutSection.module.css';
 import { ImageCarousel } from './ImageCarousel';
 import type { AboutData } from '@/types';
@@ -10,6 +11,47 @@ import type { AboutData } from '@/types';
 interface AboutSectionProps {
   data?: AboutData;
 }
+
+// Icon mapping configuration for Simple Icons slugs
+const SKILL_ICON_MAP: Record<string, string> = {
+  React: 'react',
+  TypeScript: 'typescript',
+  'Next.js': 'nextdotjs',
+  'Node.js': 'nodedotjs',
+  'Three.js': 'threedotjs',
+  'CSS/SCSS': 'css3',
+};
+
+// SkillIcon component with error handling and fallback
+interface SkillIconProps {
+  name: string;
+  size?: number;
+}
+
+const SkillIcon: React.FC<SkillIconProps> = ({ name, size = 24 }) => {
+  const [hasError, setHasError] = useState(false);
+  const iconSlug = SKILL_ICON_MAP[name] || name.toLowerCase();
+  const iconPath = `/icons/skills/${iconSlug}.svg`;
+
+  if (hasError) {
+    return (
+      <div className={styles.skillIconFallback}>
+        {name.charAt(0).toUpperCase()}
+      </div>
+    );
+  }
+
+  return (
+    <Image
+      src={iconPath}
+      alt={`${name} icon`}
+      width={size}
+      height={size}
+      className={styles.skillIcon}
+      onError={() => setHasError(true)}
+    />
+  );
+};
 
 const defaultData: AboutData = {
   personalInfo: {
@@ -21,12 +63,12 @@ const defaultData: AboutData = {
     phone: '+359 123 456 789',
   },
   skills: [
-    { name: 'React', level: 95, category: 'frontend', icon: '⚛️' },
-    { name: 'TypeScript', level: 90, category: 'frontend', icon: '📘' },
-    { name: 'Next.js', level: 88, category: 'frontend', icon: '▲' },
-    { name: 'Node.js', level: 75, category: 'backend', icon: '🟢' },
-    { name: 'Three.js', level: 85, category: 'frontend', icon: '🎨' },
-    { name: 'CSS/SCSS', level: 92, category: 'frontend', icon: '🎨' },
+    { name: 'React', level: 95, category: 'frontend' },
+    { name: 'TypeScript', level: 90, category: 'frontend' },
+    { name: 'Next.js', level: 88, category: 'frontend' },
+    { name: 'Node.js', level: 75, category: 'backend' },
+    { name: 'Three.js', level: 85, category: 'frontend' },
+    { name: 'CSS/SCSS', level: 92, category: 'frontend' },
   ],
   experience: [
     {
@@ -171,9 +213,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
                     transition={{ duration: 0.4, delay: index * 0.05 }}
                   >
                     <div className={styles.skillHeader}>
-                      {skill.icon && (
-                        <span className={styles.skillIcon}>{skill.icon}</span>
-                      )}
+                      <SkillIcon name={skill.name} size={24} />
                       <span className={styles.skillName}>{skill.name}</span>
                       <span className={styles.skillLevel}>{skill.level}%</span>
                     </div>
@@ -190,9 +230,28 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
                 ))}
               </div>
             </div>
+          </motion.div>
+
+          {/* Image Carousel Column */}
+          <motion.div
+            ref={carouselRef}
+            className={styles.carouselColumn}
+            style={{ height: carouselHeight ? `${carouselHeight}px` : 'auto' }}
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <ImageCarousel images={images} autoPlay={true} interval={5000} />
 
             {/* Experience Timeline */}
-            <div className={styles.glassCard}>
+            <motion.div
+              className={styles.experienceSection}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
               <h3 className={styles.sectionHeading}>Experience</h3>
               <div className={styles.timeline}>
                 {experience.map((exp, index) => (
@@ -237,20 +296,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
                   </motion.div>
                 ))}
               </div>
-            </div>
-          </motion.div>
-
-          {/* Image Carousel Column */}
-          <motion.div
-            ref={carouselRef}
-            className={styles.carouselColumn}
-            style={{ height: carouselHeight ? `${carouselHeight}px` : 'auto' }}
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <ImageCarousel images={images} autoPlay={true} interval={5000} />
+            </motion.div>
           </motion.div>
         </div>
       </div>
