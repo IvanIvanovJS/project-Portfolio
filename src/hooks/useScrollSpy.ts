@@ -15,8 +15,8 @@ export const useScrollSpy = (sectionIds: string[], offset: number = 100) => {
     // Create intersection observer with improved settings to prevent flickering
     const observerOptions = {
       root: null,
-      rootMargin: `-${offset}px 0px -40% 0px`,
-      threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+      rootMargin: `-${offset}px 0px -35% 0px`,
+      threshold: 0.4,
     };
 
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
