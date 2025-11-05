@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
+import { Pause, Play } from 'lucide-react';
 import styles from './ImageCarousel.module.css';
 import type { CarouselImage } from '@/types';
 
@@ -20,18 +20,21 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
   const [direction, setDirection] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 
   const goToNext = useCallback(() => {
+    if (isDragging) return;
     setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % images.length);
-  }, [images.length]);
+  }, [images.length, isDragging]);
 
   const goToPrevious = useCallback(() => {
+    if (isDragging) return;
     setDirection(-1);
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-  }, [images.length]);
+  }, [images.length, isDragging]);
 
   const goToSlide = useCallback(
     (index: number) => {
@@ -55,7 +58,9 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
 
   // Touch/swipe support
   const handleTouchStart = (e: React.TouchEvent) => {
+    setIsDragging(true);
     touchStartX.current = e.touches[0].clientX;
+    touchEndX.current = e.touches[0].clientX;
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
@@ -68,11 +73,15 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
 
     if (Math.abs(diff) > swipeThreshold) {
       if (diff > 0) {
-        goToNext();
+        setDirection(1);
+        setCurrentIndex((prev) => (prev + 1) % images.length);
       } else {
-        goToPrevious();
+        setDirection(-1);
+        setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
       }
     }
+
+    setTimeout(() => setIsDragging(false), 100);
   };
 
   // Keyboard navigation
@@ -147,14 +156,21 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={1}
-            onDragEnd={(e, { offset, velocity }) => {
+            onDragStart={() => setIsDragging(true)}
+            onDragEnd={(_e, { offset, velocity }) => {
               const swipe = swipePower(offset.x, velocity.x);
 
               if (swipe < -swipeConfidenceThreshold) {
-                goToNext();
+                setDirection(1);
+                setCurrentIndex((prev) => (prev + 1) % images.length);
               } else if (swipe > swipeConfidenceThreshold) {
-                goToPrevious();
+                setDirection(-1);
+                setCurrentIndex(
+                  (prev) => (prev - 1 + images.length) % images.length
+                );
               }
+
+              setTimeout(() => setIsDragging(false), 100);
             }}
             className={styles.imageWrapper}
           >
@@ -174,55 +190,38 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
         </AnimatePresence>
       </div>
 
-      {/* Navigation Controls */}
+      {/* Image Counter */}
       {images.length > 1 && (
-        <>
-          <button
-            className={`${styles.navButton} ${styles.navButtonPrev}`}
-            onClick={goToPrevious}
-            aria-label="Previous image"
-          >
-            <ChevronLeft size={24} />
-          </button>
+        <div className={styles.counter}>
+          {currentIndex + 1} / {images.length}
+        </div>
+      )}
 
-          <button
-            className={`${styles.navButton} ${styles.navButtonNext}`}
-            onClick={goToNext}
-            aria-label="Next image"
-          >
-            <ChevronRight size={24} />
-          </button>
-
-          {/* Bottom Controls */}
-          <div className={styles.bottomControls}>
-            <div className={styles.indicators}>
-              {images.map((_, index) => (
-                <button
-                  key={index}
-                  className={`${styles.indicator} ${
-                    index === currentIndex ? styles.indicatorActive : ''
-                  }`}
-                  onClick={() => goToSlide(index)}
-                  aria-label={`Go to image ${index + 1}`}
-                  aria-current={index === currentIndex}
-                />
-              ))}
-            </div>
-
-            <button
-              className={styles.playPauseButton}
-              onClick={togglePlayPause}
-              aria-label={isPlaying ? 'Pause slideshow' : 'Play slideshow'}
-            >
-              {isPlaying ? <Pause size={16} /> : <Play size={16} />}
-            </button>
+      {/* External Controls - Below Carousel */}
+      {images.length > 1 && (
+        <div className={styles.externalControls}>
+          <div className={styles.indicators}>
+            {images.map((_, index) => (
+              <button
+                key={index}
+                className={`${styles.indicator} ${
+                  index === currentIndex ? styles.indicatorActive : ''
+                }`}
+                onClick={() => goToSlide(index)}
+                aria-label={`Go to image ${index + 1}`}
+                aria-current={index === currentIndex}
+              />
+            ))}
           </div>
 
-          {/* Image Counter */}
-          <div className={styles.counter}>
-            {currentIndex + 1} / {images.length}
-          </div>
-        </>
+          <button
+            className={styles.playPauseButton}
+            onClick={togglePlayPause}
+            aria-label={isPlaying ? 'Pause slideshow' : 'Play slideshow'}
+          >
+            {isPlaying ? <Pause size={16} /> : <Play size={16} />}
+          </button>
+        </div>
       )}
     </div>
   );

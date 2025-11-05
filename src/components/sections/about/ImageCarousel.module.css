@@ -4,18 +4,22 @@
   width: 100%;
   height: 100%;
   border-radius: 16px;
-  overflow: hidden;
+  overflow: visible;
   background: transparent;
-  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
-  box-shadow: 0 8px 32px var(--glass-shadow, rgba(0, 0, 0, 0.1));
   user-select: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md, 1rem);
 }
 
 .imageContainer {
   width: 100%;
-  height: 100%;
+  flex: 1;
   position: relative;
   overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+  box-shadow: 0 8px 32px var(--glass-shadow, rgba(0, 0, 0, 0.1));
 }
 
 .imageWrapper {
@@ -82,63 +86,18 @@
   font-size: var(--font-size-lg, 1.125rem);
 }
 
-/* Navigation Buttons */
-.navButton {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: var(--glass-bg, rgba(255, 255, 255, 0.1));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
+/* External Controls - Below Carousel */
+.externalControls {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--fg-primary, rgba(255, 255, 255, 0.8));
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 10;
-}
-
-.navButton:hover {
-  background: var(--glass-bg, rgba(255, 255, 255, 0.15));
-  border-color: var(--color-primary, #baffe9);
-  color: var(--color-primary, #baffe9);
-  box-shadow: 0 0 20px rgba(186, 255, 233, 0.3);
-  transform: translateY(-50%) scale(1.1);
-}
-
-.navButton:active {
-  transform: translateY(-50%) scale(0.95);
-}
-
-.navButtonPrev {
-  left: var(--spacing-md, 1rem);
-}
-
-.navButtonNext {
-  right: var(--spacing-md, 1rem);
-}
-
-/* Bottom Controls */
-.bottomControls {
-  position: absolute;
-  bottom: var(--spacing-md, 1.5rem);
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
   gap: var(--spacing-md, 1rem);
-  background: var(--glass-bg, rgba(255, 255, 255, 0.1));
+  background: var(--glass-bg, rgba(255, 255, 255, 0.05));
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
   border-radius: 24px;
   padding: var(--spacing-2, 0.5rem) var(--spacing-4, 1rem);
-  z-index: 10;
 }
 
 /* Indicators */
@@ -218,21 +177,15 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .navButton {
-    width: 40px;
-    height: 40px;
+  .carousel {
+    gap: var(--spacing-sm, 0.75rem);
   }
 
-  .navButtonPrev {
-    left: var(--spacing-sm, 0.75rem);
+  .imageContainer {
+    border-radius: 12px;
   }
 
-  .navButtonNext {
-    right: var(--spacing-sm, 0.75rem);
-  }
-
-  .bottomControls {
-    bottom: var(--spacing-sm, 1rem);
+  .externalControls {
     padding: var(--spacing-2, 0.5rem) var(--spacing-3, 0.75rem);
   }
 
@@ -259,15 +212,14 @@
 
 @media (max-width: 480px) {
   .carousel {
+    gap: var(--spacing-sm, 0.5rem);
+  }
+
+  .imageContainer {
     border-radius: 12px;
   }
 
-  .navButton {
-    width: 36px;
-    height: 36px;
-  }
-
-  .bottomControls {
+  .externalControls {
     gap: var(--spacing-2, 0.5rem);
     padding: var(--spacing-1, 0.25rem) var(--spacing-2, 0.5rem);
   }

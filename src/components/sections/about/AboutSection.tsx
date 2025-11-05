@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import styles from './AboutSection.module.css';
@@ -88,6 +88,25 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
   data = defaultData,
 }) => {
   const { personalInfo, skills, experience, images } = data;
+  const personalInfoRef = useRef<HTMLDivElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [carouselHeight, setCarouselHeight] = useState<number | undefined>(
+    undefined
+  );
+
+  useEffect(() => {
+    const updateCarouselHeight = () => {
+      if (personalInfoRef.current) {
+        const height = personalInfoRef.current.offsetHeight;
+        setCarouselHeight(height);
+      }
+    };
+
+    updateCarouselHeight();
+    window.addEventListener('resize', updateCarouselHeight);
+
+    return () => window.removeEventListener('resize', updateCarouselHeight);
+  }, []);
 
   return (
     <section id="about" className={styles.aboutSection}>
@@ -111,7 +130,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className={styles.glassCard}>
+            <div ref={personalInfoRef} className={styles.personalInfoCard}>
               <h3 className={styles.sectionHeading}>{personalInfo.name}</h3>
               <p className={styles.jobTitle}>{personalInfo.title}</p>
               <p className={styles.bio}>{personalInfo.bio}</p>
@@ -223,7 +242,9 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
 
           {/* Image Carousel Column */}
           <motion.div
+            ref={carouselRef}
             className={styles.carouselColumn}
+            style={{ height: carouselHeight ? `${carouselHeight}px` : 'auto' }}
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
