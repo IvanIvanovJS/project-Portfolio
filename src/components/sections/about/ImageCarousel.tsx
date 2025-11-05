@@ -187,13 +187,13 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
             animate="center"
             exit="exit"
             transition={{
-              x: { type: 'spring', stiffness: 300, damping: 30 },
-              opacity: { duration: 0.2 },
+              x: { type: 'tween', duration: 0.4, ease: 'easeInOut' },
+              opacity: { duration: 0.3 },
             }}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.2}
-            dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
+            dragElastic={0.7}
+            dragTransition={{ power: 0.2, timeConstant: 200 }}
             onDragStart={(e) => {
               if (isTransitioning || isDragging || isTouchInteraction.current)
                 return;
@@ -211,7 +211,7 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
               }
 
               const swipe = swipePower(offset.x, velocity.x);
-              const dragThreshold = 15000;
+              const dragThreshold = 8000;
 
               if (swipe < -dragThreshold) {
                 setIsTransitioning(true);
