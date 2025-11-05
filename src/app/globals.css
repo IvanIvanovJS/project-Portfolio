@@ -6,6 +6,7 @@
 /* CSS Custom Properties */
 :root {
   /* Typography */
+
   --font-family-primary:
     var(--font-ibm-plex-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, sans-serif;

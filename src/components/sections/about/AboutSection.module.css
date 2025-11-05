@@ -33,7 +33,7 @@
 .infoColumn {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xl, 2rem);
+  gap: 7em;
 }
 
 /* Personal Info Card - No glass effect */
@@ -295,7 +295,7 @@
   top: 100px;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xl, 2rem);
+  gap: var(--spacing-32, 8rem);
 }
 
 .carouselWrapper {
