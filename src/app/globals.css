@@ -120,14 +120,14 @@
   /* Brand Colors */
   --color-primary: #baffe9;
   --color-primary-60: rgba(186, 255, 233, 0.6);
-  --color-primary-20: rgba(186, 255, 233, 0.2);
+  --color-primary-40: rgba(186, 255, 233, 0.4);
   --color-primary-hover: #a8f5dc;
   --color-primary-active: #96ebcf;
   --color-secondary: #4a5568;
   --color-secondary-hover: #5a6578;
   --color-accent: #9f7aea;
   --color-accent-60: rgba(159, 122, 234, 0.6);
-  --color-accent-20: rgba(159, 122, 234, 0.2);
+  --color-accent-40: rgba(159, 122, 234, 0.4);
   --color-accent-hover: #b794f6;
 
   /* Semantic Colors */
@@ -180,17 +180,17 @@
   --fg-muted: rgba(23, 23, 23, 0.2);
 
   /* Brand Colors */
-  --color-primary: #ff8800;
-  --color-primary-60: rgba(255, 136, 0, 0.6);
-  --color-primary-20: rgba(255, 136, 0, 0.2);
-  --color-primary-hover: #e67300;
-  --color-primary-active: #cc5e00;
+  --color-primary: rgba(48, 92, 222, 1);
+  --color-primary-60: rgba(48, 92, 222, 0.6);
+  --color-primary-40: rgba(48, 92, 222, 0.4);
+  --color-primary-hover: rgba(38, 72, 192, 1);
+  --color-primary-active: rgba(28, 52, 162, 1);
   --color-secondary: #718096;
   --color-secondary-hover: #4a5568;
-  --color-accent: #805ad5;
-  --color-accent-60: rgba(128, 90, 213, 0.6);
-  --color-accent-20: rgba(128, 90, 213, 0.2);
-  --color-accent-hover: #6b46c1;
+  --color-accent: rgba(89, 181, 247, 1);
+  --color-accent-60: rgba(89, 181, 247, 0.6);
+  --color-accent-40: rgba(89, 181, 247, 0.4);
+  --color-accent-hover: rgba(69, 161, 227, 1);
 
   /* Semantic Colors */
   --color-success: #38a169;
@@ -208,7 +208,11 @@
   --glass-shadow-hover: rgba(0, 0, 0, 0.15);
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #ff8800 0%, #805ad5 100%);
+  --gradient-primary: linear-gradient(
+    135deg,
+    rgba(48, 92, 222, 1) 0%,
+    rgba(89, 181, 247, 1) 100%
+  );
   --gradient-secondary: linear-gradient(135deg, #718096 0%, #4a5568 100%);
   --gradient-glass: linear-gradient(
     135deg,

@@ -24,17 +24,6 @@
   scale: 1;
 }
 
-/* Keyframes for animated gradient background */
-@keyframes moveGradient {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
 /* Decorative background elements inspired by reference CSS */
 .cardBackground {
   content: '';
@@ -46,16 +35,14 @@
   background: linear-gradient(
     315deg,
     var(--bg-primary),
-    var(--color-accent-20),
-    var(--color-primary-20),
-    var(--color-accent-20)
+    var(--color-accent-40),
+    var(--color-primary-40),
+    var(--color-accent-40),
+    var(--bg-primary)
   );
-  background-size: 200% 200%;
-  animation: moveGradient 8s ease infinite;
   border-radius: 8px;
   transform: skewX(0deg);
   transition: 0.4s;
-
   z-index: 0;
 }
 
