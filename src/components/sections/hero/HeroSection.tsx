@@ -37,6 +37,13 @@ export const HeroSection: React.FC = () => {
     }
   };
 
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <section
       ref={sectionRef}
@@ -44,14 +51,32 @@ export const HeroSection: React.FC = () => {
       id="hero"
       aria-label="Hero section"
     >
-      {/* ThreeScene as full background */}
-      <div className={styles.sceneBackground}>
-        <ThreeScene theme={theme} isVisible={isVisible} />
-      </div>
-
-      {/* Content overlay */}
+      {/* Content container */}
       <div className={styles.container}>
-        {/* Content will be added later */}
+        {/* Left side - 3D Sphere */}
+        <div className={styles.sphereContainer}>
+          <ThreeScene theme={theme} isVisible={isVisible} />
+        </div>
+
+        {/* Right side - Content */}
+        <div className={styles.contentContainer}>
+          <div className={styles.textContent}>
+            <h1 className={styles.name}>Ivan Ivanov</h1>
+            <h2 className={styles.title}>FRONT-END AND UI/UX DEVELOPER</h2>
+            <p className={styles.tagline}>
+              Keen to create and inspire with passion!
+            </p>
+          </div>
+
+          <button
+            className={styles.ctaButton}
+            onClick={scrollToContact}
+            aria-label="Contact me"
+            type="button"
+          >
+            Let&apos;s Talk
+          </button>
+        </div>
       </div>
 
       {/* Scroll indicator with shadow */}
