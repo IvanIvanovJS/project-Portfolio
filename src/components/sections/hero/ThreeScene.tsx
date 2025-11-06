@@ -467,7 +467,7 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({ theme, isVisible }) => {
       style={{
         width: '100%',
         height: '100%',
-        background: '#  ',
+        background: '#171717',
       }}
     >
       <Canvas
