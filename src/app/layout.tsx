@@ -29,6 +29,45 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={ibmPlexSans.variable}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+(function() {
+  try {
+    // Default values
+    const DEFAULT_THEME = 'dark';
+    const DEFAULT_NAVIGATION = 'vertical';
+    
+    // Storage keys
+    const THEME_KEY = 'portfolio-theme';
+    const NAV_KEY = 'portfolio-navigation';
+    
+    // Read from localStorage or use defaults
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    const savedNav = localStorage.getItem(NAV_KEY);
+    
+    // Validate values to prevent injection attacks
+    const theme = (savedTheme === 'light' || savedTheme === 'dark') 
+      ? savedTheme 
+      : DEFAULT_THEME;
+    const navigation = (savedNav === 'horizontal' || savedNav === 'vertical')
+      ? savedNav
+      : DEFAULT_NAVIGATION;
+    
+    // Apply to document immediately before first paint
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute('data-navigation', navigation);
+  } catch (e) {
+    // Fallback to defaults if localStorage fails or is unavailable
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.setAttribute('data-navigation', 'vertical');
+  }
+})();
+            `,
+          }}
+        />
+      </head>
       <body className={ibmPlexSans.className}>
         <ThemeProvider>
           <ChakraProvider>
