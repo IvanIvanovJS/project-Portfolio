@@ -472,7 +472,7 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({ theme, isVisible }) => {
     >
       <Canvas
         camera={{
-          position: [0, 0, 8],
+          position: isMobile ? [0, 0, 8] : [2.5, 0, 8],
           fov: isMobile ? 60 : 55,
         }}
         gl={{
@@ -506,8 +506,8 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({ theme, isVisible }) => {
         <OrbitControls
           enableZoom={false}
           enablePan={false}
-          autoRotate
-          autoRotateSpeed={0.8}
+          autoRotate={false}
+          target={isMobile ? [0, 0, 0] : [2.5, 0, 0]}
         />
       </Canvas>
     </div>

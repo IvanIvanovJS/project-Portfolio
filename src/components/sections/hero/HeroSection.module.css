@@ -30,38 +30,22 @@
   pointer-events: auto;
 }
 
-.container {
-  max-width: 1400px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 var(--spacing-xl);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-xl);
-  position: relative;
-  z-index: 2;
-  height: 100%;
-}
-
-/* Left side - Spacer for sphere (55%) */
-.sphereSpacer {
-  flex: 0 0 55%;
-  height: 100%;
-  pointer-events: none;
-}
-
-/* Right side - Content (45%) */
+/* Right side - Content (45%) - самостоятелен контейнер */
 .contentContainer {
-  flex: 0 0 45%;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45%;
+  max-width: 630px;
+  padding: 0 var(--spacing-xl);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xl);
   align-items: flex-start;
   animation: slideInRight 0.8s ease-out;
-  position: relative;
-  z-index: 3;
+  z-index: 2;
+  pointer-events: auto;
 }
 
 .textContent {
@@ -338,16 +322,9 @@
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-  .container {
-    gap: var(--spacing-lg);
-  }
-
-  .sphereSpacer {
-    flex: 0 0 55%;
-  }
-
   .contentContainer {
-    flex: 0 0 45%;
+    width: 50%;
+    padding: 0 var(--spacing-lg);
   }
 
   .name {
@@ -368,42 +345,30 @@
     height: auto;
     min-height: 100vh;
     padding: var(--spacing-xl) 0;
+    display: flex;
+    flex-direction: column;
   }
 
   .sceneBackground {
     position: relative;
     width: 100%;
     height: 400px;
-    order: 1;
     margin-bottom: var(--spacing-lg);
   }
 
-  .container {
-    flex-direction: column;
-    padding: 0 var(--spacing-md);
-    gap: var(--spacing-lg);
-    justify-content: center;
-  }
-
-  .sphereSpacer {
-    display: none;
-  }
-
   .contentContainer {
-    flex: none;
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
     width: 100%;
-    order: 2;
+    padding: 0 var(--spacing-md);
     align-items: center;
     text-align: center;
   }
 
   .textContent {
     align-items: center;
-  }
-
-  .ctaButton {
-    order: 3;
-    margin-top: var(--spacing-md);
   }
 
   .scrollIndicator {
