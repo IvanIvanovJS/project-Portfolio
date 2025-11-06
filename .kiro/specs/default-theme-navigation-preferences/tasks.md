@@ -48,12 +48,12 @@
     - Maintain existing responsive behavior for vertical nav open state
     - _Requirements: 2.2, 4.3_
 
-- [ ] 4. Update CSS to respect HTML attributes
-  - [ ] 4.1 Ensure theme CSS uses data-theme attribute selector
+- [x] 4. Update CSS to respect HTML attributes
+  - [x] 4.1 Ensure theme CSS uses data-theme attribute selector
     - Verify :root[data-theme='dark'] and :root[data-theme='light'] selectors exist
     - Ensure all theme-dependent styles use these selectors
     - _Requirements: 3.1, 3.3_
-  - [ ] 4.2 Add data-navigation attribute selectors if needed
+  - [x] 4.2 Add data-navigation attribute selectors if needed
     - Add :root[data-navigation='vertical'] and :root[data-navigation='horizontal'] selectors
     - Apply any navigation-specific layout styles
     - _Requirements: 3.2, 3.4_

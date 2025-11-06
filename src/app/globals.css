@@ -440,6 +440,20 @@ li {
   }
 }
 
+/* Navigation mode layout adjustments */
+:root[data-navigation='horizontal'] {
+  /* Horizontal navigation uses fixed header at top */
+  --header-height: 80px;
+  --content-padding-top: 80px;
+}
+
+:root[data-navigation='vertical'] {
+  /* Vertical navigation uses sidebar */
+  --header-height: 0px;
+  --content-padding-top: 0px;
+  --vertical-nav-width: 280px;
+}
+
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   :root[data-theme='dark'] {
