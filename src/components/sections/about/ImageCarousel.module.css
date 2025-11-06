@@ -159,6 +159,21 @@
   box-shadow: 0 0 10px var(--color-primary, #baffe9);
 }
 
+/* Light theme indicators - darker background for visibility */
+:root[data-theme='light'] .indicator {
+  background: rgba(48, 92, 222, 0.3);
+  border: 1px solid rgba(48, 92, 222, 0.2);
+}
+
+:root[data-theme='light'] .indicator:hover {
+  background: rgba(48, 92, 222, 0.5);
+}
+
+:root[data-theme='light'] .indicatorActive {
+  background: rgba(48, 92, 222, 1);
+  box-shadow: 0 0 10px rgba(48, 92, 222, 0.5);
+}
+
 /* Play/Pause Button */
 .playPauseButton {
   background: var(--glass-bg, rgba(255, 255, 255, 0.1));

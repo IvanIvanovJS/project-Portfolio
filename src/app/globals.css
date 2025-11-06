@@ -199,13 +199,13 @@
   --color-info: #3182ce;
 
   /* Glassmorphism Properties */
-  --glass-bg: rgba(255, 255, 255, 0.25);
-  --glass-bg-hover: rgba(255, 255, 255, 0.35);
-  --glass-border: rgba(255, 255, 255, 0.3);
-  --glass-border-hover: rgba(255, 255, 255, 0.4);
-  --glass-highlight: rgba(255, 255, 255, 0.4);
-  --glass-shadow: rgba(0, 0, 0, 0.1);
-  --glass-shadow-hover: rgba(0, 0, 0, 0.15);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-bg-hover: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(48, 92, 222, 0.15);
+  --glass-border-hover: rgba(48, 92, 222, 0.3);
+  --glass-highlight: rgba(255, 255, 255, 0.9);
+  --glass-shadow: rgba(48, 92, 222, 0.08);
+  --glass-shadow-hover: rgba(48, 92, 222, 0.15);
 
   /* Gradients */
   --gradient-primary: linear-gradient(
@@ -227,10 +227,14 @@
   );
 
   /* Glass Shadows for different elevations */
-  --glass-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
-  --glass-shadow-md: 0 8px 32px rgba(0, 0, 0, 0.1);
-  --glass-shadow-lg: 0 16px 64px rgba(0, 0, 0, 0.15);
-  --glass-shadow-xl: 0 25px 100px rgba(0, 0, 0, 0.2);
+  --glass-shadow-sm:
+    0 2px 8px rgba(48, 92, 222, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05);
+  --glass-shadow-md:
+    0 8px 32px rgba(48, 92, 222, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08);
+  --glass-shadow-lg:
+    0 16px 64px rgba(48, 92, 222, 0.15), 0 8px 16px rgba(0, 0, 0, 0.1);
+  --glass-shadow-xl:
+    0 25px 100px rgba(48, 92, 222, 0.2), 0 12px 24px rgba(0, 0, 0, 0.12);
 }
 
 /* Base Styles */

@@ -233,15 +233,23 @@
 /* Light theme specific adjustments */
 :root[data-theme='light'] .input,
 :root[data-theme='light'] .textarea {
-  background: rgba(255, 255, 255, 0.4);
-  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.6);
+  border: 2px solid rgba(48, 92, 222, 0.2);
   color: rgba(23, 23, 23, 0.9);
+  box-shadow: 0 2px 8px rgba(48, 92, 222, 0.05);
+}
+
+:root[data-theme='light'] .input:hover:not(:focus):not(:disabled),
+:root[data-theme='light'] .textarea:hover:not(:focus):not(:disabled) {
+  border-color: rgba(48, 92, 222, 0.4);
+  background: rgba(255, 255, 255, 0.7);
 }
 
 :root[data-theme='light'] .input:focus,
 :root[data-theme='light'] .textarea:focus {
-  background: rgba(255, 255, 255, 0.5);
-  border-color: #ff8800;
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(48, 92, 222, 1);
+  box-shadow: 0 0 0 3px rgba(48, 92, 222, 0.15);
 }
 
 :root[data-theme='light'] .input::placeholder,
