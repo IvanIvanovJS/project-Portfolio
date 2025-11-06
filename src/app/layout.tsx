@@ -30,16 +30,60 @@ export default function RootLayout({
   return (
     <html lang="en" className={ibmPlexSans.variable}>
       <head>
+        {/*
+          FOUC Prevention Script
+          
+          This blocking script executes before the first paint to prevent Flash of
+          Unstyled Content (FOUC) when loading user preferences.
+          
+          ## How It Works:
+          
+          1. Reads theme and navigation preferences from localStorage
+          2. Validates values to prevent injection attacks
+          3. Sets data-theme and data-navigation attributes on <html> element
+          4. Falls back to defaults (dark theme, vertical nav) on any error
+          
+          ## Why Blocking?
+          
+          This script MUST execute synchronously before React hydration to ensure:
+          - No visual flash when switching between themes
+          - No layout shift when switching between navigation modes
+          - Consistent initial render matching user preferences
+          
+          ## Coordination with React Providers:
+          
+          - ThemeProvider (src/providers/ThemeProvider.tsx) syncs with data-theme
+          - NavigationProvider (src/providers/NavigationProvider.tsx) syncs with data-navigation
+          - Both providers use the same storage keys and defaults
+          
+          ## Storage Keys:
+          
+          IMPORTANT: These keys must match STORAGE_KEYS in src/utils/preferences.ts
+          - Theme: 'portfolio-theme'
+          - Navigation: 'portfolio-navigation'
+          
+          ## Default Values:
+          
+          IMPORTANT: These defaults must match DEFAULTS in src/utils/preferences.ts
+          - Theme: 'dark' (optimal for glassmorphism design)
+          - Navigation: 'vertical' (better content focus)
+          
+          ## Error Handling:
+          
+          - localStorage unavailable: Uses defaults
+          - Invalid stored values: Uses defaults
+          - Any exception: Uses defaults and continues
+        */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
 (function() {
   try {
-    // Default values
+    // Default values - MUST match DEFAULTS in src/utils/preferences.ts
     const DEFAULT_THEME = 'dark';
     const DEFAULT_NAVIGATION = 'vertical';
     
-    // Storage keys
+    // Storage keys - MUST match STORAGE_KEYS in src/utils/preferences.ts
     const THEME_KEY = 'portfolio-theme';
     const NAV_KEY = 'portfolio-navigation';
     
