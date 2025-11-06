@@ -29,39 +29,48 @@ interface NavigationProviderProps {
 export const NavigationProvider: React.FC<NavigationProviderProps> = ({
   children,
 }) => {
-  // Initialize with default values to prevent hydration mismatch
+  // Initialize with default value 'vertical' to prevent hydration mismatch
   const [navigationMode, setNavigationMode] =
-    useState<NavigationMode>('horizontal');
+    useState<NavigationMode>('vertical');
   const [isVerticalNavOpen, setIsVerticalNavOpen] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
 
-  // Handle client-side hydration and localStorage loading
+  // Handle client-side hydration and sync with HTML attribute
   useEffect(() => {
     // Use setTimeout to defer setState and avoid synchronous call warning
     const timer = setTimeout(() => {
-      setIsHydrated(true);
+      // Read from HTML attribute (set by blocking script)
+      const htmlNav = document.documentElement.getAttribute('data-navigation');
+      const initialMode =
+        htmlNav === 'horizontal' || htmlNav === 'vertical'
+          ? htmlNav
+          : 'vertical';
 
-      // Load saved navigation mode from localStorage
-      const savedMode = localStorage.getItem(
-        'navigationMode'
-      ) as NavigationMode;
-      if (savedMode === 'horizontal' || savedMode === 'vertical') {
-        setNavigationMode(savedMode);
+      setNavigationMode(initialMode);
 
-        // If vertical mode is saved, open the navigation by default on desktop
-        if (savedMode === 'vertical' && window.innerWidth >= 769) {
-          setIsVerticalNavOpen(true);
-        }
+      // Set vertical nav open state based on screen size
+      if (initialMode === 'vertical' && window.innerWidth >= 769) {
+        setIsVerticalNavOpen(true);
       }
+
+      setIsHydrated(true);
     }, 0);
 
     return () => clearTimeout(timer);
   }, []);
 
-  // Save navigation mode to localStorage whenever it changes (only after hydration)
+  // Save navigation mode to localStorage and update HTML attribute whenever it changes
   useEffect(() => {
     if (isHydrated) {
-      localStorage.setItem('navigationMode', navigationMode);
+      // Update HTML attribute
+      document.documentElement.setAttribute('data-navigation', navigationMode);
+
+      // Persist to localStorage with error handling
+      try {
+        localStorage.setItem('portfolio-navigation', navigationMode);
+      } catch {
+        console.warn('Failed to save navigation preference');
+      }
     }
   }, [navigationMode, isHydrated]);
 
