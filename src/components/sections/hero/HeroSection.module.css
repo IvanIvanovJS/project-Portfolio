@@ -19,6 +19,17 @@
   transform: translateY(0);
 }
 
+/* Full-width 3D Scene Background */
+.sceneBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: auto;
+}
+
 .container {
   max-width: 1400px;
   width: 100%;
@@ -34,15 +45,14 @@
   height: 100%;
 }
 
-/* Left side - 3D Sphere */
-.sphereContainer {
-  flex: 0 0 50%;
-  height: 600px;
-  position: relative;
-  z-index: 10;
+/* Left side - Spacer for sphere (55%) */
+.sphereSpacer {
+  flex: 0 0 55%;
+  height: 100%;
+  pointer-events: none;
 }
 
-/* Right side - Content */
+/* Right side - Content (45%) */
 .contentContainer {
   flex: 0 0 45%;
   display: flex;
@@ -50,6 +60,8 @@
   gap: var(--spacing-xl);
   align-items: flex-start;
   animation: slideInRight 0.8s ease-out;
+  position: relative;
+  z-index: 3;
 }
 
 .textContent {
@@ -325,24 +337,17 @@
 }
 
 /* Responsive Design */
-@media (max-width: 1200px) {
-  .sceneBackground {
-    max-width: 100%;
-  }
-}
-
 @media (max-width: 1024px) {
   .container {
     gap: var(--spacing-lg);
   }
 
-  .sphereContainer {
-    flex: 0 0 45%;
-    height: 500px;
+  .sphereSpacer {
+    flex: 0 0 55%;
   }
 
   .contentContainer {
-    flex: 0 0 50%;
+    flex: 0 0 45%;
   }
 
   .name {
@@ -365,6 +370,14 @@
     padding: var(--spacing-xl) 0;
   }
 
+  .sceneBackground {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    order: 1;
+    margin-bottom: var(--spacing-lg);
+  }
+
   .container {
     flex-direction: column;
     padding: 0 var(--spacing-md);
@@ -372,11 +385,8 @@
     justify-content: center;
   }
 
-  .sphereContainer {
-    flex: none;
-    width: 100%;
-    height: 400px;
-    order: 1;
+  .sphereSpacer {
+    display: none;
   }
 
   .contentContainer {
@@ -402,7 +412,7 @@
 }
 
 @media (max-width: 480px) {
-  .sphereContainer {
+  .sceneBackground {
     height: 350px;
   }
 

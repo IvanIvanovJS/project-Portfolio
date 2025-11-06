@@ -51,14 +51,17 @@ export const HeroSection: React.FC = () => {
       id="hero"
       aria-label="Hero section"
     >
+      {/* Full-width 3D Scene Background */}
+      <div className={styles.sceneBackground}>
+        <ThreeScene theme={theme} isVisible={isVisible} />
+      </div>
+
       {/* Content container */}
       <div className={styles.container}>
-        {/* Left side - 3D Sphere */}
-        <div className={styles.sphereContainer}>
-          <ThreeScene theme={theme} isVisible={isVisible} />
-        </div>
+        {/* Left side - Spacer for sphere (60%) */}
+        <div className={styles.sphereSpacer} />
 
-        {/* Right side - Content */}
+        {/* Right side - Content (40%) */}
         <div className={styles.contentContainer}>
           <div className={styles.textContent}>
             <h1 className={styles.name}>Ivan Ivanov</h1>
