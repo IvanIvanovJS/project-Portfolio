@@ -370,7 +370,7 @@ function Particles({ theme }: { theme: 'light' | 'dark' }) {
     <points ref={particlesRef} geometry={geometry}>
       <pointsMaterial
         size={0.05}
-        color={theme === 'dark' ? '#baffe9' : '#ff8800'}
+        color={theme === 'dark' ? '#baffe9' : '#305cde'}
         transparent
         opacity={0.6}
         sizeAttenuation
@@ -467,7 +467,7 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({ theme, isVisible }) => {
       style={{
         width: '100%',
         height: '100%',
-        background: '#171717',
+        background: '#  ',
       }}
     >
       <Canvas
@@ -486,7 +486,7 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({ theme, isVisible }) => {
         <directionalLight
           position={[10, 10, 5]}
           intensity={1}
-          color={theme === 'dark' ? '#baffe9' : '#ff8800'}
+          color={theme === 'dark' ? '#baffe9' : '#305cde'}
         />
         <pointLight
           position={[-10, -10, -5]}

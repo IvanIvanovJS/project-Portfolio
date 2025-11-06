@@ -89,8 +89,8 @@ export class TileMaterial extends THREE.ShaderMaterial {
    * @param isDark - Whether dark theme is active
    */
   updateThemeColor(isDark: boolean): void {
-    // Cyan (#baffe9) for dark theme, orange (#ff8800) for light theme
-    const color = isDark ? 0xbaffe9 : 0xff8800;
+    // Cyan (#baffe9) for dark theme, blue (#305cde) for light theme
+    const color = isDark ? 0xbaffe9 : 0x305cde;
     this.uniforms.uThemeColor.value.setHex(color);
   }
 
