@@ -106,14 +106,15 @@
   padding: var(--spacing-4);
   border-radius: 1rem;
   background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid;
   transition: all 0.3s ease;
+  border-color: var(--glass-border);
 }
 
 .infoItem:hover {
   background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.1);
-  transform: translateX(4px);
+  border-color: var(-glass-border-hover);
+  transform: translateX(2px);
 }
 
 .iconWrapper {

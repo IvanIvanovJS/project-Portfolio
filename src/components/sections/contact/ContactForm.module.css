@@ -130,7 +130,7 @@
 .submitButton:hover:not(:disabled) {
   transform: translateY(-2px);
   border-color: var(--color-primary);
-  box-shadow: 0 8px 24px rgba(var(--color-primary-rgb, 186, 255, 233), 0.2);
+  box-shadow: 0 0 20px 2px var(--color-primary-40);
   letter-spacing: var(--letter-spacing-wide, 0.025em);
 }
 

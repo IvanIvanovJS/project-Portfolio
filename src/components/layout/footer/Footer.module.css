@@ -88,7 +88,7 @@
   border-color: var(--color-primary, #baffe9);
   color: var(--color-primary, #baffe9);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(186, 255, 233, 0.2);
+  box-shadow: 0 0px 20px 2px var(--color-primary-40);
 }
 
 /* Links Section */
