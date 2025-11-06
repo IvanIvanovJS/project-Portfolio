@@ -9,21 +9,21 @@
   - Validate stored values to prevent injection attacks
   - _Requirements: 3.1, 3.2, 3.5, 1.1, 1.2_
 
-- [ ] 2. Update ThemeProvider to sync with blocking script
-  - [ ] 2.1 Remove system preference detection (prefers-color-scheme)
+- [x] 2. Update ThemeProvider to sync with blocking script
+  - [x] 2.1 Remove system preference detection (prefers-color-scheme)
     - Remove window.matchMedia check for color scheme
     - Set default theme state to 'dark'
     - _Requirements: 1.1, 1.3_
-  - [ ] 2.2 Sync initial state with HTML data-theme attribute
+  - [x] 2.2 Sync initial state with HTML data-theme attribute
     - Read data-theme attribute from document.documentElement on mount
     - Initialize theme state from attribute value
     - Fall back to 'dark' if attribute is missing or invalid
     - _Requirements: 2.3, 3.1_
-  - [ ] 2.3 Update storage key to match blocking script
+  - [x] 2.3 Update storage key to match blocking script
     - Change THEME_STORAGE_KEY to 'portfolio-theme'
     - Ensure consistency between blocking script and provider
     - _Requirements: 4.1, 4.2_
-  - [ ] 2.4 Update theme change handler to sync HTML attribute
+  - [x] 2.4 Update theme change handler to sync HTML attribute
     - Set data-theme attribute when theme changes
     - Persist to localStorage with error handling
     - _Requirements: 2.1, 4.3_
