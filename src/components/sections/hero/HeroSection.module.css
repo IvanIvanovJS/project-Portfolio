@@ -24,10 +24,17 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100% + 280px;
   height: 100%;
   z-index: 1;
   pointer-events: auto;
+  transform: translateX(-26%);
+}
+
+@media (max-width: 768px) {
+  .sceneBackground {
+    transform: none;
+  }
 }
 
 /* Right side - Content (45%) - самостоятелен контейнер */
@@ -36,7 +43,7 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 45%;
+  width: 42%;
   max-width: 630px;
   padding: 0 var(--spacing-xl);
   display: flex;

@@ -472,7 +472,7 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({ theme, isVisible }) => {
     >
       <Canvas
         camera={{
-          position: isMobile ? [0, 0, 8] : [2.5, 0, 8],
+          position: [0, 0, 8],
           fov: isMobile ? 60 : 55,
         }}
         gl={{
@@ -507,7 +507,7 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({ theme, isVisible }) => {
           enableZoom={false}
           enablePan={false}
           autoRotate={false}
-          target={isMobile ? [0, 0, 0] : [2.5, 0, 0]}
+          target={[0, 0, 0]}
         />
       </Canvas>
     </div>
