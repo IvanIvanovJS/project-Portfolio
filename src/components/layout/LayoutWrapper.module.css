@@ -46,12 +46,6 @@
   padding-top: 0;
 }
 
-@media (max-width: 768px) {
-  .verticalMode .mainContent {
-    padding-top: 80px; /* Space for mobile header */
-  }
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .mainContent.withVerticalNav,
