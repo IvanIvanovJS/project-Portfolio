@@ -35,7 +35,7 @@
     - Include descriptive `aria-label` attributes
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5_
 
-- [ ] 4. Reduce form field spacing
+- [-] 4. Reduce form field spacing
   - Update `.form` gap in ContactForm.module.css from 1.5rem to 0.75rem
   - Verify touch targets remain adequate for mobile (minimum 44px)
   - Test visual clarity between fields
