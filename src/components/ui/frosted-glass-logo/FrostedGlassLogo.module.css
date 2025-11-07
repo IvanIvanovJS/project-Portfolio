@@ -45,7 +45,8 @@
 
 /* Hover and focus states */
 .logo:hover,
-.logo:focus-visible {
+.logo:focus-visible,
+.logo.expanded {
   /* Enhanced glass effect */
   background: rgba(255, 255, 255, 0.1);
 
@@ -79,12 +80,14 @@
 
 /* Text expansion animation */
 .logo:hover .logoText,
-.logo:focus-visible .logoText {
+.logo:focus-visible .logoText,
+.logo.expanded .logoText {
   color: transparent;
 }
 
 .logo:hover .logoText::after,
-.logo:focus-visible .logoText::after {
+.logo:focus-visible .logoText::after,
+.logo.expanded .logoText::after {
   content: attr(data-text);
   position: absolute;
   left: 0;
@@ -113,7 +116,8 @@
 }
 
 :global([data-theme='light']) .logo:hover .logoText::after,
-:global([data-theme='light']) .logo:focus-visible .logoText::after {
+:global([data-theme='light']) .logo:focus-visible .logoText::after,
+:global([data-theme='light']) .logo.expanded .logoText::after {
   color: rgba(23, 23, 23, 0.9);
 }
 
