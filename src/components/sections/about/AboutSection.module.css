@@ -27,6 +27,7 @@
   gap: var(--spacing-lg, 3rem);
   align-items: start;
   grid-auto-rows: auto;
+  width: 100%;
 }
 
 /* Info Column */
@@ -338,6 +339,9 @@
     gap: var(--spacing-xl, 2.5rem);
     display: flex;
     flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
   }
 
   /* Mobile order: Bio -> Carousel -> Experience -> Skills */
@@ -354,10 +358,8 @@
   .experienceSection {
     order: 3;
     padding: var(--spacing-lg, 2rem);
-    background: var(--glass-bg, rgba(255, 255, 255, 0.05));
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
     border-radius: 16px;
   }
 
@@ -367,10 +369,14 @@
     order: 2;
     min-height: 500px;
     gap: var(--spacing-xl, 2.5rem);
+    padding: 0;
+    width: 100%;
   }
 
   .carouselWrapper {
     order: 1;
+    width: 100%;
+    padding: 0;
   }
 
   .glassCard {
@@ -428,6 +434,13 @@
   .carouselColumn {
     min-height: 400px;
     gap: var(--spacing-lg, 2rem);
+    padding: 0;
+    width: 100%;
+  }
+
+  .carouselWrapper {
+    width: 100%;
+    padding: 0;
   }
 
   .skillsGrid {
