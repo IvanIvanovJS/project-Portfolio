@@ -6,6 +6,50 @@
   justify-content: center;
   position: relative;
   background: var(--bg-primary);
+  overflow: hidden;
+}
+
+/* Futuristic background image with creative blend */
+.contactSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/contactBackground.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Gradient overlay for smooth blend with vignette */
+.contactSection::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 0%,
+      rgba(var(--bg-primary-rgb, 23, 23, 23), 0.3) 70%,
+      var(--bg-primary) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      var(--bg-primary) 0%,
+      transparent 15%,
+      transparent 85%,
+      var(--bg-primary) 100%
+    );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Additional radial gradient for depth */
+.contactSection > * {
+  position: relative;
+  z-index: 2;
 }
 
 .container {
@@ -13,6 +57,8 @@
   width: 100%;
   margin: 0 auto;
   padding: 0 var(--spacing-xl, 2rem);
+  position: relative;
+  z-index: 2;
 }
 
 .title {
@@ -143,42 +189,25 @@
   position: relative;
 }
 
-/* Animated gradient background */
+/* Subtle glow effect to match the futuristic theme */
 .formContainer::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background: conic-gradient(
-    from 0deg,
-    var(--color-primary),
-    var(--color-accent),
-    var(--color-primary-60),
-    var(--color-accent),
-    var(--color-primary)
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(
+    circle,
+    rgba(var(--color-primary-rgb, 186, 255, 233), 0.15) 0%,
+    rgba(var(--color-accent-rgb, 159, 122, 234), 0.1) 50%,
+    transparent 70%
   );
-  border-radius: 50%;
-  filter: blur(70px);
-  opacity: 0.55;
-  z-index: 0;
+  filter: blur(80px);
+  opacity: 0.6;
+  z-index: -1;
   pointer-events: none;
-  animation: rotateGradient 10s linear infinite;
-}
-
-@keyframes rotateGradient {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-/* Respect reduced motion preference */
-@media (prefers-reduced-motion: reduce) {
-  .formContainer::before {
-    animation: none;
-    opacity: 0.25;
-  }
 }
 
 .formTitle {

@@ -119,6 +119,7 @@
 :root[data-theme='dark'] {
   /* Base Colors */
   --bg-primary: #171717;
+  --bg-primary-rgb: 23, 23, 23;
   --bg-secondary: #1f1f1f;
   --bg-tertiary: #2a2a2a;
   --bg-fourtriary: #4d4d4d;
@@ -136,6 +137,7 @@
   --color-secondary: #4a5568;
   --color-secondary-hover: #5a6578;
   --color-accent: #9f7aea;
+  --color-accent-rgb: 159, 122, 234;
   --color-accent-60: rgba(159, 122, 234, 0.6);
   --color-accent-40: rgba(159, 122, 234, 0.4);
   --color-accent-hover: #b794f6;
@@ -181,6 +183,7 @@
 :root[data-theme='light'] {
   /* Base Colors */
   --bg-primary: #fafafa;
+  --bg-primary-rgb: 250, 250, 250;
   --bg-secondary: #ffffff;
   --bg-tertiary: #ecebeb;
   --bg-fourtriary: #dcdcdc;
@@ -198,6 +201,7 @@
   --color-secondary: #718096;
   --color-secondary-hover: #4a5568;
   --color-accent: rgba(89, 181, 247, 1);
+  --color-accent-rgb: 89, 181, 247;
   --color-accent-60: rgba(89, 181, 247, 0.6);
   --color-accent-40: rgba(89, 181, 247, 0.4);
   --color-accent-hover: rgba(69, 161, 227, 1);
