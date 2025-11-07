@@ -328,6 +328,11 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
                 <p className={styles.captionText}>
                   {images[images.length - 1].caption}
                 </p>
+                {images[images.length - 1].subCaption && (
+                  <p className={styles.subCaptionText}>
+                    {images[images.length - 1].subCaption}
+                  </p>
+                )}
               </div>
             )}
           </div>
@@ -347,6 +352,9 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
               {image.caption && (
                 <div className={styles.captionOverlay}>
                   <p className={styles.captionText}>{image.caption}</p>
+                  {image.subCaption && (
+                    <p className={styles.subCaptionText}>{image.subCaption}</p>
+                  )}
                 </div>
               )}
             </div>
@@ -366,6 +374,11 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
             {images[0].caption && (
               <div className={styles.captionOverlay}>
                 <p className={styles.captionText}>{images[0].caption}</p>
+                {images[0].subCaption && (
+                  <p className={styles.subCaptionText}>
+                    {images[0].subCaption}
+                  </p>
+                )}
               </div>
             )}
           </div>

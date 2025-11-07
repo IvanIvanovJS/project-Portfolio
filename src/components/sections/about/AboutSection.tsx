@@ -105,7 +105,7 @@ const defaultData: AboutData = {
       alt: 'My profile picture',
       caption: "👋 Hey, it's me! I'm glad you're here!",
       subCaption:
-        'Coding is my passion — feel free to reach out for a collaboration!',
+        'Coding is my passion — feel free to reach out for a collaboration',
     },
     {
       id: '2',
@@ -130,7 +130,7 @@ const defaultData: AboutData = {
       caption:
         "❤️ One of my favorite things to do for my family — it's brunch time!",
       subCaption:
-        'The best part of the week — preparing Sunday brunch for my family.',
+        'The best part of the week — preparing Sunday brunch for my family',
     },
   ],
 };
