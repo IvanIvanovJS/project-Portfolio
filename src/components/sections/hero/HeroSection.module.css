@@ -382,11 +382,14 @@
   }
 
   .scrollIndicator {
-    bottom: var(--spacing-md);
+    display: none;
   }
 }
 
 @media (max-width: 480px) {
+  .scrollIndicator {
+    display: none;
+  }
   .sceneBackground {
     height: 350px;
   }
