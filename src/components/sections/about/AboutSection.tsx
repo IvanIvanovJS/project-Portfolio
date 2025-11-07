@@ -55,12 +55,12 @@ const SkillIcon: React.FC<SkillIconProps> = ({ name, size = 24 }) => {
 
 const defaultData: AboutData = {
   personalInfo: {
-    name: 'John Doe',
+    name: 'Ivan Ivanov',
     title: 'Full Stack Developer',
     bio: 'Passionate software engineer with expertise in modern web technologies. I specialize in creating beautiful, performant, and accessible web applications using React, TypeScript, and Next.js. With a keen eye for design and a commitment to clean code, I bring ideas to life through elegant solutions.',
-    location: 'Sofia, Bulgaria',
+    location: 'Varna, Bulgaria',
     email: 'john.doe@example.com',
-    phone: '+359 123 456 789',
+    phone: '+359 898 573 056',
   },
   skills: [
     { name: 'React', level: 95, category: 'frontend' },
@@ -72,20 +72,28 @@ const defaultData: AboutData = {
   ],
   experience: [
     {
-      company: 'Tech Company',
-      position: 'Senior Frontend Developer',
-      startDate: '2021-01',
+      company: 'Front End Developer',
+      position: 'Personal Pprojects',
+      startDate: '2025-08',
       endDate: undefined,
-      description: 'Leading frontend development for enterprise applications',
-      technologies: ['React', 'TypeScript', 'Next.js', 'GraphQL'],
+      description: 'Build as personal portfolio projects ',
+      technologies: ['React', 'TypeScript', 'Next.js', 'CSS', 'UI/UX'],
     },
     {
-      company: 'Startup Inc',
-      position: 'Full Stack Developer',
-      startDate: '2019-06',
-      endDate: '2020-12',
-      description: 'Built and maintained full-stack web applications',
-      technologies: ['React', 'Node.js', 'MongoDB', 'AWS'],
+      company: 'Full Javascript/React curriculum',
+      position: 'SoftUni Education',
+      startDate: '2024-09',
+      endDate: undefined,
+      description:
+        'JS Fundamentals, Advance, Node.js Back-end,TS Fundamentals, ReactJS, HTML/CSS',
+      technologies: [
+        'React',
+        'Node.js',
+        'MongoDB',
+        'TypeScript',
+        'JavaScript',
+        'CSS',
+      ],
     },
   ],
   education: [
@@ -117,20 +125,20 @@ const defaultData: AboutData = {
     },
     {
       id: '3',
-      src: '/images/dubaiSunraise.png',
-      alt: 'Sunraise on Palm Jumeirah',
-      caption: '🛫 When a 5 AM sunrise makes you smile!',
-      subCaption:
-        "Some people say money can't buy happiness — they've clearly never traveled",
-    },
-    {
-      id: '4',
       src: '/images/familyBrunch.jpg',
       alt: 'Family moments - brunch time',
       caption:
         "❤️ One of my favorite things to do for my family — it's brunch time!",
       subCaption:
         'The best part of the week — preparing Sunday brunch for my family',
+    },
+    {
+      id: '4',
+      src: '/images/dubaiSunraise.png',
+      alt: 'Sunraise on Palm Jumeirah',
+      caption: '🛫 When a 5 AM sunrise makes you smile!',
+      subCaption:
+        "Some people say money can't buy happiness — they've clearly never traveled",
     },
   ],
 };
