@@ -15,10 +15,15 @@ const ibmPlexSans = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Portfolio Site',
-  description: 'A modern portfolio site with glassmorphism design',
+  title: 'Ivan Ivanov - Portfolio',
+  description:
+    'Modern portfolio showcasing web development projects with glassmorphism design',
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
+    apple: '/favicon.svg',
   },
 };
 
