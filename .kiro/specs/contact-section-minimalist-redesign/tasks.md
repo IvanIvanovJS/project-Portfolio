@@ -35,15 +35,15 @@
     - Include descriptive `aria-label` attributes
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5_
 
-- [-] 4. Reduce form field spacing
+- [x] 4. Reduce form field spacing
   - Update `.form` gap in ContactForm.module.css from 1.5rem to 0.75rem
   - Verify touch targets remain adequate for mobile (minimum 44px)
   - Test visual clarity between fields
   - Ensure accessibility is maintained
   - _Requirements: 4.1, 4.2, 4.3, 4.4_
 
-- [ ] 5. Implement animated conic-gradient background
-  - [ ] 5.1 Add gradient background layer to ContactSection.module.css
+- [x] 5. Implement animated conic-gradient background
+  - [x] 5.1 Add gradient background layer to ContactSection.module.css
     - Create `::before` pseudo-element on `.formContainer`
     - Position absolutely and center with transform
     - Set size to 400px × 400px
@@ -53,20 +53,20 @@
     - Set z-index to 0
     - _Requirements: 5.1, 5.2, 5.4_
 
-  - [ ] 5.2 Add rotation animation
+  - [x] 5.2 Add rotation animation
     - Create `@keyframes rotateGradient` animation
     - Rotate from 0deg to 360deg
     - Set duration to 10s with linear timing
     - Apply infinite loop
     - _Requirements: 5.3, 5.5_
 
-  - [ ] 5.3 Ensure proper z-index layering
+  - [x] 5.3 Ensure proper z-index layering
     - Set form content to `position: relative` with `z-index: 1`
     - Verify gradient stays behind form fields
     - Test input focus states
     - _Requirements: 5.4_
 
-  - [ ] 5.4 Add reduced motion support
+  - [x] 5.4 Add reduced motion support
     - Create media query for `prefers-reduced-motion: reduce`
     - Disable animation when user prefers reduced motion
     - Optionally reduce gradient opacity when static
