@@ -79,7 +79,8 @@
   border-color: rgba(255, 255, 255, 0.25);
 
   /* Expand width to fit full text */
-  min-width: 200px;
+  min-width: 240px;
+  padding: 12px 30px;
 }
 
 /* Focus visible indicator */
@@ -108,11 +109,12 @@
 .fullText {
   display: inline-block;
   position: absolute;
-  left: 0;
-  top: 0;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   opacity: 0;
-  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
+  width: max-content;
 }
 
 /* On hover/focus: hide short, show full */
@@ -124,6 +126,7 @@
 .logo:hover .fullText,
 .logo:focus-visible .fullText {
   opacity: 1;
+  animation: revealText 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 
   /* Enhanced glassmorphism effect */
   background: linear-gradient(
@@ -148,6 +151,19 @@
 
 .logo.expanded .fullText {
   opacity: 1;
+  animation: revealText 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Letter-by-letter reveal animation */
+@keyframes revealText {
+  from {
+    clip-path: inset(0 100% 0 0);
+    letter-spacing: 0.3em;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    letter-spacing: 0.05em;
+  }
 }
 
 @keyframes expandText {
