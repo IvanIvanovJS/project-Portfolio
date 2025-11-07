@@ -35,6 +35,11 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
     currentIndexRef.current = currentIndex;
   }, [currentIndex]);
 
+  // Sync isPlaying with autoPlay prop
+  useEffect(() => {
+    setIsPlaying(autoPlay);
+  }, [autoPlay]);
+
   const goToNext = useCallback(() => {
     if (isDragging || isTransitioning) return;
     setIsTransitioning(true);

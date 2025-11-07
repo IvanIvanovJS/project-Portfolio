@@ -119,7 +119,7 @@ const defaultData: AboutData = {
       id: '3',
       src: '/images/dubaiSunraise.png',
       alt: 'Sunraise on Palm Jumeirah',
-      caption: '🛫 When 5 AM sunrise makes you smile!',
+      caption: '🛫 When a 5 AM sunrise makes you smile!',
       subCaption:
         "Some people say money can't buy happiness — they've clearly never traveled",
     },
@@ -144,6 +144,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
   const [carouselHeight, setCarouselHeight] = useState<number | undefined>(
     undefined
   );
+  const [isCarouselVisible, setIsCarouselVisible] = useState(false);
+  const hasBeenVisible = useRef(false);
 
   useEffect(() => {
     const updateCarouselHeight = () => {
@@ -157,6 +159,31 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
     window.addEventListener('resize', updateCarouselHeight);
 
     return () => window.removeEventListener('resize', updateCarouselHeight);
+  }, []);
+
+  // Intersection Observer to start autoplay when carousel becomes visible
+  useEffect(() => {
+    if (!carouselRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasBeenVisible.current) {
+            setIsCarouselVisible(true);
+            hasBeenVisible.current = true;
+          }
+        });
+      },
+      {
+        threshold: 0.3, // Start when 30% of carousel is visible
+      }
+    );
+
+    observer.observe(carouselRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   return (
@@ -273,12 +300,17 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div
+              ref={carouselRef}
               className={styles.carouselWrapper}
               style={{
                 height: carouselHeight ? `${carouselHeight}px` : 'auto',
               }}
             >
-              <ImageCarousel images={images} autoPlay={true} interval={5000} />
+              <ImageCarousel
+                images={images}
+                autoPlay={isCarouselVisible}
+                interval={7000}
+              />
             </div>
 
             {/* Skills Section */}
