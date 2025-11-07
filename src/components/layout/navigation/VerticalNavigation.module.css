@@ -52,20 +52,8 @@
 }
 
 .logo {
-  display: flex;
-  align-items: center;
-}
-
-.logoText {
-  font-size: var(--font-size-xl, 1.25rem);
-  font-weight: 700;
-  color: var(--color-primary, #baffe9);
-  letter-spacing: var(--letter-spacing-wide, 0.025em);
-  transition: all 0.3s ease;
-}
-
-.logoText:hover {
-  text-shadow: 0 0 20px var(--color-primary, #baffe9);
+  /* FrostedGlassLogo component handles its own styling */
+  /* This class is passed to the component for positioning */
 }
 
 /* Toggle Button */

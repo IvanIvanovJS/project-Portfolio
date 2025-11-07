@@ -9,6 +9,7 @@ import {
   Twitter,
   ExternalLink,
 } from 'lucide-react';
+import { FrostedGlassLogo } from '../../ui/frosted-glass-logo';
 import styles from './Footer.module.css';
 
 interface SocialLink {
@@ -87,7 +88,12 @@ export const Footer: React.FC<FooterProps> = ({ className = '' }) => {
         <div className={styles.mainContent}>
           {/* Brand Section */}
           <div className={styles.brandSection}>
-            <h3 className={styles.brandName}>Portfolio</h3>
+            <FrostedGlassLogo
+              className={styles.brandLogo}
+              href="#hero"
+              ariaLabel="Ivan Ivanov - Portfolio Home"
+              onClick={() => handleSmoothScroll('#hero')}
+            />
             <p className={styles.brandDescription}>
               Crafting digital experiences with modern web technologies and
               creative design.

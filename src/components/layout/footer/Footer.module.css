@@ -45,6 +45,11 @@
   gap: var(--spacing-4, 1rem);
 }
 
+.brandLogo {
+  /* FrostedGlassLogo component handles its own styling */
+  margin-bottom: var(--spacing-2, 0.5rem);
+}
+
 .brandName {
   font-size: var(--font-size-2xl, 1.5rem);
   font-weight: 700;

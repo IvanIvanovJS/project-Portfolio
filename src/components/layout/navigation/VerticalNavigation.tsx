@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { UnifiedSwitcher } from '../../ui/unified-switcher/UnifiedSwitcher';
+import { FrostedGlassLogo } from '../../ui/frosted-glass-logo';
 import { Menu, X, Home, User, Briefcase, Mail } from 'lucide-react';
 import styles from './VerticalNavigation.module.css';
 
@@ -100,9 +101,17 @@ export const VerticalNavigation: React.FC<VerticalNavigationProps> = ({
       >
         {/* Navigation Header */}
         <div className={styles.navHeader}>
-          <div className={styles.logo}>
-            <span className={styles.logoText}>Portfolio</span>
-          </div>
+          <FrostedGlassLogo
+            className={styles.logo}
+            href="#hero"
+            ariaLabel="Ivan Ivanov - Portfolio Home"
+            onClick={() => {
+              onItemClick('#hero');
+              if (isMobile && isOpen) {
+                onToggleNavigation();
+              }
+            }}
+          />
 
           {/* Toggle Button - Only show on mobile */}
           {isMobile && (

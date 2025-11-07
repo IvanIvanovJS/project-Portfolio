@@ -22,11 +22,12 @@
   justify-content: center;
   padding: 12px 20px;
   min-height: 48px;
+  min-width: 80px;
+  overflow: visible;
 
   /* Typography */
   font-size: 1.5rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
   white-space: nowrap;
 
@@ -41,6 +42,21 @@
   position: relative;
   display: inline-block;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Glassmorphism effect on text */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.7) 50%,
+    rgba(255, 255, 255, 0.9) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* Text shadow for depth */
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))
+    drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
 }
 
 /* Hover and focus states */
@@ -61,6 +77,9 @@
 
   /* Brighter border */
   border-color: rgba(255, 255, 255, 0.25);
+
+  /* Expand width to fit full text */
+  min-width: 200px;
 }
 
 /* Focus visible indicator */
@@ -78,23 +97,57 @@
     0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
-/* Text expansion animation */
-.logo:hover .logoText,
-.logo:focus-visible .logoText,
-.logo.expanded .logoText {
-  color: transparent;
+/* Short text (default visible) */
+.shortText {
+  display: inline-block;
+  opacity: 1;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.logo:hover .logoText::after,
-.logo:focus-visible .logoText::after,
-.logo.expanded .logoText::after {
-  content: attr(data-text);
+/* Full text (hidden by default) */
+.fullText {
+  display: inline-block;
   position: absolute;
   left: 0;
   top: 0;
-  color: rgba(255, 255, 255, 0.9);
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+/* On hover/focus: hide short, show full */
+.logo:hover .shortText,
+.logo:focus-visible .shortText {
+  opacity: 0;
+}
+
+.logo:hover .fullText,
+.logo:focus-visible .fullText {
   opacity: 1;
-  animation: expandText 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+
+  /* Enhanced glassmorphism effect */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.75) 50%,
+    rgba(255, 255, 255, 0.95) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* Enhanced text shadow for depth */
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4))
+    drop-shadow(0 0 12px rgba(255, 255, 255, 0.3));
+}
+
+/* On expanded: hide short, show full */
+.logo.expanded .shortText {
+  opacity: 0;
+}
+
+.logo.expanded .fullText {
+  opacity: 1;
 }
 
 @keyframes expandText {
@@ -110,15 +163,53 @@
 
 /* Theme support - Light theme */
 :global([data-theme='light']) .logo {
-  color: rgba(23, 23, 23, 0.9);
   background: rgba(255, 255, 255, 0.25);
   border-color: rgba(255, 255, 255, 0.3);
 }
 
+:global([data-theme='light']) .logoText {
+  background: linear-gradient(
+    135deg,
+    rgba(23, 23, 23, 0.9) 0%,
+    rgba(23, 23, 23, 0.7) 50%,
+    rgba(23, 23, 23, 0.9) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 4px rgba(255, 255, 255, 0.5))
+    drop-shadow(0 0 8px rgba(0, 0, 0, 0.1));
+}
+
+:global([data-theme='light']) .logo:hover .fullText,
+:global([data-theme='light']) .logo:focus-visible .fullText,
+:global([data-theme='light']) .logo.expanded .fullText {
+  background: linear-gradient(
+    135deg,
+    rgba(23, 23, 23, 0.95) 0%,
+    rgba(23, 23, 23, 0.75) 50%,
+    rgba(23, 23, 23, 0.95) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 6px rgba(255, 255, 255, 0.6))
+    drop-shadow(0 0 12px rgba(0, 0, 0, 0.2));
+}
+
 :global([data-theme='light']) .logo:hover .logoText::after,
-:global([data-theme='light']) .logo:focus-visible .logoText::after,
-:global([data-theme='light']) .logo.expanded .logoText::after {
-  color: rgba(23, 23, 23, 0.9);
+:global([data-theme='light']) .logo:focus-visible .logoText::after {
+  background: linear-gradient(
+    135deg,
+    rgba(23, 23, 23, 0.95) 0%,
+    rgba(23, 23, 23, 0.75) 50%,
+    rgba(23, 23, 23, 0.95) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 6px rgba(255, 255, 255, 0.6))
+    drop-shadow(0 0 12px rgba(0, 0, 0, 0.2));
 }
 
 /* Responsive design - Tablet */

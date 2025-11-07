@@ -122,8 +122,9 @@ export const FrostedGlassLogo: React.FC<FrostedGlassLogoProps> = ({
       role="button"
       tabIndex={0}
     >
-      <span className={styles.logoText} data-text="Ivan Ivanov">
-        i i
+      <span className={styles.logoText}>
+        <span className={styles.shortText}>i i</span>
+        <span className={styles.fullText}>Ivan Ivanov</span>
       </span>
     </a>
   );
