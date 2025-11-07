@@ -12,6 +12,7 @@ export interface CarouselImage {
   src: string;
   alt: string;
   caption?: string;
+  subCaption?: string;
 }
 
 export interface Skill {

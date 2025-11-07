@@ -226,30 +226,55 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
     dragDistance.current = 0;
   };
 
-  // Touch events
-  const handleTouchStart = (e: React.TouchEvent) => {
-    if (isTransitioning) return;
-    e.stopPropagation();
-    isTouchInteraction.current = true;
-    handleDragStart(e.touches[0].clientX);
-  };
+  // Touch events - using refs for native event listeners
+  const carouselRef = useRef<HTMLDivElement>(null);
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging) return;
-    e.stopPropagation();
-    handleDragMove(e.touches[0].clientX);
+  useEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
 
-    // Prevent vertical scrolling during horizontal drag
-    if (Math.abs(dragDistance.current) > 10) {
-      e.preventDefault();
-    }
-  };
+    const handleTouchStartNative = (e: TouchEvent) => {
+      if (isTransitioning) return;
+      e.stopPropagation();
+      isTouchInteraction.current = true;
+      handleDragStart(e.touches[0].clientX);
+    };
 
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    e.stopPropagation();
-    handleDragEnd();
-    isTouchInteraction.current = false;
-  };
+    const handleTouchMoveNative = (e: TouchEvent) => {
+      if (!isDragging) return;
+      e.stopPropagation();
+      handleDragMove(e.touches[0].clientX);
+
+      // Prevent vertical scrolling during horizontal drag
+      if (Math.abs(dragDistance.current) > 10) {
+        e.preventDefault();
+      }
+    };
+
+    const handleTouchEndNative = (e: TouchEvent) => {
+      e.stopPropagation();
+      handleDragEnd();
+      isTouchInteraction.current = false;
+    };
+
+    // Add event listeners with { passive: false } to allow preventDefault
+    carousel.addEventListener('touchstart', handleTouchStartNative, {
+      passive: false,
+    });
+    carousel.addEventListener('touchmove', handleTouchMoveNative, {
+      passive: false,
+    });
+    carousel.addEventListener('touchend', handleTouchEndNative, {
+      passive: false,
+    });
+
+    return () => {
+      carousel.removeEventListener('touchstart', handleTouchStartNative);
+      carousel.removeEventListener('touchmove', handleTouchMoveNative);
+      carousel.removeEventListener('touchend', handleTouchEndNative);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDragging, isTransitioning]);
 
   // Mouse events
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -300,10 +325,8 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
 
   return (
     <div
+      ref={carouselRef}
       className={styles.carousel}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
       role="region"
       aria-label="Image carousel"
     >
