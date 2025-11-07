@@ -55,58 +55,56 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className={styles.glassCard}>
-              <h3 className={styles.infoTitle}>Contact Information</h3>
-              <p className={styles.infoDescription}>
-                Feel free to reach out through any of these channels. I&apos;ll
-                get back to you as soon as possible.
-              </p>
+            <h3 className={styles.infoTitle}>Contact Information</h3>
+            <p className={styles.infoDescription}>
+              Feel free to reach out through any of these channels. I&apos;ll
+              get back to you as soon as possible.
+            </p>
 
-              <div className={styles.infoItems}>
+            <div className={styles.infoItems}>
+              <div className={styles.infoItem}>
+                <div className={styles.iconWrapper}>
+                  <Mail className={styles.icon} size={20} />
+                </div>
+                <div className={styles.infoContent}>
+                  <h4 className={styles.infoLabel}>Email</h4>
+                  <a
+                    href={`mailto:${contactInfo.email}`}
+                    className={styles.infoLink}
+                  >
+                    {contactInfo.email}
+                  </a>
+                </div>
+              </div>
+
+              {contactInfo.phone && (
                 <div className={styles.infoItem}>
                   <div className={styles.iconWrapper}>
-                    <Mail className={styles.icon} size={20} />
+                    <Phone className={styles.icon} size={20} />
                   </div>
                   <div className={styles.infoContent}>
-                    <h4 className={styles.infoLabel}>Email</h4>
+                    <h4 className={styles.infoLabel}>Phone</h4>
                     <a
-                      href={`mailto:${contactInfo.email}`}
+                      href={`tel:${contactInfo.phone}`}
                       className={styles.infoLink}
                     >
-                      {contactInfo.email}
+                      {contactInfo.phone}
                     </a>
                   </div>
                 </div>
+              )}
 
-                {contactInfo.phone && (
-                  <div className={styles.infoItem}>
-                    <div className={styles.iconWrapper}>
-                      <Phone className={styles.icon} size={20} />
-                    </div>
-                    <div className={styles.infoContent}>
-                      <h4 className={styles.infoLabel}>Phone</h4>
-                      <a
-                        href={`tel:${contactInfo.phone}`}
-                        className={styles.infoLink}
-                      >
-                        {contactInfo.phone}
-                      </a>
-                    </div>
+              {contactInfo.location && (
+                <div className={styles.infoItem}>
+                  <div className={styles.iconWrapper}>
+                    <MapPin className={styles.icon} size={20} />
                   </div>
-                )}
-
-                {contactInfo.location && (
-                  <div className={styles.infoItem}>
-                    <div className={styles.iconWrapper}>
-                      <MapPin className={styles.icon} size={20} />
-                    </div>
-                    <div className={styles.infoContent}>
-                      <h4 className={styles.infoLabel}>Location</h4>
-                      <p className={styles.infoText}>{contactInfo.location}</p>
-                    </div>
+                  <div className={styles.infoContent}>
+                    <h4 className={styles.infoLabel}>Location</h4>
+                    <p className={styles.infoText}>{contactInfo.location}</p>
                   </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </motion.div>
 
@@ -118,10 +116,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className={styles.glassCard}>
-              <h3 className={styles.formTitle}>Send a Message</h3>
-              <ContactForm />
-            </div>
+            <h3 className={styles.formTitle}>Send a Message</h3>
+            <ContactForm />
           </motion.div>
         </div>
       </div>

@@ -42,40 +42,11 @@
   margin-top: var(--spacing-2xl);
 }
 
-/* Glass Card Styling */
-.glassCard {
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
-  border-radius: 1.5rem;
-  padding: var(--spacing-xl);
-  box-shadow: 0 8px 32px var(--glass-shadow);
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-.glassCard::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--glass-highlight),
-    transparent
-  );
-  opacity: 0.5;
-}
-
 /* Contact Information Styles */
 .contactInfo {
   display: flex;
   flex-direction: column;
+  background: transparent;
 }
 
 .infoTitle {
@@ -172,6 +143,7 @@
 .formContainer {
   display: flex;
   flex-direction: column;
+  background: transparent;
 }
 
 .formTitle {
@@ -223,10 +195,6 @@
     padding: 0 var(--spacing-lg, 1.5rem);
   }
 
-  .glassCard {
-    padding: var(--spacing-lg);
-  }
-
   .title {
     font-size: var(--font-size-3xl);
   }
@@ -258,11 +226,6 @@
 
   .container {
     padding: 0 var(--spacing-lg, 1.5rem);
-  }
-
-  .glassCard {
-    padding: var(--spacing-md);
-    border-radius: 1rem;
   }
 
   .title {

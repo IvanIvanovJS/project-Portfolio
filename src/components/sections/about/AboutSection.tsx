@@ -55,7 +55,7 @@ const SkillIcon: React.FC<SkillIconProps> = ({ name, size = 24 }) => {
 
 const defaultData: AboutData = {
   personalInfo: {
-    name: 'Ivan Ivanov',
+    name: 'Ivan D. Ivanov',
     title: 'Full Stack Developer',
     bio: 'Passionate software engineer with expertise in modern web technologies. I specialize in creating beautiful, performant, and accessible web applications using React, TypeScript, and Next.js. With a keen eye for design and a commitment to clean code, I bring ideas to life through elegant solutions.',
     location: 'Varna, Bulgaria',
