@@ -7,27 +7,27 @@
   - Ensure proper visual hierarchy is maintained
   - _Requirements: 1.1, 1.2, 1.3, 1.4_
 
-- [ ] 2. Simplify contact icon styling
-  - [ ] 2.1 Update icon wrapper styles in ContactSection.module.css
+- [x] 2. Simplify contact icon styling
+  - [x] 2.1 Update icon wrapper styles in ContactSection.module.css
     - Remove gradient background from `.iconWrapper`
     - Change to transparent background with subtle border
     - Reduce size from 48px to 40px
     - Use monochrome theme-aware icon colors
     - _Requirements: 2.1, 2.2, 2.3, 2.4_
 
-  - [ ] 2.2 Update contact item hover effects
+  - [x] 2.2 Update contact item hover effects
     - Remove background and border changes on hover
     - Implement subtle opacity transition
     - Remove transform effects
     - _Requirements: 2.5_
 
-- [ ] 3. Add GitHub and LinkedIn social links
-  - [ ] 3.1 Update ContactSection component interface
+- [x] 3. Add GitHub and LinkedIn social links
+  - [x] 3.1 Update ContactSection component interface
     - Add `github` and `linkedin` optional fields to `contactInfo` prop type
     - Update default contact info with placeholder social URLs
     - _Requirements: 3.1, 3.2_
 
-  - [ ] 3.2 Add social link icons to ContactSection.tsx
+  - [x] 3.2 Add social link icons to ContactSection.tsx
     - Import `Github` and `Linkedin` icons from lucide-react
     - Render social links after location item in contact info
     - Apply same styling as other contact items

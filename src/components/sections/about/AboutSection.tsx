@@ -76,16 +76,17 @@ const defaultData: AboutData = {
       position: 'Personal Pprojects',
       startDate: '2025-08',
       endDate: undefined,
-      description: 'Build as personal portfolio projects ',
+      description:
+        'Developing front-end applications as part of my personal portfolio',
       technologies: ['React', 'TypeScript', 'Next.js', 'CSS', 'UI/UX'],
     },
     {
-      company: 'Full Javascript/React curriculum',
+      company: 'Full Javascript/React Curriculum',
       position: 'SoftUni Education',
       startDate: '2024-09',
       endDate: undefined,
       description:
-        'JS Fundamentals, Advance, Node.js Back-end,TS Fundamentals, ReactJS, HTML/CSS',
+        'Completed modules in JS Fundamentals, Advanced JS, Node.js Back-End, TypeScript, ReactJS, and HTML/CSS',
       technologies: [
         'React',
         'Node.js',

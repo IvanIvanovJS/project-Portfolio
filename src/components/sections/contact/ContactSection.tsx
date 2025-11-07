@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Phone } from 'lucide-react';
+import { Mail, MapPin, Phone, GithubIcon, LinkedinIcon } from 'lucide-react';
 import { ContactForm } from './ContactForm';
 import styles from './ContactSection.module.css';
 
@@ -11,6 +11,8 @@ interface ContactSectionProps {
     email: string;
     phone?: string;
     location?: string;
+    github?: string;
+    linkedin?: string;
   };
 }
 
@@ -18,6 +20,8 @@ const defaultContactInfo = {
   email: 'john.doe@example.com',
   phone: '+359 123 456 789',
   location: 'Sofia, Bulgaria',
+  github: 'https://github.com/johndoe',
+  linkedin: 'https://linkedin.com/in/johndoe',
 };
 
 export const ContactSection: React.FC<ContactSectionProps> = ({
@@ -102,6 +106,46 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   <div className={styles.infoContent}>
                     <h4 className={styles.infoLabel}>Location</h4>
                     <p className={styles.infoText}>{contactInfo.location}</p>
+                  </div>
+                </div>
+              )}
+
+              {contactInfo.github && (
+                <div className={styles.infoItem}>
+                  <div className={styles.iconWrapper}>
+                    <GithubIcon className={styles.icon} size={20} />
+                  </div>
+                  <div className={styles.infoContent}>
+                    <h4 className={styles.infoLabel}>GitHub</h4>
+                    <a
+                      href={contactInfo.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.infoLink}
+                      aria-label="Visit my GitHub profile"
+                    >
+                      {contactInfo.github.replace('https://', '')}
+                    </a>
+                  </div>
+                </div>
+              )}
+
+              {contactInfo.linkedin && (
+                <div className={styles.infoItem}>
+                  <div className={styles.iconWrapper}>
+                    <LinkedinIcon className={styles.icon} size={20} />
+                  </div>
+                  <div className={styles.infoContent}>
+                    <h4 className={styles.infoLabel}>LinkedIn</h4>
+                    <a
+                      href={contactInfo.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.infoLink}
+                      aria-label="Visit my LinkedIn profile"
+                    >
+                      {contactInfo.linkedin.replace('https://', '')}
+                    </a>
                   </div>
                 </div>
               )}
