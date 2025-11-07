@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Navigation } from '../navigation/Navigation';
 import { UnifiedSwitcher } from '../../ui/unified-switcher/UnifiedSwitcher';
+import { FrostedGlassLogo } from '../../ui/frosted-glass-logo';
 import { useScrollSpy } from '../../../hooks/useScrollSpy';
 import { useNavigation } from '../../../providers/NavigationProvider';
 import styles from './Header.module.css';
@@ -95,9 +96,12 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
-        <div className={styles.logo}>
-          <span className={styles.logoText}>Portfolio</span>
-        </div>
+        <FrostedGlassLogo
+          className={styles.logo}
+          href="#hero"
+          ariaLabel="Ivan Ivanov - Portfolio Home"
+          onClick={() => handleSmoothScroll('#hero')}
+        />
 
         <div className={styles.nav}>
           {/* Desktop Navigation */}

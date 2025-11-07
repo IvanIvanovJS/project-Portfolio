@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { Menu, X } from 'lucide-react';
+import { FrostedGlassLogo } from '../../ui/frosted-glass-logo';
 import styles from './MobileHeader.module.css';
 
 interface MobileHeaderProps {
@@ -12,12 +13,27 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
   onMobileMenuToggle,
   isMobileMenuOpen,
 }) => {
+  const handleLogoClick = () => {
+    const heroElement = document.getElementById('hero');
+    if (heroElement) {
+      const headerHeight = 48; // Mobile header height
+      const targetPosition = heroElement.offsetTop - headerHeight;
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth',
+      });
+    }
+  };
+
   return (
     <header className={styles.mobileHeader}>
       <div className={styles.container}>
-        <div className={styles.logo}>
-          <span className={styles.logoText}>Portfolio</span>
-        </div>
+        <FrostedGlassLogo
+          className={styles.logo}
+          href="#hero"
+          ariaLabel="Ivan Ivanov - Portfolio Home"
+          onClick={handleLogoClick}
+        />
 
         {/* Mobile Menu Button */}
         <button

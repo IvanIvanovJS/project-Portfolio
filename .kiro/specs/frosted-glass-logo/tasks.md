@@ -82,14 +82,14 @@
   - Ensure proper contrast ratios in both themes
   - _Requirements: 1.5_
 
-- [ ] 10. Implement responsive behavior
+- [x] 10. Implement responsive behavior
   - Add media query for tablet (max-width: 1024px) with adjusted padding and font size
   - Add media query for mobile (max-width: 768px) with smaller dimensions
   - Ensure logo maintains readability at all breakpoints
   - Test layout integration at different viewport sizes
   - _Requirements: 5.2, 5.3, 6.4_
 
-- [ ] 11. Add reduced motion and accessibility preferences
+- [x] 11. Add reduced motion and accessibility preferences
   - Implement @media (prefers-reduced-motion: reduce) styles
   - Reduce transition duration to 0.1s for reduced motion
   - Remove transform animations for reduced motion
@@ -97,7 +97,7 @@
   - Increase border width and remove backdrop-filter for high contrast mode
   - _Requirements: 4.5_
 
-- [ ] 12. Integrate logo into Header component
+- [x] 12. Integrate logo into Header component
   - Import FrostedGlassLogo component in `src/components/layout/header/Header.tsx`
   - Replace existing logo div (`.logo` with "Portfolio" text) with FrostedGlassLogo
   - Pass appropriate props (className, href, ariaLabel)
