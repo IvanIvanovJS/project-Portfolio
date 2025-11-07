@@ -17,7 +17,6 @@
   overflow: hidden;
   border-radius: 16px;
   border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
-  isolation: isolate;
 }
 
 /* Slides Wrapper - Contains all images in a row */

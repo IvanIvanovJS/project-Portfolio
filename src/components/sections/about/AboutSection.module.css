@@ -1,14 +1,14 @@
 /* AboutSection Component Styles */
 .aboutSection {
   min-height: 100vh;
-  padding: var(--spacing-xl, 4rem) 0;
+  padding: var(--spacing-3xl, 4rem) 0;
   position: relative;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--spacing-lg);
+  padding: 0 var(--spacing-xl, 2rem);
 }
 
 .title {
@@ -321,45 +321,61 @@
 
 @media (max-width: 768px) {
   .aboutSection {
-    padding: var(--spacing-lg, 3rem) 0;
+    padding: var(--spacing-2xl, 3rem) 0;
+  }
+
+  .container {
+    padding: 0 var(--spacing-lg, 1.5rem);
   }
 
   .title {
     font-size: var(--font-size-4xl, 2.25rem);
-    margin-bottom: var(--spacing-lg, 2rem);
+    margin-bottom: var(--spacing-xl, 2.5rem);
   }
 
   .content {
     grid-template-columns: 1fr;
-    gap: var(--spacing-lg, 2rem);
+    gap: var(--spacing-xl, 2.5rem);
     display: flex;
     flex-direction: column;
+  }
+
+  /* Mobile order: Bio -> Carousel -> Experience -> Skills */
+  .infoColumn {
+    order: 1;
+    gap: var(--spacing-xl, 2.5rem);
+  }
+
+  .personalInfoCard {
+    order: 1;
+    padding: var(--spacing-lg, 2rem);
+  }
+
+  .experienceSection {
+    order: 3;
+    padding: var(--spacing-lg, 2rem);
+    background: var(--glass-bg, rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+    border-radius: 16px;
   }
 
   .carouselColumn {
     position: relative;
     top: 0;
-    order: -2;
+    order: 2;
     min-height: 500px;
-    gap: var(--spacing-lg, 2rem);
+    gap: var(--spacing-xl, 2.5rem);
   }
 
-  .infoColumn {
-    order: -1;
-    gap: var(--spacing-lg, 2rem);
-  }
-
-  .personalInfoCard {
-    padding: var(--spacing-md, 1.5rem);
+  .carouselWrapper {
+    order: 1;
   }
 
   .glassCard {
-    padding: var(--spacing-md, 1.5rem);
-  }
-
-  .experienceSection {
-    padding: 0;
-    margin-top: var(--spacing-md, 1rem);
+    order: 4;
+    padding: var(--spacing-lg, 2rem);
   }
 
   .timeline {
@@ -376,29 +392,42 @@
 }
 
 @media (max-width: 480px) {
+  .aboutSection {
+    padding: var(--spacing-xl, 2rem) 0;
+  }
+
   .container {
-    padding: 0 var(--spacing-sm, 1rem);
+    padding: 0 var(--spacing-lg, 1.5rem);
   }
 
   .title {
     font-size: var(--font-size-3xl, 1.875rem);
+    margin-bottom: var(--spacing-lg, 2rem);
+  }
+
+  .content {
+    gap: var(--spacing-lg, 2rem);
+  }
+
+  .infoColumn {
+    gap: var(--spacing-lg, 2rem);
   }
 
   .personalInfoCard {
-    padding: var(--spacing-sm, 1rem);
+    padding: var(--spacing-md, 1.5rem);
+  }
+
+  .experienceSection {
+    padding: var(--spacing-md, 1.5rem);
   }
 
   .glassCard {
-    padding: var(--spacing-sm, 1rem);
+    padding: var(--spacing-md, 1.5rem);
   }
 
   .carouselColumn {
     min-height: 400px;
-    gap: var(--spacing-md, 1.5rem);
-  }
-
-  .infoColumn {
-    gap: var(--spacing-md, 1.5rem);
+    gap: var(--spacing-lg, 2rem);
   }
 
   .skillsGrid {
