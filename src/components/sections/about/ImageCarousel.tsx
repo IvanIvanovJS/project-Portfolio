@@ -341,7 +341,6 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
                 fill
                 className={styles.carouselImage}
                 style={{ objectFit: 'cover', objectPosition: 'center' }}
-                sizes="(max-width: 768px) 100vw, 50vw"
                 priority={index === 0}
                 draggable={false}
               />

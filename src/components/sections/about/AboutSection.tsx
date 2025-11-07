@@ -101,27 +101,36 @@ const defaultData: AboutData = {
   images: [
     {
       id: '1',
-      src: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=1000&fit=crop',
-      alt: 'Team collaboration',
-      caption: "👋 Hey, it's me! Working with amazing people",
+      src: '/images/mainPicture1.png',
+      alt: 'My profile picture',
+      caption: "👋 Hey, it's me! I'm glad you're here!",
+      subCaption:
+        'Coding is my passion — feel free to reach out for a collaboration!',
     },
     {
       id: '2',
-      src: 'https://images.unsplash.com/photo-1511367461989-f85a21fda167?w=800&h=1000&fit=crop',
-      alt: 'Coding passion',
-      caption: '💻 This is one of my hobbies - creating digital experiences',
+      src: '/images/gardeningHobby.jpg',
+      alt: 'Bell pepper garden',
+      caption: '🌱 This is one of my hobbies - growing my own natural veggies',
+      subCaption:
+        'I love my garden, and I enjoy sharing my gardening knowledge with others',
     },
     {
       id: '3',
-      src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=1000&fit=crop',
-      alt: 'Creative workspace',
-      caption: '🎨 This is something I love to do - bringing ideas to life',
+      src: '/images/dubaiSunraise.png',
+      alt: 'Sunraise on Palm Jumeirah',
+      caption: '🛫 When 5 AM sunrise makes you smile!',
+      subCaption:
+        "Some people say money can't buy happiness — they've clearly never traveled",
     },
     {
       id: '4',
-      src: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=1000&fit=crop',
-      alt: 'Family time',
-      caption: "❤️ What I'm doing for my family - building a better future",
+      src: '/images/familyBrunch.jpg',
+      alt: 'Family moments - brunch time',
+      caption:
+        "❤️ One of my favorite things to do for my family — it's brunch time!",
+      subCaption:
+        'The best part of the week — preparing Sunday brunch for my family.',
     },
   ],
 };
