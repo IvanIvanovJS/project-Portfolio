@@ -126,7 +126,7 @@ const defaultData: AboutData = {
     },
     {
       id: '3',
-      src: '/images/familyBrunch.jpg',
+      src: '/images/familyBrunch.png',
       alt: 'Family moments - brunch time',
       caption:
         "❤️ One of my favorite things to do for my family — it's brunch time!",

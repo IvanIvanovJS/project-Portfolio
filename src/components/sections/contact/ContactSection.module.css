@@ -67,19 +67,15 @@
 .infoItems {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-6);
+  gap: var(--spacing-2);
 }
 
 .infoItem {
   display: flex;
   align-items: flex-start;
   gap: var(--spacing-4);
-  padding: var(--spacing-4);
-  border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid;
+  padding: var(--spacing-3);
   transition: opacity 0.2s ease;
-  border-color: var(--glass-border);
 }
 
 .infoItem:hover {
@@ -90,8 +86,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -106,7 +102,6 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-1);
 }
 
 .infoLabel {
@@ -116,6 +111,7 @@
   opacity: 0.7;
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-wide);
+  margin-bottom: var(--spacing-1);
 }
 
 .infoLink {
@@ -136,6 +132,7 @@
   color: var(--fg-primary);
   opacity: 0.9;
   font-weight: 500;
+  margin-bottom: 0;
 }
 
 /* Form Container Styles */
@@ -150,11 +147,7 @@
 .formContainer::before {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 400px;
-  height: 400px;
+  inset: 0;
   background: conic-gradient(
     from 0deg,
     var(--color-primary),
@@ -165,7 +158,7 @@
   );
   border-radius: 50%;
   filter: blur(70px);
-  opacity: 0.35;
+  opacity: 0.55;
   z-index: 0;
   pointer-events: none;
   animation: rotateGradient 10s linear infinite;
