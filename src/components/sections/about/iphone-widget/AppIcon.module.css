@@ -11,9 +11,9 @@
 /* App icon button */
 .appIcon {
   position: relative;
-  width: 60px;
-  height: 60px;
-  border-radius: 13px;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
   border: none;
   padding: 0;
   cursor: pointer;
@@ -42,8 +42,22 @@
 
 /* Dock size variant */
 .appIcon.dockSize {
-  width: 64px;
-  height: 64px;
+  width: 50px;
+  height: 50px;
+}
+
+.appIcon.dockSize .iconContainer {
+  padding: 10px;
+}
+
+.appIcon.dockSize .iconContainer svg {
+  max-width: 28px;
+  max-height: 28px;
+}
+
+/* Hide label for dock icons */
+.appIconWrapper.dockSize .appLabel {
+  display: none;
 }
 
 /* Glassmorphism overlay */
@@ -65,6 +79,18 @@
   justify-content: center;
   color: white;
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+
+/* Ensure SVG icons fit within container */
+.iconContainer svg {
+  width: 100%;
+  height: 100%;
+  max-width: 30px;
+  max-height: 30px;
+  object-fit: contain;
 }
 
 /* Icon fallback for non-Lucide icons */
@@ -96,10 +122,10 @@
 
 /* App name label */
 .appLabel {
-  font-size: 12px;
+  font-size: 11px;
   color: white;
   text-align: center;
-  max-width: 70px;
+  max-width: 60px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -197,5 +223,83 @@
 
   .appLabel {
     font-weight: 600;
+  }
+}
+
+/* Responsive icon sizes */
+@media (max-width: 768px) {
+  .appIcon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .appIcon.dockSize {
+    width: 48px;
+    height: 48px;
+  }
+
+  .iconContainer {
+    padding: 9px;
+  }
+
+  .iconContainer svg {
+    max-width: 28px;
+    max-height: 28px;
+  }
+
+  .appIcon.dockSize .iconContainer {
+    padding: 9px;
+  }
+
+  .appIcon.dockSize .iconContainer svg {
+    max-width: 26px;
+    max-height: 26px;
+  }
+
+  .appLabel {
+    font-size: 10px;
+    max-width: 56px;
+  }
+}
+
+@media (max-width: 480px) {
+  .appIcon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .appIcon.dockSize {
+    width: 46px;
+    height: 46px;
+  }
+
+  .iconContainer {
+    padding: 8px;
+  }
+
+  .iconContainer svg {
+    max-width: 26px;
+    max-height: 26px;
+  }
+
+  .appIcon.dockSize .iconContainer {
+    padding: 8px;
+  }
+
+  .appIcon.dockSize .iconContainer svg {
+    max-width: 24px;
+    max-height: 24px;
+  }
+
+  .appLabel {
+    font-size: 9px;
+    max-width: 52px;
+  }
+
+  .badge {
+    min-width: 18px;
+    height: 18px;
+    font-size: 10px;
+    padding: 0 5px;
   }
 }

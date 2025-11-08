@@ -59,11 +59,11 @@ export const AppIcon: React.FC<AppIconProps> = ({
     onClick();
   };
 
-  const iconSize = size === 'dock' ? 28 : 32;
   const containerClass = `${styles.appIcon} ${size === 'dock' ? styles.dockSize : ''} ${isPressed ? styles.pressed : ''} ${isHighlighted ? styles.highlighted : ''}`;
+  const wrapperClass = `${styles.appIconWrapper} ${size === 'dock' ? styles.dockSize : ''}`;
 
   return (
-    <div className={styles.appIconWrapper}>
+    <div className={wrapperClass}>
       <button
         className={containerClass}
         onClick={handleClick}
@@ -84,7 +84,7 @@ export const AppIcon: React.FC<AppIconProps> = ({
         {/* Icon */}
         <div className={styles.iconContainer}>
           {IconComponent ? (
-            <IconComponent size={iconSize} />
+            <IconComponent />
           ) : (
             <span className={styles.iconFallback}>{app.icon}</span>
           )}

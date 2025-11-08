@@ -20,30 +20,13 @@
 .wallpaper {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    315deg,
-    rgba(20, 20, 30, 0.95),
-    rgba(40, 40, 80, 0.9),
-    rgba(20, 40, 60, 0.95),
-    rgba(30, 30, 50, 0.9)
-  );
-  background-size: 200% 200%;
-  animation: moveGradient 8s ease infinite;
+  background-image: url('/images/iphoneBackground.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   z-index: 0;
-  /* Optimize animation performance */
-  will-change: background-position;
   /* Use hardware acceleration */
   transform: translateZ(0);
-}
-
-@keyframes moveGradient {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
 }
 
 /* Main app grid container */
@@ -52,10 +35,12 @@
   z-index: 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 28px 20px;
   padding: 80px 24px 24px;
   flex: 1;
   align-content: start;
+  /* Ensure icons don't get clipped */
+  overflow: visible;
 }
 
 /* Individual app slot */
@@ -63,6 +48,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: visible;
+  min-width: 0;
+  min-height: 0;
 }
 
 /* Page indicator dots */
@@ -115,20 +103,23 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
 .dockAppSlot {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: visible;
+  min-width: 0;
+  min-height: 0;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .appGrid {
     padding: 70px 20px 20px;
-    gap: 14px;
+    gap: 24px 18px;
   }
 
   .dock {
@@ -139,24 +130,18 @@
     padding: 10px 12px;
   }
 
-  /* Optimize for mobile performance */
-  .homeScreen {
-    /* Reduce animation complexity on mobile */
-    will-change: auto;
+  .dockApps {
+    gap: 14px;
   }
 
-  .wallpaper {
-    /* Simplify animation on mobile for better performance */
-    animation-duration: 12s;
+  /* Optimize for mobile performance */
+  .homeScreen {
+    will-change: auto;
   }
 }
 
 /* Accessibility - Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .wallpaper {
-    animation: none;
-  }
-
   .dot {
     transition-duration: 0.1s;
   }
