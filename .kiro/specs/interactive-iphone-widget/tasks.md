@@ -7,7 +7,7 @@
   - Create animation configuration in `utils/animations.ts`
   - _Requirements: 1.1, 1.2, 1.3_
 
-- [ ] 2. Implement IPhoneFrame component with realistic styling
+- [x] 2. Implement IPhoneFrame component with realistic styling
   - Create `IPhoneFrame.tsx` with iPhone 14 Pro dimensions and aspect ratio
   - Implement CSS module with metallic frame, rounded corners, and notch cutout
   - Add screen bezel with glassmorphism effect
@@ -15,7 +15,7 @@
   - Add click handler for expansion trigger
   - _Requirements: 1.1, 1.3, 2.1_
 
-- [ ] 3. Implement SystemBar component with real-time information
+- [-] 3. Implement SystemBar component with real-time information
   - Create `SystemBar.tsx` with iOS-style status bar layout
   - Display current time in HH:MM format using custom hook
   - Display current day and date

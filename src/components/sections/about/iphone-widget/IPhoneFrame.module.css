@@ -1,0 +1,181 @@
+/**
+ * IPhoneFrame Styles
+ * Realistic iPhone 14 Pro styling with glassmorphism
+ */
+
+/* Main iPhone container */
+.iphoneFrame {
+  position: relative;
+  /* iPhone 14 Pro aspect ratio: 393:852 */
+  aspect-ratio: 393 / 852;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  contain: layout style paint;
+}
+
+/* Thumbnail state - compact view */
+.thumbnail {
+  width: 300px;
+  cursor: pointer;
+}
+
+.thumbnail:hover {
+  transform: scale(1.02);
+}
+
+.thumbnail:focus-visible {
+  outline: 2px solid var(--color-primary, #007aff);
+  outline-offset: 4px;
+  border-radius: 60px;
+}
+
+/* Expanded state - fullscreen modal */
+.expanded {
+  width: 393px;
+  max-width: 95vw;
+  cursor: default;
+}
+
+/* Outer metallic frame */
+.frameOuter {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 55px;
+  padding: 3px;
+
+  /* Metallic gradient frame */
+  background: linear-gradient(
+    145deg,
+    #1a1a1a 0%,
+    #2d2d2d 25%,
+    #3a3a3a 50%,
+    #2d2d2d 75%,
+    #1a1a1a 100%
+  );
+
+  /* Layered shadows for depth */
+  box-shadow:
+    /* Inner highlight */
+    inset 0 2px 4px rgba(255, 255, 255, 0.1),
+    /* Inner shadow */ inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+    /* Frame depth */ 0 0 0 1px rgba(0, 0, 0, 0.8),
+    /* Outer glow */ 0 20px 60px rgba(0, 0, 0, 0.5),
+    /* Ambient shadow */ 0 40px 100px rgba(0, 0, 0, 0.3);
+}
+
+/* Screen container with bezel */
+.screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 52px;
+  overflow: hidden;
+
+  /* Black screen background */
+  background: #000000;
+
+  /* Glassmorphism bezel effect */
+  box-shadow:
+    /* Inner screen bezel highlight */
+    inset 0 1px 2px rgba(255, 255, 255, 0.15),
+    /* Inner screen bezel shadow */ inset 0 -1px 2px rgba(0, 0, 0, 0.5),
+    /* Screen depth */ inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Dynamic Island notch */
+.notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 126px;
+  height: 37px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.notchInner {
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  border-radius: 0 0 20px 20px;
+
+  /* Notch depth effect */
+  box-shadow:
+    /* Inner shadow for depth */
+    inset 0 2px 4px rgba(0, 0, 0, 0.8),
+    /* Subtle highlight */ inset 0 1px 1px rgba(255, 255, 255, 0.05),
+    /* Outer glow */ 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Screen content area */
+.screenContent {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  /* Glassmorphism overlay for screen effect */
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(1px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .thumbnail {
+    width: 250px;
+  }
+
+  .expanded {
+    width: 90vw;
+    max-width: 393px;
+  }
+}
+
+@media (max-width: 768px) {
+  .thumbnail {
+    width: 200px;
+  }
+
+  .expanded {
+    width: 95vw;
+    max-width: 393px;
+  }
+
+  .frameOuter {
+    border-radius: 45px;
+  }
+
+  .screen {
+    border-radius: 42px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .iphoneFrame {
+    transition-duration: 0.1s;
+  }
+
+  .thumbnail:hover {
+    transform: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .frameOuter {
+    border: 2px solid currentColor;
+  }
+
+  .screen {
+    border: 1px solid currentColor;
+  }
+}
+
+/* Fallback for browsers without backdrop-filter */
+@supports not (backdrop-filter: blur(1px)) {
+  .screenContent {
+    background: rgba(0, 0, 0, 1);
+  }
+}
