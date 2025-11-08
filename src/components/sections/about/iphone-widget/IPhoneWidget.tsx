@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState } from 'react';
 import { IPhoneWidgetProps, AppType } from './types';
 import { useIPhoneState } from './hooks/useIPhoneState';
 import { useToast } from './hooks/useToast';
@@ -11,23 +10,20 @@ import { HomeScreen } from './HomeScreen';
 import { AppContainer } from './AppContainer';
 import { Toast } from './Toast';
 import { APPS } from './utils/appConfig';
-import { useFocusTrap } from './hooks/useFocusTrap';
 import { AboutApp, ProjectsApp, PhoneApp, EmailApp } from './apps';
 import styles from './IPhoneWidget.module.css';
 
 /**
  * IPhoneWidget Component
  *
- * Main orchestrator component for the interactive iPhone widget.
- * Manages state for expansion, active apps, and system time.
+ * Interactive iPhone widget with direct in-place navigation.
+ * Manages state for active apps and system time.
  *
  * Features:
- * - Thumbnail and expanded modal states
- * - App navigation and state management
- * - Keyboard event handling (Escape to close)
- * - Outside click detection for modal closing
- * - Focus trap when expanded
- * - Body scroll lock when modal is open
+ * - Direct app navigation without modal
+ * - App state management
+ * - External link handling (GitHub, LinkedIn)
+ * - Toast notifications for user feedback
  *
  * @param props - IPhoneWidgetProps
  */
@@ -39,69 +35,11 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
   linkedinUrl,
   className = '',
 }) => {
-  const {
-    isExpanded,
-    activeApp,
-    currentTime,
-    handleExpand,
-    handleCollapse,
-    handleAppClick,
-    handleAppClose,
-  } = useIPhoneState();
+  const { activeApp, currentTime, handleAppClick, handleAppClose } =
+    useIPhoneState();
 
   const { toast, showToast, hideToast } = useToast();
   const [highlightedApp, setHighlightedApp] = useState<string | null>(null);
-
-  const modalRef = useRef<HTMLDivElement>(null);
-  const triggerRef = useRef<HTMLDivElement>(null);
-  const [touchStartY, setTouchStartY] = useState<number>(0);
-
-  // Enable focus trap when modal is expanded
-  useFocusTrap(modalRef, isExpanded);
-
-  /**
-   * Handle outside click/touch to close modal
-   */
-  useEffect(() => {
-    if (!isExpanded) return;
-
-    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
-      ) {
-        handleCollapse();
-      }
-    };
-
-    // Add slight delay to prevent immediate closing on expand click
-    const timeoutId = setTimeout(() => {
-      document.addEventListener('mousedown', handleClickOutside);
-      document.addEventListener('touchstart', handleClickOutside, {
-        passive: true,
-      });
-    }, 100);
-
-    return () => {
-      clearTimeout(timeoutId);
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('touchstart', handleClickOutside);
-    };
-  }, [isExpanded, handleCollapse]);
-
-  /**
-   * Return focus to trigger element when modal closes
-   */
-  useEffect(() => {
-    if (!isExpanded && triggerRef.current) {
-      triggerRef.current.focus();
-    }
-  }, [isExpanded]);
-
-  // Check for reduced motion preference
-  const prefersReducedMotion =
-    typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /**
    * Copy URL to clipboard as fallback
@@ -177,48 +115,6 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
     handleAppClick(appId as AppType);
   };
 
-  // Animation variants
-  const backdropVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: prefersReducedMotion ? 0.1 : 0.5,
-        ease: [0.4, 0, 0.2, 1] as const,
-      },
-    },
-    exit: {
-      opacity: 0,
-      transition: {
-        duration: prefersReducedMotion ? 0.1 : 0.3,
-        ease: [0.4, 0, 0.2, 1] as const,
-      },
-    },
-  };
-
-  const modalVariants = {
-    hidden: {
-      opacity: 0,
-      scale: 0.8,
-    },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: prefersReducedMotion ? 0.1 : 0.5,
-        ease: [0.4, 0, 0.2, 1] as const,
-      },
-    },
-    exit: {
-      opacity: 0,
-      scale: 0.8,
-      transition: {
-        duration: prefersReducedMotion ? 0.1 : 0.3,
-        ease: [0.4, 0, 0.2, 1] as const,
-      },
-    },
-  };
-
   return (
     <>
       {/* Toast notifications */}
@@ -229,106 +125,41 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
         onClose={hideToast}
       />
 
-      {/* Thumbnail state */}
-      {!isExpanded && (
-        <div
-          ref={triggerRef}
-          className={`${styles.thumbnail} ${className}`}
-          tabIndex={0}
-          role="button"
-          aria-expanded="false"
-          aria-label="Open iPhone widget"
-          onClick={handleExpand}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              handleExpand();
-            }
-          }}
-          onTouchStart={(e) => {
-            // Prevent default to avoid double-tap zoom on iOS
-            e.currentTarget.style.transform = 'scale(0.98)';
-          }}
-          onTouchEnd={(e) => {
-            e.currentTarget.style.transform = '';
-          }}
-        >
-          <IPhoneFrame isExpanded={false}>
-            <SystemBar currentTime={currentTime} showNotch={true} />
+      {/* Single iPhone widget - no modal, direct navigation */}
+      <div className={`${styles.thumbnail} ${className}`}>
+        <IPhoneFrame isExpanded={false}>
+          <SystemBar currentTime={currentTime} showNotch={true} />
+          {activeApp === null ? (
             <HomeScreen
               onAppClick={handleAppClickInternal}
               apps={APPS}
               highlightedApp={highlightedApp}
             />
-          </IPhoneFrame>
-        </div>
-      )}
-
-      {/* Expanded modal state with AnimatePresence */}
-      <AnimatePresence mode="wait">
-        {isExpanded && (
-          <motion.div
-            className={styles.modalOverlay}
-            role="dialog"
-            aria-modal="true"
-            aria-label="iPhone widget"
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-          >
-            {/* Backdrop with fade animation */}
-            <motion.div
-              className={styles.backdrop}
-              aria-hidden="true"
-              variants={backdropVariants}
-            />
-
-            {/* Modal content with scale animation */}
-            <motion.div
-              ref={modalRef}
-              className={styles.modalContent}
-              variants={modalVariants}
-            >
-              <IPhoneFrame isExpanded={true}>
-                <SystemBar currentTime={currentTime} showNotch={true} />
-                {activeApp === null ? (
-                  <HomeScreen
-                    onAppClick={handleAppClickInternal}
-                    apps={APPS}
-                    highlightedApp={highlightedApp}
-                  />
-                ) : (
-                  <AppContainer app={activeApp} onClose={handleAppClose}>
-                    {activeApp === 'about' && (
-                      <AboutApp personalInfo={personalInfo} />
-                    )}
-                    {activeApp === 'projects' && (
-                      <ProjectsApp projects={projects} />
-                    )}
-                    {activeApp === 'phone' && (
-                      <PhoneApp personalInfo={personalInfo} />
-                    )}
-                    {activeApp === 'email' && (
-                      <EmailApp personalInfo={personalInfo} />
-                    )}
-                    {activeApp !== 'about' &&
-                      activeApp !== 'projects' &&
-                      activeApp !== 'phone' &&
-                      activeApp !== 'email' && (
-                        <div style={{ padding: '20px', color: 'white' }}>
-                          <p>App content for: {activeApp}</p>
-                          <p>
-                            This will be replaced with actual app components
-                          </p>
-                        </div>
-                      )}
-                  </AppContainer>
+          ) : (
+            <AppContainer app={activeApp} onClose={handleAppClose}>
+              {activeApp === 'about' && (
+                <AboutApp personalInfo={personalInfo} />
+              )}
+              {activeApp === 'projects' && <ProjectsApp projects={projects} />}
+              {activeApp === 'phone' && (
+                <PhoneApp personalInfo={personalInfo} />
+              )}
+              {activeApp === 'email' && (
+                <EmailApp personalInfo={personalInfo} />
+              )}
+              {activeApp !== 'about' &&
+                activeApp !== 'projects' &&
+                activeApp !== 'phone' &&
+                activeApp !== 'email' && (
+                  <div style={{ padding: '20px', color: 'white' }}>
+                    <p>App content for: {activeApp}</p>
+                    <p>This will be replaced with actual app components</p>
+                  </div>
                 )}
-              </IPhoneFrame>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </AppContainer>
+          )}
+        </IPhoneFrame>
+      </div>
     </>
   );
 };
