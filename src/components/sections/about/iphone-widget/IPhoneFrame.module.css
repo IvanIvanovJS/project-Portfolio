@@ -6,8 +6,8 @@
 /* Main iPhone container */
 .iphoneFrame {
   position: relative;
-  /* iPhone 14 Pro aspect ratio: 393:852 */
-  aspect-ratio: 393 / 852;
+  /* iPhone 14 Pro aspect ratio reduced by 20% height: 393:681.6 (852 * 0.8) */
+  aspect-ratio: 393 / 767;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   contain: layout style paint;
   outline: 1px solid var(--color-primary, #007aff);
@@ -82,7 +82,7 @@
 /* Dynamic Island notch - compact elliptical design */
 .notch {
   position: absolute;
-  top: 12px;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
   width: 100px;

@@ -18,7 +18,7 @@ const defaultData: AboutData = {
   personalInfo: {
     name: 'Ivan D. Ivanov',
     title: 'Full Stack Developer',
-    bio: 'Passionate software engineer with expertise in modern web technologies. I specialize in creating beautiful, performant, and accessible web applications using React, TypeScript, and Next.js. With a keen eye for design and a commitment to clean code, I bring ideas to life through elegant solutions.',
+    bio: 'React software engineer with expertise in modern web technologies. I specialize in creating beautiful, performant, and accessible web applications using React, TypeScript, and Next.js. With a keen eye for design and a commitment to clean code, I bring ideas to life through elegant solutions.',
     location: 'Varna, Bulgaria',
     email: 'john.doe@example.com',
     phone: '+359 898 573 056',
