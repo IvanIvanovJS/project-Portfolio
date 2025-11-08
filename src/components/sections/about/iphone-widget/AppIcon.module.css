@@ -23,6 +23,7 @@
   overflow: hidden;
   transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0.8;
+  scale: 1;
   /* iOS-style shadow */
   box-shadow:
     0 2px 8px rgba(0, 0, 0, 0.3),
@@ -39,7 +40,10 @@
   transform: translateZ(0);
   will-change: transform;
 }
-
+.appIcon:active {
+  scale: 0.95;
+  opacity: 1;
+}
 /* Dock size variant */
 .appIcon.dockSize {
   width: 36px;

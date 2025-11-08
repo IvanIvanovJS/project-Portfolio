@@ -21,9 +21,6 @@
   transform: scale(1.02);
 }
 
-.thumbnail:active {
-  transform: scale(0.98);
-}
 .thumbnail:focus {
   outline: none;
 }

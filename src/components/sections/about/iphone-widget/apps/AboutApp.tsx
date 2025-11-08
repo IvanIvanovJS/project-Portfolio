@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { User, MapPin, Mail, Phone } from 'lucide-react';
+import Image from 'next/image';
+import { MapPin, Mail, Phone } from 'lucide-react';
 import { PersonalInfo } from '../types';
 import styles from './AboutApp.module.css';
 
@@ -31,9 +32,14 @@ export const AboutApp: React.FC<AboutAppProps> = ({ personalInfo }) => {
       {/* Profile Section */}
       <div className={styles.profileSection}>
         <div className={styles.avatarContainer}>
-          <div className={styles.avatar}>
-            <User size={48} strokeWidth={1.5} />
-          </div>
+          <Image
+            src="/images/iconProfilePicture.png"
+            alt={name}
+            width={96}
+            height={96}
+            className={styles.profilePicture}
+            priority
+          />
         </div>
 
         <h1 className={styles.name}>{name}</h1>

@@ -17,6 +17,19 @@
   cursor: grab;
 }
 
+/* Theme-based backgrounds */
+.appContainer.lightTheme {
+  background: var(--bg-secondary);
+}
+
+.appContainer.darkTheme {
+  background: rgba(0, 0, 0, 0.95);
+}
+
+.appContainer.lightTheme .contentArea {
+  background: var(--bg-primary);
+}
+
 .appContainer:active {
   cursor: grabbing;
 }
@@ -84,7 +97,7 @@
   margin: 0;
   font-size: 17px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.95);
+  color: var(--fg-primary);
   letter-spacing: -0.4px;
   pointer-events: none;
 }

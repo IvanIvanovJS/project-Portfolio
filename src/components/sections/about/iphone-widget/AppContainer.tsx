@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence, PanInfo } from 'framer-motion';
 import { X, ChevronLeft } from 'lucide-react';
 import { AppContainerProps } from './types';
@@ -29,11 +29,31 @@ export const AppContainer: React.FC<AppContainerProps> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('dark');
 
   // Check for reduced motion preference
   const prefersReducedMotion =
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Get current theme from HTML attribute
+  useEffect(() => {
+    const updateTheme = () => {
+      const theme = document.documentElement.getAttribute('data-theme');
+      setCurrentTheme(theme === 'light' ? 'light' : 'dark');
+    };
+
+    updateTheme();
+
+    // Listen for theme changes
+    const observer = new MutationObserver(updateTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   /**
    * Handle drag end to close on swipe down
@@ -93,7 +113,7 @@ export const AppContainer: React.FC<AppContainerProps> = ({
       {app && (
         <motion.div
           ref={containerRef}
-          className={styles.appContainer}
+          className={`${styles.appContainer} ${currentTheme === 'light' ? styles.lightTheme : styles.darkTheme}`}
           variants={
             prefersReducedMotion
               ? {

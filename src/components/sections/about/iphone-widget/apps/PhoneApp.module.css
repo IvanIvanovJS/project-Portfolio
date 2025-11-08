@@ -36,52 +36,50 @@
 }
 
 .avatarContainer {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
-.avatar {
-  width: 100px;
-  height: 100px;
+.profilePicture {
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  /* Glassmorphism styling */
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px) saturate(180%);
+  object-fit: cover;
   box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.3),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-    0 8px 32px rgba(0, 0, 0, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-
-  color: rgba(255, 255, 255, 0.9);
-
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 0 4px rgba(255, 255, 255, 0.1);
+  border: 3px solid rgba(255, 255, 255, 0.2);
 }
 
 .contactName {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.95);
-  margin: 0 0 12px 0;
+  color: var(--fg-primary);
+  margin: 0;
   text-align: center;
   letter-spacing: -0.5px;
 }
 
+/* Phone Number Display */
+.phoneNumberDisplay {
+  margin-bottom: 32px;
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  justify-content: center;
+}
+
 .phoneNumber {
-  font-size: 20px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 36px;
+  font-weight: 300;
+  color: var(--fg-primary);
   margin: 0;
   text-align: center;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
 }
 
 /* Call Button */
 .callButtonContainer {
-  margin-bottom: 48px;
+  margin-bottom: 0;
   width: 100%;
   max-width: 320px;
   display: flex;
@@ -90,9 +88,8 @@
 
 .callButton {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
   padding: 0;
   background: none;
   border: none;
@@ -118,11 +115,11 @@
 }
 
 .callIcon {
-  width: 72px;
-  height: 72px;
+  width: 80px;
+  height: 80px;
   /* Ensure minimum touch target size */
-  min-width: 72px;
-  min-height: 72px;
+  min-width: 80px;
+  min-height: 80px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -144,76 +141,7 @@
   will-change: transform;
 }
 
-.callLabel {
-  font-size: 16px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.9);
-  letter-spacing: 0.3px;
-}
-
-/* Keypad */
-.keypad {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  width: 100%;
-  max-width: 280px;
-  padding: 0 20px;
-}
-
-.keypadButton {
-  aspect-ratio: 1;
-  /* Ensure minimum touch target size */
-  min-height: 72px;
-  min-width: 72px;
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-  padding: 0;
-  border: none;
-  cursor: not-allowed;
-
-  /* Glassmorphism styling */
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px) saturate(180%);
-  box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.3),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-    0 8px 32px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: 0.7;
-  /* Optimize for touch */
-  touch-action: manipulation;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.keypadButton:disabled {
-  cursor: not-allowed;
-}
-
-.keypadDigit {
-  font-size: 32px;
-  font-weight: 300;
-  color: rgba(255, 255, 255, 0.9);
-  line-height: 1;
-  letter-spacing: -0.5px;
-}
-
-.keypadLetters {
-  font-size: 10px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.6);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  line-height: 1;
-}
+/* Keypad removed */
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
@@ -272,38 +200,5 @@
   .callButton:hover .callIcon,
   .callButton:active .callIcon {
     transform: none;
-  }
-}
-
-/* Dark mode adjustments (if needed) */
-@media (prefers-color-scheme: light) {
-  .avatar {
-    background: rgba(0, 0, 0, 0.05);
-    color: rgba(0, 0, 0, 0.8);
-    border-color: rgba(0, 0, 0, 0.1);
-  }
-
-  .contactName {
-    color: rgba(0, 0, 0, 0.95);
-  }
-
-  .phoneNumber {
-    color: rgba(0, 0, 0, 0.6);
-  }
-
-  .callLabel {
-    color: rgba(0, 0, 0, 0.9);
-  }
-
-  .keypadButton {
-    background: rgba(0, 0, 0, 0.05);
-  }
-
-  .keypadDigit {
-    color: rgba(0, 0, 0, 0.9);
-  }
-
-  .keypadLetters {
-    color: rgba(0, 0, 0, 0.5);
   }
 }
