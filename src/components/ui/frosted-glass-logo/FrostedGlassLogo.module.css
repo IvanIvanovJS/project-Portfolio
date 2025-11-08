@@ -19,27 +19,27 @@
   /* Layout */
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: 12px 20px;
-  min-height: 48px;
-  width: 80px;
+  justify-content: flex-start;
+  padding: 10px 20px;
+  min-height: 40px;
+  width: 60px;
   overflow: visible;
   box-sizing: border-box;
   will-change: width, padding;
 
   /* Typography */
+  font-family: var(--font-family-gagalin);
   font-size: 1.5rem;
-  font-weight: 600;
+  font-style: normal;
+  font-weight: 100;
   text-decoration: none;
   white-space: nowrap;
 
   /* Smooth transitions - specific properties for better control */
-  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1) padding 1s
-    cubic-bezier(0.4, 0, 0.2, 1) background 1s cubic-bezier(0.4, 0, 0.2, 1)
-    box-shadow 1s cubic-bezier(0.4, 0, 0.2, 1) border-color 1s
-    cubic-bezier(0.4, 0, 0.2, 1) !important;
-
-  /* Cursor */
+  transition: width 1.3s cubic-bezier(0.4, 0, 0.2, 1) padding 2s
+    cubic-bezier(0.4, 0, 0.2, 1) background 2s cubic-bezier(0.4, 0, 0.2, 1)
+    box-shadow 2s cubic-bezier(0.4, 0, 0.2, 1) border-color 2s
+    cubic-bezier(0.4, 0, 0.2, 1) !important; /* Cursor */
   cursor: pointer;
 }
 
@@ -75,14 +75,13 @@
   box-shadow:
     inset 0 1px 1px rgba(255, 255, 255, 0.4),
     inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-    0 12px 48px rgba(0, 0, 0, 0.15);
+    0 12px 18px rgba(0, 0, 0, 0.15);
 
   /* Brighter border */
   border-color: rgba(255, 255, 255, 0.25);
-
+  transition: width 1.3s cubic-bezier(0.4, 0, 0.2, 1);
   /* Expand width to fit full text - smooth transition */
-  width: 240px !important;
-  padding: 12px 30px !important;
+  width: 180px !important;
 }
 
 /* Focus visible indicator */
@@ -110,13 +109,13 @@
 .fullText {
   display: inline-block;
   position: absolute;
-  left: 50%;
+  left: 0;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateY(-50%);
   opacity: 0;
   white-space: nowrap;
   width: max-content;
-  animation: collapseText 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: collapseText 1.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 /* On hover/focus: hide short, show full */
@@ -128,8 +127,7 @@
 .logo:hover .fullText,
 .logo:focus-visible .fullText {
   opacity: 1;
-  animation: revealText 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-
+  animation: revealText 1.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   /* Enhanced glassmorphism effect */
   background: linear-gradient(
     135deg,
@@ -153,7 +151,7 @@
 
 .logo.expanded .fullText {
   opacity: 1;
-  animation: revealText 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: revealText 1.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 /* Letter-by-letter reveal animation (expand) */

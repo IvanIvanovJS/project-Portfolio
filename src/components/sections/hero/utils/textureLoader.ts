@@ -42,7 +42,7 @@ export interface LoadedAtlas {
 export async function loadIconAtlas(): Promise<LoadedAtlas | null> {
   const ATLAS_TEXTURE_PATH = '/textures/icons.v1.png';
   const ATLAS_METADATA_PATH = '/textures/icons.v1.json';
-  const LOAD_TIMEOUT = 10000; // 10 seconds
+  const LOAD_TIMEOUT = 16000; // 16 seconds
 
   try {
     // Create a timeout promise
