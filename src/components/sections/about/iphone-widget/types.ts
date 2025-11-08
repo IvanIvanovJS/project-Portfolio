@@ -98,7 +98,10 @@ export interface SystemBarProps {
  * Home screen component props
  */
 export interface HomeScreenProps {
-  onAppClick: (appType: AppType | string) => void;
+  onAppClick: (
+    appType: AppType | string,
+    position?: { x: number; y: number }
+  ) => void;
   apps: AppConfig[];
   highlightedApp?: string | null;
 }
@@ -108,7 +111,7 @@ export interface HomeScreenProps {
  */
 export interface AppIconProps {
   app: AppConfig;
-  onClick: () => void;
+  onClick: (position?: { x: number; y: number }) => void;
   size?: 'normal' | 'dock';
   isHighlighted?: boolean;
 }

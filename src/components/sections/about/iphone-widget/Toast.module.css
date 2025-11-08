@@ -26,6 +26,28 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* When positioned from icon click */
+.toast.positioned {
+  position: fixed;
+  top: auto;
+  left: auto;
+  transform: translate(-50%, -50%);
+  min-width: 220px;
+  max-width: 300px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Ensure toast doesn't overflow viewport */
+@media (max-width: 768px) {
+  .toast.positioned {
+    min-width: 180px;
+    max-width: 240px;
+    font-size: 12px;
+    padding: 8px 14px;
+  }
+}
+
 .toast.success {
   background: rgba(52, 199, 89, 0.2);
   border-color: rgba(52, 199, 89, 0.4);

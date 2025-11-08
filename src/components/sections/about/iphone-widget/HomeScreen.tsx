@@ -38,7 +38,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           <div key={app.id} className={styles.appSlot} role="listitem">
             <AppIcon
               app={app}
-              onClick={() => onAppClick(app.id)}
+              onClick={(position) => onAppClick(app.id, position)}
               size="normal"
               isHighlighted={highlightedApp === app.id}
             />
@@ -66,7 +66,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               <div key={app.id} className={styles.dockAppSlot} role="listitem">
                 <AppIcon
                   app={app}
-                  onClick={() => onAppClick(app.id)}
+                  onClick={(position) => onAppClick(app.id, position)}
                   size="dock"
                   isHighlighted={highlightedApp === app.id}
                 />

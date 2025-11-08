@@ -55,8 +55,14 @@ export const AppIcon: React.FC<AppIconProps> = ({
     setIsPressed(false);
   };
 
-  const handleClick = () => {
-    onClick();
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    // Get the button's position relative to the viewport
+    const rect = e.currentTarget.getBoundingClientRect();
+    const position = {
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2,
+    };
+    onClick(position);
   };
 
   const containerClass = `${styles.appIcon} ${size === 'dock' ? styles.dockSize : ''} ${isPressed ? styles.pressed : ''} ${isHighlighted ? styles.highlighted : ''}`;

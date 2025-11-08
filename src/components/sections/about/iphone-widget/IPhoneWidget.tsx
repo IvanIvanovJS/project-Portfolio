@@ -40,74 +40,65 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
 
   const { toast, showToast, hideToast } = useToast();
   const [highlightedApp, setHighlightedApp] = useState<string | null>(null);
+  const [toastPosition, setToastPosition] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
 
   /**
-   * Copy URL to clipboard as fallback
+   * Open external link with visual feedback
    */
-  const copyToClipboard = async (url: string, appName: string) => {
-    try {
-      await navigator.clipboard.writeText(url);
-      showToast(`${appName} URL copied to clipboard`, 'info');
-    } catch (error) {
-      console.error('Failed to copy to clipboard:', error);
-      showToast(`Failed to copy URL`, 'error');
-    }
-  };
-
-  /**
-   * Open external link with visual feedback and fallback
-   */
-  const openExternalLink = (url: string, appName: string, appId: string) => {
+  const openExternalLink = (
+    url: string,
+    appName: string,
+    appId: string,
+    position?: { x: number; y: number }
+  ) => {
     // Add visual feedback (brief highlight)
     setHighlightedApp(appId);
     setTimeout(() => setHighlightedApp(null), 300);
 
     try {
-      // Attempt to open in new tab
-      const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
+      // Open in new tab
+      window.open(url, '_blank', 'noopener,noreferrer');
 
-      // Check if popup was blocked
-      if (
-        !newWindow ||
-        newWindow.closed ||
-        typeof newWindow.closed === 'undefined'
-      ) {
-        // Popup blocked - fallback to clipboard
-        copyToClipboard(url, appName);
-      } else {
-        // Successfully opened
-        showToast(`Opening ${appName}`, 'success');
-      }
+      // Show success message with position
+      setToastPosition(position || null);
+      showToast(`Successfully redirected to ${appName}`, 'success');
     } catch (error) {
-      // Error opening link - fallback to clipboard
+      // Error opening link
       console.error('Failed to open external link:', error);
-      copyToClipboard(url, appName);
+      setToastPosition(position || null);
+      showToast(`Failed to open ${appName}`, 'error');
     }
   };
 
   /**
    * Handle app click with external link support
    */
-  const handleAppClickInternal = (appId: string) => {
+  const handleAppClickInternal = (
+    appId: string,
+    position?: { x: number; y: number }
+  ) => {
     const app = APPS.find((a) => a.id === appId);
 
     if (!app) return;
 
-    // Handle decorative apps
+    // Handle decorative apps - show app name
     if (!app.functional) {
-      // Show tooltip feedback
-      showToast('This app is for visual purposes only', 'info');
+      setToastPosition(position || null);
+      showToast(`${app.name} - For visual purposes only`, 'info');
       return;
     }
 
     // Handle external links
     if (appId === 'github') {
-      openExternalLink(githubUrl, 'GitHub', appId);
+      openExternalLink(githubUrl, 'GitHub', appId, position);
       return;
     }
 
     if (appId === 'linkedin') {
-      openExternalLink(linkedinUrl, 'LinkedIn', appId);
+      openExternalLink(linkedinUrl, 'LinkedIn', appId, position);
       return;
     }
 
@@ -117,14 +108,6 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
 
   return (
     <>
-      {/* Toast notifications */}
-      <Toast
-        message={toast.message}
-        type={toast.type}
-        isVisible={toast.isVisible}
-        onClose={hideToast}
-      />
-
       {/* Single iPhone widget - no modal, direct navigation */}
       <div className={`${styles.thumbnail} ${className}`}>
         <IPhoneFrame isExpanded={false}>
@@ -160,6 +143,15 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
           )}
         </IPhoneFrame>
       </div>
+
+      {/* Toast notifications - fixed position, outside iPhone frame */}
+      <Toast
+        message={toast.message}
+        type={toast.type}
+        isVisible={toast.isVisible}
+        onClose={hideToast}
+        position={toastPosition}
+      />
     </>
   );
 };
