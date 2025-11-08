@@ -21,6 +21,7 @@ export const AppIcon: React.FC<AppIconProps> = ({
   app,
   onClick,
   size = 'normal',
+  isHighlighted = false,
 }) => {
   const [isPressed, setIsPressed] = React.useState(false);
 
@@ -59,7 +60,7 @@ export const AppIcon: React.FC<AppIconProps> = ({
   };
 
   const iconSize = size === 'dock' ? 28 : 32;
-  const containerClass = `${styles.appIcon} ${size === 'dock' ? styles.dockSize : ''} ${isPressed ? styles.pressed : ''}`;
+  const containerClass = `${styles.appIcon} ${size === 'dock' ? styles.dockSize : ''} ${isPressed ? styles.pressed : ''} ${isHighlighted ? styles.highlighted : ''}`;
 
   return (
     <div className={styles.appIconWrapper}>

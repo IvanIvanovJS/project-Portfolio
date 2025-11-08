@@ -100,6 +100,7 @@ export interface SystemBarProps {
 export interface HomeScreenProps {
   onAppClick: (appType: AppType | string) => void;
   apps: AppConfig[];
+  highlightedApp?: string | null;
 }
 
 /**
@@ -109,6 +110,7 @@ export interface AppIconProps {
   app: AppConfig;
   onClick: () => void;
   size?: 'normal' | 'dock';
+  isHighlighted?: boolean;
 }
 
 /**

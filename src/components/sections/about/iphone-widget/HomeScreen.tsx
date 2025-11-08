@@ -20,6 +20,7 @@ import styles from './HomeScreen.module.css';
 export const HomeScreen: React.FC<HomeScreenProps> = ({
   onAppClick,
   apps = APPS,
+  highlightedApp = null,
 }) => {
   // Separate main grid apps from dock apps
   const mainApps = apps.filter(
@@ -39,6 +40,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               app={app}
               onClick={() => onAppClick(app.id)}
               size="normal"
+              isHighlighted={highlightedApp === app.id}
             />
           </div>
         ))}
@@ -66,6 +68,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                   app={app}
                   onClick={() => onAppClick(app.id)}
                   size="dock"
+                  isHighlighted={highlightedApp === app.id}
                 />
               </div>
             ))}

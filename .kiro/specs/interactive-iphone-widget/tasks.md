@@ -116,7 +116,7 @@
   - Apply iOS Mail app styling with glassmorphism
   - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5_
 
-- [ ] 14. Implement external link handling for GitHub and LinkedIn
+- [x] 14. Implement external link handling for GitHub and LinkedIn
   - Add click handlers for GitHub and LinkedIn app icons
   - Open external links in new tab with security attributes (rel="noopener noreferrer")
   - Add visual feedback (brief highlight) when clicked

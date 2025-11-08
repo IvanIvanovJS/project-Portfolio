@@ -1,13 +1,15 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IPhoneWidgetProps, AppType } from './types';
 import { useIPhoneState } from './hooks/useIPhoneState';
+import { useToast } from './hooks/useToast';
 import { IPhoneFrame } from './IPhoneFrame';
 import { SystemBar } from './SystemBar';
 import { HomeScreen } from './HomeScreen';
 import { AppContainer } from './AppContainer';
+import { Toast } from './Toast';
 import { APPS } from './utils/appConfig';
 import { useFocusTrap } from './hooks/useFocusTrap';
 import { AboutApp, ProjectsApp, PhoneApp, EmailApp } from './apps';
@@ -46,6 +48,9 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
     handleAppClick,
     handleAppClose,
   } = useIPhoneState();
+
+  const { toast, showToast, hideToast } = useToast();
+  const [highlightedApp, setHighlightedApp] = useState<string | null>(null);
 
   const modalRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -94,6 +99,50 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /**
+   * Copy URL to clipboard as fallback
+   */
+  const copyToClipboard = async (url: string, appName: string) => {
+    try {
+      await navigator.clipboard.writeText(url);
+      showToast(`${appName} URL copied to clipboard`, 'info');
+    } catch (error) {
+      console.error('Failed to copy to clipboard:', error);
+      showToast(`Failed to copy URL`, 'error');
+    }
+  };
+
+  /**
+   * Open external link with visual feedback and fallback
+   */
+  const openExternalLink = (url: string, appName: string, appId: string) => {
+    // Add visual feedback (brief highlight)
+    setHighlightedApp(appId);
+    setTimeout(() => setHighlightedApp(null), 300);
+
+    try {
+      // Attempt to open in new tab
+      const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
+
+      // Check if popup was blocked
+      if (
+        !newWindow ||
+        newWindow.closed ||
+        typeof newWindow.closed === 'undefined'
+      ) {
+        // Popup blocked - fallback to clipboard
+        copyToClipboard(url, appName);
+      } else {
+        // Successfully opened
+        showToast(`Opening ${appName}`, 'success');
+      }
+    } catch (error) {
+      // Error opening link - fallback to clipboard
+      console.error('Failed to open external link:', error);
+      copyToClipboard(url, appName);
+    }
+  };
+
+  /**
    * Handle app click with external link support
    */
   const handleAppClickInternal = (appId: string) => {
@@ -103,19 +152,19 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
 
     // Handle decorative apps
     if (!app.functional) {
-      // TODO: Show tooltip or subtle animation
-      console.log('Decorative app clicked:', app.name);
+      // Show tooltip feedback
+      showToast('This app is for visual purposes only', 'info');
       return;
     }
 
     // Handle external links
     if (appId === 'github') {
-      window.open(githubUrl, '_blank', 'noopener,noreferrer');
+      openExternalLink(githubUrl, 'GitHub', appId);
       return;
     }
 
     if (appId === 'linkedin') {
-      window.open(linkedinUrl, '_blank', 'noopener,noreferrer');
+      openExternalLink(linkedinUrl, 'LinkedIn', appId);
       return;
     }
 
@@ -167,6 +216,14 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
 
   return (
     <>
+      {/* Toast notifications */}
+      <Toast
+        message={toast.message}
+        type={toast.type}
+        isVisible={toast.isVisible}
+        onClose={hideToast}
+      />
+
       {/* Thumbnail state */}
       {!isExpanded && (
         <div
@@ -185,7 +242,11 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
         >
           <IPhoneFrame isExpanded={false} onClick={handleExpand}>
             <SystemBar currentTime={currentTime} showNotch={true} />
-            <HomeScreen onAppClick={handleAppClickInternal} apps={APPS} />
+            <HomeScreen
+              onAppClick={handleAppClickInternal}
+              apps={APPS}
+              highlightedApp={highlightedApp}
+            />
           </IPhoneFrame>
         </div>
       )}
@@ -218,7 +279,11 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
               <IPhoneFrame isExpanded={true}>
                 <SystemBar currentTime={currentTime} showNotch={true} />
                 {activeApp === null ? (
-                  <HomeScreen onAppClick={handleAppClickInternal} apps={APPS} />
+                  <HomeScreen
+                    onAppClick={handleAppClickInternal}
+                    apps={APPS}
+                    highlightedApp={highlightedApp}
+                  />
                 ) : (
                   <AppContainer app={activeApp} onClose={handleAppClose}>
                     {activeApp === 'about' && (
