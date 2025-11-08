@@ -90,13 +90,52 @@ export const Toast: React.FC<ToastProps> = ({
     },
   };
 
-  // Calculate toast position style
-  const positionStyle = position
-    ? {
-        left: `${position.x}px`,
-        top: `${position.y}px`,
-      }
-    : {};
+  // Calculate toast position with viewport boundary checking
+  const calculateSafePosition = () => {
+    if (!position) return {};
+
+    // Toast dimensions - use max width to be safe
+    const toastMaxWidth = 320; // Max width from CSS (300px + padding)
+    const toastHeight = 60; // Height with padding
+    const edgePadding = 20; // Minimum padding from viewport edges
+    const animationOffset = 70; // Toast moves up by 70px during animation
+
+    // Get viewport dimensions
+    const viewportWidth =
+      typeof window !== 'undefined' ? window.innerWidth : 1920;
+    const viewportHeight =
+      typeof window !== 'undefined' ? window.innerHeight : 1080;
+
+    let { x, y } = position;
+
+    // Clamp horizontal position to keep toast fully visible
+    // Toast is centered on x, so we need half width on each side
+    const halfWidth = toastMaxWidth / 2;
+    const minX = halfWidth + edgePadding;
+    const maxX = viewportWidth - halfWidth - edgePadding;
+
+    x = Math.max(minX, Math.min(x, maxX));
+
+    // Clamp vertical position accounting for animation
+    // Toast animates upward by animationOffset pixels
+    const finalY = y - animationOffset;
+    const minY = toastHeight / 2 + edgePadding;
+    const maxY = viewportHeight - toastHeight / 2 - edgePadding;
+
+    // Adjust starting Y to ensure final position is within bounds
+    if (finalY < minY) {
+      y = minY + animationOffset;
+    } else if (finalY > maxY) {
+      y = maxY + animationOffset;
+    }
+
+    return {
+      left: `${x}px`,
+      top: `${y}px`,
+    };
+  };
+
+  const positionStyle = calculateSafePosition();
 
   return (
     <AnimatePresence>
