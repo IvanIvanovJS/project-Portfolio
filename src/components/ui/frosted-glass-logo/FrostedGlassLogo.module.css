@@ -21,7 +21,7 @@
   align-items: center;
   justify-content: flex-start;
   padding: 10px 20px;
-  min-height: 40px;
+  min-height: 44px;
   width: 60px;
   overflow: visible;
   box-sizing: border-box;
@@ -30,7 +30,6 @@
   /* Typography */
   font-family: var(--font-family-gagalin);
   font-size: 1.5rem;
-  font-style: normal;
   font-weight: 100;
   text-decoration: none;
   white-space: nowrap;
