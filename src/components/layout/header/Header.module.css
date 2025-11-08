@@ -35,6 +35,12 @@
   gap: var(--spacing-6, 1.5rem);
 }
 
+.iconButtons {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2, 0.5rem);
+}
+
 /* Mobile Menu Button */
 .mobileMenuButton {
   display: none;
@@ -131,7 +137,7 @@
   border-top: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
   display: flex;
   justify-content: center;
-  gap: var(--spacing-3, 0.75rem);
+  gap: var(--spacing-4, 1rem);
 }
 
 @keyframes fadeIn {

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Sun, Moon } from 'lucide-react';
 import { useThemeContext } from '../../../providers/ThemeProvider';
-import { GlassSwitcher, SwitcherOption } from '../glass-switcher';
+import styles from './ThemeToggle.module.css';
 
 interface ThemeToggleProps {
   className?: string;
@@ -11,29 +11,19 @@ interface ThemeToggleProps {
 export const ThemeToggle: React.FC<ThemeToggleProps> = ({ className = '' }) => {
   const { theme, setTheme } = useThemeContext();
 
-  const themeOptions: SwitcherOption[] = [
-    {
-      value: 'light',
-      label: 'Light',
-      icon: <Sun size={18} />,
-      ariaLabel: 'Switch to light mode',
-    },
-    {
-      value: 'dark',
-      label: 'Dark',
-      icon: <Moon size={18} />,
-      ariaLabel: 'Switch to dark mode',
-    },
-  ];
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
 
   return (
-    <GlassSwitcher
-      options={themeOptions}
-      value={theme}
-      onChange={(value) => setTheme(value as 'light' | 'dark')}
-      className={className}
-      legend="Theme selector"
-    />
+    <button
+      type="button"
+      className={`${styles.themeToggle} ${className}`}
+      onClick={toggleTheme}
+      aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+    >
+      {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+    </button>
   );
 };
 

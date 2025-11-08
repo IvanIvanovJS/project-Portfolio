@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Navigation } from '../navigation/Navigation';
-import { UnifiedSwitcher } from '../../ui/unified-switcher/UnifiedSwitcher';
+import { ThemeToggle } from '../../ui/theme-toggle';
+import { NavigationToggle } from '../../ui/navigation-toggle';
 import { FrostedGlassLogo } from '../../ui/frosted-glass-logo';
 import { useScrollSpy } from '../../../hooks/useScrollSpy';
 import { useNavigation } from '../../../providers/NavigationProvider';
@@ -111,7 +112,10 @@ export const Header: React.FC<HeaderProps> = ({
               activeSection={activeSection}
               onItemClick={handleSmoothScroll}
             />
-            <UnifiedSwitcher instanceId="header-desktop-switcher" />
+            <div className={styles.iconButtons}>
+              <ThemeToggle />
+              <NavigationToggle />
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -137,7 +141,8 @@ export const Header: React.FC<HeaderProps> = ({
               onItemClick={handleSmoothScroll}
             />
             <div className={styles.mobileThemeToggle}>
-              <UnifiedSwitcher instanceId="header-mobile-switcher" />
+              <ThemeToggle />
+              <NavigationToggle />
             </div>
           </div>
         </div>
