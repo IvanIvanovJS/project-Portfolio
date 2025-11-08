@@ -80,7 +80,7 @@
   - Make content scrollable if it exceeds viewport
   - _Requirements: 3.1, 8.1, 8.2, 8.3, 8.4, 8.5_
 
-- [ ] 10. Implement ProjectsApp component
+- [x] 10. Implement ProjectsApp component
   - Create `ProjectsApp.tsx` with scrollable project list
   - Display project cards with images using Next.js Image component
   - Show project titles, descriptions, and technology tags
