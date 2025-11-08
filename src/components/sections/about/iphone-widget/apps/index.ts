@@ -10,3 +10,6 @@ export type { ProjectsAppProps } from './ProjectsApp';
 
 export { PhoneApp } from './PhoneApp';
 export type { PhoneAppProps } from './PhoneApp';
+
+export { EmailApp } from './EmailApp';
+export type { EmailAppProps } from './EmailApp';

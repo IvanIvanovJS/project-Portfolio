@@ -10,7 +10,7 @@ import { HomeScreen } from './HomeScreen';
 import { AppContainer } from './AppContainer';
 import { APPS } from './utils/appConfig';
 import { useFocusTrap } from './hooks/useFocusTrap';
-import { AboutApp, ProjectsApp, PhoneApp } from './apps';
+import { AboutApp, ProjectsApp, PhoneApp, EmailApp } from './apps';
 import styles from './IPhoneWidget.module.css';
 
 /**
@@ -230,9 +230,13 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
                     {activeApp === 'phone' && (
                       <PhoneApp personalInfo={personalInfo} />
                     )}
+                    {activeApp === 'email' && (
+                      <EmailApp personalInfo={personalInfo} />
+                    )}
                     {activeApp !== 'about' &&
                       activeApp !== 'projects' &&
-                      activeApp !== 'phone' && (
+                      activeApp !== 'phone' &&
+                      activeApp !== 'email' && (
                         <div style={{ padding: '20px', color: 'white' }}>
                           <p>App content for: {activeApp}</p>
                           <p>
