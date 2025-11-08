@@ -24,17 +24,7 @@ export const IPhoneFrame: React.FC<IPhoneFrameProps> = ({
   return (
     <div
       className={`${styles.iphoneFrame} ${isExpanded ? styles.expanded : styles.thumbnail} ${className}`}
-      onClick={onClick}
-      role={onClick ? 'button' : undefined}
-      tabIndex={onClick ? 0 : undefined}
-      aria-label={onClick ? 'Expand iPhone widget' : undefined}
       aria-expanded={isExpanded}
-      onKeyDown={(e) => {
-        if (onClick && (e.key === 'Enter' || e.key === ' ')) {
-          e.preventDefault();
-          onClick();
-        }
-      }}
     >
       {/* Metallic frame border */}
       <div className={styles.frameOuter}>

@@ -54,17 +54,18 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
 
   const modalRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
+  const [touchStartY, setTouchStartY] = useState<number>(0);
 
   // Enable focus trap when modal is expanded
   useFocusTrap(modalRef, isExpanded);
 
   /**
-   * Handle outside click to close modal
+   * Handle outside click/touch to close modal
    */
   useEffect(() => {
     if (!isExpanded) return;
 
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       if (
         modalRef.current &&
         !modalRef.current.contains(event.target as Node)
@@ -76,11 +77,15 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
     // Add slight delay to prevent immediate closing on expand click
     const timeoutId = setTimeout(() => {
       document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside, {
+        passive: true,
+      });
     }, 100);
 
     return () => {
       clearTimeout(timeoutId);
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
     };
   }, [isExpanded, handleCollapse]);
 
@@ -233,14 +238,22 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
           role="button"
           aria-expanded="false"
           aria-label="Open iPhone widget"
+          onClick={handleExpand}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
               handleExpand();
             }
           }}
+          onTouchStart={(e) => {
+            // Prevent default to avoid double-tap zoom on iOS
+            e.currentTarget.style.transform = 'scale(0.98)';
+          }}
+          onTouchEnd={(e) => {
+            e.currentTarget.style.transform = '';
+          }}
         >
-          <IPhoneFrame isExpanded={false} onClick={handleExpand}>
+          <IPhoneFrame isExpanded={false}>
             <SystemBar currentTime={currentTime} showNotch={true} />
             <HomeScreen
               onAppClick={handleAppClickInternal}

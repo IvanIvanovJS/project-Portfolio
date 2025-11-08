@@ -98,6 +98,11 @@
   border: none;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Optimize for touch */
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .callButton:hover .callIcon {
@@ -115,6 +120,9 @@
 .callIcon {
   width: 72px;
   height: 72px;
+  /* Ensure minimum touch target size */
+  min-width: 72px;
+  min-height: 72px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -131,6 +139,9 @@
   color: white;
 
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Use hardware acceleration */
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .callLabel {
@@ -152,7 +163,9 @@
 
 .keypadButton {
   aspect-ratio: 1;
+  /* Ensure minimum touch target size */
   min-height: 72px;
+  min-width: 72px;
   border-radius: 50%;
   display: flex;
   flex-direction: column;
@@ -174,6 +187,11 @@
 
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0.7;
+  /* Optimize for touch */
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .keypadButton:disabled {

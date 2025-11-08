@@ -43,7 +43,7 @@ export const useIPhoneState = () => {
   }, []);
 
   /**
-   * Handle Escape key to close modal
+   * Handle Escape key to close modal and body scroll lock
    */
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -54,14 +54,36 @@ export const useIPhoneState = () => {
 
     if (isExpanded) {
       document.addEventListener('keydown', handleKeyDown);
-      // Prevent body scroll when modal is open
-      document.body.style.overflow = 'hidden';
-    }
 
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
-    };
+      // Enhanced body scroll lock for mobile
+      const scrollY = window.scrollY;
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+      document.body.style.overflow = 'hidden';
+
+      // Prevent scrollbar shift on desktop
+      if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+      }
+
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+
+        // Restore body scroll
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
+
+        // Restore scroll position
+        window.scrollTo(0, scrollY);
+      };
+    }
   }, [isExpanded, handleCollapse]);
 
   return {

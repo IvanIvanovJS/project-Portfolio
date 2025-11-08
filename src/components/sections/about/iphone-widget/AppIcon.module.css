@@ -32,6 +32,12 @@
   user-select: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
+
+  /* Optimize for touch */
+  touch-action: manipulation;
+  /* Use hardware acceleration for smooth animations */
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 /* Dock size variant */

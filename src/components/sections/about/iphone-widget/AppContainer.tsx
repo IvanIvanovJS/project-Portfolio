@@ -56,19 +56,46 @@ export const AppContainer: React.FC<AppContainerProps> = ({
   };
 
   /**
-   * Prevent body scroll when app is open
+   * Handle touch start for swipe gesture
+   */
+  const handleTouchStart = (e: React.TouchEvent) => {
+    // Only handle swipe from nav bar area
+    const target = e.target as HTMLElement;
+    if (
+      target.closest(`.${styles.navBar}`) ||
+      target.closest(`.${styles.swipeIndicator}`)
+    ) {
+      // Allow drag to proceed
+      return;
+    }
+  };
+
+  /**
+   * Prevent body scroll when app is open (body scroll lock)
    */
   useEffect(() => {
     if (app) {
       const scrollY = window.scrollY;
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+
+      // Lock body scroll
       document.body.style.position = 'fixed';
       document.body.style.top = `-${scrollY}px`;
       document.body.style.width = '100%';
+      document.body.style.overflow = 'hidden';
+      // Prevent scrollbar shift
+      if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+      }
 
       return () => {
+        // Restore body scroll
         document.body.style.position = '';
         document.body.style.top = '';
         document.body.style.width = '';
+        document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
         window.scrollTo(0, scrollY);
       };
     }
@@ -129,6 +156,7 @@ export const AppContainer: React.FC<AppContainerProps> = ({
           dragConstraints={{ top: 0, bottom: 200 }}
           dragElastic={{ top: 0, bottom: 0.5 }}
           onDragEnd={handleDragEnd}
+          onTouchStart={handleTouchStart}
           dragMomentum={false}
           role="dialog"
           aria-modal="true"

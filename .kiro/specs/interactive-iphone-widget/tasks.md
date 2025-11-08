@@ -124,7 +124,7 @@
   - Display toast notification for successful link opening
   - _Requirements: 3.4, 3.5, 8.1, 8.2, 8.3, 8.4, 8.5_
 
-- [ ] 15. Implement decorative apps with tooltip feedback
+- [x] 15. Implement decorative apps with tooltip feedback
   - Configure decorative apps in appConfig.ts (YouTube, Safari, Photos, Camera, Settings, etc.)
   - Add tooltip or subtle animation when decorative app is clicked
   - Display message: "This app is for visual purposes only"
@@ -142,7 +142,7 @@
   - Test with keyboard-only navigation
   - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5_
 
-- [ ] 17. Implement touch and mobile optimizations
+- [x] 17. Implement touch and mobile optimizations
   - Add touch event handlers for app icons and buttons
   - Implement swipe-down gesture to close modal on mobile
   - Ensure touch targets are minimum 44x44px

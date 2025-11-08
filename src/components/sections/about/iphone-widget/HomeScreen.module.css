@@ -7,6 +7,13 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  /* Prevent text selection */
+  user-select: none;
+  -webkit-user-select: none;
+  /* Optimize for touch */
+  touch-action: manipulation;
+  /* Use hardware acceleration */
+  transform: translateZ(0);
 }
 
 /* Animated gradient wallpaper background */
@@ -23,6 +30,10 @@
   background-size: 200% 200%;
   animation: moveGradient 8s ease infinite;
   z-index: 0;
+  /* Optimize animation performance */
+  will-change: background-position;
+  /* Use hardware acceleration */
+  transform: translateZ(0);
 }
 
 @keyframes moveGradient {
@@ -126,6 +137,17 @@
 
   .dockContainer {
     padding: 10px 12px;
+  }
+
+  /* Optimize for mobile performance */
+  .homeScreen {
+    /* Reduce animation complexity on mobile */
+    will-change: auto;
+  }
+
+  .wallpaper {
+    /* Simplify animation on mobile for better performance */
+    animation-duration: 12s;
   }
 }
 

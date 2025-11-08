@@ -6,10 +6,23 @@
   max-width: 100%;
   cursor: pointer;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Ensure minimum touch target size */
+  min-height: 44px;
+  /* Prevent text selection on touch */
+  user-select: none;
+  -webkit-user-select: none;
+  /* Remove tap highlight on mobile */
+  -webkit-tap-highlight-color: transparent;
+  /* Optimize for touch */
+  touch-action: manipulation;
 }
 
 .thumbnail:hover {
   transform: scale(1.02);
+}
+
+.thumbnail:active {
+  transform: scale(0.98);
 }
 
 .thumbnail:focus-visible {
@@ -26,6 +39,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Prevent body scroll on mobile */
+  overflow: hidden;
+  /* Optimize for mobile performance */
+  -webkit-overflow-scrolling: touch;
+  /* Use hardware acceleration */
+  transform: translateZ(0);
+  will-change: opacity;
 }
 
 /* Backdrop */
@@ -34,6 +54,8 @@
   inset: 0;
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(8px);
+  /* Optimize for mobile */
+  -webkit-backdrop-filter: blur(8px);
 }
 
 /* Modal content */
@@ -43,6 +65,12 @@
   width: 393px;
   max-width: 90vw;
   max-height: 90vh;
+  /* Use hardware acceleration for smooth animations */
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  /* Prevent text selection */
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 /* App view styles moved to AppContainer.module.css */
