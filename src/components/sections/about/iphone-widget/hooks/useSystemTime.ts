@@ -7,12 +7,9 @@ import { useState, useEffect } from 'react';
  * @returns Current Date object that updates every minute
  */
 export const useSystemTime = (): Date => {
-  const [currentTime, setCurrentTime] = useState<Date>(new Date());
+  const [currentTime, setCurrentTime] = useState<Date>(() => new Date());
 
   useEffect(() => {
-    // Update immediately on mount
-    setCurrentTime(new Date());
-
     // Calculate milliseconds until next minute
     const now = new Date();
     const msUntilNextMinute =
@@ -27,11 +24,11 @@ export const useSystemTime = (): Date => {
         setCurrentTime(new Date());
       }, 60000); // 60 seconds
 
-      // Cleanup interval
+      // Cleanup interval on unmount
       return () => clearInterval(interval);
     }, msUntilNextMinute);
 
-    // Cleanup timeout
+    // Cleanup timeout on unmount
     return () => clearTimeout(initialTimeout);
   }, []);
 

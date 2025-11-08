@@ -7,6 +7,7 @@
 
 // Sub-components
 export { IPhoneFrame } from './IPhoneFrame';
+export { SystemBar } from './SystemBar';
 
 // Types
 export * from './types';
