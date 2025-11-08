@@ -43,7 +43,7 @@
   - Handle click events for functional vs decorative apps
   - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 7.1, 7.2, 7.3, 7.4, 7.5_
 
-- [ ] 6. Implement IPhoneWidget main component with state management
+- [x] 6. Implement IPhoneWidget main component with state management
   - Create `IPhoneWidget.tsx` as main orchestrator component
   - Implement state management for expansion, active app, and system time
   - Create `useIPhoneState` custom hook for state logic

@@ -1,15 +1,11 @@
 /**
- * iPhone Widget component exports
+ * iPhone Widget Component Exports
  */
 
-// Main component will be exported once created
-// export { default as IPhoneWidget } from './IPhoneWidget';
-
-// Sub-components
+export { IPhoneWidget } from './IPhoneWidget';
 export { IPhoneFrame } from './IPhoneFrame';
 export { SystemBar } from './SystemBar';
 export { HomeScreen } from './HomeScreen';
 export { AppIcon } from './AppIcon';
 
-// Types
 export * from './types';
