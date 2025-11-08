@@ -78,23 +78,17 @@ export const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
     setIsMobileNavOpen(false);
   };
 
-  if (!isClient) {
-    // Return a basic layout during SSR
-    return (
-      <div className={styles.layoutWrapper}>
-        <Header />
-        <main className={styles.mainContent}>{children}</main>
-        <Footer />
-      </div>
-    );
-  }
+  // Build className - use default on server, actual mode on client
+  const wrapperClassName = isClient
+    ? `${styles.layoutWrapper} ${navigationMode === 'vertical' ? styles.verticalMode : styles.horizontalMode}`
+    : `${styles.layoutWrapper} ${styles.verticalMode}`; // Default to vertical on SSR
 
+  // Always render the same structure for SSR and client
+  // Use isClient to conditionally show/hide elements with CSS or conditional rendering
   return (
-    <div
-      className={`${styles.layoutWrapper} ${navigationMode === 'vertical' ? styles.verticalMode : styles.horizontalMode}`}
-    >
+    <div className={wrapperClassName} suppressHydrationWarning>
       {/* Desktop Vertical Navigation */}
-      {navigationMode === 'vertical' && !isMobile && (
+      {isClient && navigationMode === 'vertical' && !isMobile && (
         <VerticalNavigation
           items={navigationItems}
           activeSection={activeSection}
@@ -106,7 +100,7 @@ export const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
       )}
 
       {/* Mobile Navigation for both modes */}
-      {isMobile && (
+      {isClient && isMobile && (
         <MobileNavigation
           items={navigationItems}
           activeSection={activeSection}
@@ -124,6 +118,7 @@ export const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
         />
       ) : (
         // Show mobile header only on mobile devices in vertical mode
+        isClient &&
         isMobile && (
           <MobileHeader
             onMobileMenuToggle={handleMobileNavToggle}

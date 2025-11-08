@@ -122,7 +122,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={ibmPlexSans.className}>
+      <body className={ibmPlexSans.className} suppressHydrationWarning>
         <ThemeProvider>
           <ChakraProvider>
             <NavigationProvider>
