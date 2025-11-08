@@ -1,0 +1,163 @@
+/* AppIcon Component Styles */
+
+.appIconWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+
+/* App icon button */
+.appIcon {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 13px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* iOS-style shadow */
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+  /* Prevent text selection */
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Dock size variant */
+.appIcon.dockSize {
+  width: 64px;
+  height: 64px;
+}
+
+/* Glassmorphism overlay */
+.glassOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(2px);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Icon container */
+.iconContainer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+/* Icon fallback for non-Lucide icons */
+.iconFallback {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* Badge notification */
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  background: #ff3b30;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+  border: 2px solid rgba(0, 0, 0, 0.8);
+}
+
+/* App name label */
+.appLabel {
+  font-size: 12px;
+  color: white;
+  text-align: center;
+  max-width: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+/* Press animation */
+.appIcon.pressed {
+  transform: scale(0.9);
+}
+
+/* Hover state (desktop only) */
+@media (hover: hover) and (pointer: fine) {
+  .appIcon:hover {
+    transform: scale(1.05);
+  }
+
+  .appIcon:hover .glassOverlay {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .appIcon.pressed:hover {
+    transform: scale(0.9);
+  }
+}
+
+/* Focus state for accessibility */
+.appIcon:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 0 4px rgba(255, 255, 255, 0.2);
+}
+
+/* Active state */
+.appIcon:active {
+  transform: scale(0.9);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .appIcon {
+    transition-duration: 0.01s;
+  }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .appLabel {
+    color: rgba(255, 255, 255, 0.95);
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .appIcon {
+    border: 2px solid white;
+  }
+
+  .appLabel {
+    font-weight: 600;
+  }
+}

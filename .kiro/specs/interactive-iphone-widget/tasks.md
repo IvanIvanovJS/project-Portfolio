@@ -24,7 +24,7 @@
   - Implement `useSystemTime` hook for time updates every minute
   - _Requirements: 1.2, 6.1, 6.2, 6.3, 6.4, 6.5_
 
-- [ ] 4. Implement HomeScreen component with app grid layout
+- [x] 4. Implement HomeScreen component with app grid layout
   - Create `HomeScreen.tsx` with 4-column iOS-style grid
   - Implement responsive grid with proper spacing (16px gaps)
   - Add page indicator dots at the bottom
@@ -33,7 +33,7 @@
   - Handle app click events and pass to parent component
   - _Requirements: 1.2, 3.1, 3.2, 3.3, 3.4, 3.5_
 
-- [ ] 5. Implement AppIcon component with iOS-style appearance
+- [x] 5. Implement AppIcon component with iOS-style appearance
   - Create `AppIcon.tsx` with rounded square shape (60x60px)
   - Implement gradient background based on app color prop
   - Add icon rendering with proper centering and sizing
