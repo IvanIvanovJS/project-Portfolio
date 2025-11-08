@@ -10,22 +10,19 @@
   aspect-ratio: 393 / 852;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   contain: layout style paint;
+  outline: 1px solid var(--color-primary, #007aff);
+  outline-offset: 2px;
+  border-radius: 60px;
+}
+.iphoneFrame:focus-visible {
+  outline: 2px solid var(--color-primary, #007aff);
+  outline-offset: 2px;
 }
 
 /* Thumbnail state - compact view */
 .thumbnail {
   width: 300px;
   cursor: pointer;
-}
-
-.thumbnail:hover {
-  transform: scale(1.02);
-}
-
-.thumbnail:focus-visible {
-  outline: 2px solid var(--color-primary, #007aff);
-  outline-offset: 4px;
-  border-radius: 60px;
 }
 
 /* Expanded state - fullscreen modal */

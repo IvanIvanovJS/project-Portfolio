@@ -111,21 +111,23 @@ export const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
       )}
 
       {/* Header - different for each mode */}
-      {navigationMode === 'horizontal' ? (
-        <Header
-          onMobileMenuToggle={handleMobileNavToggle}
-          isMobileMenuOpen={isMobileNavOpen}
-        />
-      ) : (
-        // Show mobile header only on mobile devices in vertical mode
-        isClient &&
-        isMobile && (
-          <MobileHeader
+      <div suppressHydrationWarning>
+        {navigationMode === 'horizontal' ? (
+          <Header
             onMobileMenuToggle={handleMobileNavToggle}
             isMobileMenuOpen={isMobileNavOpen}
           />
-        )
-      )}
+        ) : (
+          // Show mobile header only on mobile devices in vertical mode
+          isClient &&
+          isMobile && (
+            <MobileHeader
+              onMobileMenuToggle={handleMobileNavToggle}
+              isMobileMenuOpen={isMobileNavOpen}
+            />
+          )
+        )}
+      </div>
 
       {/* Main Content */}
       <main
@@ -134,6 +136,7 @@ export const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
             ? styles.withVerticalNav
             : ''
         }`}
+        suppressHydrationWarning
       >
         {children}
       </main>
