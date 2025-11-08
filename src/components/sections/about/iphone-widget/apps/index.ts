@@ -7,3 +7,6 @@ export type { AboutAppProps } from './AboutApp';
 
 export { ProjectsApp } from './ProjectsApp';
 export type { ProjectsAppProps } from './ProjectsApp';
+
+export { PhoneApp } from './PhoneApp';
+export type { PhoneAppProps } from './PhoneApp';
