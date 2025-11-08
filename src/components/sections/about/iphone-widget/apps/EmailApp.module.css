@@ -37,7 +37,7 @@
 .headerTitle {
   font-size: 20px;
   font-weight: 600;
-  color: var(--text-primary, #ffffff);
+  color: var(--fg-primary);
   margin: 0;
 }
 

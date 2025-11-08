@@ -53,16 +53,18 @@
 
 /* Back Button */
 .backButton {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
   background: transparent;
   border: none;
   color: #007aff;
   font-size: 16px;
   font-weight: 400;
+  left: -10px;
   cursor: pointer;
-  padding: 8px 12px;
+  padding: 8px;
   border-radius: 8px;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-tap-highlight-color: transparent;
@@ -115,7 +117,7 @@
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--fg-primary);
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow:
@@ -239,10 +241,11 @@
 
   .backButton {
     font-size: 15px;
-    padding: 6px 10px;
+    padding: 6px;
     /* Maintain minimum touch target */
     min-width: 44px;
     min-height: 44px;
+    left: -14px;
   }
 
   .appTitle {
@@ -251,10 +254,10 @@
 
   .closeButton {
     /* Maintain minimum touch target */
-    width: 44px;
-    height: 44px;
-    min-width: 44px;
-    min-height: 44px;
+    width: 36px;
+    height: 36px;
+    min-width: 36;
+    min-height: 36;
   }
 
   .swipeIndicator {

@@ -29,12 +29,6 @@ export const ProjectsApp: React.FC<ProjectsAppProps> = ({ projects }) => {
   return (
     <div className={styles.projectsApp}>
       {/* Header */}
-      <div className={styles.header}>
-        <h1 className={styles.title}>Projects</h1>
-        <p className={styles.subtitle}>
-          {projects.length} {projects.length === 1 ? 'project' : 'projects'}
-        </p>
-      </div>
 
       {/* Projects List */}
       <div className={styles.projectsList}>
