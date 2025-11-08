@@ -291,11 +291,6 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <h3 className={styles.sectionHeading}>Mobile Solution</h3>
-              <p className={styles.widgetDescription}>
-                Tap the iPhone to explore my portfolio in an interactive mobile
-                experience
-              </p>
               <IPhoneWidget
                 personalInfo={{
                   name: personalInfo.name,

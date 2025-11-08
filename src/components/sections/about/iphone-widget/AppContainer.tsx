@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { motion, AnimatePresence, PanInfo } from 'framer-motion';
 import { X, ChevronLeft } from 'lucide-react';
 import { AppContainerProps } from './types';
@@ -10,15 +10,15 @@ import styles from './AppContainer.module.css';
 /**
  * AppContainer Component
  *
- * Modal wrapper for opened apps with iOS-style transitions and gestures.
+ * Container for opened apps with iOS-style transitions and gestures.
  *
  * Features:
  * - Slide-up animation on app open (300ms)
  * - Navigation bar with back button
  * - Swipe-down gesture to close
  * - Glassmorphism background
- * - Proper z-index layering
  * - Scrollable content area
+ * - No body scroll lock (inline widget)
  *
  * @param props - AppContainerProps
  */
@@ -70,55 +70,9 @@ export const AppContainer: React.FC<AppContainerProps> = ({
     }
   };
 
-  /**
-   * Prevent body scroll when app is open (body scroll lock)
-   */
-  useEffect(() => {
-    if (app) {
-      const scrollY = window.scrollY;
-      const scrollbarWidth =
-        window.innerWidth - document.documentElement.clientWidth;
+  // Body scroll lock removed - not needed for inline widget
 
-      // Lock body scroll
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
-      document.body.style.overflow = 'hidden';
-      // Prevent scrollbar shift
-      if (scrollbarWidth > 0) {
-        document.body.style.paddingRight = `${scrollbarWidth}px`;
-      }
-
-      return () => {
-        // Restore body scroll
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
-        document.body.style.overflow = '';
-        document.body.style.paddingRight = '';
-        window.scrollTo(0, scrollY);
-      };
-    }
-  }, [app]);
-
-  /**
-   * Handle keyboard navigation
-   */
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && app) {
-        onClose();
-      }
-    };
-
-    if (app) {
-      document.addEventListener('keydown', handleKeyDown);
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [app, onClose]);
+  // Keyboard navigation removed - not needed for inline widget
 
   /**
    * Get app title for navigation bar
