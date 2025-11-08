@@ -159,7 +159,7 @@
   - Test layout at various breakpoints
   - _Requirements: 1.4, 9.1, 9.2, 9.3, 9.4, 9.5_
 
-- [ ] 19. Integrate IPhoneWidget into AboutSection
+- [x] 19. Integrate IPhoneWidget into AboutSection
   - Import IPhoneWidget component in AboutSection.tsx
   - Remove existing Skills section code
   - Add IPhoneWidget in place of Skills section (right column)

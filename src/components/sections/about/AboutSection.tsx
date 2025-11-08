@@ -3,55 +3,16 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Phone } from 'lucide-react';
-import Image from 'next/image';
 import styles from './AboutSection.module.css';
 import { ImageCarousel } from './ImageCarousel';
+import { IPhoneWidget } from './iphone-widget/IPhoneWidget';
+import { getAllProjects } from '@/utils/projectData';
 import type { AboutData } from '@/types';
+import type { Project } from './iphone-widget/types';
 
 interface AboutSectionProps {
   data?: AboutData;
 }
-
-// Icon mapping configuration for Simple Icons slugs
-const SKILL_ICON_MAP: Record<string, string> = {
-  React: 'react',
-  TypeScript: 'typescript',
-  'Next.js': 'nextdotjs',
-  'Node.js': 'nodedotjs',
-  'Three.js': 'threedotjs',
-  'CSS/SCSS': 'css3',
-};
-
-// SkillIcon component with error handling and fallback
-interface SkillIconProps {
-  name: string;
-  size?: number;
-}
-
-const SkillIcon: React.FC<SkillIconProps> = ({ name, size = 24 }) => {
-  const [hasError, setHasError] = useState(false);
-  const iconSlug = SKILL_ICON_MAP[name] || name.toLowerCase();
-  const iconPath = `/icons/skills/${iconSlug}.svg`;
-
-  if (hasError) {
-    return (
-      <div className={styles.skillIconFallback}>
-        {name.charAt(0).toUpperCase()}
-      </div>
-    );
-  }
-
-  return (
-    <Image
-      src={iconPath}
-      alt={`${name} icon`}
-      width={size}
-      height={size}
-      className={styles.skillIcon}
-      onError={() => setHasError(true)}
-    />
-  );
-};
 
 const defaultData: AboutData = {
   personalInfo: {
@@ -147,7 +108,7 @@ const defaultData: AboutData = {
 export const AboutSection: React.FC<AboutSectionProps> = ({
   data = defaultData,
 }) => {
-  const { personalInfo, skills, experience, images } = data;
+  const { personalInfo, experience, images } = data;
   const personalInfoRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const [carouselHeight, setCarouselHeight] = useState<number | undefined>(
@@ -322,37 +283,44 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
               />
             </div>
 
-            {/* Skills Section */}
-            <div className={styles.glassCard}>
-              <h3 className={styles.sectionHeading}>Skills</h3>
-              <div className={styles.skillsGrid}>
-                {skills.map((skill, index) => (
-                  <motion.div
-                    key={skill.name}
-                    className={styles.skillItem}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.05 }}
-                  >
-                    <div className={styles.skillHeader}>
-                      <SkillIcon name={skill.name} size={24} />
-                      <span className={styles.skillName}>{skill.name}</span>
-                      <span className={styles.skillLevel}>{skill.level}%</span>
-                    </div>
-                    <div className={styles.skillBar}>
-                      <motion.div
-                        className={styles.skillProgress}
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, delay: index * 0.05 + 0.2 }}
-                      />
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
+            {/* iPhone Widget - Interactive Mobile Solution */}
+            <motion.div
+              className={styles.iphoneWidgetSection}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <h3 className={styles.sectionHeading}>Mobile Solution</h3>
+              <p className={styles.widgetDescription}>
+                Tap the iPhone to explore my portfolio in an interactive mobile
+                experience
+              </p>
+              <IPhoneWidget
+                personalInfo={{
+                  name: personalInfo.name,
+                  title: personalInfo.title,
+                  bio: personalInfo.bio,
+                  phone: personalInfo.phone || '',
+                  email: personalInfo.email,
+                  location: personalInfo.location,
+                }}
+                projects={getAllProjects().map(
+                  (project): Project => ({
+                    id: project.id,
+                    title: project.title,
+                    description: project.description,
+                    image: project.image,
+                    technologies: project.technologies.map((tech) => tech.name),
+                    liveUrl: project.links.live,
+                    repoUrl: project.links.github,
+                  })
+                )}
+                githubUrl="https://github.com/yourusername"
+                linkedinUrl="https://linkedin.com/in/yourusername"
+                className={styles.iphoneWidget}
+              />
+            </motion.div>
           </motion.div>
         </div>
       </div>

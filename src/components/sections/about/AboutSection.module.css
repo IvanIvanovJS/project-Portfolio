@@ -305,6 +305,35 @@
   flex-direction: column;
 }
 
+/* iPhone Widget Section */
+.iphoneWidgetSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md, 1rem);
+  padding: var(--spacing-lg, 2rem);
+  background: transparent;
+}
+
+.iphoneWidgetSection .sectionHeading {
+  text-align: center;
+  margin-bottom: var(--spacing-2, 0.5rem);
+}
+
+.widgetDescription {
+  text-align: center;
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--fg-primary, rgba(255, 255, 255, 0.6));
+  margin-bottom: var(--spacing-md, 1rem);
+  max-width: 300px;
+}
+
+.iphoneWidget {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .content {
@@ -379,7 +408,7 @@
     padding: 0;
   }
 
-  .glassCard {
+  .iphoneWidgetSection {
     order: 4;
     padding: var(--spacing-lg, 2rem);
   }
@@ -427,7 +456,7 @@
     padding: var(--spacing-md, 1.5rem);
   }
 
-  .glassCard {
+  .iphoneWidgetSection {
     padding: var(--spacing-md, 1.5rem);
   }
 
