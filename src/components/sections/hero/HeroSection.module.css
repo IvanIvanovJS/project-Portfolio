@@ -63,11 +63,11 @@
 .name {
   font-family: var(--font-family-gagalin);
   font-size: var(--font-size-6xl);
-  font-weight: 400;
+  font-weight: 200;
   line-height: 1.1;
   letter-spacing: 0.1em;
   margin: 0;
-  background: var(--fg-primary);
+  background: rgb(255, 255, 255, 0.8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -97,7 +97,7 @@
   font-size: var(--font-size-xl);
   font-weight: 600;
   line-height: 1.6;
-  color: var(--fg-secondary);
+  color: rgb(255, 255, 255, 0.6);
   margin: 0;
   min-height: 1.6em;
   animation: fadeInUp 0.8s ease-out 0.3s both;

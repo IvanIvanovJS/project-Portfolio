@@ -6,7 +6,7 @@
   right: 0;
   z-index: 1000;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  padding: var(--spacing-4, 1rem) 0;
+  padding: var(--spacing-3, 1rem) 0;
   background: var(--glass-bg, rgba(255, 255, 255, 0.05));
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -21,11 +21,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.logo {
-  /* FrostedGlassLogo component handles its own styling */
-  /* This class is passed to the component for positioning */
 }
 
 .nav {
