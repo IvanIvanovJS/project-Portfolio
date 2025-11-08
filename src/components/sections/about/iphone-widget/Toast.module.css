@@ -32,17 +32,18 @@
   top: auto;
   left: auto;
   transform: translate(-50%, -50%);
-  min-width: 220px;
-  max-width: 300px;
-  white-space: nowrap;
+  min-width: 240px;
+  max-width: min(440px, 90vw);
   pointer-events: none;
+  word-wrap: break-word;
+  white-space: normal;
 }
 
 /* Ensure toast doesn't overflow viewport */
 @media (max-width: 768px) {
   .toast.positioned {
-    min-width: 180px;
-    max-width: 240px;
+    min-width: 200px;
+    max-width: min(320px, 85vw);
     font-size: 12px;
     padding: 8px 14px;
   }

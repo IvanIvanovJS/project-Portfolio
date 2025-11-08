@@ -94,17 +94,17 @@ export const Toast: React.FC<ToastProps> = ({
   const calculateSafePosition = () => {
     if (!position) return {};
 
-    // Toast dimensions - use max width to be safe
-    const toastMaxWidth = 320; // Max width from CSS (300px + padding)
-    const toastHeight = 60; // Height with padding
-    const edgePadding = 20; // Minimum padding from viewport edges
-    const animationOffset = 70; // Toast moves up by 70px during animation
-
     // Get viewport dimensions
     const viewportWidth =
       typeof window !== 'undefined' ? window.innerWidth : 1920;
     const viewportHeight =
       typeof window !== 'undefined' ? window.innerHeight : 1080;
+
+    // Toast dimensions - use 90vw max or 440px, whichever is smaller
+    const toastMaxWidth = Math.min(viewportWidth * 0.9, 440);
+    const toastHeight = 70; // Height with padding (can be multi-line now)
+    const edgePadding = 30; // Increased padding from viewport edges
+    const animationOffset = 70; // Toast moves up by 70px during animation
 
     let { x, y } = position;
 
