@@ -7,29 +7,42 @@ import { useState, useEffect } from 'react';
  * @returns Current Date object that updates every minute
  */
 export const useSystemTime = (): Date => {
-  const [currentTime, setCurrentTime] = useState<Date>(() => new Date());
+  // Initialize with a fixed time to avoid hydration mismatch
+  const [currentTime, setCurrentTime] = useState<Date>(
+    () => new Date('2024-01-01T12:00:00')
+  );
 
   useEffect(() => {
-    // Calculate milliseconds until next minute
-    const now = new Date();
-    const msUntilNextMinute =
-      (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
+    let interval: NodeJS.Timeout | null = null;
+    let initialTimeout: NodeJS.Timeout | null = null;
 
-    // Set initial timeout to sync with minute boundary
-    const initialTimeout = setTimeout(() => {
-      setCurrentTime(new Date());
+    // Set to actual current time on client mount (after hydration)
+    // Use setTimeout to avoid cascading renders warning
+    const immediateUpdate = setTimeout(() => {
+      const now = new Date();
+      setCurrentTime(now);
 
-      // Then update every minute
-      const interval = setInterval(() => {
+      // Calculate milliseconds until next minute
+      const msUntilNextMinute =
+        (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
+
+      // Set initial timeout to sync with minute boundary
+      initialTimeout = setTimeout(() => {
         setCurrentTime(new Date());
-      }, 60000); // 60 seconds
 
-      // Cleanup interval on unmount
-      return () => clearInterval(interval);
-    }, msUntilNextMinute);
+        // Then update every minute
+        interval = setInterval(() => {
+          setCurrentTime(new Date());
+        }, 60000); // 60 seconds
+      }, msUntilNextMinute);
+    }, 0);
 
-    // Cleanup timeout on unmount
-    return () => clearTimeout(initialTimeout);
+    // Cleanup on unmount
+    return () => {
+      clearTimeout(immediateUpdate);
+      if (initialTimeout) clearTimeout(initialTimeout);
+      if (interval) clearInterval(interval);
+    };
   }, []);
 
   return currentTime;

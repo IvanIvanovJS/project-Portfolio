@@ -18,7 +18,7 @@ import styles from './IPhoneFrame.module.css';
 export const IPhoneFrame: React.FC<IPhoneFrameProps> = ({
   isExpanded,
   children,
-  onClick,
+  onClick: _onClick,
   className = '',
 }) => {
   return (
@@ -32,11 +32,16 @@ export const IPhoneFrame: React.FC<IPhoneFrameProps> = ({
         <div className={styles.screen}>
           {/* Dynamic Island notch */}
           <div className={styles.notch}>
-            <div className={styles.notchInner} />
+            <div className={styles.notchInner}>
+              {/* Camera lens */}
+              <div className={styles.camera}>
+                <div className={styles.cameraLens} />
+              </div>
+            </div>
           </div>
 
-          {/* Screen content */}
-          <div className={styles.screenContent}>{children}</div>
+          {/* Screen content - background fills entire screen */}
+          {children}
         </div>
       </div>
     </div>
