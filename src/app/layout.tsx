@@ -33,7 +33,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={ibmPlexSans.variable}>
+    <html
+      lang="en"
+      className={ibmPlexSans.variable}
+      data-theme="dark"
+      data-navigation="vertical"
+    >
       <head>
         {/*
           FOUC Prevention Script
