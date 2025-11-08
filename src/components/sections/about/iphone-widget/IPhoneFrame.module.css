@@ -165,10 +165,6 @@
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
-  .thumbnail {
-    width: 250px;
-  }
-
   .expanded {
     width: 90vw;
     max-width: 393px;
@@ -176,13 +172,22 @@
 }
 
 @media (max-width: 768px) {
-  .thumbnail {
-    width: 200px;
-  }
-
   .expanded {
     width: 95vw;
     max-width: 393px;
+  }
+  .notch {
+    top: 16px;
+    width: 60px;
+    height: 15px;
+  }
+  .camera {
+    width: 8px;
+    height: 8px;
+  }
+  .cameraLens {
+    width: 2px;
+    height: 2px;
   }
 
   .frameOuter {

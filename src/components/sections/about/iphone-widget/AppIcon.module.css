@@ -228,29 +228,6 @@
 
 /* Responsive icon sizes */
 @media (max-width: 768px) {
-  .appIcon {
-    width: 48px;
-    height: 48px;
-  }
-
-  .appIcon.dockSize {
-    width: 48px;
-    height: 48px;
-  }
-
-  .iconContainer {
-    padding: 9px;
-  }
-
-  .iconContainer svg {
-    max-width: 28px;
-    max-height: 28px;
-  }
-
-  .appIcon.dockSize .iconContainer {
-    padding: 9px;
-  }
-
   .appIcon.dockSize .iconContainer svg {
     max-width: 26px;
     max-height: 26px;
@@ -263,25 +240,6 @@
 }
 
 @media (max-width: 480px) {
-  .appIcon {
-    width: 46px;
-    height: 46px;
-  }
-
-  .appIcon.dockSize {
-    width: 46px;
-    height: 46px;
-  }
-
-  .iconContainer {
-    padding: 8px;
-  }
-
-  .iconContainer svg {
-    max-width: 26px;
-    max-height: 26px;
-  }
-
   .appIcon.dockSize .iconContainer {
     padding: 8px;
   }
