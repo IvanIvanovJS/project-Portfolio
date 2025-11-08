@@ -61,8 +61,8 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
-  padding: 12px 0;
-  margin-bottom: 8px;
+  padding: 8px 0;
+  margin-bottom: 4px;
 }
 
 .dot {
@@ -83,7 +83,8 @@
 .dock {
   position: relative;
   z-index: 2;
-  padding: 0 16px 24px;
+  padding: 0 16px 16px;
+  margin-bottom: 2.5rem;
 }
 
 .dockContainer {
@@ -96,7 +97,7 @@
     0 8px 32px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
-  padding: 12px 16px;
+  padding: 10px 16px;
 }
 
 .dockApps {
@@ -123,11 +124,11 @@
   }
 
   .dock {
-    padding: 0 12px 20px;
+    padding: 0 12px 14px;
   }
 
   .dockContainer {
-    padding: 10px 12px;
+    padding: 8px 12px;
   }
 
   .dockApps {
