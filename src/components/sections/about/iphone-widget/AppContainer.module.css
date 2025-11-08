@@ -1,0 +1,296 @@
+/* AppContainer Component Styles */
+
+.appContainer {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(20px) saturate(180%);
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+  cursor: grab;
+}
+
+.appContainer:active {
+  cursor: grabbing;
+}
+
+/* Navigation Bar */
+.navBar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  min-height: 56px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+/* Back Button */
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  color: #007aff;
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.backButton:hover {
+  background: rgba(0, 122, 255, 0.1);
+}
+
+.backButton:active {
+  background: rgba(0, 122, 255, 0.2);
+  transform: scale(0.98);
+}
+
+.backButton:focus-visible {
+  outline: 2px solid #007aff;
+  outline-offset: 2px;
+}
+
+/* App Title */
+.appTitle {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: -0.4px;
+  pointer-events: none;
+}
+
+/* Close Button */
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.2),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.closeButton:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.05);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.3),
+    0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.closeButton:active {
+  transform: scale(0.95);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.closeButton:focus-visible {
+  outline: 2px solid #007aff;
+  outline-offset: 2px;
+}
+
+/* Swipe Indicator */
+.swipeIndicator {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.swipeBar {
+  width: 36px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Content Area */
+.contentArea {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px) saturate(180%);
+}
+
+/* Custom scrollbar styling */
+.contentArea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.contentArea::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.contentArea::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+.contentArea::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Glassmorphism enhancement for content */
+.contentArea::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .navBar {
+    padding: 10px 12px;
+    min-height: 52px;
+  }
+
+  .backButton {
+    font-size: 15px;
+    padding: 6px 10px;
+  }
+
+  .appTitle {
+    font-size: 16px;
+  }
+
+  .closeButton {
+    width: 30px;
+    height: 30px;
+  }
+
+  .swipeIndicator {
+    padding: 6px 0;
+  }
+
+  .swipeBar {
+    width: 32px;
+    height: 4px;
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .navBar {
+    padding: 11px 14px;
+    min-height: 54px;
+  }
+
+  .appTitle {
+    font-size: 16.5px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .appContainer,
+  .backButton,
+  .closeButton {
+    transition-duration: 0.1s;
+  }
+
+  .backButton:hover,
+  .closeButton:hover {
+    transform: none;
+  }
+
+  .backButton:active,
+  .closeButton:active {
+    transform: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .navBar {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .backButton {
+    color: #0a84ff;
+    font-weight: 600;
+  }
+
+  .closeButton {
+    border: 2px solid rgba(255, 255, 255, 0.4);
+  }
+
+  .swipeBar {
+    background: rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* Dark mode adjustments (if needed) */
+@media (prefers-color-scheme: dark) {
+  .appContainer {
+    background: rgba(0, 0, 0, 0.98);
+  }
+
+  .navBar {
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .contentArea {
+    background: rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* Focus visible styles for accessibility */
+.appContainer:focus-visible {
+  outline: none;
+}
+
+/* Ensure proper layering */
+.appContainer {
+  contain: layout style paint;
+  will-change: transform, opacity;
+}
+
+/* Performance optimization */
+.navBar,
+.contentArea {
+  contain: layout style;
+}

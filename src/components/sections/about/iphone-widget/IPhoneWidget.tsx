@@ -7,6 +7,7 @@ import { useIPhoneState } from './hooks/useIPhoneState';
 import { IPhoneFrame } from './IPhoneFrame';
 import { SystemBar } from './SystemBar';
 import { HomeScreen } from './HomeScreen';
+import { AppContainer } from './AppContainer';
 import { APPS } from './utils/appConfig';
 import { useFocusTrap } from './hooks/useFocusTrap';
 import styles from './IPhoneWidget.module.css';
@@ -218,18 +219,13 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
                 {activeApp === null ? (
                   <HomeScreen onAppClick={handleAppClickInternal} apps={APPS} />
                 ) : (
-                  <div className={styles.appView}>
-                    {/* TODO: Render active app component */}
-                    <div className={styles.appPlaceholder}>
-                      <button
-                        onClick={handleAppClose}
-                        className={styles.backButton}
-                      >
-                        ← Back
-                      </button>
-                      <p>App: {activeApp}</p>
+                  <AppContainer app={activeApp} onClose={handleAppClose}>
+                    {/* TODO: Render active app component based on activeApp */}
+                    <div style={{ padding: '20px', color: 'white' }}>
+                      <p>App content for: {activeApp}</p>
+                      <p>This will be replaced with actual app components</p>
                     </div>
-                  </div>
+                  </AppContainer>
                 )}
               </IPhoneFrame>
             </motion.div>
