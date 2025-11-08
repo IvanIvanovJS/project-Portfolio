@@ -10,6 +10,7 @@ import { HomeScreen } from './HomeScreen';
 import { AppContainer } from './AppContainer';
 import { APPS } from './utils/appConfig';
 import { useFocusTrap } from './hooks/useFocusTrap';
+import { AboutApp } from './apps/AboutApp';
 import styles from './IPhoneWidget.module.css';
 
 /**
@@ -29,7 +30,7 @@ import styles from './IPhoneWidget.module.css';
  * @param props - IPhoneWidgetProps
  */
 export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
-  personalInfo: _personalInfo,
+  personalInfo,
   projects: _projects,
   resumeUrl: _resumeUrl,
   githubUrl,
@@ -220,11 +221,15 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
                   <HomeScreen onAppClick={handleAppClickInternal} apps={APPS} />
                 ) : (
                   <AppContainer app={activeApp} onClose={handleAppClose}>
-                    {/* TODO: Render active app component based on activeApp */}
-                    <div style={{ padding: '20px', color: 'white' }}>
-                      <p>App content for: {activeApp}</p>
-                      <p>This will be replaced with actual app components</p>
-                    </div>
+                    {activeApp === 'about' && (
+                      <AboutApp personalInfo={personalInfo} />
+                    )}
+                    {activeApp !== 'about' && (
+                      <div style={{ padding: '20px', color: 'white' }}>
+                        <p>App content for: {activeApp}</p>
+                        <p>This will be replaced with actual app components</p>
+                      </div>
+                    )}
                   </AppContainer>
                 )}
               </IPhoneFrame>
