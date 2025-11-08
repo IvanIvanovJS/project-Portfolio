@@ -1,12 +1,14 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { IPhoneWidgetProps, AppType } from './types';
 import { useIPhoneState } from './hooks/useIPhoneState';
 import { IPhoneFrame } from './IPhoneFrame';
 import { SystemBar } from './SystemBar';
 import { HomeScreen } from './HomeScreen';
 import { APPS } from './utils/appConfig';
+import { useFocusTrap } from './hooks/useFocusTrap';
 import styles from './IPhoneWidget.module.css';
 
 /**
@@ -46,6 +48,9 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
   const modalRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
 
+  // Enable focus trap when modal is expanded
+  useFocusTrap(modalRef, isExpanded);
+
   /**
    * Handle outside click to close modal
    */
@@ -81,6 +86,11 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
     }
   }, [isExpanded]);
 
+  // Check for reduced motion preference
+  const prefersReducedMotion =
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   /**
    * Handle app click with external link support
    */
@@ -111,11 +121,66 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
     handleAppClick(appId as AppType);
   };
 
+  // Animation variants
+  const backdropVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: prefersReducedMotion ? 0.1 : 0.5,
+        ease: [0.4, 0, 0.2, 1] as const,
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        duration: prefersReducedMotion ? 0.1 : 0.3,
+        ease: [0.4, 0, 0.2, 1] as const,
+      },
+    },
+  };
+
+  const modalVariants = {
+    hidden: {
+      opacity: 0,
+      scale: 0.8,
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: prefersReducedMotion ? 0.1 : 0.5,
+        ease: [0.4, 0, 0.2, 1] as const,
+      },
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.8,
+      transition: {
+        duration: prefersReducedMotion ? 0.1 : 0.3,
+        ease: [0.4, 0, 0.2, 1] as const,
+      },
+    },
+  };
+
   return (
     <>
       {/* Thumbnail state */}
       {!isExpanded && (
-        <div ref={triggerRef} className={`${styles.thumbnail} ${className}`}>
+        <div
+          ref={triggerRef}
+          className={`${styles.thumbnail} ${className}`}
+          tabIndex={0}
+          role="button"
+          aria-expanded="false"
+          aria-label="Open iPhone widget"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              handleExpand();
+            }
+          }}
+        >
           <IPhoneFrame isExpanded={false} onClick={handleExpand}>
             <SystemBar currentTime={currentTime} showNotch={true} />
             <HomeScreen onAppClick={handleAppClickInternal} apps={APPS} />
@@ -123,41 +188,54 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
         </div>
       )}
 
-      {/* Expanded modal state */}
-      {isExpanded && (
-        <div
-          className={styles.modalOverlay}
-          role="dialog"
-          aria-modal="true"
-          aria-label="iPhone widget"
-        >
-          {/* Backdrop */}
-          <div className={styles.backdrop} aria-hidden="true" />
+      {/* Expanded modal state with AnimatePresence */}
+      <AnimatePresence mode="wait">
+        {isExpanded && (
+          <motion.div
+            className={styles.modalOverlay}
+            role="dialog"
+            aria-modal="true"
+            aria-label="iPhone widget"
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            {/* Backdrop with fade animation */}
+            <motion.div
+              className={styles.backdrop}
+              aria-hidden="true"
+              variants={backdropVariants}
+            />
 
-          {/* Modal content */}
-          <div ref={modalRef} className={styles.modalContent}>
-            <IPhoneFrame isExpanded={true}>
-              <SystemBar currentTime={currentTime} showNotch={true} />
-              {activeApp === null ? (
-                <HomeScreen onAppClick={handleAppClickInternal} apps={APPS} />
-              ) : (
-                <div className={styles.appView}>
-                  {/* TODO: Render active app component */}
-                  <div className={styles.appPlaceholder}>
-                    <button
-                      onClick={handleAppClose}
-                      className={styles.backButton}
-                    >
-                      ← Back
-                    </button>
-                    <p>App: {activeApp}</p>
+            {/* Modal content with scale animation */}
+            <motion.div
+              ref={modalRef}
+              className={styles.modalContent}
+              variants={modalVariants}
+            >
+              <IPhoneFrame isExpanded={true}>
+                <SystemBar currentTime={currentTime} showNotch={true} />
+                {activeApp === null ? (
+                  <HomeScreen onAppClick={handleAppClickInternal} apps={APPS} />
+                ) : (
+                  <div className={styles.appView}>
+                    {/* TODO: Render active app component */}
+                    <div className={styles.appPlaceholder}>
+                      <button
+                        onClick={handleAppClose}
+                        className={styles.backButton}
+                      >
+                        ← Back
+                      </button>
+                      <p>App: {activeApp}</p>
+                    </div>
                   </div>
-                </div>
-              )}
-            </IPhoneFrame>
-          </div>
-        </div>
-      )}
+                )}
+              </IPhoneFrame>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

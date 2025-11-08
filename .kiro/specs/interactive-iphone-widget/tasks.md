@@ -53,7 +53,7 @@
   - Integrate IPhoneFrame, SystemBar, and HomeScreen components
   - _Requirements: 1.1, 2.1, 2.2, 2.3, 2.4, 2.5_
 
-- [ ] 7. Implement expansion animation with Framer Motion
+- [x] 7. Implement expansion animation with Framer Motion
   - Add Framer Motion AnimatePresence for modal transitions
   - Implement scale animation from thumbnail to fullscreen (500ms)
   - Add backdrop fade-in animation
