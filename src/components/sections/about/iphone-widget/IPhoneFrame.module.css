@@ -7,12 +7,18 @@
 .iphoneFrame {
   position: relative;
   /* iPhone 14 Pro aspect ratio reduced by 20% height: 393:681.6 (852 * 0.8) */
-  aspect-ratio: 393 / 767;
+  aspect-ratio: 393 / 852;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   contain: layout style paint;
   outline: 1px solid var(--color-primary, #007aff);
   outline-offset: 2px;
   border-radius: 60px;
+  scale: 0.6;
+  top: -130px;
+}
+
+.iphoneFrame:hover {
+  scale: 0.9;
 }
 .iphoneFrame:focus-visible {
   outline: 2px solid var(--color-primary, #007aff);
@@ -172,6 +178,10 @@
 }
 
 @media (max-width: 768px) {
+  .iphoneFrame {
+    scale: 0.8;
+    top: 0;
+  }
   .expanded {
     width: 95vw;
     max-width: 393px;

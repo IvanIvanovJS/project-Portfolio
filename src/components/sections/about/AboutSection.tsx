@@ -291,6 +291,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
+              <h3 className={styles.sectionHeading}>Mobile Solution</h3>
               <IPhoneWidget
                 personalInfo={{
                   name: personalInfo.name,
