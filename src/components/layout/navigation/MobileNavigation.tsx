@@ -137,20 +137,14 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
         role="navigation"
         aria-label="Mobile navigation"
       >
-        {/* Navigation Header */}
-        <div className={styles.navHeader}>
-          <div className={styles.logo}>
-            <span className={styles.logoText}>Portfolio</span>
-          </div>
-
-          <button
-            className={styles.closeButton}
-            onClick={onClose}
-            aria-label="Close navigation"
-          >
-            <X size={20} />
-          </button>
-        </div>
+        {/* Close Button */}
+        <button
+          className={styles.closeButton}
+          onClick={onClose}
+          aria-label="Close navigation"
+        >
+          <X size={20} />
+        </button>
 
         {/* Navigation Content */}
         <div className={styles.navContent}>
