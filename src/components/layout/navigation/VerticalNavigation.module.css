@@ -5,11 +5,14 @@
   left: 0;
   width: 280px;
   height: 100vh;
-  background: var(--glass-bg, rgba(255, 255, 255, 0.05));
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-right: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
-  box-shadow: 4px 0 32px rgba(0, 0, 0, 0.1);
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow:
+    inset 1px 0 1px rgba(255, 255, 255, 0.1),
+    inset -1px 0 1px rgba(0, 0, 0, 0.1),
+    4px 0 32px rgba(0, 0, 0, 0.5);
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -373,4 +376,27 @@
   .logoText {
     font-size: var(--font-size-base, 1rem);
   }
+}
+
+/* Light Theme Support */
+:global([data-theme='light']) .verticalNav {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border-right-color: rgba(0, 0, 0, 0.15);
+  box-shadow:
+    inset 1px 0 1px rgba(255, 255, 255, 0.8),
+    inset -1px 0 1px rgba(0, 0, 0, 0.05),
+    4px 0 32px rgba(0, 0, 0, 0.2);
+}
+
+:global([data-theme='light']) .verticalNav.mobile {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border-left-color: rgba(0, 0, 0, 0.15);
+  box-shadow:
+    inset -1px 0 1px rgba(255, 255, 255, 0.8),
+    inset 1px 0 1px rgba(0, 0, 0, 0.05),
+    -4px 0 32px rgba(0, 0, 0, 0.2);
 }
