@@ -162,8 +162,10 @@
   padding: var(--spacing-6, 1.5rem) var(--spacing-4, 1rem);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
 }
 
 /* Navigation Styles */
@@ -177,8 +179,8 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-16, 4.5rem);
-  justify-content: space-evenly;
+  gap: var(--spacing-6, 1.5rem);
+  min-height: min-content;
 }
 
 .navItem {
@@ -396,6 +398,15 @@
 }
 
 /* Responsive adjustments */
+@media (min-height: 800px) {
+  .navList {
+    gap: var(--spacing-16, 4.5rem);
+  }
+
+  .navContent {
+    justify-content: center;
+  }
+}
 
 /* Light Theme Support */
 :global([data-theme='light']) .mobileNav {
