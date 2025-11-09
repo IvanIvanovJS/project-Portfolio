@@ -40,23 +40,23 @@ export const VerticalNavigation: React.FC<VerticalNavigationProps> = ({
 
     switch (item.id) {
       case 'hero':
-        icon = <Home size={18} />;
+        icon = <Home size={26} />;
         description = 'Welcome & Introduction';
         break;
       case 'projects':
-        icon = <Briefcase size={18} />;
+        icon = <Briefcase size={26} />;
         description = 'View Case Studies';
         break;
       case 'about':
-        icon = <User size={18} />;
+        icon = <User size={26} />;
         description = 'Read Bio';
         break;
       case 'contact':
-        icon = <Mail size={18} />;
+        icon = <Mail size={26} />;
         description = 'Get In Touch';
         break;
       default:
-        icon = <Menu size={18} />;
+        icon = <Menu size={26} />;
         description = 'Navigation';
     }
 
@@ -121,7 +121,7 @@ export const VerticalNavigation: React.FC<VerticalNavigationProps> = ({
               aria-label={isOpen ? 'Close navigation' : 'Open navigation'}
               aria-expanded={isOpen}
             >
-              {isOpen ? <X size={20} /> : <Menu size={20} />}
+              {isOpen ? <X size={26} /> : <Menu size={26} />}
             </button>
           )}
         </div>

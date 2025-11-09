@@ -5,7 +5,7 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(21, 21, 21, 0.9);
+  background: color-mix(in srgb, var(--bg-primary) 90%, transparent);
   backdrop-filter: blur(40px) saturate(200%);
   -webkit-backdrop-filter: blur(40px) saturate(200%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
@@ -41,31 +41,26 @@
   color: var(--fg-primary, rgba(255, 255, 255, 0.8));
   cursor: pointer;
   transition: all 0.3s ease;
-  padding: 0;
+  padding: 1.2rem;
   flex-shrink: 0;
 }
 
 .mobileMenuButton:hover {
   background: var(--glass-highlight, rgba(255, 255, 255, 0.1));
   color: var(--color-primary, #baffe9);
-  transform: scale(1.05);
+
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
-.mobileMenuButton:focus {
-  outline: 2px solid var(--color-primary, #baffe9);
-  outline-offset: 2px;
-}
-
 .mobileMenuButton.open {
-  background: var(--glass-highlight, rgba(255, 255, 255, 0.1));
-  color: var(--color-primary, #baffe9);
-  box-shadow: 0 0 20px rgba(186, 255, 233, 0.3);
+  display: none;
 }
 
 /* Icon animations */
 .menuIcon,
 .closeIcon {
+  width: 24px;
+  height: 24px;
   position: absolute;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -91,30 +86,10 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 480px) {
-  .container {
-    padding: 0 var(--spacing-3, 0.75rem);
-  }
-
-  .logoText {
-    font-size: var(--font-size-base, 1rem);
-  }
-
-  .mobileMenuButton {
-    width: 1.75rem;
-    height: 1.75rem;
-  }
-
-  .menuIcon,
-  .closeIcon {
-    width: 18px;
-    height: 18px;
-  }
-}
 
 /* Light Theme Support */
 :global([data-theme='light']) .mobileHeader {
-  background: rgba(255, 255, 255, 0.9);
+  background: color-mix(in srgb, var(--bg-primary) 90%, transparent);
   backdrop-filter: blur(40px) saturate(200%);
   -webkit-backdrop-filter: blur(40px) saturate(200%);
   border-bottom-color: rgba(0, 0, 0, 0.2);
