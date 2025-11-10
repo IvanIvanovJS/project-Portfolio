@@ -448,33 +448,35 @@
   }
 
   /* On mobile - show info layer by default, hide action buttons */
-  .infoLayer {
+  .projectCard:not(.mobileActive) .infoLayer {
+    display: block !important;
     opacity: 1 !important;
   }
 
-  .actionButtons {
-    opacity: 0 !important;
+  .projectCard:not(.mobileActive) .actionButtons {
+    display: none !important;
   }
 
-  .technologies {
-    opacity: 1 !important;
+  .projectCard:not(.mobileActive) .technologies {
+    display: flex !important;
   }
 
   /* Disable hover effects on mobile - keep default state */
-  .projectCard:hover .backgroundImageLayer {
+  .projectCard:not(.mobileActive):hover .backgroundImageLayer {
     opacity: 0.2 !important;
   }
 
-  .projectCard:hover .infoLayer {
+  .projectCard:not(.mobileActive):hover .infoLayer {
+    display: block !important;
     opacity: 1 !important;
   }
 
-  .projectCard:hover .actionButtons {
-    opacity: 0 !important;
+  .projectCard:not(.mobileActive):hover .actionButtons {
+    display: none !important;
   }
 
-  .projectCard:hover .technologies {
-    opacity: 1 !important;
+  .projectCard:not(.mobileActive):hover .technologies {
+    display: flex !important;
   }
 
   .projectCard:hover .cardBackground {
@@ -496,24 +498,25 @@
       0 8px 32px rgba(0, 0, 0, 0.1);
   }
 
-  /* Enable active state for touch devices - hide info, show buttons */
-  .projectCard:active .backgroundImageLayer {
+  /* Mobile active state - hide info, show buttons */
+  .projectCard.mobileActive .backgroundImageLayer {
     opacity: 0.9 !important;
   }
 
-  .projectCard:active .infoLayer {
-    opacity: 0 !important;
+  .projectCard.mobileActive .infoLayer {
+    display: none !important;
   }
 
-  .projectCard:active .actionButtons {
-    opacity: 1 !important;
+  .projectCard.mobileActive .actionButtons {
+    display: flex !important;
+    flex-direction: column;
   }
 
-  .projectCard:active .technologies {
-    opacity: 0 !important;
+  .projectCard.mobileActive .technologies {
+    display: none !important;
   }
 
-  .projectCard:active .content {
+  .projectCard.mobileActive .content {
     background: rgba(255, 255, 255, 0.1);
     box-shadow:
       inset 0 1px 1px rgba(255, 255, 255, 0.4),
@@ -521,7 +524,7 @@
       0 12px 48px rgba(0, 0, 0, 0.15);
   }
 
-  .projectCard:active .cardBackground {
+  .projectCard.mobileActive .cardBackground {
     top: -10px;
     transform: skewX(0deg);
     height: 105%;
@@ -538,7 +541,6 @@
 
   /* Ensure action buttons are properly sized for touch */
   .actionButtons {
-    flex-direction: column;
     gap: 12px;
     bottom: var(--spacing-4);
     width: calc(100% - var(--spacing-8));

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
@@ -14,6 +14,8 @@ interface ProjectCardProps {
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
   const [imageError, setImageError] = useState(false);
+  const [isMobileActive, setIsMobileActive] = useState(false);
+  const cardRef = useRef<HTMLElement>(null);
 
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -28,14 +30,54 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
     },
   };
 
+  // Close mobile active state when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: Event) => {
+      if (
+        isMobileActive &&
+        cardRef.current &&
+        !cardRef.current.contains(event.target as Node)
+      ) {
+        setIsMobileActive(false);
+      }
+    };
+
+    if (isMobileActive) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [isMobileActive]);
+
+  const handleMobileClick = (e: React.MouseEvent) => {
+    // Only handle on touch devices
+    if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) {
+      // If clicking on action button, let it through
+      const target = e.target as HTMLElement;
+      if (target.closest(`.${styles.actionButton}`)) {
+        return;
+      }
+
+      // Toggle active state
+      e.preventDefault();
+      setIsMobileActive(!isMobileActive);
+    }
+  };
+
   return (
     <motion.article
-      className={styles.projectCard}
+      ref={cardRef}
+      className={`${styles.projectCard} ${isMobileActive ? styles.mobileActive : ''}`}
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-100px' }}
       aria-label={`${project.title} project card`}
+      onClick={handleMobileClick}
     >
       <div className={styles.cardBackground} aria-hidden="true" />
 
