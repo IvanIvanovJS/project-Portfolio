@@ -33,6 +33,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
           href="#hero"
           ariaLabel="Ivan Ivanov - Portfolio Home"
           onClick={handleLogoClick}
+          collapseWhen={isMobileMenuOpen}
         />
 
         {/* Mobile Menu Button */}

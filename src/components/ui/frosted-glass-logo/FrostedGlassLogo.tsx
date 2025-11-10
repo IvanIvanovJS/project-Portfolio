@@ -9,6 +9,7 @@ export interface FrostedGlassLogoProps {
   onClick?: () => void;
   href?: string;
   ariaLabel?: string;
+  collapseWhen?: boolean; // Collapse logo when this condition is true
 }
 
 export const FrostedGlassLogo: React.FC<FrostedGlassLogoProps> = ({
@@ -17,6 +18,7 @@ export const FrostedGlassLogo: React.FC<FrostedGlassLogoProps> = ({
   onClick,
   href = '#hero',
   ariaLabel = 'Ivan Ivanov - Portfolio Home',
+  collapseWhen = false,
 }) => {
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -45,6 +47,17 @@ export const FrostedGlassLogo: React.FC<FrostedGlassLogoProps> = ({
       }
     };
   }, []);
+
+  // Clear timeout when collapseWhen becomes true
+  useEffect(() => {
+    if (collapseWhen && collapseTimeoutRef.current) {
+      clearTimeout(collapseTimeoutRef.current);
+      collapseTimeoutRef.current = null;
+    }
+  }, [collapseWhen]);
+
+  // Determine if logo should be expanded
+  const shouldBeExpanded = isExpanded && !collapseWhen;
 
   const handleClick = (e: React.MouseEvent) => {
     // Handle touch device toggle behavior
@@ -114,7 +127,7 @@ export const FrostedGlassLogo: React.FC<FrostedGlassLogoProps> = ({
   return (
     <a
       href={href}
-      className={`${styles.logo} ${isExpanded ? styles.expanded : ''} ${className}`}
+      className={`${styles.logo} ${shouldBeExpanded ? styles.expanded : ''} ${className}`}
       style={style}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
