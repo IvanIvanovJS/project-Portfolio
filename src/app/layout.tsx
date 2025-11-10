@@ -18,13 +18,6 @@ export const metadata: Metadata = {
   title: 'Ivan Ivanov - Portfolio',
   description:
     'Modern portfolio showcasing web development projects with glassmorphism design',
-  icons: {
-    icon: [
-      { url: '/favicon.svg', type: 'image/svg+xml' },
-      { url: '/favicon.ico', sizes: 'any' },
-    ],
-    apple: '/favicon.svg',
-  },
 };
 
 export default function RootLayout({

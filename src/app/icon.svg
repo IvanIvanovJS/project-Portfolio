@@ -1,0 +1,21 @@
+<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="24" cy="24" r="22" fill="rgba(186, 255, 233, 0.75)" stroke="rgba(23,23,23, 1)" stroke-width="2"/>
+
+  <!-- Left "i" -->
+  <g id="left-i">
+    <!-- Dot -->
+    <circle cx="16" cy="14" r="3" fill="rgba(23,23,23, 1)"/>
+    <!-- Stem -->
+    <rect x="16" y="22" width="4" height="14" rx="2" fill="rgba(23,23,23, 1)"/>
+  </g>
+
+  <!-- Right "i" -->
+  <g id="right-i">
+    <!-- Dot -->
+    <circle cx="32" cy="14" r="3" fill="rgba(23,23,23, 1)"/>
+    <!-- Stem -->
+    <rect x="30" y="22" width="4" height="14" rx="2" fill="rgba(23,23,23, 1)"/>
+  </g>
+
+</svg>
