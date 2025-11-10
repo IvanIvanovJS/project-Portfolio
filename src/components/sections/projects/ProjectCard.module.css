@@ -15,7 +15,7 @@
   position: relative;
   width: 100%;
   max-width: 100%;
-  min-height: 400px;
+  max-height: 450px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -65,6 +65,7 @@
 .content {
   position: relative;
   width: 100%;
+  height: 100%;
   padding: 0;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px) saturate(180%);
@@ -78,23 +79,15 @@
   transition: all 0.6s ease;
 }
 
-.projectCard:hover .content {
-  box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.4),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-    0 12px 48px rgba(0, 0, 0, 0.15);
-}
-
 /* Content wrapper for layered content */
 .contentWrapper {
   position: relative;
   width: 100%;
-  min-height: 400px;
   height: 100%;
 }
 
-/* Image Layer - Hidden by default, shown on hover */
-.imageLayer {
+/* Background Image Layer - Hidden on desktop, visible on mobile */
+.backgroundImageLayer {
   position: absolute;
   top: 0;
   left: 0;
@@ -102,67 +95,37 @@
   height: 100%;
   opacity: 0;
   pointer-events: none;
-  z-index: 10;
-
-  transition:
-    opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-    z-index 0s 0.15s;
+  z-index: 1;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Info Layer - Visible by default, hidden on hover */
+/* Desktop hover - show image with high opacity */
+.projectCard:hover .backgroundImageLayer {
+  opacity: 0.9;
+}
+
+.projectCard:focus-within .backgroundImageLayer {
+  opacity: 0.9;
+}
+
+/* Info Layer - Always visible, on top of background image */
 .infoLayer {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
   height: 100%;
+  z-index: 10;
+  pointer-events: none;
   opacity: 1;
-  pointer-events: auto;
-  z-index: 20;
-  transition:
-    opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-    z-index 0s 0.15s;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Hover state - Show image layer, hide info layer */
-.projectCard:hover .imageLayer {
-  opacity: 1;
-  pointer-events: auto;
-  z-index: 20;
-
-  transition:
-    opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-    z-index 0s 0s;
-}
-
+/* Desktop hover - hide info layer */
 .projectCard:hover .infoLayer {
   opacity: 0;
-  pointer-events: none;
-  z-index: 10;
-  transition:
-    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    z-index 0s 0.15s;
-}
-
-/* Keyboard focus support - Show image layer when card has focus within */
-.projectCard:focus-within .imageLayer {
-  opacity: 1;
-  pointer-events: auto;
-  z-index: 20;
-  transition:
-    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    z-index 0s 0s;
 }
 
 .projectCard:focus-within .infoLayer {
   opacity: 0;
-  pointer-events: none;
-  z-index: 10;
-  transition:
-    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    z-index 0s 0.15s;
 }
 
 /* Project image */
@@ -178,53 +141,41 @@
   transition: transform 0.5s ease;
 }
 
-.projectCard:hover .projectImage {
-  transform: scale(1.1);
-}
-
-.imageOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  /* Enhanced overlay for better contrast - ensures 4.5:1 ratio for button text */
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.4),
-    rgba(0, 0, 0, 0.6)
-  );
-  pointer-events: none;
-}
-
 .imagePlaceholder {
   width: 100%;
   height: 100%;
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.1),
-    rgba(255, 255, 255, 0.05)
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.02)
   );
   border-radius: 12px;
 }
 
-/* Action buttons overlay on image - desktop only */
-.actionButtonsDesktop {
+/* Action buttons - positioned at bottom, hidden by default on desktop */
+.actionButtons {
   position: absolute;
-  top: 50%;
+  bottom: var(--spacing-6);
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   display: flex;
   gap: 16px;
-  z-index: 30;
+  z-index: 20;
   flex-wrap: wrap;
   justify-content: center;
   padding: 0 var(--spacing-4);
+  pointer-events: auto;
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Action buttons for mobile - hidden by default */
-.actionButtonsMobile {
-  display: none;
+/* Desktop hover - show action buttons */
+.projectCard:hover .actionButtons {
+  opacity: 1;
+}
+
+.projectCard:focus-within .actionButtons {
+  opacity: 1;
 }
 
 .actionButton {
@@ -271,6 +222,10 @@
     0 0 0 4px rgba(var(--color-primary-rgb, 99, 102, 241), 0.2);
 }
 
+.actionButton:active {
+  transform: scale(0.98);
+}
+
 .comingSoon {
   padding: 12px 24px;
   background: rgba(255, 255, 255, 0.1);
@@ -288,11 +243,14 @@
 /* Project info */
 .projectInfo {
   padding: var(--spacing-6);
+  padding-bottom: 120px;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-12);
+  gap: var(--spacing-4);
   height: 100%;
   justify-content: center;
+  pointer-events: none;
+  overflow: hidden;
 }
 
 .title {
@@ -349,12 +307,14 @@
   opacity: 0.9;
 }
 
-/* Technology tags */
+/* Technology tags - visible by default, hidden on hover */
 .technologies {
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-2);
-  margin-top: var(--spacing-2);
+  margin-top: var(--spacing-4);
+  opacity: 1;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .techTag {
@@ -379,13 +339,42 @@
   transform: translateY(-2px);
 }
 
-/* Mobile toggle button - hidden on desktop by default */
-.mobileToggle {
-  display: none;
+/* Desktop hover - hide technologies */
+.projectCard:hover .technologies {
+  opacity: 0;
 }
 
-/* Mobile show/hide logic - only applies on mobile/touch devices */
-/* This is defined here but will be overridden by media queries */
+.projectCard:focus-within .technologies {
+  opacity: 0;
+}
+
+/* Enhanced hover/focus/active effects for desktop and mobile */
+.projectCard:hover .content,
+.projectCard:focus-within .content,
+.projectCard:active .content {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.4),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+    0 12px 48px rgba(0, 0, 0, 0.15);
+}
+
+.projectCard:hover .cardBackground,
+.projectCard:focus-within .cardBackground,
+.projectCard:active .cardBackground {
+  top: -10px;
+  transform: skewX(0deg);
+  height: 105%;
+  left: -10px;
+  width: calc(100% + 20px);
+  backdrop-filter: blur(10px) brightness(1.1);
+  -webkit-backdrop-filter: blur(10px) brightness(1.1);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.2),
+    0 0 20px rgba(255, 255, 255, 0.15),
+    0 12px 48px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
 
 /* Responsive design - Tablet */
 @media (max-width: 1024px) and (min-width: 769px) {
@@ -403,16 +392,12 @@
 @media (max-width: 768px) {
   .projectCard {
     max-width: 100%;
-    min-height: 400px;
-  }
-
-  .contentWrapper {
-    min-height: 400px;
+    height: 450px;
   }
 
   .projectInfo {
     padding: var(--spacing-4);
-    gap: var(--spacing-4);
+    gap: var(--spacing-3);
   }
 
   .title {
@@ -427,16 +412,12 @@
 /* Mobile specific - smaller screens */
 @media (max-width: 480px) {
   .projectCard {
-    min-height: 400px;
-  }
-
-  .contentWrapper {
-    min-height: 400px;
+    height: 400px;
   }
 
   .projectInfo {
     padding: var(--spacing-3);
-    gap: var(--spacing-3);
+    gap: var(--spacing-2);
   }
 
   .title {
@@ -450,6 +431,7 @@
 
   .technologies {
     gap: var(--spacing-1);
+    margin-top: var(--spacing-2);
   }
 
   .techTag {
@@ -458,156 +440,116 @@
   }
 }
 
-/* Mobile/Touch device specific styles - disable hover, enable tap-to-toggle */
-/* This applies to touch devices OR small screens for testing */
+/* Mobile/Touch device specific styles */
 @media (hover: none) and (pointer: coarse), (max-width: 768px) {
-  /* Disable ALL hover effects on mobile - keep everything in default state */
+  /* On mobile - always show background image with low opacity */
+  .backgroundImageLayer {
+    opacity: 0.2 !important;
+  }
 
-  .projectCard:hover .imageLayer {
+  /* On mobile - show info layer by default, hide action buttons */
+  .infoLayer {
+    opacity: 1 !important;
+  }
+
+  .actionButtons {
     opacity: 0 !important;
-    pointer-events: none !important;
-    z-index: 10 !important;
+  }
+
+  .technologies {
+    opacity: 1 !important;
+  }
+
+  /* Disable hover effects on mobile - keep default state */
+  .projectCard:hover .backgroundImageLayer {
+    opacity: 0.2 !important;
   }
 
   .projectCard:hover .infoLayer {
     opacity: 1 !important;
-    pointer-events: auto !important;
-    z-index: 20 !important;
+  }
+
+  .projectCard:hover .actionButtons {
+    opacity: 0 !important;
+  }
+
+  .projectCard:hover .technologies {
+    opacity: 1 !important;
+  }
+
+  .projectCard:hover .cardBackground {
+    top: 0;
+    left: 50%;
+    width: 0%;
+    height: 100%;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+    border: none;
   }
 
   .projectCard:hover .content {
-    transform: translateX(0) !important;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.3),
+      inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+      0 8px 32px rgba(0, 0, 0, 0.1);
   }
 
-  /* Hide desktop action buttons on mobile */
-  .actionButtonsDesktop {
-    display: none;
+  /* Enable active state for touch devices - hide info, show buttons */
+  .projectCard:active .backgroundImageLayer {
+    opacity: 0.9 !important;
   }
 
-  /* Show mobile action buttons at bottom */
-  .actionButtonsMobile {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: center;
-    position: absolute;
-    bottom: var(--spacing-4);
-    left: 50%;
-    transform: translateX(-50%);
-    width: calc(100% - var(--spacing-6));
-    z-index: 30;
-    padding: 0 var(--spacing-3);
+  .projectCard:active .infoLayer {
+    opacity: 0 !important;
   }
 
-  /* Show mobile toggle button */
-  .mobileToggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: var(--spacing-3);
-    right: var(--spacing-3);
-    width: 44px;
-    height: 44px;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px) saturate(180%);
+  .projectCard:active .actionButtons {
+    opacity: 1 !important;
+  }
+
+  .projectCard:active .technologies {
+    opacity: 0 !important;
+  }
+
+  .projectCard:active .content {
+    background: rgba(255, 255, 255, 0.1);
     box-shadow:
       inset 0 1px 1px rgba(255, 255, 255, 0.4),
       inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-      0 8px 32px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 12px;
-    color: var(--fg-primary);
-    cursor: pointer;
-    z-index: 100;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    pointer-events: auto;
+      0 12px 48px rgba(0, 0, 0, 0.15);
   }
 
-  /* Default state - show info layer */
-  .imageLayer {
-    opacity: 0;
-    pointer-events: none;
-    z-index: 10;
-  }
-
-  .infoLayer {
-    opacity: 1;
-    pointer-events: auto;
-    z-index: 20;
-  }
-
-  /* Adjust info layer to make room for buttons at bottom */
-  .projectInfo {
-    padding-bottom: 120px;
-  }
-
-  /* When mobile toggle is active, show image layer and hide info */
-  .projectCard.mobileShowImage .imageLayer {
-    opacity: 1 !important;
-    pointer-events: none;
-    z-index: 20;
-    transform: translateX(0) scaleX(1) !important;
-    transition:
-      opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-      transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-      z-index 0s 0s;
-  }
-
-  .projectCard.mobileShowImage .imageLayer .imageContainer {
-    pointer-events: none;
-  }
-
-  .projectCard.mobileShowImage .infoLayer {
-    opacity: 0 !important;
-    pointer-events: none;
-    z-index: 10;
-    transition:
-      opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-      z-index 0s 0.15s;
-  }
-
-  /* Apply SAME effects as desktop hover when showing image on mobile */
-  /* Apply EXACT SAME effects as desktop hover */
-
-  .projectCard.mobileShowImage .cardBackground {
-    top: -10px !important;
-    transform: skewX(0deg) !important;
-    height: 105% !important;
-    left: -10px !important;
-    width: calc(100% + 20px) !important;
-    backdrop-filter: blur(10px) brightness(1.1) !important;
-    -webkit-backdrop-filter: blur(10px) brightness(1.1) !important;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15) !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    transition: 0.8s;
-  }
-
-  .projectCard.mobileShowImage .content {
-    transition: all 0.8s ease;
-  }
-
-  .projectCard.mobileShowImage .projectImage {
-    transform: scale(1.1) !important;
-  }
-
-  /* Make sure action buttons are clickable when image is shown */
-  .projectCard.mobileShowImage .actionButtonsMobile {
-    pointer-events: auto;
-  }
-
-  .projectCard.mobileShowImage .actionButtonsMobile .actionButton {
-    pointer-events: auto;
+  .projectCard:active .cardBackground {
+    top: -10px;
+    transform: skewX(0deg);
+    height: 105%;
+    left: -10px;
+    width: calc(100% + 20px);
+    backdrop-filter: blur(10px) brightness(1.1);
+    -webkit-backdrop-filter: blur(10px) brightness(1.1);
+    box-shadow:
+      inset 0 1px 2px rgba(255, 255, 255, 0.2),
+      0 0 20px rgba(255, 255, 255, 0.15),
+      0 12px 48px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
   /* Ensure action buttons are properly sized for touch */
+  .actionButtons {
+    flex-direction: column;
+    gap: 12px;
+    bottom: var(--spacing-4);
+    width: calc(100% - var(--spacing-8));
+    max-width: 280px;
+  }
+
   .actionButton {
     min-width: 48px;
     min-height: 48px;
     padding: 14px 28px;
     width: 100%;
-    max-width: 280px;
     justify-content: center;
     font-size: var(--font-size-base);
   }
@@ -616,27 +558,21 @@
     padding: 14px 28px;
     font-size: var(--font-size-base);
     width: 100%;
-    max-width: 280px;
     text-align: center;
   }
 }
 
 /* Additional mobile-specific adjustments for small screens */
 @media (hover: none) and (pointer: coarse) and (max-width: 768px) {
-  .mobileToggle {
-    top: var(--spacing-2);
-    right: var(--spacing-2);
-  }
-
-  .actionButtonsMobile {
+  .actionButtons {
     bottom: var(--spacing-3);
     gap: 10px;
+    max-width: 260px;
   }
 
   .actionButton {
     padding: 12px 24px;
     font-size: var(--font-size-sm);
-    max-width: 260px;
   }
 
   .actionButton span {
@@ -646,7 +582,6 @@
   .comingSoon {
     padding: 12px 24px;
     font-size: var(--font-size-sm);
-    max-width: 260px;
   }
 
   .projectInfo {
@@ -669,32 +604,8 @@
     transition: all 0.1s ease;
   }
 
-  .imageLayer {
-    transition:
-      opacity 0.1s linear,
-      transform 0.1s linear,
-      z-index 0s 0.05s;
-  }
-
-  .infoLayer {
-    transition:
-      opacity 0.1s linear,
-      z-index 0s 0.05s;
-  }
-
-  .projectCard:hover .imageLayer,
-  .projectCard:focus-within .imageLayer {
-    transition:
-      opacity 0.1s linear,
-      transform 0.1s linear,
-      z-index 0s 0s;
-  }
-
-  .projectCard:hover .infoLayer,
-  .projectCard:focus-within .infoLayer {
-    transition:
-      opacity 0.1s linear,
-      z-index 0s 0.05s;
+  .backgroundImageLayer {
+    transition: opacity 0.1s linear;
   }
 
   .projectImage {
@@ -709,46 +620,13 @@
     transition: all 0.1s ease;
   }
 
-  .mobileToggle {
-    transition: all 0.1s linear;
-  }
-
   /* Disable scale animations */
-  .projectCard:hover .projectImage {
-    transform: scale(1);
-  }
-
-  .actionButton:hover {
+  .actionButton:hover,
+  .actionButton:active {
     transform: scale(1);
   }
 
   .techTag:hover {
     transform: translateY(0);
-  }
-
-  /* Mobile show image state with reduced motion */
-  .projectCard.mobileShowImage .imageLayer {
-    transition:
-      opacity 0.1s linear,
-      transform 0.1s linear,
-      z-index 0s 0s;
-  }
-
-  .projectCard.mobileShowImage .infoLayer {
-    transition:
-      opacity 0.1s linear,
-      z-index 0s 0.05s;
-  }
-
-  .projectCard.mobileShowImage .cardBackground {
-    transition: 0.1s;
-  }
-
-  .projectCard.mobileShowImage .content {
-    transition: all 0.1s ease;
-  }
-
-  .projectCard.mobileShowImage .projectImage {
-    transform: scale(1);
   }
 }

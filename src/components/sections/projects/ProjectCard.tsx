@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, Image as ImageIcon, Info } from 'lucide-react';
+import { ExternalLink, Github } from 'lucide-react';
 import { ProjectData } from '@/types/project';
 import styles from './ProjectCard.module.css';
 
@@ -14,7 +14,6 @@ interface ProjectCardProps {
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
   const [imageError, setImageError] = useState(false);
-  const [showImageOnMobile, setShowImageOnMobile] = useState(false);
 
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -29,46 +28,25 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
     },
   };
 
-  const handleMobileToggle = () => {
-    setShowImageOnMobile(!showImageOnMobile);
-  };
-
   return (
     <motion.article
-      className={`${styles.projectCard} ${showImageOnMobile ? styles.mobileShowImage : ''}`}
+      className={styles.projectCard}
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-100px' }}
       aria-label={`${project.title} project card`}
     >
-      {/* Decorative background elements */}
       <div className={styles.cardBackground} aria-hidden="true" />
-      <div className={styles.cardBackgroundBlur} aria-hidden="true" />
 
-      {/* Card content */}
       <div className={styles.content}>
-        {/* Mobile toggle button */}
-        <button
-          className={styles.mobileToggle}
-          onClick={handleMobileToggle}
-          aria-label={
-            showImageOnMobile ? 'Show project info' : 'Show project image'
-          }
-        >
-          {showImageOnMobile ? <Info size={20} /> : <ImageIcon size={20} />}
-        </button>
-
-        {/* Content wrapper for layered content */}
         <div className={styles.contentWrapper}>
-          {/* Image Layer - Hidden by default, shown on hover */}
-          <div className={styles.imageLayer} aria-hidden={!showImageOnMobile}>
-            {/* Project image */}
+          <div className={styles.backgroundImageLayer} aria-hidden="true">
             {project.image && !imageError ? (
               <div className={styles.imageContainer}>
                 <Image
                   src={project.image}
-                  alt={`Screenshot of ${project.title} project showing the user interface and key features`}
+                  alt=""
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
                   className={styles.projectImage}
@@ -77,50 +55,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
                   onError={() => setImageError(true)}
                   quality={85}
                 />
-                <div className={styles.imageOverlay} aria-hidden="true" />
               </div>
             ) : (
-              <div
-                className={styles.imagePlaceholder}
-                role="img"
-                aria-label={`Placeholder image for ${project.title} project`}
-              />
+              <div className={styles.imagePlaceholder} />
             )}
-
-            {/* Action buttons overlay - shown on desktop hover */}
-            <div className={styles.actionButtonsDesktop}>
-              {project.links.github && (
-                <a
-                  href={project.links.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.actionButton}
-                  aria-label={`View GitHub repository for ${project.title}`}
-                >
-                  <Github size={20} />
-                  <span>GitHub</span>
-                </a>
-              )}
-              {project.links.live && (
-                <a
-                  href={project.links.live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.actionButton}
-                  aria-label={`View live demo of ${project.title}`}
-                >
-                  <ExternalLink size={20} />
-                  <span>Live Demo</span>
-                </a>
-              )}
-              {!project.links.github && !project.links.live && (
-                <div className={styles.comingSoon}>Coming Soon</div>
-              )}
-            </div>
           </div>
 
-          {/* Info Layer - Visible by default, hidden on hover */}
-          <div className={styles.infoLayer} aria-hidden={showImageOnMobile}>
+          <div className={styles.infoLayer}>
             <div className={styles.projectInfo}>
               <h3 className={styles.title}>{project.title}</h3>
               <span className={styles.visuallyHidden}>
@@ -133,11 +74,20 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
                 {project.links.live && 'Live demo available. '}
               </span>
               <p className={styles.description}>{project.description}</p>
+
+              {project.technologies && project.technologies.length > 0 && (
+                <div className={styles.technologies}>
+                  {project.technologies.map((tech, index) => (
+                    <span key={index} className={styles.techTag}>
+                      {tech.name}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Action buttons for mobile - always visible at bottom */}
-          <div className={styles.actionButtonsMobile}>
+          <div className={styles.actionButtons}>
             {project.links.github && (
               <a
                 href={project.links.github}
