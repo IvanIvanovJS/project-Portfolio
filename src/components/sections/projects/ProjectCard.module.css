@@ -459,6 +459,7 @@
 
   .projectCard:not(.mobileActive) .technologies {
     display: flex !important;
+    opacity: 1 !important;
   }
 
   /* Disable hover effects on mobile - keep default state */
@@ -477,6 +478,7 @@
 
   .projectCard:not(.mobileActive):hover .technologies {
     display: flex !important;
+    opacity: 1 !important;
   }
 
   .projectCard:hover .cardBackground {
@@ -505,6 +507,7 @@
 
   .projectCard.mobileActive .infoLayer {
     display: none !important;
+    opacity: 0 !important;
   }
 
   .projectCard.mobileActive .actionButtons {
@@ -514,6 +517,7 @@
 
   .projectCard.mobileActive .technologies {
     display: none !important;
+    opacity: 0 !important;
   }
 
   .projectCard.mobileActive .content {
