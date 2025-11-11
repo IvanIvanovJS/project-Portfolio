@@ -314,22 +314,11 @@
   }
 }
 /* Responsive Design */
-@media (max-width: 1024px) {
-  .contentContainer {
-    width: 50%;
-    padding: 0 var(--spacing-lg);
-  }
-  .name {
-    font-size: clamp(2rem, 4vw, 3rem);
-  }
-  .title {
-    font-size: clamp(0.9rem, 1.8vw, 1.2rem);
-  }
-  .tagline {
-    font-size: clamp(1rem, 1.8vw, 1.2rem);
-  }
-}
+
 @media (max-width: 768px) {
+  .ctaButton {
+    display: none;
+  }
   .heroSection {
     height: auto;
     min-height: 100vh;
@@ -356,12 +345,9 @@
   .textContent {
     align-items: center;
   }
-  .scrollIndicator {
-    display: none;
-  }
 }
 @media (max-width: 480px) {
-  .scrollIndicator {
+  .ctaButton {
     display: none;
   }
   .sceneBackground {
@@ -374,10 +360,6 @@
     font-size: 0.9rem;
   }
   .tagline {
-    font-size: 1rem;
-  }
-  .ctaButton {
-    padding: 14px 32px;
     font-size: 1rem;
   }
 }
