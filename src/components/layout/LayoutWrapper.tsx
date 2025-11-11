@@ -15,8 +15,8 @@ interface LayoutWrapperProps {
 
 const navigationItems = [
   { id: 'hero', label: 'Home', href: '#hero' },
-  { id: 'projects', label: 'Projects', href: '#projects' },
   { id: 'about', label: 'About', href: '#about' },
+  { id: 'projects', label: 'Projects', href: '#projects' },
   { id: 'contact', label: 'Contact', href: '#contact' },
 ];
 
@@ -78,17 +78,17 @@ export const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
     setIsMobileNavOpen(false);
   };
 
-  // Build className - use default on server, actual mode on client
-  const wrapperClassName = isClient
-    ? `${styles.layoutWrapper} ${navigationMode === 'vertical' ? styles.verticalMode : styles.horizontalMode}`
-    : `${styles.layoutWrapper} ${styles.verticalMode}`; // Default to vertical on SSR
+  // Don't render anything until client-side hydration is complete
+  if (!isClient) {
+    return null;
+  }
 
-  // Always render the same structure for SSR and client
-  // Use isClient to conditionally show/hide elements with CSS or conditional rendering
+  const wrapperClassName = `${styles.layoutWrapper} ${navigationMode === 'vertical' ? styles.verticalMode : styles.horizontalMode}`;
+
   return (
-    <div className={wrapperClassName} suppressHydrationWarning>
+    <div className={wrapperClassName}>
       {/* Desktop Vertical Navigation */}
-      {isClient && navigationMode === 'vertical' && !isMobile && (
+      {navigationMode === 'vertical' && !isMobile && (
         <VerticalNavigation
           items={navigationItems}
           activeSection={activeSection}
@@ -100,7 +100,7 @@ export const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
       )}
 
       {/* Mobile Navigation for both modes */}
-      {isClient && isMobile && (
+      {isMobile && (
         <MobileNavigation
           items={navigationItems}
           activeSection={activeSection}
@@ -111,23 +111,20 @@ export const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
       )}
 
       {/* Header - different for each mode */}
-      <div suppressHydrationWarning>
-        {navigationMode === 'horizontal' ? (
-          <Header
+      {navigationMode === 'horizontal' ? (
+        <Header
+          onMobileMenuToggle={handleMobileNavToggle}
+          isMobileMenuOpen={isMobileNavOpen}
+        />
+      ) : (
+        // Show mobile header only on mobile devices in vertical mode
+        isMobile && (
+          <MobileHeader
             onMobileMenuToggle={handleMobileNavToggle}
             isMobileMenuOpen={isMobileNavOpen}
           />
-        ) : (
-          // Show mobile header only on mobile devices in vertical mode
-          isClient &&
-          isMobile && (
-            <MobileHeader
-              onMobileMenuToggle={handleMobileNavToggle}
-              isMobileMenuOpen={isMobileNavOpen}
-            />
-          )
-        )}
-      </div>
+        )
+      )}
 
       {/* Main Content */}
       <main
@@ -136,7 +133,6 @@ export const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
             ? styles.withVerticalNav
             : ''
         }`}
-        suppressHydrationWarning
       >
         {children}
       </main>

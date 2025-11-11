@@ -100,7 +100,7 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
     DEFAULTS.NAVIGATION
   );
   const [isVerticalNavOpen, setIsVerticalNavOpen] = useState(false);
-  const [isHydrated, setIsHydrated] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   /**
    * Initialize navigation mode on client-side mount
@@ -127,7 +127,8 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
         setIsVerticalNavOpen(true);
       }
 
-      setIsHydrated(true);
+      // Mark as initialized after state is set
+      setTimeout(() => setIsInitialized(true), 0);
     }, 0);
 
     return () => clearTimeout(timer);
@@ -141,7 +142,8 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
    * initial load to avoid overwriting the blocking script's work.
    */
   useEffect(() => {
-    if (isHydrated) {
+    // Only persist changes after initialization is complete
+    if (isInitialized) {
       // Update HTML attribute for CSS selectors
       document.documentElement.setAttribute('data-navigation', navigationMode);
 
@@ -153,7 +155,7 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
         // Continue execution - navigation will work in-memory but won't persist
       }
     }
-  }, [navigationMode, isHydrated]);
+  }, [navigationMode, isInitialized]);
 
   /**
    * Handle responsive behavior for vertical navigation
@@ -166,7 +168,7 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
    * This ensures optimal UX across different device sizes.
    */
   useEffect(() => {
-    if (!isHydrated) return;
+    if (!isInitialized) return;
 
     const handleResize = () => {
       const isMobile = window.innerWidth < 769;
@@ -188,7 +190,7 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
     handleResize();
 
     return () => window.removeEventListener('resize', handleResize);
-  }, [navigationMode, isHydrated]);
+  }, [navigationMode, isInitialized]);
 
   /**
    * Toggle between horizontal and vertical navigation modes
@@ -200,7 +202,7 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
     const newMode = navigationMode === 'horizontal' ? 'vertical' : 'horizontal';
     setNavigationMode(newMode);
 
-    if (isHydrated) {
+    if (isInitialized) {
       const isMobile = window.innerWidth < 769;
 
       if (newMode === 'vertical') {
@@ -237,7 +239,7 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
   const setNavigationModeWithLogic = (newMode: NavigationMode) => {
     setNavigationMode(newMode);
 
-    if (isHydrated) {
+    if (isInitialized) {
       const isMobile = window.innerWidth < 769;
 
       if (newMode === 'vertical') {

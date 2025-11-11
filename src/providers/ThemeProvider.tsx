@@ -88,6 +88,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   // Initialize with default theme (dark) to prevent hydration mismatch
   const [theme, setThemeState] = useState<ThemeMode>(DEFAULT_THEME);
   const [isLoading, setIsLoading] = useState(true);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   /**
    * Initialize theme on client-side mount
@@ -114,6 +115,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         setThemeState(DEFAULT_THEME);
       } finally {
         setIsLoading(false);
+        // Mark as initialized after state is set
+        setTimeout(() => setIsInitialized(true), 0);
       }
     };
 
@@ -128,7 +131,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
    * blocking script's work.
    */
   useEffect(() => {
-    if (!isLoading) {
+    // Only persist changes after initialization is complete
+    if (isInitialized) {
       // Set data-theme attribute on document root for CSS selectors
       document.documentElement.setAttribute('data-theme', theme);
 
@@ -140,7 +144,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         // Continue execution - theme will work in-memory but won't persist
       }
     }
-  }, [theme, isLoading]);
+  }, [theme, isInitialized]);
 
   /**
    * Toggle between light and dark themes
