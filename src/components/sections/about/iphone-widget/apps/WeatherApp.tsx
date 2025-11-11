@@ -1,10 +1,14 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, MapPin } from 'lucide-react';
-import { WeatherService } from '../services/weatherService';
+import { ChevronLeft, MapPin, Search, X } from 'lucide-react';
+import {
+  getCurrentWeather,
+  getForecast,
+  searchCities,
+} from '../services/weatherService';
 import { getWeatherIcon } from '../utils/weatherIcons';
-import { CurrentWeather, DailyForecast } from '../types';
+import { CurrentWeather, DailyForecast, City } from '../types';
 import styles from './WeatherApp.module.css';
 
 /**
@@ -36,24 +40,45 @@ export const WeatherApp: React.FC<WeatherAppProps> = ({
   );
   const [forecast, setForecast] = useState<DailyForecast[]>([]);
   const [selectedCity, setSelectedCity] = useState(initialCity);
+  const [coordinates, setCoordinates] = useState({
+    lat: 42.6977,
+    lon: 23.3219,
+  }); // Default Sofia
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showCitySelector, setShowCitySelector] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<City[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchError, setSearchError] = useState<string | null>(null);
 
-  // Fetch weather data on mount and when city changes
+  // Load saved city from session storage on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const savedCity = sessionStorage.getItem('selectedCity');
+        if (savedCity) {
+          const city: City = JSON.parse(savedCity);
+          setSelectedCity(city.name);
+          setCoordinates({ lat: city.lat, lon: city.lon });
+        }
+      } catch (err) {
+        console.error('Failed to load city from session storage:', err);
+      }
+    }
+  }, []);
+
+  // Fetch weather data on mount and when coordinates change
   useEffect(() => {
     const fetchWeatherData = async () => {
       setIsLoading(true);
       setError(null);
 
       try {
-        // Default to Sofia coordinates
-        const lat = 42.6977;
-        const lon = 23.3219;
-
         // Fetch current weather and forecast
         const [current, forecastData] = await Promise.all([
-          WeatherService.getCurrentWeather(lat, lon),
-          WeatherService.getForecast(lat, lon, 7),
+          getCurrentWeather(coordinates.lat, coordinates.lon),
+          getForecast(coordinates.lat, coordinates.lon, 7),
         ]);
 
         setCurrentWeather(current);
@@ -67,11 +92,89 @@ export const WeatherApp: React.FC<WeatherAppProps> = ({
     };
 
     fetchWeatherData();
-  }, [selectedCity]);
+  }, [coordinates]);
 
   const handleBackClick = () => {
     onClose();
   };
+
+  const handleCitySelectorOpen = () => {
+    setShowCitySelector(true);
+    setSearchQuery('');
+    setSearchResults([]);
+    setSearchError(null);
+  };
+
+  const handleCitySelectorClose = () => {
+    setShowCitySelector(false);
+    setSearchQuery('');
+    setSearchResults([]);
+    setSearchError(null);
+  };
+
+  const handleCitySelect = (city: City) => {
+    // Update selected city and coordinates
+    setSelectedCity(city.name);
+    setCoordinates({ lat: city.lat, lon: city.lon });
+
+    // Store selected city in session storage
+    if (typeof window !== 'undefined') {
+      try {
+        sessionStorage.setItem(
+          'selectedCity',
+          JSON.stringify({
+            name: city.name,
+            country: city.country,
+            lat: city.lat,
+            lon: city.lon,
+          })
+        );
+      } catch (err) {
+        console.error('Failed to save city to session storage:', err);
+      }
+    }
+
+    // Close the city selector
+    handleCitySelectorClose();
+  };
+
+  // Debounced city search
+  useEffect(() => {
+    if (!showCitySelector) return;
+
+    // Don't search if query is too short
+    if (searchQuery.trim().length < 2) {
+      setSearchResults([]);
+      setSearchError(null);
+      setIsSearching(false);
+      return;
+    }
+
+    // Set searching state
+    setIsSearching(true);
+    setSearchError(null);
+
+    // Debounce search by 300ms
+    const timeoutId = setTimeout(async () => {
+      try {
+        const cities = await searchCities(searchQuery);
+        setSearchResults(cities);
+        setIsSearching(false);
+
+        if (cities.length === 0) {
+          setSearchError(null); // Will show "No cities found" state
+        }
+      } catch (err) {
+        console.error('City search error:', err);
+        setSearchError('Unable to search cities. Please try again.');
+        setSearchResults([]);
+        setIsSearching(false);
+      }
+    }, 300);
+
+    // Cleanup timeout on query change
+    return () => clearTimeout(timeoutId);
+  }, [searchQuery, showCitySelector]);
 
   return (
     <div className={styles.weatherApp}>
@@ -88,7 +191,13 @@ export const WeatherApp: React.FC<WeatherAppProps> = ({
           <MapPin size={16} strokeWidth={2} />
           <span>{selectedCity}</span>
         </div>
-        <div className={styles.headerSpacer} />
+        <button
+          className={styles.cityButton}
+          onClick={handleCitySelectorOpen}
+          aria-label="Change city"
+        >
+          <Search size={20} strokeWidth={2} />
+        </button>
       </div>
 
       {/* Scrollable Content */}
@@ -181,6 +290,92 @@ export const WeatherApp: React.FC<WeatherAppProps> = ({
           </>
         )}
       </div>
+
+      {/* City Selector Modal */}
+      {showCitySelector && (
+        <div className={styles.citySelectorOverlay}>
+          <div className={styles.citySelectorModal}>
+            <div className={styles.citySelectorHeader}>
+              <h3 className={styles.citySelectorTitle}>Select City</h3>
+              <button
+                className={styles.closeButton}
+                onClick={handleCitySelectorClose}
+                aria-label="Close city selector"
+              >
+                <X size={24} strokeWidth={2} />
+              </button>
+            </div>
+
+            <div className={styles.searchContainer}>
+              <div className={styles.searchInputWrapper}>
+                <Search
+                  size={18}
+                  strokeWidth={2}
+                  className={styles.searchIcon}
+                />
+                <input
+                  type="text"
+                  className={styles.searchInput}
+                  placeholder="Search for a city..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  autoFocus
+                />
+                {searchQuery && (
+                  <button
+                    className={styles.clearButton}
+                    onClick={() => setSearchQuery('')}
+                    aria-label="Clear search"
+                  >
+                    <X size={16} strokeWidth={2} />
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <div className={styles.searchResults}>
+              {isSearching ? (
+                <div className={styles.searchingState}>
+                  <div className={styles.searchSpinner} />
+                  <p>Searching...</p>
+                </div>
+              ) : searchError ? (
+                <div className={styles.searchErrorState}>
+                  <p>{searchError}</p>
+                </div>
+              ) : searchResults.length > 0 ? (
+                <div className={styles.cityList}>
+                  {searchResults.map((city, index) => (
+                    <button
+                      key={`${city.name}-${city.country}-${index}`}
+                      className={styles.cityItem}
+                      onClick={() => handleCitySelect(city)}
+                    >
+                      <div className={styles.cityItemContent}>
+                        <span className={styles.cityItemName}>{city.name}</span>
+                        <span className={styles.cityItemCountry}>
+                          {city.country}
+                        </span>
+                      </div>
+                      <MapPin size={16} strokeWidth={2} opacity={0.5} />
+                    </button>
+                  ))}
+                </div>
+              ) : searchQuery.length >= 2 ? (
+                <div className={styles.emptyState}>
+                  <p>No cities found</p>
+                  <span>Try a different search term</span>
+                </div>
+              ) : (
+                <div className={styles.emptyState}>
+                  <p>Search for a city</p>
+                  <span>Enter at least 2 characters</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

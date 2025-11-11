@@ -140,7 +140,7 @@
   - Style forecast cards with consistent spacing
   - _Requirements: 4.5, 11.1, 11.2, 11.3, 11.4, 11.5_
 
-- [ ] 6. Implement city selection feature
+- [x] 6. Implement city selection feature
   - Add city selector button in WeatherApp header
   - Create city search interface with input field
   - Integrate with WeatherService geocoding API
@@ -148,21 +148,21 @@
   - Update weather data when new city is selected
   - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5_
 
-- [ ] 6.1 Create city selector UI component
+- [x] 6.1 Create city selector UI component
   - Add settings/edit button in WeatherApp header
   - Create modal or dropdown for city search
   - Add text input field with search icon
   - Style with glassmorphism matching app design
   - _Requirements: 6.1, 6.2_
 
-- [ ] 6.2 Implement city search functionality
+- [x] 6.2 Implement city search functionality
   - Add debounced search handler (300ms delay)
   - Call WeatherService.searchCities with query
   - Display list of matching cities with country
   - Handle empty results and errors
   - _Requirements: 6.2, 6.3_
 
-- [ ] 6.3 Handle city selection and weather update
+- [x] 6.3 Handle city selection and weather update
   - Add click handler for city selection
   - Update selected city in state
   - Fetch new weather data for selected coordinates
