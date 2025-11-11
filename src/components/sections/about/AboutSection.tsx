@@ -17,20 +17,13 @@ interface AboutSectionProps {
 const defaultData: AboutData = {
   personalInfo: {
     name: 'Ivan D. Ivanov',
-    title: 'Full Stack Developer',
+    title: 'Front-End Developer',
     bio: 'React software engineer with expertise in modern web technologies. I specialize in creating beautiful, performant, and accessible web applications using React, TypeScript, and Next.js. With a keen eye for design and a commitment to clean code, I bring ideas to life through elegant solutions.',
     location: 'Varna, Bulgaria',
-    email: 'john.doe@example.com',
+    email: 'ivanov@webmorphism.com',
     phone: '+359 898 573 056',
   },
-  skills: [
-    { name: 'React', level: 95, category: 'frontend' },
-    { name: 'TypeScript', level: 90, category: 'frontend' },
-    { name: 'Next.js', level: 88, category: 'frontend' },
-    { name: 'Node.js', level: 75, category: 'backend' },
-    { name: 'Three.js', level: 85, category: 'frontend' },
-    { name: 'CSS/SCSS', level: 92, category: 'frontend' },
-  ],
+
   experience: [
     {
       company: 'Front End Developer',
@@ -56,16 +49,6 @@ const defaultData: AboutData = {
         'JavaScript',
         'CSS',
       ],
-    },
-  ],
-  education: [
-    {
-      institution: 'Technical University',
-      degree: 'Bachelor of Science',
-      field: 'Computer Science',
-      startDate: '2015-09',
-      endDate: '2019-06',
-      description: 'Focus on software engineering and web technologies',
     },
   ],
   images: [

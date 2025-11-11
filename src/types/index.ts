@@ -15,13 +15,6 @@ export interface CarouselImage {
   subCaption?: string;
 }
 
-export interface Skill {
-  name: string;
-  level: number; // 1-100
-  category: 'frontend' | 'backend' | 'tools' | 'soft';
-  icon?: string;
-}
-
 export interface Experience {
   company: string;
   position: string;
@@ -29,15 +22,6 @@ export interface Experience {
   endDate?: string;
   description: string;
   technologies: string[];
-}
-
-export interface Education {
-  institution: string;
-  degree: string;
-  field: string;
-  startDate: string;
-  endDate: string;
-  description?: string;
 }
 
 export interface AboutData {
@@ -49,8 +33,6 @@ export interface AboutData {
     email: string;
     phone?: string;
   };
-  skills: Skill[];
   experience: Experience[];
-  education: Education[];
   images: CarouselImage[];
 }
