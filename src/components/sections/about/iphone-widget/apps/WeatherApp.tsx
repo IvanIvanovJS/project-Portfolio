@@ -277,31 +277,41 @@ export const WeatherApp: React.FC<WeatherAppProps> = ({
                         role="article"
                         aria-label={`${day.dayName}, ${day.condition}, high ${Math.round(day.high)} degrees, low ${Math.round(day.low)} degrees${precipText}`}
                       >
-                        <div className={styles.forecastDay} aria-hidden="true">
-                          {day.dayName}
-                        </div>
-                        <div className={styles.forecastIcon} aria-hidden="true">
-                          {getWeatherIcon(day.icon, 32)}
-                        </div>
-                        <div
-                          className={styles.forecastTemps}
-                          aria-hidden="true"
-                        >
-                          <span className={styles.forecastHigh}>
-                            {Math.round(day.high)}°
-                          </span>
-                          <span className={styles.forecastLow}>
-                            {Math.round(day.low)}°
-                          </span>
-                        </div>
-                        {day.precipitationChance > 0 && (
+                        <div className={styles.forecastLeft}>
                           <div
-                            className={styles.precipitation}
+                            className={styles.forecastDay}
                             aria-hidden="true"
                           >
-                            {day.precipitationChance}%
+                            {day.dayName}
                           </div>
-                        )}
+                          <div
+                            className={styles.forecastIcon}
+                            aria-hidden="true"
+                          >
+                            {getWeatherIcon(day.icon, 28)}
+                          </div>
+                        </div>
+                        <div className={styles.forecastRight}>
+                          <div
+                            className={styles.forecastTemps}
+                            aria-hidden="true"
+                          >
+                            <span className={styles.forecastHigh}>
+                              {Math.round(day.high)}°
+                            </span>
+                            <span className={styles.forecastLow}>
+                              {Math.round(day.low)}°
+                            </span>
+                          </div>
+                          {day.precipitationChance > 0 && (
+                            <div
+                              className={styles.precipitation}
+                              aria-hidden="true"
+                            >
+                              {day.precipitationChance}%
+                            </div>
+                          )}
+                        </div>
                       </div>
                     );
                   })}

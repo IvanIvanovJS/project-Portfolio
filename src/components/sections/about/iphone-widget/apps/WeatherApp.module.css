@@ -262,9 +262,10 @@
 .forecastCard {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 16px;
-  border-radius: 16px;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 14px;
   background: rgba(255, 255, 255, 0.05);
   -webkit-backdrop-filter: blur(10px) saturate(180%);
   backdrop-filter: blur(10px) saturate(180%);
@@ -297,46 +298,57 @@
   transform: translateY(-2px);
 }
 
+.forecastLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.forecastRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
 .forecastDay {
-  flex: 1;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--fg-primary);
-  min-width: 80px;
 }
 
 .forecastIcon {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 40px;
+  justify-content: flex-start;
 }
 
 .forecastTemps {
   display: flex;
-  gap: 12px;
-  align-items: center;
-  min-width: 80px;
-  justify-content: flex-end;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+  min-width: 60px;
 }
 
 .forecastHigh {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--fg-primary);
 }
 
 .forecastLow {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--fg-tertiary);
 }
 
 .precipitation {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   color: #64b5f6;
-  min-width: 40px;
+  margin-top: 2px;
   text-align: right;
 }
 
@@ -351,17 +363,23 @@
   }
 
   .forecastCard {
-    padding: 14px;
+    padding: 10px 12px;
   }
 
   .forecastDay {
-    font-size: 15px;
-    min-width: 70px;
+    font-size: 13px;
   }
 
-  .forecastHigh,
+  .forecastHigh {
+    font-size: 15px;
+  }
+
   .forecastLow {
-    font-size: 16px;
+    font-size: 13px;
+  }
+
+  .precipitation {
+    font-size: 11px;
   }
 
   .additionalDetails {

@@ -68,6 +68,16 @@ export const APPS: AppConfig[] = [
     colorDark: '#0A84FF',
     functional: true,
   },
+
+  // Row 3 - More functional apps
+  {
+    id: 'weather',
+    name: 'Weather',
+    icon: 'Cloud',
+    color: '#007AFF',
+    colorDark: '#0A84FF',
+    functional: true,
+  },
   {
     id: 'youtube',
     name: 'YouTube',
@@ -76,8 +86,6 @@ export const APPS: AppConfig[] = [
     colorDark: '#FF0000',
     functional: false,
   },
-
-  // Row 3 - Decorative apps
   {
     id: 'safari',
     name: 'Safari',
@@ -113,14 +121,6 @@ export const APPS: AppConfig[] = [
 
   // Row 4 - More decorative apps
   {
-    id: 'music',
-    name: 'Music',
-    icon: 'Music',
-    color: '#FF2D55',
-    colorDark: '#FF375F',
-    functional: false,
-  },
-  {
     id: 'maps',
     name: 'Maps',
     icon: 'Map',
@@ -134,14 +134,6 @@ export const APPS: AppConfig[] = [
     icon: 'Calendar',
     color: '#FF3B30',
     colorDark: '#FF453A',
-    functional: false,
-  },
-  {
-    id: 'notes',
-    name: 'Notes',
-    icon: 'FileText',
-    color: '#FFD60A',
-    colorDark: '#FFD60A',
     functional: false,
   },
 ];
