@@ -64,7 +64,7 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
       const tileSize = 0.45; // Increased from 0.3 to 0.45 (50% larger)
       const gap = 0.05;
       const cubeSize = (gridSize * (tileSize + gap)) / 2;
-      const sphereRadius = 2.9;
+      const sphereRadius = 2.5;
 
       // Generate tiles for all 6 faces of the cube
       const faces = [
@@ -337,7 +337,7 @@ function Particles({ theme }: { theme: 'light' | 'dark' }) {
   const particlesRef = useRef<THREE.Points>(null);
 
   const positions = useMemo(() => {
-    const particleCount = 200;
+    const particleCount = 300;
     const pos = new Float32Array(particleCount * 3);
 
     // Use deterministic seeded random
@@ -472,8 +472,8 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({ theme, isVisible }) => {
     >
       <Canvas
         camera={{
-          position: [0, 0, 8],
-          fov: isMobile ? 60 : 55,
+          position: [0, 0, 7],
+          fov: isMobile ? 50 : 52,
         }}
         gl={{
           antialias: true,
@@ -482,7 +482,7 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({ theme, isVisible }) => {
         dpr={[1, 2]}
       >
         {/* Lighting */}
-        <ambientLight intensity={0.5} />
+        <ambientLight intensity={0.8} />
         <directionalLight
           position={[10, 10, 5]}
           intensity={1}
@@ -506,8 +506,8 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({ theme, isVisible }) => {
         <OrbitControls
           enableZoom={false}
           enablePan={false}
-          autoRotate={false}
-          target={[0, 0, 0]}
+          autoRotate={true}
+          autoRotateSpeed={0.8}
         />
       </Canvas>
     </div>
