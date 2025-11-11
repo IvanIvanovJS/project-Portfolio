@@ -5,15 +5,14 @@
 /* Main iPhone container */
 .iphoneFrame {
   position: relative;
-  /* iPhone 14 Pro aspect ratio reduced by 20% height: 393:681.6 (852 * 0.8) */
   aspect-ratio: 393 / 852;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  contain: layout style paint;
   outline: 1.5px solid var(--color-primary, #007aff);
   outline-offset: 3px;
   border-radius: clamp(24px, 6vw, 40px);
   scale: 0.6;
   top: -130px;
+  overflow: visible;
 }
 .iphoneFrame:hover {
   scale: 0.9;
@@ -36,6 +35,7 @@
   height: 100%;
   border-radius: clamp(24px, 6vw, 40px);
   padding: 2px;
+  overflow: visible;
   /* Metallic gradient frame */
   background: linear-gradient(
     145deg,
@@ -51,8 +51,120 @@
     inset 0 2px 4px rgba(255, 255, 255, 0.1),
     /* Inner shadow */ inset 0 -2px 4px rgba(0, 0, 0, 0.3),
     /* Frame depth */ 0 0 0 1px rgba(0, 0, 0, 0.8),
-    /* Outer glow */ 0 20px 60px rgba(0, 0, 0, 0.5),
-    /* Ambient shadow */ 0 40px 100px rgba(0, 0, 0, 0.3);
+    /* Outer glow */ 0 5px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* Left side buttons container */
+.leftButtons {
+  position: absolute;
+  left: -6px;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Mute switch - small rounded switch */
+.muteSwitch {
+  position: absolute;
+  left: 0;
+  top: 80px;
+  width: 2px;
+  height: 20px;
+  border-radius: 6px 0 0 6px;
+  background: linear-gradient(
+    90deg,
+    var(--color-primary) 15%,
+    lightgray 50%,
+    var(--color-primary) 100%
+  );
+  border-top: 1px solid white;
+  border-bottom: 1px solid black;
+  box-shadow:
+    inset 1px 0 2px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1),
+    -1px 0 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Volume up button */
+.volumeUp {
+  position: absolute;
+  left: 0;
+  top: 120px;
+  width: 2px;
+  height: 45px;
+  border-radius: 6px 0 0 6px;
+  background: linear-gradient(
+    90deg,
+    var(--color-primary) 15%,
+    lightgray 50%,
+    var(--color-primary) 100%
+  );
+
+  border-top: 2px solid white;
+  border-bottom: 2px solid black;
+  box-shadow:
+    inset 1px 0 2px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1),
+    -1px 0 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Volume down button */
+.volumeDown {
+  position: absolute;
+  left: 0;
+  top: 175px;
+  width: 2px;
+  height: 45px;
+  border-radius: 6px 0 0 6px;
+  background: linear-gradient(
+    90deg,
+    var(--color-primary) 15%,
+    lightgray 50%,
+    var(--color-primary) 100%
+  );
+
+  border-top: 2px solid white;
+  border-bottom: 2px solid black;
+  box-shadow:
+    inset 1px 0 2px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1),
+    -1px 0 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Right side buttons container */
+.rightButtons {
+  position: absolute;
+  right: -6px;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  z-index: 1001;
+  pointer-events: none;
+}
+
+/* Power button */
+.powerButton {
+  position: absolute;
+  right: 0;
+  top: 140px;
+  width: 2px;
+  height: 70px;
+  border-radius: 0px 6px 6px 0px;
+  background: linear-gradient(
+    90deg,
+    var(--color-primary) 15%,
+    lightgray 50%,
+    var(--color-primary) 100%
+  );
+
+  border-top: 2px solid white;
+  border-bottom: 2px solid black;
+  box-shadow:
+    inset -1px 0 2px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1),
+    1px 0 2px rgba(0, 0, 0, 0.3);
 }
 /* Screen container with bezel */
 .screen {
@@ -152,6 +264,9 @@
   .iphoneFrame {
     scale: 1;
     top: 0;
+  }
+  .iphoneFrame:hover {
+    scale: 1;
   }
   .frameOuter {
     padding: 1.5px;

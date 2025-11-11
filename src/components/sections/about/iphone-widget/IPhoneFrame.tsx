@@ -28,6 +28,22 @@ export const IPhoneFrame: React.FC<IPhoneFrameProps> = ({
     >
       {/* Metallic frame border */}
       <div className={styles.frameOuter}>
+        {/* Left side buttons */}
+        <div className={styles.leftButtons}>
+          {/* Mute switch */}
+          <div className={styles.muteSwitch} />
+          {/* Volume up button */}
+          <div className={styles.volumeUp} />
+          {/* Volume down button */}
+          <div className={styles.volumeDown} />
+        </div>
+
+        {/* Right side button */}
+        <div className={styles.rightButtons}>
+          {/* Power button */}
+          <div className={styles.powerButton} />
+        </div>
+
         {/* Screen container with bezel */}
         <div className={styles.screen}>
           {/* Dynamic Island notch */}
