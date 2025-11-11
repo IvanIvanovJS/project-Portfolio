@@ -95,8 +95,6 @@ export async function loadIconAtlas(): Promise<LoadedAtlas | null> {
       throw new Error('Atlas metadata contains no icon frames');
     }
 
-    console.log(`✓ Icon atlas loaded successfully: ${iconNames.length} icons`);
-
     return {
       texture,
       metadata,

@@ -22,11 +22,11 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: calc(100% + 280px);
+  width: calc(100% + 600px);
   height: 100%;
   z-index: 1;
   pointer-events: auto;
-  transform: translateX(-26%);
+  transform: translateX(-33%);
 }
 @media (max-width: 768px) {
   .sceneBackground {
@@ -36,7 +36,7 @@
 /* Right side - Content (45%) - самостоятелен контейнер */
 .contentContainer {
   position: absolute;
-  right: 0;
+  left: 55%;
   top: 50%;
   transform: translateY(-50%);
   width: 45%;
@@ -319,6 +319,10 @@
   .ctaButton {
     display: none;
   }
+
+  .scrollButton {
+    bottom: 3rem;
+  }
   .heroSection {
     height: auto;
     min-height: 100vh;
@@ -329,7 +333,7 @@
   .sceneBackground {
     position: relative;
     width: 100%;
-    height: 400px;
+    min-height: 400px;
     margin-bottom: var(--spacing-lg);
   }
   .contentContainer {

@@ -75,10 +75,6 @@ export function setupTileAttributes(
   mesh.geometry.setAttribute('glowIntensity', glowIntensityAttr);
   mesh.geometry.setAttribute('animationPhase', animationPhaseAttr);
 
-  console.log(
-    `✓ Tile attributes initialized: ${tileCount} tiles with ${iconCount} unique icons`
-  );
-
   return {
     uvOffset,
     uvScale,
