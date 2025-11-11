@@ -78,21 +78,21 @@
   - Style icons with appropriate colors and sizes
   - _Requirements: 12.1, 12.2, 12.3, 12.4, 12.5_
 
-- [ ] 4. Create WidgetGrid layout component
+- [x] 4. Create WidgetGrid layout component
   - Build WidgetGrid component to contain both widgets
   - Implement CSS Grid layout with 2 columns
   - Add responsive behavior for mobile (stack vertically)
   - Position above existing app icons with proper spacing
   - _Requirements: 10.1, 10.2, 10.3, 10.4, 10.5_
 
-- [ ] 4.1 Implement WidgetGrid component
+- [x] 4.1 Implement WidgetGrid component
   - Create `widgets/WidgetGrid.tsx` with container component
   - Add props for onWeatherClick handler
   - Render WeatherWidget and CalendarWidget as children
   - Pass click handler to WeatherWidget
   - _Requirements: 10.1, 10.2_
 
-- [ ] 4.2 Style WidgetGrid with responsive layout
+- [x] 4.2 Style WidgetGrid with responsive layout
   - Create `widgets/WidgetGrid.module.css` with CSS Grid
   - Set 2-column layout with 12px gap
   - Add margin-bottom for spacing from app icons

@@ -4,3 +4,4 @@
 
 export { CalendarWidget } from './CalendarWidget';
 export { WeatherWidget } from './WeatherWidget';
+export { WidgetGrid } from './WidgetGrid';
