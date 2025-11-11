@@ -100,7 +100,7 @@
   - Adjust widget sizes for different screen sizes
   - _Requirements: 10.3, 10.4, 10.5_
 
-- [ ] 5. Create WeatherApp full-screen component
+- [x] 5. Create WeatherApp full-screen component
   - Build WeatherApp component with current weather and 7-day forecast
   - Fetch forecast data from WeatherService
   - Display current conditions at top with large temperature
@@ -108,7 +108,7 @@
   - Add back button to close and return to home screen
   - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 5.1, 5.2, 5.3, 5.4, 5.5_
 
-- [ ] 5.1 Implement WeatherApp component structure
+- [x] 5.1 Implement WeatherApp component structure
   - Create `apps/WeatherApp.tsx` with functional component
   - Add state for current weather, forecast, loading, and errors
   - Fetch forecast data on component mount
@@ -116,7 +116,7 @@
   - Add scroll container for forecast list
   - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5_
 
-- [ ] 5.2 Create current weather section
+- [x] 5.2 Create current weather section
   - Display city name in header with edit button
   - Show large temperature with weather icon
   - Display condition text below temperature
@@ -124,7 +124,7 @@
   - Add additional details (humidity, wind speed)
   - _Requirements: 4.2, 4.3_
 
-- [ ] 5.3 Create forecast list with daily cards
+- [x] 5.3 Create forecast list with daily cards
   - Map forecast data to daily card components
   - Display day name, weather icon, high/low temps
   - Add precipitation chance if available
@@ -132,7 +132,7 @@
   - Implement stagger animation for card appearance
   - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5_
 
-- [ ] 5.4 Style WeatherApp with glassmorphism
+- [x] 5.4 Style WeatherApp with glassmorphism
   - Create `apps/WeatherApp.module.css` with full-screen modal styles
   - Apply dark background with backdrop blur
   - Style header with back button and city name

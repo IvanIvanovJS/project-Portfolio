@@ -39,7 +39,8 @@ export type AppType =
   | 'phone'
   | 'email'
   | 'github'
-  | 'linkedin';
+  | 'linkedin'
+  | 'weather';
 
 /**
  * Configuration for individual app icons

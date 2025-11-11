@@ -13,3 +13,6 @@ export type { PhoneAppProps } from './PhoneApp';
 
 export { EmailApp } from './EmailApp';
 export type { EmailAppProps } from './EmailApp';
+
+export { WeatherApp } from './WeatherApp';
+export type { WeatherAppProps } from './WeatherApp';
