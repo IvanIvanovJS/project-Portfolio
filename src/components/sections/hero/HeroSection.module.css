@@ -93,6 +93,28 @@
   margin: 0;
   min-height: 1.6em;
   animation: fadeInUp 0.8s ease-out 0.3s both;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.blinkingDot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  animation: blink 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
 }
 /* CTA Button */
 .ctaButton {
@@ -340,6 +362,7 @@
     position: relative;
     right: auto;
     top: auto;
+    left: auto;
     transform: none;
     width: 100%;
     padding: 0 var(--spacing-md);

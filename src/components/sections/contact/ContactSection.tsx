@@ -17,11 +17,11 @@ interface ContactSectionProps {
 }
 
 const defaultContactInfo = {
-  email: 'john.doe@example.com',
-  phone: '+359 123 456 789',
-  location: 'Sofia, Bulgaria',
-  github: 'https://github.com/johndoe',
-  linkedin: 'https://linkedin.com/in/johndoe',
+  email: 'ivanov@webmorphism.com',
+  phone: '+359 898 573 056',
+  location: 'Varna, Bulgaria',
+  github: 'https://github.com/IvanIvanovJS',
+  linkedin: 'https://linkedin.com/in/ivanov-webmorphism',
 };
 
 export const ContactSection: React.FC<ContactSectionProps> = ({
