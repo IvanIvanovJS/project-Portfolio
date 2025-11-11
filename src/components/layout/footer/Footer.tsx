@@ -26,21 +26,21 @@ interface ContactInfo {
 }
 
 const contactInfo: ContactInfo = {
-  email: 'contact@portfolio.dev',
-  phone: '+1 (555) 123-4567',
-  location: 'San Francisco, CA',
+  email: 'ivanov@webmorphism.com',
+  phone: '+359 898 573 056',
+  location: 'Varna, Bulgaria',
 };
 
 const socialLinks: SocialLink[] = [
   {
     name: 'GitHub',
-    url: 'https://github.com/username',
+    url: 'https://github.com/IvanIvanovJS',
     icon: <Github size={20} />,
     ariaLabel: 'Visit GitHub profile',
   },
   {
     name: 'LinkedIn',
-    url: 'https://linkedin.com/in/username',
+    url: 'https://linkedin.com/in/ivanov-webmorphism',
     icon: <Linkedin size={20} />,
     ariaLabel: 'Visit LinkedIn profile',
   },
@@ -168,15 +168,7 @@ export const Footer: React.FC<FooterProps> = ({ className = '' }) => {
         {/* Footer Bottom */}
         <div className={styles.footerBottom}>
           <div className={styles.copyright}>
-            <p>© {currentYear} Portfolio. All rights reserved.</p>
-          </div>
-          <div className={styles.footerLinks}>
-            <a href="#privacy" className={styles.footerLink}>
-              Privacy Policy
-            </a>
-            <a href="#terms" className={styles.footerLink}>
-              Terms of Service
-            </a>
+            <p>© {currentYear} Webmorphism. All rights reserved.</p>
           </div>
         </div>
       </div>

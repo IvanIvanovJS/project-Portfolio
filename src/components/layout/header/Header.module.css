@@ -7,7 +7,7 @@
   z-index: 1000;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   padding: var(--spacing-3, 1rem) 0;
-  background: rgba(var(--bg-primary-rgb), 0.5);
+  background: var(--glass-bg);
   -webkit-backdrop-filter: blur(40px) saturate(200%);
   backdrop-filter: blur(40px) saturate(200%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);

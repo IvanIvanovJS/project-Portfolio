@@ -154,7 +154,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
                 <li
                   key={item.id}
                   className={styles.navItem}
-                  style={{ animationDelay: `${0.3 + index * 0.5}s` }}
+                  style={{ animationDelay: `${0.25 + index * 0.45}s` }}
                 >
                   <a
                     href={item.href}

@@ -9,9 +9,9 @@
   aspect-ratio: 393 / 852;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   contain: layout style paint;
-  outline: 1px solid var(--color-primary, #007aff);
-  outline-offset: 2px;
-  border-radius: 60px;
+  outline: 1.5px solid var(--color-primary, #007aff);
+  outline-offset: 3px;
+  border-radius: clamp(24px, 6vw, 40px);
   scale: 0.6;
   top: -130px;
 }
@@ -28,18 +28,14 @@
   cursor: pointer;
 }
 /* Expanded state - fullscreen modal */
-.expanded {
-  width: 393px;
-  max-width: 95vw;
-  cursor: default;
-}
+
 /* Outer metallic frame */
 .frameOuter {
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 55px;
-  padding: 3px;
+  border-radius: clamp(24px, 6vw, 40px);
+  padding: 2px;
   /* Metallic gradient frame */
   background: linear-gradient(
     145deg,
@@ -63,7 +59,7 @@
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 52px;
+  border-radius: clamp(24px, 6vw, 40px);
   overflow: hidden;
   /* Black screen background */
   background: #000000;
@@ -151,21 +147,16 @@
 }
 /* Screen content area - removed, background now fills entire screen */
 /* Responsive adjustments */
-@media (max-width: 1024px) {
-  .expanded {
-    width: 90vw;
-    max-width: 393px;
-  }
-}
+
 @media (max-width: 768px) {
   .iphoneFrame {
-    scale: 0.8;
+    scale: 1;
     top: 0;
   }
-  .expanded {
-    width: 95vw;
-    max-width: 393px;
+  .frameOuter {
+    padding: 1.5px;
   }
+
   .notch {
     top: 16px;
     width: 60px;
@@ -178,12 +169,6 @@
   .cameraLens {
     width: 2px;
     height: 2px;
-  }
-  .frameOuter {
-    border-radius: 45px;
-  }
-  .screen {
-    border-radius: 42px;
   }
 }
 /* Reduced motion support */

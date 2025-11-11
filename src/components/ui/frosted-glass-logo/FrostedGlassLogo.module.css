@@ -272,7 +272,7 @@
   /* When NOT expanded: ensure text returns to original state */
   .logo:not(.expanded) .shortText {
     opacity: 1;
-    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
   }
   .logo:not(.expanded) .fullText {
     opacity: 0;

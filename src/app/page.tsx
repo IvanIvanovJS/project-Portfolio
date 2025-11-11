@@ -42,11 +42,11 @@ export default function Home() {
     <>
       <HeroSection />
 
-      {/* Projects Gallery Section */}
-      <ProjectsSection />
-
       {/* About Section with Image Carousel */}
       <AboutSection />
+
+      {/* Projects Gallery Section */}
+      <ProjectsSection />
 
       {/* Contact Section */}
       <ContactSection />

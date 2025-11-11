@@ -30,10 +30,10 @@ export const HeroSection: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  const scrollToProjects = () => {
-    const projectsSection = document.getElementById('projects');
-    if (projectsSection) {
-      projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const scrollToAbout = () => {
+    const projectsAbout = document.getElementById('about');
+    if (projectsAbout) {
+      projectsAbout.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -87,8 +87,8 @@ export const HeroSection: React.FC = () => {
         <div className={styles.scrollShadow} />
         <button
           className={styles.scrollButton}
-          onClick={scrollToProjects}
-          aria-label="Scroll to projects section"
+          onClick={scrollToAbout}
+          aria-label="Scroll to about section"
           type="button"
         >
           <svg
