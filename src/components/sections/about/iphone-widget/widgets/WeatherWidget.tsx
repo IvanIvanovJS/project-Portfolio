@@ -20,7 +20,14 @@ import styles from './WeatherWidget.module.css';
 /**
  * Map weather icon type to Lucide React component
  */
-const WEATHER_ICON_MAP: Record<WeatherIcon, React.ComponentType<any>> = {
+const WEATHER_ICON_MAP: Record<
+  WeatherIcon,
+  React.ComponentType<{
+    size?: number;
+    className?: string;
+    style?: React.CSSProperties;
+  }>
+> = {
   sun: Sun,
   moon: Moon,
   cloud: Cloud,
@@ -143,24 +150,31 @@ export const WeatherWidget: React.FC<WeatherWidgetProps> = ({
       onKeyDown={handleKeyDown}
       role="button"
       tabIndex={0}
-      aria-label={`Weather widget for ${city}, ${weather.temperature} degrees, ${weather.condition}`}
+      aria-label={`Weather widget for ${city}, ${weather.temperature} degrees, ${weather.condition}. High ${weather.high} degrees, low ${weather.low} degrees. Click to open weather forecast.`}
       aria-expanded="false"
     >
       <div className={styles.content}>
-        <div className={styles.city}>{city}</div>
+        <div className={styles.city} aria-hidden="true">
+          {city}
+        </div>
 
-        <div className={styles.temperature}>{weather.temperature}°</div>
+        <div className={styles.temperature} aria-hidden="true">
+          {weather.temperature}°
+        </div>
 
         <div className={styles.conditionRow}>
           <IconComponent
             size={20}
             className={styles.weatherIcon}
             style={{ color: iconColor }}
+            aria-hidden="true"
           />
-          <span className={styles.condition}>{weather.condition}</span>
+          <span className={styles.condition} aria-hidden="true">
+            {weather.condition}
+          </span>
         </div>
 
-        <div className={styles.highLow}>
+        <div className={styles.highLow} aria-hidden="true">
           H:{weather.high}° L:{weather.low}°
         </div>
       </div>

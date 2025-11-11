@@ -25,17 +25,42 @@ export const CalendarWidget: React.FC<CalendarWidgetProps> = ({
 }) => {
   const { dayOfWeek, dayOfMonth } = useCalendar();
 
+  const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  const currentDate = new Date();
+  const monthName = monthNames[currentDate.getMonth()];
+
   return (
     <div
       className={`${styles.calendarWidget} ${className}`}
       role="region"
-      aria-label={`Calendar widget, ${dayOfWeek}, ${dayOfMonth}`}
+      aria-label={`Calendar widget, ${dayOfWeek} ${monthName} ${dayOfMonth}. No events today.`}
     >
       <div className={styles.content}>
-        <div className={styles.dayOfWeek}>{dayOfWeek.toUpperCase()}</div>
-        <div className={styles.dayNumber}>{dayOfMonth}</div>
-        <div className={styles.eventText}>No events today</div>
-        <div className={styles.appName}>Calendar</div>
+        <div className={styles.dayOfWeek} aria-hidden="true">
+          {dayOfWeek.toUpperCase()}
+        </div>
+        <div className={styles.dayNumber} aria-hidden="true">
+          {dayOfMonth}
+        </div>
+        <div className={styles.eventText} aria-hidden="true">
+          No events today
+        </div>
+        <div className={styles.appName} aria-hidden="true">
+          Calendar
+        </div>
       </div>
     </div>
   );

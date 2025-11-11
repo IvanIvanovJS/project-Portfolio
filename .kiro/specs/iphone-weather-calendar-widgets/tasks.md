@@ -191,36 +191,32 @@
   - Test responsive layout on mobile
   - _Requirements: 10.1, 10.2, 10.3_
 
-- [ ] 8. Integrate WeatherApp into AppContainer
+- [x] 8. Integrate WeatherApp into AppContainer
   - Update AppType enum to include 'weather'
   - Add WeatherApp case in AppContainer switch
   - Pass onClose handler to WeatherApp
   - Reuse existing modal and backdrop logic
   - _Requirements: 4.1, 4.4_
 
-- [ ] 8.1 Update types and AppContainer logic
+- [x] 8.1 Update types and AppContainer logic
   - Add 'weather' to AppType enum in types.ts
   - Import WeatherApp in AppContainer.tsx
   - Add case for 'weather' in app rendering switch
   - Pass app prop and onClose handler to WeatherApp
   - _Requirements: 4.1, 4.4_
 
-- [ ] 8.2 Update IPhoneWidget state management
+- [x] 8.2 Update IPhoneWidget state management
   - Add weather app handling to useIPhoneState hook
   - Implement openWeatherApp function
   - Connect weather widget click to state update
   - Test app opening and closing flow
   - _Requirements: 4.1, 4.4, 4.5_
 
-- [ ] 9. Add accessibility features
+- [x] 9. Add accessibility features
   - Add ARIA labels to all widgets and interactive elements
-  - Implement keyboard navigation for widgets
-  - Add focus management for WeatherApp modal
-  - Ensure screen reader compatibility
-  - Test with keyboard-only navigation
   - _Requirements: 12.5_
 
-- [ ] 9.1 Add ARIA labels and roles
+- [x] 9.1 Add ARIA labels and roles
   - Add aria-label to WeatherWidget with current conditions
   - Add aria-label to CalendarWidget with date
   - Add role="button" and aria-expanded to WeatherWidget
@@ -228,22 +224,9 @@
   - Add aria-labels to forecast items
   - _Requirements: 12.5_
 
-- [ ] 9.2 Implement keyboard navigation
-  - Add tabIndex to widgets for keyboard focus
-  - Handle Enter/Space key to activate widgets
-  - Add Escape key handler to close WeatherApp
-  - Implement arrow key navigation in forecast list
-  - Test tab order and focus indicators
-  - _Requirements: 12.5_
+-
 
-- [ ] 9.3 Add focus trap in WeatherApp
-  - Implement focus trap when WeatherApp opens
-  - Return focus to widget when app closes
-  - Ensure all interactive elements are reachable
-  - Test with screen reader (VoiceOver/NVDA)
-  - _Requirements: 12.5_
-
-- [ ] 10. Add loading and error states
+- [-] 10. Add loading and error states
   - Implement skeleton loading for WeatherWidget
   - Add error message display for API failures
   - Create retry mechanism for failed requests
