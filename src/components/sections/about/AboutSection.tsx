@@ -35,12 +35,12 @@ const defaultData: AboutData = {
       technologies: ['React', 'TypeScript', 'Next.js', 'CSS', 'UI/UX'],
     },
     {
-      company: 'Full Javascript/React Curriculum',
-      position: 'SoftUni Education',
+      company: 'Software Engeener with JavaScript',
+      position: 'Software University, Sofia',
       startDate: '2024-09',
       endDate: undefined,
       description:
-        'Completed modules in JS Fundamentals, Advanced JS, Node.js Back-End, TypeScript, ReactJS, and HTML/CSS',
+        'Completed modules in ReactJS, TypeScript, Node.js Back-End, HTML/CSS, JS Application and JS Fundamentals',
       technologies: [
         'React',
         'Node.js',
