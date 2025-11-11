@@ -16,6 +16,18 @@
   );
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   backdrop-filter: blur(20px) saturate(180%);
+  animation: appOpen 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes appOpen {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* Header */
@@ -359,6 +371,10 @@
 
 /* Accessibility - Reduced motion */
 @media (prefers-reduced-motion: reduce) {
+  .weatherApp {
+    animation: none;
+  }
+
   .scrollContainer {
     scroll-behavior: auto;
   }
@@ -665,12 +681,20 @@
     animation: none;
   }
 
-  .cityItem:hover {
+  .cityItem:hover,
+  .cityItem:active {
     transform: none;
   }
 
   .closeButton:hover,
-  .cityButton:hover {
+  .closeButton:active,
+  .cityButton:hover,
+  .cityButton:active,
+  .backButton:active {
     transform: none;
+  }
+
+  .searchSpinner {
+    animation: none;
   }
 }
