@@ -34,7 +34,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 28px 20px;
-  padding: 80px 24px 24px;
+  padding: 0 24px 24px;
   flex: 1;
   align-content: start;
   /* Ensure icons don't get clipped */
@@ -107,7 +107,7 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .appGrid {
-    padding: 70px 20px 20px;
+    padding: 0 20px 20px;
     gap: 24px 18px;
   }
   .dock {

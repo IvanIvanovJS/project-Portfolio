@@ -4,12 +4,14 @@ import React from 'react';
 import { HomeScreenProps } from './types';
 import { APPS, DOCK_APPS } from './utils/appConfig';
 import { AppIcon } from './AppIcon';
+import { WidgetGrid } from './widgets';
 import styles from './HomeScreen.module.css';
 
 /**
  * HomeScreen Component
  *
  * Displays iOS-style home screen with:
+ * - Weather and Calendar widgets at the top
  * - 4-column app grid layout
  * - 16px gaps between icons
  * - Page indicator dots at bottom
@@ -27,10 +29,20 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
     (app) => !DOCK_APPS.some((dockApp) => dockApp.id === app.id)
   );
 
+  /**
+   * Handle weather widget click to open WeatherApp
+   */
+  const handleWeatherClick = () => {
+    onAppClick('weather');
+  };
+
   return (
     <div className={styles.homeScreen}>
       {/* Animated gradient background */}
       <div className={styles.wallpaper} aria-hidden="true" />
+
+      {/* Widget Grid - Weather and Calendar widgets */}
+      <WidgetGrid onWeatherClick={handleWeatherClick} />
 
       {/* Main app grid */}
       <div className={styles.appGrid} role="list" aria-label="App icons">

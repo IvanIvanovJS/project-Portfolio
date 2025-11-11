@@ -170,21 +170,21 @@
   - Store selected city in session storage
   - _Requirements: 6.4, 6.5_
 
-- [ ] 7. Integrate widgets into HomeScreen
+- [x] 7. Integrate widgets into HomeScreen
   - Update HomeScreen component to include WidgetGrid
   - Position WidgetGrid above existing AppGrid
   - Pass weather click handler to open WeatherApp
   - Maintain existing app icon functionality
   - _Requirements: 1.1, 3.1, 4.1_
 
-- [ ] 7.1 Update HomeScreen component structure
+- [x] 7.1 Update HomeScreen component structure
   - Import WidgetGrid, WeatherWidget, and CalendarWidget
   - Add WidgetGrid before AppGrid in render
   - Create handleWeatherClick function
   - Pass onWeatherClick to WidgetGrid
   - _Requirements: 1.1, 3.1_
 
-- [ ] 7.2 Update HomeScreen styles for widget spacing
+- [x] 7.2 Update HomeScreen styles for widget spacing
   - Adjust HomeScreen.module.css to accommodate widgets
   - Add proper spacing between WidgetGrid and AppGrid
   - Ensure widgets don't overlap with system bar

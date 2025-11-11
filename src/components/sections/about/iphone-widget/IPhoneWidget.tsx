@@ -10,7 +10,7 @@ import { HomeScreen } from './HomeScreen';
 import { AppContainer } from './AppContainer';
 import { Toast } from './Toast';
 import { APPS } from './utils/appConfig';
-import { AboutApp, ProjectsApp, PhoneApp, EmailApp } from './apps';
+import { AboutApp, ProjectsApp, PhoneApp, EmailApp, WeatherApp } from './apps';
 import styles from './IPhoneWidget.module.css';
 
 /**
@@ -130,10 +130,14 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
               {activeApp === 'email' && (
                 <EmailApp personalInfo={personalInfo} />
               )}
+              {activeApp === 'weather' && (
+                <WeatherApp onClose={handleAppClose} />
+              )}
               {activeApp !== 'about' &&
                 activeApp !== 'projects' &&
                 activeApp !== 'phone' &&
-                activeApp !== 'email' && (
+                activeApp !== 'email' &&
+                activeApp !== 'weather' && (
                   <div style={{ padding: '20px', color: 'white' }}>
                     <p>App content for: {activeApp}</p>
                     <p>This will be replaced with actual app components</p>

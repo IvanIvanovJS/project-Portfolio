@@ -104,6 +104,7 @@ export const AppContainer: React.FC<AppContainerProps> = ({
       resume: 'Resume',
       phone: 'Phone',
       email: 'Mail',
+      weather: 'Weather',
     };
     return titles[appType] || 'App';
   };
