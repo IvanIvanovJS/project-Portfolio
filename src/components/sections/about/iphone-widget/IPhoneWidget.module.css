@@ -15,9 +15,7 @@
   /* Optimize for touch */
   touch-action: manipulation;
 }
-.thumbnail:hover {
-  transform: scale(1.02);
-}
+
 .thumbnail:focus {
   outline: none;
 }
@@ -85,8 +83,5 @@
   .appView,
   .backButton {
     transition-duration: 0.1s;
-  }
-  .thumbnail:hover {
-    transform: none;
   }
 }
