@@ -25,10 +25,10 @@
   /* Rounded corners matching iOS */
   border-radius: 20px;
 
-  /* Widget sizing */
-  width: 170px;
-  height: 170px;
-  padding: 16px;
+  /* Widget sizing - compact for better layout */
+  width: 100%;
+  height: 110px;
+  padding: 12px;
 
   /* Layout */
   display: flex;
@@ -79,94 +79,62 @@
 
 .dayOfWeek {
   /* Uppercase, orange/red color */
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
   color: #ff3b30;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   font-family:
     -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
 }
 
 .dayNumber {
   /* Large, bold, dark gray */
-  font-size: 56px;
+  font-size: 42px;
   font-weight: 700;
   line-height: 1;
   color: #1c1c1e;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
   font-family:
     -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
 }
 
 .eventText {
   /* Placeholder text */
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 400;
   color: rgba(60, 60, 67, 0.6);
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   font-family:
     -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
 }
 
 .appName {
-  /* App name at bottom */
-  font-size: 11px;
-  font-weight: 500;
-  color: rgba(60, 60, 67, 0.5);
-  margin-top: auto;
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+  display: none;
 }
 
 /* Responsive sizing for mobile */
 @media (max-width: 768px) {
   .calendarWidget {
-    width: 150px;
-    height: 150px;
-    padding: 14px;
+    height: 90px;
+    padding: 8px;
   }
 
   .dayOfWeek {
-    font-size: 11px;
+    font-size: 8px;
   }
 
   .dayNumber {
-    font-size: 48px;
+    font-size: 32px;
   }
 
   .eventText {
-    font-size: 12px;
-  }
-
-  .appName {
-    font-size: 10px;
+    font-size: 9px;
   }
 }
 
 @media (max-width: 480px) {
-  .calendarWidget {
-    width: 140px;
-    height: 140px;
-    padding: 12px;
-  }
-
-  .dayOfWeek {
-    font-size: 10px;
-  }
-
-  .dayNumber {
-    font-size: 42px;
-  }
-
-  .eventText {
-    font-size: 11px;
-  }
-
-  .appName {
-    font-size: 9px;
-  }
 }
 
 /* Reduced motion support */

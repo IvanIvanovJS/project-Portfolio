@@ -8,14 +8,15 @@
 .widgetGrid {
   /* CSS Grid layout with 2 columns */
   display: grid;
-  grid-template-columns: repeat(2, 170px);
-  gap: 12px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
 
-  /* Spacing from app icons below */
-  margin-bottom: 24px;
-
-  /* Center the grid */
-  justify-content: center;
+  /* Absolute positioning at top */
+  position: absolute;
+  top: 80px;
+  left: 24px;
+  right: 24px;
+  z-index: 2;
 
   /* Smooth transitions */
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -27,34 +28,12 @@
 /* Tablet breakpoint - scale down widgets */
 @media (max-width: 768px) {
   .widgetGrid {
-    grid-template-columns: repeat(2, 150px);
-    gap: 10px;
-    margin-bottom: 20px;
+    top: 56px;
+    left: 12px;
+    right: 12px;
+    gap: 4px;
   }
 }
-
-/* Mobile breakpoint - stack vertically */
-@media (max-width: 480px) {
-  .widgetGrid {
-    /* Stack widgets vertically */
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto;
-    gap: 12px;
-    margin-bottom: 16px;
-
-    /* Center single column */
-    justify-items: center;
-  }
-}
-
-/* Extra small screens - further adjustments */
-@media (max-width: 380px) {
-  .widgetGrid {
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-}
-
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .widgetGrid {

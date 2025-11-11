@@ -25,10 +25,10 @@
   /* Rounded corners matching iOS */
   border-radius: 20px;
 
-  /* Widget sizing */
-  width: 170px;
-  height: 170px;
-  padding: 16px;
+  /* Widget sizing - compact for better layout */
+  width: 100%;
+  height: 110px;
+  padding: 12px;
 
   /* Layout */
   display: flex;
@@ -102,21 +102,21 @@
 
 .city {
   /* City name styling */
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   font-family:
     -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
 }
 
 .temperature {
   /* Large, bold temperature */
-  font-size: 48px;
+  font-size: 36px;
   font-weight: 700;
   line-height: 1;
   color: #ffffff;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   font-family:
     -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
 }
@@ -125,18 +125,20 @@
   /* Weather icon and condition text row */
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 8px;
+  gap: 4px;
+  margin-bottom: 4px;
 }
 
 .weatherIcon {
   /* Weather icon styling */
   flex-shrink: 0;
+  width: 16px;
+  height: 16px;
 }
 
 .condition {
   /* Condition text styling */
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.7);
   font-family:
@@ -145,7 +147,7 @@
 
 .highLow {
   /* High/Low temperatures */
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.7);
   margin-top: auto;
@@ -236,71 +238,33 @@
 /* Responsive sizing for mobile */
 @media (max-width: 768px) {
   .weatherWidget {
-    width: 150px;
-    height: 150px;
-    padding: 14px;
+    height: 90px;
+    padding: 8px;
   }
 
   .city {
-    font-size: 13px;
+    font-size: 9px;
   }
 
   .temperature {
-    font-size: 42px;
-  }
-
-  .conditionRow {
-    gap: 5px;
+    font-size: 28px;
   }
 
   .weatherIcon {
-    width: 18px;
-    height: 18px;
+    width: 12px;
+    height: 12px;
   }
 
   .condition {
-    font-size: 12px;
+    font-size: 9px;
   }
 
   .highLow {
-    font-size: 11px;
+    font-size: 8px;
   }
 
   .errorText {
-    font-size: 11px;
-  }
-}
-
-@media (max-width: 480px) {
-  .weatherWidget {
-    width: 140px;
-    height: 140px;
-    padding: 12px;
-  }
-
-  .city {
-    font-size: 12px;
-  }
-
-  .temperature {
-    font-size: 38px;
-  }
-
-  .weatherIcon {
-    width: 16px;
-    height: 16px;
-  }
-
-  .condition {
-    font-size: 11px;
-  }
-
-  .highLow {
-    font-size: 10px;
-  }
-
-  .errorText {
-    font-size: 10px;
+    font-size: 9px;
   }
 }
 
