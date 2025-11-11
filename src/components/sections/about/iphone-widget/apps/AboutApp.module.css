@@ -3,7 +3,6 @@
  *
  * iOS-style about app with glassmorphism design
  */
-
 .aboutApp {
   width: 100%;
   height: 100%;
@@ -11,19 +10,15 @@
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-
   /* Smooth scrolling */
   scroll-behavior: smooth;
-
   /* Hide scrollbar but keep functionality */
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
-
 .aboutApp::-webkit-scrollbar {
   display: none;
 }
-
 /* Profile Section */
 .profileSection {
   display: flex;
@@ -33,11 +28,9 @@
   padding-bottom: 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-
 .avatarContainer {
   margin-bottom: 16px;
 }
-
 .profilePicture {
   width: 96px;
   height: 96px;
@@ -48,7 +41,6 @@
     0 0 0 3px rgba(255, 255, 255, 0.1);
   border: 2px solid rgba(255, 255, 255, 0.2);
 }
-
 .name {
   font-size: 28px;
   font-weight: 700;
@@ -57,7 +49,6 @@
   text-align: center;
   letter-spacing: -0.5px;
 }
-
 .title {
   font-size: 16px;
   font-weight: 500;
@@ -65,7 +56,6 @@
   margin: 0;
   text-align: center;
 }
-
 /* Section Titles */
 .sectionTitle {
   font-size: 20px;
@@ -74,12 +64,10 @@
   margin: 0 0 16px 0;
   letter-spacing: -0.3px;
 }
-
 /* Bio Section */
 .bioSection {
   margin-bottom: 32px;
 }
-
 .bioCard {
   /* Glassmorphism card styling */
   background: rgba(255, 255, 255, 0.05);
@@ -91,10 +79,8 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 20px;
-
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .bioCard:hover {
   background: rgba(255, 255, 255, 0.08);
   box-shadow:
@@ -103,7 +89,6 @@
     0 12px 48px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px);
 }
-
 .bioText {
   font-size: 15px;
   line-height: 1.6;
@@ -111,12 +96,10 @@
   margin: 0;
   white-space: pre-wrap;
 }
-
 /* Contact Section */
 .contactSection {
   margin-bottom: 24px;
 }
-
 .contactCard {
   /* Glassmorphism card styling */
   background: rgba(255, 255, 255, 0.05);
@@ -130,7 +113,6 @@
   padding: 4px;
   overflow: hidden;
 }
-
 .contactItem {
   display: flex;
   align-items: center;
@@ -139,15 +121,12 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   transition: background 0.2s ease;
 }
-
 .contactItem:last-child {
   border-bottom: none;
 }
-
 .contactItem:hover {
   background: rgba(255, 255, 255, 0.05);
 }
-
 .contactIcon {
   width: 40px;
   height: 40px;
@@ -156,7 +135,6 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-
   /* Glassmorphism icon background */
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px) saturate(180%);
@@ -164,10 +142,8 @@
     inset 0 1px 0.5px rgba(255, 255, 255, 0.2),
     0 4px 16px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.15);
-
   color: rgba(255, 255, 255, 0.9);
 }
-
 .contactInfo {
   display: flex;
   flex-direction: column;
@@ -175,7 +151,6 @@
   flex: 1;
   min-width: 0;
 }
-
 .contactLabel {
   font-size: 13px;
   font-weight: 500;
@@ -183,7 +158,6 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
-
 .contactValue {
   font-size: 16px;
   font-weight: 500;
@@ -192,7 +166,6 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
 .contactLink {
   font-size: 16px;
   font-weight: 500;
@@ -203,55 +176,44 @@
   white-space: nowrap;
   transition: color 0.2s ease;
 }
-
 .contactLink:hover {
   color: #0a84ff;
   text-decoration: underline;
 }
-
 .contactLink:active {
   color: #005bbb;
 }
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .aboutApp {
     padding: 20px 16px;
   }
-
   .name {
     font-size: 24px;
   }
-
   .title {
     font-size: 14px;
   }
-
   .sectionTitle {
     font-size: 18px;
   }
-
   .bioText {
     font-size: 14px;
   }
-
   .contactValue,
   .contactLink {
     font-size: 15px;
   }
 }
-
 /* Accessibility - Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .aboutApp {
     scroll-behavior: auto;
   }
-
   .bioCard,
   .contactItem {
     transition: none;
   }
-
   .bioCard:hover {
     transform: none;
   }

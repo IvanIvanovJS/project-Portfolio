@@ -13,12 +13,10 @@
   transition: all var(--transition-slow);
   background: #171717;
 }
-
 .heroSection.visible {
   opacity: 1;
   transform: translateY(0);
 }
-
 /* Full-width 3D Scene Background */
 .sceneBackground {
   position: absolute;
@@ -30,13 +28,11 @@
   pointer-events: auto;
   transform: translateX(-26%);
 }
-
 @media (max-width: 768px) {
   .sceneBackground {
     transform: none;
   }
 }
-
 /* Right side - Content (45%) - самостоятелен контейнер */
 .contentContainer {
   position: absolute;
@@ -53,13 +49,11 @@
   z-index: 2;
   pointer-events: auto;
 }
-
 .textContent {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xs);
 }
-
 .name {
   font-family: var(--font-family-gagalin);
   font-size: var(--font-size-6xl);
@@ -74,7 +68,6 @@
   min-height: 1.1em;
   animation: fadeInUp 0.8s ease-out 0.1s both;
 }
-
 .title {
   font-size: var(--font-size-sm);
   font-weight: 500;
@@ -92,7 +85,6 @@
   min-height: 1.1em;
   animation: fadeInUp 0.8s ease-out 0.2s both;
 }
-
 .tagline {
   font-size: var(--font-size-xl);
   font-weight: 600;
@@ -102,7 +94,6 @@
   min-height: 1.6em;
   animation: fadeInUp 0.8s ease-out 0.3s both;
 }
-
 /* CTA Button */
 .ctaButton {
   padding: 16px 40px;
@@ -111,8 +102,8 @@
   border-radius: 12px;
   cursor: pointer;
   background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px) saturate(180%);
   -webkit-backdrop-filter: blur(10px) saturate(180%);
+  backdrop-filter: blur(10px) saturate(180%);
   box-shadow:
     inset 0 1px 1px rgba(255, 255, 255, 0.4),
     inset 0 -1px 1px rgba(0, 0, 0, 0.1),
@@ -124,7 +115,6 @@
   overflow: hidden;
   animation: fadeInUp 0.8s ease-out 0.4s both;
 }
-
 .ctaButton::before {
   content: '';
   position: absolute;
@@ -140,11 +130,9 @@
   );
   transition: left 0.5s ease;
 }
-
 .ctaButton:hover::before {
   left: 100%;
 }
-
 .ctaButton:hover {
   background: rgba(255, 255, 255, 0.25);
   box-shadow:
@@ -153,7 +141,6 @@
     0 12px 48px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px);
 }
-
 .ctaButton:active {
   transform: translateY(0);
   box-shadow:
@@ -161,7 +148,6 @@
     inset 0 -1px 1px rgba(0, 0, 0, 0.15),
     0 4px 16px rgba(0, 0, 0, 0.1);
 }
-
 .ctaButton:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
@@ -171,7 +157,6 @@
     0 12px 48px rgba(0, 0, 0, 0.15),
     0 0 0 4px rgba(var(--color-primary-rgb, 99, 102, 241), 0.2);
 }
-
 /* Scroll Indicator */
 .scrollIndicator {
   position: absolute;
@@ -181,7 +166,6 @@
   z-index: 20;
   animation: bounce 2s infinite;
 }
-
 /* Static shadow behind button */
 .scrollShadow {
   position: absolute;
@@ -203,7 +187,6 @@
   opacity: 0.8;
   transition: all var(--transition-base);
 }
-
 .scrollButton {
   width: 50px;
   height: 50px;
@@ -213,8 +196,8 @@
   justify-content: center;
   cursor: pointer;
   background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px) saturate(180%);
   -webkit-backdrop-filter: blur(10px) saturate(180%);
+  backdrop-filter: blur(10px) saturate(180%);
   box-shadow:
     inset 0 1px 1px rgba(255, 255, 255, 0.4),
     inset 0 -1px 1px rgba(0, 0, 0, 0.1),
@@ -224,7 +207,6 @@
   position: relative;
   z-index: 1;
 }
-
 .scrollButton:hover {
   background: rgba(255, 255, 255, 0.2);
   box-shadow:
@@ -233,7 +215,6 @@
     0 12px 48px rgba(0, 0, 0, 0.15);
   transform: scale(1.05) translateY(-2px);
 }
-
 .scrollButton:hover ~ .scrollShadow,
 .scrollButton:focus-visible ~ .scrollShadow {
   width: 70px;
@@ -241,7 +222,6 @@
   opacity: 1;
   filter: blur(20px);
 }
-
 .scrollButton:active {
   transform: scale(0.95);
   box-shadow:
@@ -249,7 +229,6 @@
     inset 0 -1px 1px rgba(0, 0, 0, 0.15),
     0 4px 16px rgba(0, 0, 0, 0.1);
 }
-
 .scrollButton:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
@@ -259,18 +238,15 @@
     0 12px 48px rgba(0, 0, 0, 0.15),
     0 0 0 4px rgba(var(--color-primary-rgb, 99, 102, 241), 0.2);
 }
-
 .scrollArrow {
   width: 24px;
   height: 24px;
   color: var(--color-primary);
   transition: transform var(--transition-base);
 }
-
 .scrollButton:hover .scrollArrow {
   transform: translateY(2px);
 }
-
 /* Animations */
 @keyframes fadeInUp {
   from {
@@ -282,7 +258,6 @@
     transform: translateY(0);
   }
 }
-
 @keyframes slideInLeft {
   from {
     opacity: 0;
@@ -293,7 +268,6 @@
     transform: translateX(0);
   }
 }
-
 @keyframes slideInRight {
   from {
     opacity: 0;
@@ -304,7 +278,6 @@
     transform: translateX(0);
   }
 }
-
 @keyframes gradientShift {
   0% {
     background-position: 0% 50%;
@@ -313,7 +286,6 @@
     background-position: 100% 50%;
   }
 }
-
 @keyframes bounce {
   0%,
   20%,
@@ -329,7 +301,6 @@
     transform: translateX(-50%) translateY(-5px);
   }
 }
-
 @keyframes float {
   0%,
   100% {
@@ -342,27 +313,22 @@
     transform: translateY(10px) rotate(240deg);
   }
 }
-
 /* Responsive Design */
 @media (max-width: 1024px) {
   .contentContainer {
     width: 50%;
     padding: 0 var(--spacing-lg);
   }
-
   .name {
     font-size: clamp(2rem, 4vw, 3rem);
   }
-
   .title {
     font-size: clamp(0.9rem, 1.8vw, 1.2rem);
   }
-
   .tagline {
     font-size: clamp(1rem, 1.8vw, 1.2rem);
   }
 }
-
 @media (max-width: 768px) {
   .heroSection {
     height: auto;
@@ -371,14 +337,12 @@
     display: flex;
     flex-direction: column;
   }
-
   .sceneBackground {
     position: relative;
     width: 100%;
     height: 400px;
     margin-bottom: var(--spacing-lg);
   }
-
   .contentContainer {
     position: relative;
     right: auto;
@@ -389,16 +353,13 @@
     align-items: center;
     text-align: center;
   }
-
   .textContent {
     align-items: center;
   }
-
   .scrollIndicator {
     display: none;
   }
 }
-
 @media (max-width: 480px) {
   .scrollIndicator {
     display: none;
@@ -406,25 +367,20 @@
   .sceneBackground {
     height: 350px;
   }
-
   .name {
     font-size: 2rem;
   }
-
   .title {
     font-size: 0.9rem;
   }
-
   .tagline {
     font-size: 1rem;
   }
-
   .ctaButton {
     padding: 14px 32px;
     font-size: 1rem;
   }
 }
-
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .heroSection,
@@ -432,18 +388,16 @@
     animation: none;
     transition: none;
   }
-
   .heroSection {
     opacity: 1;
     transform: none;
   }
 }
-
 /* High contrast mode adjustments */
 @media (prefers-contrast: high) {
   .scrollButton {
     border-width: 2px;
-    backdrop-filter: none;
     -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 }

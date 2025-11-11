@@ -6,18 +6,17 @@
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
   z-index: 1999;
   animation: fadeIn 0.3s ease;
 }
-
 .mobileNav {
   position: fixed;
   z-index: 2000;
   background: color-mix(in srgb, var(--bg-primary) 90%, transparent);
-  backdrop-filter: blur(50px) saturate(200%);
   -webkit-backdrop-filter: blur(50px) saturate(200%);
+  backdrop-filter: blur(50px) saturate(200%);
   border: 1px solid rgba(255, 255, 255, 0.25);
   box-shadow:
     inset 0 1px 1px rgba(255, 255, 255, 0.2),
@@ -29,20 +28,16 @@
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
 }
-
 .mobileNav::-webkit-scrollbar {
   width: 6px;
 }
-
 .mobileNav::-webkit-scrollbar-track {
   background: transparent;
 }
-
 .mobileNav::-webkit-scrollbar-thumb {
   background: var(--glass-border, rgba(255, 255, 255, 0.1));
   border-radius: 3px;
 }
-
 /* Horizontal Mode - Slide from top, full width and height */
 .mobileNav.horizontal {
   top: 0;
@@ -55,7 +50,6 @@
   border-radius: 0;
   animation: slideInFromTop 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 /* Vertical Mode - Slide from right, 85% width and full height */
 .mobileNav.vertical {
   top: 0;
@@ -68,7 +62,6 @@
   border-left: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
   animation: slideInFromRight 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 /* Close Button */
 .closeButton {
   position: absolute;
@@ -80,8 +73,8 @@
   width: 40px;
   height: 40px;
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px) saturate(180%);
   -webkit-backdrop-filter: blur(10px) saturate(180%);
+  backdrop-filter: blur(10px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   color: var(--fg-primary, rgba(255, 255, 255, 0.8));
@@ -91,33 +84,28 @@
   flex-shrink: 0;
   z-index: 10;
 }
-
 @media (max-width: 768px) {
   .closeButton {
     width: 2rem;
     height: 2rem;
   }
 }
-
 @media (max-width: 480px) {
   .closeButton {
     width: 1.75rem;
     height: 1.75rem;
   }
 }
-
 .closeButton:hover {
   background: var(--glass-highlight, rgba(255, 255, 255, 0.1));
   color: var(--color-primary, #baffe9);
   transform: scale(1.05);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
-
 .closeButton:focus {
   outline: 2px solid var(--color-primary, #baffe9);
   outline-offset: 2px;
 }
-
 /* Navigation Content */
 .navContent {
   flex: 1;
@@ -133,12 +121,10 @@
   /* Ensure content is scrollable on mobile */
   -webkit-overflow-scrolling: touch;
 }
-
 /* Navigation Styles */
 .navigation {
   width: 100%;
 }
-
 .navList {
   list-style: none;
   margin: 0;
@@ -148,14 +134,12 @@
   gap: var(--spacing-6, 1.5rem);
   min-height: min-content;
 }
-
 .navItem {
   width: 100%;
   animation: slideInFromBottom 0.3s ease forwards;
   opacity: 0;
   transform: translateY(20px);
 }
-
 .navItem:nth-child(1) {
   animation-delay: 0.1s;
 }
@@ -168,7 +152,6 @@
 .navItem:nth-child(4) {
   animation-delay: 0.4s;
 }
-
 .navLink {
   color: var(--fg-primary, rgba(255, 255, 255, 0.8));
   text-decoration: none;
@@ -180,7 +163,6 @@
   width: 100%;
   overflow: hidden;
 }
-
 .navLink::before {
   content: '';
   position: absolute;
@@ -188,24 +170,21 @@
   left: 0;
   right: 0;
   bottom: 0;
-  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   border: 1px solid transparent;
   border-radius: 12px;
   opacity: 0;
   transition: all 0.3s ease;
   z-index: -1;
 }
-
 .navLink.active {
   color: var(--fg-primary, rgba(255, 255, 255, 0.8));
   text-shadow: 0 0 10px var(--color-primary-20, rgba(186, 255, 233, 0.2));
 }
-
 .navLink.active::before {
   opacity: 1;
 }
-
 /* Navigation Link Content */
 .navLinkContent {
   display: flex;
@@ -214,7 +193,6 @@
   position: relative;
   z-index: 1;
 }
-
 .navIcon {
   display: flex;
   align-items: center;
@@ -222,14 +200,12 @@
   transition: all 0.3s ease;
   flex-shrink: 0;
 }
-
 .navText {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-1, 0.25rem);
   flex: 1;
 }
-
 .navLink.active {
   .navText {
     color: var(--color-primary, #baffe9);
@@ -241,14 +217,12 @@
     color: var(--fg-primary, rgba(255, 255, 255, 0.8));
   }
 }
-
 .navLabel {
   font-size: var(--font-size-base, 1rem);
   font-weight: 600;
   letter-spacing: var(--letter-spacing-wide, 0.025em);
   line-height: 1.2;
 }
-
 .navDescription {
   font-size: var(--font-size-xs, 0.75rem);
   color: var(--fg-secondary, rgba(255, 255, 255, 0.6));
@@ -257,11 +231,9 @@
   line-height: 1.3;
   transition: color 0.3s ease;
 }
-
 .navLink:hover .navDescription {
   color: var(--fg-primary, rgba(255, 255, 255, 0.8));
 }
-
 /* Navigation Divider */
 .navDivider {
   height: 1px;
@@ -275,7 +247,6 @@
   margin-top: var(--spacing-4, 1rem);
   transition: all 0.3s ease;
 }
-
 .navLink:hover .navDivider {
   background: linear-gradient(
     90deg,
@@ -286,7 +257,6 @@
   );
   box-shadow: 0 0 10px rgba(186, 255, 233, 0.3);
 }
-
 .navLink.active .navDivider {
   background: linear-gradient(
     90deg,
@@ -297,7 +267,6 @@
   );
   box-shadow: 0 0 15px rgba(186, 255, 233, 0.5);
 }
-
 /* Navigation Footer */
 .navFooter {
   padding: var(--spacing-5, 1.25rem) var(--spacing-4, 1rem);
@@ -309,7 +278,6 @@
   align-items: center;
   flex-shrink: 0;
 }
-
 /* Animations */
 @keyframes fadeIn {
   from {
@@ -319,7 +287,6 @@
     opacity: 1;
   }
 }
-
 @keyframes slideInFromTop {
   from {
     transform: translateY(-100%);
@@ -328,7 +295,6 @@
     transform: translateY(0);
   }
 }
-
 @keyframes slideInFromRight {
   from {
     transform: translateX(100%);
@@ -337,35 +303,30 @@
     transform: translateX(0);
   }
 }
-
 @keyframes slideInFromBottom {
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-
 /* Touch gesture support */
 .mobileNav {
   touch-action: pan-y;
 }
-
 /* Responsive adjustments */
 @media (min-height: 800px) {
   .navList {
     gap: var(--spacing-16, 4.5rem);
   }
-
   .navContent {
     justify-content: center;
   }
 }
-
 /* Light Theme Support */
 :global([data-theme='light']) .mobileNav {
   background: color-mix(in srgb, var(--bg-primary) 90%, transparent);
-  backdrop-filter: blur(50px) saturate(200%);
   -webkit-backdrop-filter: blur(50px) saturate(200%);
+  backdrop-filter: blur(50px) saturate(200%);
   border-color: rgba(0, 0, 0, 0.25);
   box-shadow:
     inset 0 1px 1px rgba(255, 255, 255, 0.95),

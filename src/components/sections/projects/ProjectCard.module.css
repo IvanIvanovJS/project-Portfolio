@@ -10,7 +10,6 @@
   white-space: nowrap;
   border-width: 0;
 }
-
 .projectCard {
   position: relative;
   width: 100%;
@@ -23,7 +22,6 @@
   transition: transform 0.5s ease;
   scale: 1;
 }
-
 /* Decorative background elements inspired by reference CSS */
 .cardBackground {
   content: '';
@@ -45,22 +43,20 @@
   transition: 0.4s;
   z-index: 0;
 }
-
 .projectCard:hover .cardBackground {
   top: -10px;
   transform: skewX(0deg);
   height: 105%;
   left: -10px;
   width: calc(100% + 20px);
-  backdrop-filter: blur(10px) brightness(1.1);
   -webkit-backdrop-filter: blur(10px) brightness(1.1);
+  backdrop-filter: blur(10px) brightness(1.1);
   box-shadow:
     inset 0 1px 2px rgba(255, 255, 255, 0.2),
     0 0 20px rgba(255, 255, 255, 0.15),
     0 12px 48px rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
-
 /* Card content */
 .content {
   position: relative;
@@ -78,14 +74,12 @@
   z-index: 10;
   transition: all 0.6s ease;
 }
-
 /* Content wrapper for layered content */
 .contentWrapper {
   position: relative;
   width: 100%;
   height: 100%;
 }
-
 /* Background Image Layer - Hidden on desktop, visible on mobile */
 .backgroundImageLayer {
   position: absolute;
@@ -98,16 +92,13 @@
   z-index: 1;
   transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 /* Desktop hover - show image with high opacity */
 .projectCard:hover .backgroundImageLayer {
   opacity: 0.9;
 }
-
 .projectCard:focus-within .backgroundImageLayer {
   opacity: 0.9;
 }
-
 /* Info Layer - Always visible, on top of background image */
 .infoLayer {
   position: relative;
@@ -118,16 +109,13 @@
   opacity: 1;
   transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 /* Desktop hover - hide info layer */
 .projectCard:hover .infoLayer {
   opacity: 0;
 }
-
 .projectCard:focus-within .infoLayer {
   opacity: 0;
 }
-
 /* Project image */
 .imageContainer {
   position: relative;
@@ -136,11 +124,9 @@
   overflow: hidden;
   border-radius: 12px;
 }
-
 .projectImage {
   transition: transform 0.5s ease;
 }
-
 .imagePlaceholder {
   width: 100%;
   height: 100%;
@@ -151,7 +137,6 @@
   );
   border-radius: 12px;
 }
-
 /* Action buttons - positioned at bottom, hidden by default on desktop */
 .actionButtons {
   position: absolute;
@@ -168,16 +153,13 @@
   opacity: 0;
   transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 /* Desktop hover - show action buttons */
 .projectCard:hover .actionButtons {
   opacity: 1;
 }
-
 .projectCard:focus-within .actionButtons {
   opacity: 1;
 }
-
 .actionButton {
   display: inline-flex;
   align-items: center;
@@ -202,7 +184,6 @@
   /* Enhanced text contrast for WCAG AA compliance */
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
-
 .actionButton:hover {
   background: rgba(255, 255, 255, 0.25);
   box-shadow:
@@ -211,7 +192,6 @@
     0 12px 48px rgba(0, 0, 0, 0.15);
   transform: scale(1.05);
 }
-
 .actionButton:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
@@ -221,11 +201,9 @@
     0 12px 48px rgba(0, 0, 0, 0.15),
     0 0 0 4px rgba(var(--color-primary-rgb, 99, 102, 241), 0.2);
 }
-
 .actionButton:active {
   transform: scale(0.98);
 }
-
 .comingSoon {
   padding: 12px 24px;
   background: rgba(255, 255, 255, 0.1);
@@ -239,7 +217,6 @@
   /* Enhanced text contrast */
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
-
 /* Project info */
 .projectInfo {
   padding: var(--spacing-6);
@@ -252,7 +229,6 @@
   pointer-events: none;
   overflow: hidden;
 }
-
 .title {
   font-size: var(--font-size-5xl);
   font-weight: 700;
@@ -260,7 +236,6 @@
   margin: 0;
   line-height: var(--line-height-tight);
 }
-
 .statusBadge {
   display: inline-block;
   padding: var(--spacing-1) var(--spacing-3);
@@ -277,28 +252,24 @@
   /* Enhanced text shadow for better contrast */
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
-
 .statusBadge.completed {
   /* Enhanced background opacity for better contrast */
   background: rgba(186, 255, 233, 0.25);
   color: #baffe9;
   border: 1px solid rgba(186, 255, 233, 0.4);
 }
-
 .statusBadge.in-progress {
   /* Enhanced background and brighter text for WCAG AA compliance */
   background: rgba(255, 136, 0, 0.25);
   color: #ffaa44;
   border: 1px solid rgba(255, 136, 0, 0.4);
 }
-
 .statusBadge.planned {
   /* Enhanced background and brighter text for better contrast */
   background: rgba(159, 122, 234, 0.25);
   color: #b794f6;
   border: 1px solid rgba(159, 122, 234, 0.4);
 }
-
 .description {
   font-size: var(--font-size-xl);
   line-height: var(--line-height-relaxed);
@@ -306,7 +277,6 @@
   margin: 0;
   opacity: 0.9;
 }
-
 /* Technology tags - visible by default, hidden on hover */
 .technologies {
   display: flex;
@@ -316,7 +286,6 @@
   opacity: 1;
   transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .techTag {
   padding: var(--spacing-1) var(--spacing-3);
   background: rgba(255, 255, 255, 0.05);
@@ -330,7 +299,6 @@
   color: var(--fg-primary);
   transition: all 0.3s ease;
 }
-
 .techTag:hover {
   background: rgba(255, 255, 255, 0.1);
   box-shadow:
@@ -338,16 +306,13 @@
     0 6px 20px rgba(0, 0, 0, 0.08);
   transform: translateY(-2px);
 }
-
 /* Desktop hover - hide technologies */
 .projectCard:hover .technologies {
   opacity: 0;
 }
-
 .projectCard:focus-within .technologies {
   opacity: 0;
 }
-
 /* Enhanced hover/focus/active effects for desktop and mobile */
 .projectCard:hover .content,
 .projectCard:focus-within .content,
@@ -358,7 +323,6 @@
     inset 0 -1px 1px rgba(0, 0, 0, 0.1),
     0 12px 48px rgba(0, 0, 0, 0.15);
 }
-
 .projectCard:hover .cardBackground,
 .projectCard:focus-within .cardBackground,
 .projectCard:active .cardBackground {
@@ -367,131 +331,109 @@
   height: 105%;
   left: -10px;
   width: calc(100% + 20px);
-  backdrop-filter: blur(10px) brightness(1.1);
   -webkit-backdrop-filter: blur(10px) brightness(1.1);
+  backdrop-filter: blur(10px) brightness(1.1);
   box-shadow:
     inset 0 1px 2px rgba(255, 255, 255, 0.2),
     0 0 20px rgba(255, 255, 255, 0.15),
     0 12px 48px rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
-
 /* Responsive design - Tablet */
 @media (max-width: 1024px) and (min-width: 769px) {
   .actionButtonsDesktop {
     gap: 14px;
   }
-
   .actionButton {
     padding: 13px 26px;
     font-size: var(--font-size-base);
   }
 }
-
 /* Responsive design - Tablet and below */
 @media (max-width: 768px) {
   .projectCard {
     max-width: 100%;
     height: 450px;
   }
-
   .projectInfo {
     padding: var(--spacing-4);
     gap: var(--spacing-3);
   }
-
   .title {
     font-size: var(--font-size-3xl);
   }
-
   .description {
     font-size: var(--font-size-lg);
   }
 }
-
 /* Mobile specific - smaller screens */
 @media (max-width: 480px) {
   .projectCard {
     height: 400px;
   }
-
   .projectInfo {
     padding: var(--spacing-3);
     gap: var(--spacing-2);
   }
-
   .title {
     font-size: var(--font-size-2xl);
   }
-
   .description {
     font-size: var(--font-size-base);
     line-height: var(--line-height-normal);
   }
-
   .technologies {
     gap: var(--spacing-1);
     margin-top: var(--spacing-2);
   }
-
   .techTag {
     font-size: var(--font-size-xs);
     padding: 4px 8px;
   }
 }
-
 /* Mobile/Touch device specific styles */
 @media (hover: none) and (pointer: coarse), (max-width: 768px) {
   /* On mobile - always show background image with low opacity */
   .backgroundImageLayer {
     opacity: 0.2 !important;
   }
-
   /* On mobile - show info layer by default, hide action buttons */
   .projectCard:not(.mobileActive) .infoLayer {
     display: block !important;
     opacity: 1 !important;
   }
-
   .projectCard:not(.mobileActive) .actionButtons {
     display: none !important;
   }
-
   .projectCard:not(.mobileActive) .technologies {
     display: flex !important;
     opacity: 1 !important;
   }
-
   /* Disable hover effects on mobile - keep default state */
   .projectCard:not(.mobileActive):hover .backgroundImageLayer {
     opacity: 0.2 !important;
   }
-
   .projectCard:not(.mobileActive):hover .infoLayer {
     display: block !important;
     opacity: 1 !important;
   }
-
   .projectCard:not(.mobileActive):hover .actionButtons {
     display: none !important;
   }
-
   .projectCard:not(.mobileActive):hover .technologies {
     display: flex !important;
     opacity: 1 !important;
   }
-
   .projectCard:hover .cardBackground {
     top: 0;
     left: 50%;
     width: 0%;
     height: 100%;
-    backdrop-filter: none;
     -webkit-backdrop-filter: none;
+    backdrop-filter: none;
     box-shadow: none;
     border: none;
   }
-
   .projectCard:hover .content {
     background: rgba(255, 255, 255, 0.05);
     box-shadow:
@@ -499,27 +441,22 @@
       inset 0 -1px 1px rgba(0, 0, 0, 0.1),
       0 8px 32px rgba(0, 0, 0, 0.1);
   }
-
   /* Mobile active state - hide info, show buttons */
   .projectCard.mobileActive .backgroundImageLayer {
     opacity: 0.9 !important;
   }
-
   .projectCard.mobileActive .infoLayer {
     display: none !important;
     opacity: 0 !important;
   }
-
   .projectCard.mobileActive .actionButtons {
     display: flex !important;
     flex-direction: column;
   }
-
   .projectCard.mobileActive .technologies {
     display: none !important;
     opacity: 0 !important;
   }
-
   .projectCard.mobileActive .content {
     background: rgba(255, 255, 255, 0.1);
     box-shadow:
@@ -527,22 +464,20 @@
       inset 0 -1px 1px rgba(0, 0, 0, 0.1),
       0 12px 48px rgba(0, 0, 0, 0.15);
   }
-
   .projectCard.mobileActive .cardBackground {
     top: -10px;
     transform: skewX(0deg);
     height: 105%;
     left: -10px;
     width: calc(100% + 20px);
-    backdrop-filter: blur(10px) brightness(1.1);
     -webkit-backdrop-filter: blur(10px) brightness(1.1);
+    backdrop-filter: blur(10px) brightness(1.1);
     box-shadow:
       inset 0 1px 2px rgba(255, 255, 255, 0.2),
       0 0 20px rgba(255, 255, 255, 0.15),
       0 12px 48px rgba(0, 0, 0, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
-
   /* Ensure action buttons are properly sized for touch */
   .actionButtons {
     gap: 12px;
@@ -550,7 +485,6 @@
     width: calc(100% - var(--spacing-8));
     max-width: 280px;
   }
-
   .actionButton {
     min-width: 48px;
     min-height: 48px;
@@ -559,7 +493,6 @@
     justify-content: center;
     font-size: var(--font-size-base);
   }
-
   .comingSoon {
     padding: 14px 28px;
     font-size: var(--font-size-base);
@@ -567,7 +500,6 @@
     text-align: center;
   }
 }
-
 /* Additional mobile-specific adjustments for small screens */
 @media (hover: none) and (pointer: coarse) and (max-width: 768px) {
   .actionButtons {
@@ -575,63 +507,50 @@
     gap: 10px;
     max-width: 260px;
   }
-
   .actionButton {
     padding: 12px 24px;
     font-size: var(--font-size-sm);
   }
-
   .actionButton span {
     font-size: var(--font-size-sm);
   }
-
   .comingSoon {
     padding: 12px 24px;
     font-size: var(--font-size-sm);
   }
-
   .projectInfo {
     padding-bottom: 110px;
   }
 }
-
 /* Accessibility - Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   /* Reduce all transition durations to 100ms */
   .projectCard {
     transition: transform 0.1s ease;
   }
-
   .cardBackground {
     transition: 0.1s;
   }
-
   .content {
     transition: all 0.1s ease;
   }
-
   .backgroundImageLayer {
     transition: opacity 0.1s linear;
   }
-
   .projectImage {
     transition: transform 0.1s ease;
   }
-
   .actionButton {
     transition: all 0.1s linear;
   }
-
   .techTag {
     transition: all 0.1s ease;
   }
-
   /* Disable scale animations */
   .actionButton:hover,
   .actionButton:active {
     transform: scale(1);
   }
-
   .techTag:hover {
     transform: translateY(0);
   }

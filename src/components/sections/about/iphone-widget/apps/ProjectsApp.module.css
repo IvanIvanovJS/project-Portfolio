@@ -3,7 +3,6 @@
  *
  * iOS-style projects app with glassmorphism design
  */
-
 .projectsApp {
   width: 100%;
   height: 100%;
@@ -11,14 +10,12 @@
   flex-direction: column;
   overflow: hidden;
 }
-
 /* Header Section */
 .header {
   padding: 24px 20px 16px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   flex-shrink: 0;
 }
-
 .title {
   font-size: 32px;
   font-weight: 700;
@@ -26,14 +23,12 @@
   margin: 0 0 4px 0;
   letter-spacing: -0.5px;
 }
-
 .subtitle {
   font-size: 14px;
   font-weight: 500;
   color: var(--fg-secondary);
   margin: 0;
 }
-
 /* Projects List */
 .projectsList {
   flex: 1;
@@ -41,19 +36,15 @@
   overflow-x: hidden;
   padding: 20px;
   -webkit-overflow-scrolling: touch;
-
   /* Smooth scrolling */
   scroll-behavior: smooth;
-
   /* Hide scrollbar but keep functionality */
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
-
 .projectsList::-webkit-scrollbar {
   display: none;
 }
-
 /* Empty State */
 .emptyState {
   display: flex;
@@ -62,14 +53,12 @@
   min-height: 200px;
   padding: 40px 20px;
 }
-
 .emptyText {
   font-size: 16px;
   color: var(--fg-tertiary);
   text-align: center;
   margin: 0;
 }
-
 /* Project Card */
 .projectCard {
   /* Glassmorphism card styling */
@@ -82,15 +71,12 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   overflow: hidden;
-
   margin-bottom: 20px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .projectCard:last-child {
   margin-bottom: 0;
 }
-
 .projectCard:hover {
   background: rgba(255, 255, 255, 0.08);
   box-shadow:
@@ -99,7 +85,6 @@
     0 12px 48px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px);
 }
-
 /* Project Image */
 .imageContainer {
   position: relative;
@@ -108,15 +93,12 @@
   overflow: hidden;
   background: rgba(0, 0, 0, 0.3);
 }
-
 .projectImage {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .projectCard:hover .projectImage {
   transform: scale(1.05);
 }
-
 .imageOverlay {
   position: absolute;
   inset: 0;
@@ -127,12 +109,10 @@
   );
   pointer-events: none;
 }
-
 /* Project Content */
 .projectContent {
   padding: 20px;
 }
-
 .projectTitle {
   font-size: 20px;
   font-weight: 600;
@@ -141,25 +121,21 @@
   letter-spacing: -0.3px;
   line-height: 1.3;
 }
-
 .projectDescription {
   font-size: 15px;
   line-height: 1.5;
   color: var(--fg-secondary);
   margin: 0 0 16px 0;
 }
-
 /* Technologies */
 .technologiesContainer {
   margin-bottom: 16px;
 }
-
 .technologies {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
-
 .techTag {
   display: inline-flex;
   align-items: center;
@@ -168,7 +144,6 @@
   font-weight: 500;
   color: var(--fg-primary);
   letter-spacing: 0.3px;
-
   /* Glassmorphism badge styling */
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px) saturate(180%);
@@ -177,10 +152,8 @@
     0 4px 16px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
-
   transition: all 0.2s ease;
 }
-
 .techTag:hover {
   background: rgba(255, 255, 255, 0.15);
   transform: translateY(-1px);
@@ -188,14 +161,12 @@
     inset 0 1px 0.5px rgba(255, 255, 255, 0.3),
     0 6px 20px rgba(0, 0, 0, 0.1);
 }
-
 /* Links Container */
 .linksContainer {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
 }
-
 .projectLink {
   display: inline-flex;
   align-items: center;
@@ -205,7 +176,6 @@
   font-weight: 500;
   color: #007aff;
   text-decoration: none;
-
   /* Glassmorphism button styling */
   background: rgba(0, 122, 255, 0.1);
   backdrop-filter: blur(5px) saturate(180%);
@@ -214,10 +184,8 @@
     0 4px 16px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 122, 255, 0.3);
   border-radius: 12px;
-
   transition: all 0.2s ease;
 }
-
 .projectLink:hover {
   background: rgba(0, 122, 255, 0.2);
   color: #0a84ff;
@@ -226,7 +194,6 @@
     inset 0 1px 0.5px rgba(255, 255, 255, 0.3),
     0 6px 20px rgba(0, 122, 255, 0.2);
 }
-
 .projectLink:active {
   transform: translateY(0);
   background: rgba(0, 122, 255, 0.15);
@@ -234,65 +201,52 @@
     inset 0 1px 0.5px rgba(255, 255, 255, 0.2),
     0 2px 8px rgba(0, 0, 0, 0.1);
 }
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .header {
     padding: 20px 16px 12px;
   }
-
   .title {
     font-size: 28px;
   }
-
   .subtitle {
     font-size: 13px;
   }
-
   .projectsList {
     padding: 16px;
   }
-
   .imageContainer {
     height: 180px;
   }
-
   .projectContent {
     padding: 16px;
   }
-
   .projectTitle {
     font-size: 18px;
   }
-
   .projectDescription {
     font-size: 14px;
   }
-
   .techTag {
     font-size: 11px;
     padding: 5px 10px;
   }
-
   .projectLink {
     font-size: 13px;
     padding: 8px 14px;
   }
 }
-
 /* Accessibility - Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .projectsList {
     scroll-behavior: auto;
   }
-
   .projectCard,
   .projectImage,
   .techTag,
   .projectLink {
     transition: none;
   }
-
   .projectCard:hover,
   .projectCard:hover .projectImage,
   .techTag:hover,

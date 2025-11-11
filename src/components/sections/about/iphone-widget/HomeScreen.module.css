@@ -1,5 +1,4 @@
 /* HomeScreen Component Styles */
-
 .homeScreen {
   position: absolute;
   inset: 0;
@@ -16,7 +15,6 @@
   /* Use hardware acceleration */
   transform: translateZ(0);
 }
-
 /* Wallpaper background - fills entire screen */
 .wallpaper {
   position: absolute;
@@ -29,7 +27,6 @@
   /* Use hardware acceleration */
   transform: translateZ(0);
 }
-
 /* Main app grid container */
 .appGrid {
   position: relative;
@@ -43,7 +40,6 @@
   /* Ensure icons don't get clipped */
   overflow: visible;
 }
-
 /* Individual app slot */
 .appSlot {
   display: flex;
@@ -53,7 +49,6 @@
   min-width: 0;
   min-height: 0;
 }
-
 /* Page indicator dots */
 .pageIndicator {
   position: relative;
@@ -65,7 +60,6 @@
   padding: 8px 0;
   margin-bottom: 4px;
 }
-
 .dot {
   width: 6px;
   height: 6px;
@@ -73,20 +67,17 @@
   background: rgba(255, 255, 255, 0.3);
   transition: all 0.3s ease;
 }
-
 .activeDot {
   background: rgba(255, 255, 255, 0.9);
   width: 8px;
   height: 8px;
 }
-
 /* Dock section */
 .dock {
   position: relative;
   z-index: 2;
   padding: 0 16px 16px;
 }
-
 .dockContainer {
   /* Glassmorphism background for dock */
   background: rgba(255, 255, 255, 0.05);
@@ -99,14 +90,12 @@
   border-radius: 24px;
   padding: 10px 16px;
 }
-
 .dockApps {
   display: flex;
   justify-content: space-around;
   align-items: center;
   gap: 16px;
 }
-
 .dockAppSlot {
   display: flex;
   justify-content: center;
@@ -115,39 +104,32 @@
   min-width: 0;
   min-height: 0;
 }
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .appGrid {
     padding: 70px 20px 20px;
     gap: 24px 18px;
   }
-
   .dock {
     padding: 0 12px 14px;
   }
-
   .dockContainer {
     padding: 8px 12px;
   }
-
   .dockApps {
     gap: 14px;
   }
-
   /* Optimize for mobile performance */
   .homeScreen {
     will-change: auto;
   }
 }
-
 /* Accessibility - Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .dot {
     transition-duration: 0.1s;
   }
 }
-
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   .dockContainer {

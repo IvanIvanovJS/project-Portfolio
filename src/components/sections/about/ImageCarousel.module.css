@@ -9,7 +9,6 @@
   flex-direction: column;
   gap: var(--spacing-md, 1rem);
 }
-
 .imageContainer {
   width: 100%;
   flex: 1;
@@ -18,7 +17,6 @@
   border-radius: 16px;
   border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
 }
-
 /* Slides Wrapper - Contains all images in a row */
 .slidesWrapper {
   display: flex;
@@ -28,36 +26,28 @@
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   user-select: none;
 }
-
 /* Position based on data-position attribute (with clones for infinite loop) */
 .slidesWrapper[data-position='0'] {
   transform: translateX(0%);
 }
-
 .slidesWrapper[data-position='1'] {
   transform: translateX(-100%);
 }
-
 .slidesWrapper[data-position='2'] {
   transform: translateX(-200%);
 }
-
 .slidesWrapper[data-position='3'] {
   transform: translateX(-300%);
 }
-
 .slidesWrapper[data-position='4'] {
   transform: translateX(-400%);
 }
-
 .slidesWrapper[data-position='5'] {
   transform: translateX(-500%);
 }
-
 .slidesWrapper:active {
   cursor: grabbing;
 }
-
 /* Individual Slide Item */
 .slideItem {
   flex: 0 0 100%;
@@ -67,13 +57,11 @@
   overflow: hidden;
   border-radius: 16px;
 }
-
 /* Next.js Image */
 .carouselImage {
   pointer-events: none;
   user-select: none;
 }
-
 /* Caption Overlay with Frosted Blur */
 .captionOverlay {
   position: absolute;
@@ -82,8 +70,8 @@
   right: 0;
   height: 20%;
   background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -94,11 +82,9 @@
   z-index: 5;
   pointer-events: none;
 }
-
 .slideItem:hover .captionOverlay {
   height: 35%;
 }
-
 .captionText {
   font-size: var(--font-size-base, 1rem);
   font-weight: 500;
@@ -110,7 +96,6 @@
   pointer-events: none;
   user-select: none;
 }
-
 .subCaptionText {
   font-size: var(--font-size-sm, 0.875rem);
   font-weight: 400;
@@ -125,12 +110,10 @@
   transform: translateY(10px);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .slideItem:hover .subCaptionText {
   opacity: 1;
   transform: translateY(0);
 }
-
 .placeholder {
   display: flex;
   align-items: center;
@@ -139,7 +122,6 @@
   color: var(--fg-primary, rgba(255, 255, 255, 0.5));
   font-size: var(--font-size-lg, 1.125rem);
 }
-
 /* External Controls - Below Carousel */
 .externalControls {
   display: flex;
@@ -148,14 +130,12 @@
   gap: var(--spacing-lg, 1.5rem);
   border-radius: 24px;
 }
-
 /* Indicators */
 .indicators {
   display: flex;
   gap: var(--spacing-10, 0.5rem);
   align-items: center;
 }
-
 .indicator {
   width: 8px;
   height: 8px;
@@ -166,34 +146,28 @@
   transition: all 0.3s ease;
   padding: 0;
 }
-
 .indicator:hover {
   background: rgba(255, 255, 255, 0.5);
   transform: scale(1.2);
 }
-
 .indicatorActive {
   background: var(--color-primary, #baffe9);
   width: 24px;
   border-radius: 4px;
   box-shadow: 0 0 10px var(--color-primary, #baffe9);
 }
-
 /* Light theme indicators - darker background for visibility */
 :root[data-theme='light'] .indicator {
   background: rgba(48, 92, 222, 0.3);
   border: 1px solid rgba(48, 92, 222, 0.2);
 }
-
 :root[data-theme='light'] .indicator:hover {
   background: rgba(48, 92, 222, 0.5);
 }
-
 :root[data-theme='light'] .indicatorActive {
   background: rgba(48, 92, 222, 1);
   box-shadow: 0 0 10px rgba(48, 92, 222, 0.5);
 }
-
 /* Play/Pause Button */
 .playPauseButton {
   background: var(--glass-bg, rgba(255, 255, 255, 0.1));
@@ -209,7 +183,6 @@
   transition: all 0.3s ease;
   padding: 0;
 }
-
 .playPauseButton:hover {
   background: var(--glass-bg, rgba(255, 255, 255, 0.15));
   border-color: var(--color-primary, #baffe9);
@@ -217,19 +190,17 @@
   box-shadow: 0 0 15px rgba(186, 255, 233, 0.3);
   transform: scale(1.1);
 }
-
 .playPauseButton:active {
   transform: scale(0.95);
 }
-
 /* Counter */
 .counter {
   position: absolute;
   top: var(--spacing-md, 1rem);
   right: var(--spacing-md, 1rem);
   background: var(--glass-bg, rgba(255, 255, 255, 0.1));
-  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
   border-radius: 12px;
   padding: var(--spacing-2, 0.5rem) var(--spacing-3, 0.75rem);
@@ -238,77 +209,61 @@
   color: var(--fg-primary, rgba(255, 255, 255, 0.8));
   z-index: 10;
 }
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .imageContainer {
     border-radius: 12px;
   }
-
   .externalControls {
     padding: var(--spacing-2, 0.5rem) var(--spacing-3, 0.75rem);
   }
-
   .counter {
     top: var(--spacing-sm, 0.75rem);
     right: var(--spacing-sm, 0.75rem);
     font-size: var(--font-size-xs, 0.75rem);
   }
-
   .captionOverlay {
     height: 25%;
     padding: var(--spacing-sm, 1rem);
   }
-
   .slideItem:hover .captionOverlay {
     height: 40%;
   }
-
   .captionText {
     font-size: var(--font-size-sm, 0.875rem);
   }
-
   .subCaptionText {
     font-size: var(--font-size-xs, 0.75rem);
   }
 }
-
 @media (max-width: 480px) {
   .imageContainer {
     border-radius: 12px;
   }
-
   .externalControls {
     padding: var(--spacing-1, 0.25rem) var(--spacing-2, 0.5rem);
   }
-
   .playPauseButton {
     width: 28px;
     height: 28px;
   }
-
   .indicator {
     width: 6px;
     height: 6px;
   }
-
   .indicatorActive {
     width: 18px;
   }
-
   .captionOverlay {
     height: 30%;
     padding: var(--spacing-sm, 0.75rem);
   }
-
   .slideItem:hover .captionOverlay {
     height: 45%;
   }
-
   .captionText {
     font-size: var(--font-size-xs, 0.75rem);
   }
-
   .subCaptionText {
     font-size: 0.7rem;
   }

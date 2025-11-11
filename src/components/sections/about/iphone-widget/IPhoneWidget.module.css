@@ -1,5 +1,4 @@
 /* IPhoneWidget Component Styles */
-
 /* Thumbnail state */
 .thumbnail {
   width: 300px;
@@ -16,15 +15,12 @@
   /* Optimize for touch */
   touch-action: manipulation;
 }
-
 .thumbnail:hover {
   transform: scale(1.02);
 }
-
 .thumbnail:focus {
   outline: none;
 }
-
 /* Modal overlay */
 .modalOverlay {
   position: fixed;
@@ -41,7 +37,6 @@
   transform: translateZ(0);
   will-change: opacity;
 }
-
 /* Backdrop */
 .backdrop {
   position: absolute;
@@ -51,7 +46,6 @@
   /* Optimize for mobile */
   -webkit-backdrop-filter: blur(8px);
 }
-
 /* Modal content */
 .modalContent {
   position: relative;
@@ -66,31 +60,25 @@
   user-select: none;
   -webkit-user-select: none;
 }
-
 /* App view styles moved to AppContainer.module.css */
-
 /* Responsive adjustments */
 @media (max-width: 1024px) {
   .thumbnail {
     width: 250px;
   }
-
   .modalContent {
     max-width: 90vw;
   }
 }
-
 @media (max-width: 768px) {
   .thumbnail {
     width: 220px;
   }
-
   .modalContent {
     max-width: 95vw;
     max-height: 95vh;
   }
 }
-
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .thumbnail,
@@ -98,7 +86,6 @@
   .backButton {
     transition-duration: 0.1s;
   }
-
   .thumbnail:hover {
     transform: none;
   }

@@ -1,5 +1,4 @@
 /* AppIcon Component Styles */
-
 .appIconWrapper {
   display: flex;
   flex-direction: column;
@@ -7,7 +6,6 @@
   gap: 6px;
   width: 100%;
 }
-
 /* App icon button */
 .appIcon {
   position: relative;
@@ -28,12 +26,10 @@
   box-shadow:
     0 2px 8px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
-
   /* Prevent text selection */
   user-select: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
-
   /* Optimize for touch */
   touch-action: manipulation;
   /* Use hardware acceleration for smooth animations */
@@ -49,21 +45,17 @@
   width: 36px;
   height: 36px;
 }
-
 .appIcon.dockSize .iconContainer {
   padding: 10px;
 }
-
 .appIcon.dockSize .iconContainer svg {
   max-width: 28px;
   max-height: 28px;
 }
-
 /* Hide label for dock icons */
 .appIconWrapper.dockSize .appLabel {
   display: none;
 }
-
 /* Glassmorphism overlay */
 .glassOverlay {
   position: absolute;
@@ -73,7 +65,6 @@
   pointer-events: none;
   border-radius: inherit;
 }
-
 /* Icon container */
 .iconContainer {
   position: relative;
@@ -87,7 +78,6 @@
   height: 100%;
   padding: 10px;
 }
-
 /* Ensure SVG icons fit within container */
 .iconContainer svg {
   width: 100%;
@@ -96,13 +86,11 @@
   max-height: 30px;
   object-fit: contain;
 }
-
 /* Icon fallback for non-Lucide icons */
 .iconFallback {
   font-size: 24px;
   font-weight: 600;
 }
-
 /* Badge notification */
 .badge {
   position: absolute;
@@ -123,7 +111,6 @@
   z-index: 2;
   border: 2px solid rgba(0, 0, 0, 0.8);
 }
-
 /* App name label */
 .appLabel {
   font-size: 11px;
@@ -137,27 +124,22 @@
   font-weight: 400;
   line-height: 1.2;
 }
-
 /* Press animation */
 .appIcon.pressed {
   transform: scale(0.9);
 }
-
 /* Hover state (desktop only) */
 @media (hover: hover) and (pointer: fine) {
   .appIcon:hover {
     transform: scale(1.05);
   }
-
   .appIcon:hover .glassOverlay {
     background: rgba(255, 255, 255, 0.15);
   }
-
   .appIcon.pressed:hover {
     transform: scale(0.9);
   }
 }
-
 /* Focus state for accessibility */
 .appIcon:focus-visible {
   outline: 2px solid rgba(255, 255, 255, 0.8);
@@ -167,17 +149,14 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.2),
     0 0 0 4px rgba(255, 255, 255, 0.2);
 }
-
 /* Active state */
 .appIcon:active {
   transform: scale(0.9);
 }
-
 /* Highlighted state (visual feedback for external links) */
 .appIcon.highlighted {
   animation: highlightPulse 0.3s ease-out;
 }
-
 @keyframes highlightPulse {
   0% {
     transform: scale(1);
@@ -199,65 +178,54 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
 }
-
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .appIcon {
     transition-duration: 0.01s;
   }
-
   .appIcon.highlighted {
     animation: none;
     opacity: 0.8;
   }
 }
-
 /* Dark mode adjustments */
 @media (prefers-color-scheme: dark) {
   .appLabel {
     color: rgba(255, 255, 255, 0.95);
   }
 }
-
 /* High contrast mode */
 @media (prefers-contrast: high) {
   .appIcon {
     border: 2px solid white;
   }
-
   .appLabel {
     font-weight: 600;
   }
 }
-
 /* Responsive icon sizes */
 @media (max-width: 768px) {
   .appIcon.dockSize .iconContainer svg {
     max-width: 26px;
     max-height: 26px;
   }
-
   .appLabel {
     font-size: 10px;
     max-width: 56px;
   }
 }
-
 @media (max-width: 480px) {
   .appIcon.dockSize .iconContainer {
     padding: 8px;
   }
-
   .appIcon.dockSize .iconContainer svg {
     max-width: 24px;
     max-height: 24px;
   }
-
   .appLabel {
     font-size: 9px;
     max-width: 52px;
   }
-
   .badge {
     min-width: 18px;
     height: 18px;

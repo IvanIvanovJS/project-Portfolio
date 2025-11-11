@@ -2,7 +2,6 @@
  * IPhoneFrame Styles
  * Realistic iPhone 14 Pro styling with glassmorphism
  */
-
 /* Main iPhone container */
 .iphoneFrame {
   position: relative;
@@ -16,7 +15,6 @@
   scale: 0.6;
   top: -130px;
 }
-
 .iphoneFrame:hover {
   scale: 0.9;
 }
@@ -24,20 +22,17 @@
   outline: 2px solid var(--color-primary, #007aff);
   outline-offset: 2px;
 }
-
 /* Thumbnail state - compact view */
 .thumbnail {
   width: 300px;
   cursor: pointer;
 }
-
 /* Expanded state - fullscreen modal */
 .expanded {
   width: 393px;
   max-width: 95vw;
   cursor: default;
 }
-
 /* Outer metallic frame */
 .frameOuter {
   position: relative;
@@ -45,7 +40,6 @@
   height: 100%;
   border-radius: 55px;
   padding: 3px;
-
   /* Metallic gradient frame */
   background: linear-gradient(
     145deg,
@@ -55,7 +49,6 @@
     #2d2d2d 75%,
     #1a1a1a 100%
   );
-
   /* Layered shadows for depth */
   box-shadow:
     /* Inner highlight */
@@ -65,7 +58,6 @@
     /* Outer glow */ 0 20px 60px rgba(0, 0, 0, 0.5),
     /* Ambient shadow */ 0 40px 100px rgba(0, 0, 0, 0.3);
 }
-
 /* Screen container with bezel */
 .screen {
   position: relative;
@@ -73,10 +65,8 @@
   height: 100%;
   border-radius: 52px;
   overflow: hidden;
-
   /* Black screen background */
   background: #000000;
-
   /* Glassmorphism bezel effect */
   box-shadow:
     /* Inner screen bezel highlight */
@@ -84,7 +74,6 @@
     /* Inner screen bezel shadow */ inset 0 -1px 2px rgba(0, 0, 0, 0.5),
     /* Screen depth */ inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
-
 /* Dynamic Island notch - compact elliptical design */
 .notch {
   position: absolute;
@@ -96,14 +85,12 @@
   z-index: 1000;
   pointer-events: none;
 }
-
 .notchInner {
   position: relative;
   width: 100%;
   height: 100%;
   background: #000000;
   border-radius: 20px;
-
   /* Notch depth effect */
   box-shadow:
     /* Inner shadow for depth */
@@ -111,7 +98,6 @@
     /* Subtle highlight */ inset 0 1px 1px rgba(255, 255, 255, 0.05),
     /* Outer glow */ 0 2px 8px rgba(0, 0, 0, 0.5);
 }
-
 /* Camera lens inside Dynamic Island */
 .camera {
   position: absolute;
@@ -133,7 +119,6 @@
     /* Inner depth */ inset 0 1px 2px rgba(0, 0, 0, 0.8),
     /* Lens reflection */ inset -1px -1px 2px rgba(255, 255, 255, 0.2);
 }
-
 .cameraLens {
   position: absolute;
   top: 2px;
@@ -147,13 +132,11 @@
     rgba(20, 30, 50, 0.8) 50%,
     rgba(5, 10, 15, 1) 100%
   );
-
   /* Lens reflection effect */
   box-shadow:
     inset 1px 1px 1px rgba(255, 255, 255, 0.3),
     inset -1px -1px 2px rgba(0, 0, 0, 0.5);
 }
-
 /* Add subtle light reflection on camera */
 .cameraLens::after {
   content: '';
@@ -166,9 +149,7 @@
   background: rgba(255, 255, 255, 0.6);
   box-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
 }
-
 /* Screen content area - removed, background now fills entire screen */
-
 /* Responsive adjustments */
 @media (max-width: 1024px) {
   .expanded {
@@ -176,7 +157,6 @@
     max-width: 393px;
   }
 }
-
 @media (max-width: 768px) {
   .iphoneFrame {
     scale: 0.8;
@@ -199,36 +179,29 @@
     width: 2px;
     height: 2px;
   }
-
   .frameOuter {
     border-radius: 45px;
   }
-
   .screen {
     border-radius: 42px;
   }
 }
-
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .iphoneFrame {
     transition-duration: 0.1s;
   }
-
   .thumbnail:hover {
     transform: none;
   }
 }
-
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   .frameOuter {
     border: 2px solid currentColor;
   }
-
   .screen {
     border: 1px solid currentColor;
   }
 }
-
 /* Fallback for browsers without backdrop-filter - no longer needed */

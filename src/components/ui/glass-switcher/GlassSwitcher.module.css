@@ -13,8 +13,8 @@
     var(--glass-bg, rgba(255, 255, 255, 0.12)),
     transparent
   );
-  backdrop-filter: blur(8px) saturate(var(--saturation, 150%));
   -webkit-backdrop-filter: blur(8px) saturate(var(--saturation, 150%));
+  backdrop-filter: blur(8px) saturate(var(--saturation, 150%));
   box-shadow:
     inset 0 0 0 1px
       color-mix(
@@ -57,7 +57,6 @@
     box-shadow 400ms cubic-bezier(1, 0, 0.4, 1);
   position: relative;
 }
-
 .switcherLegend {
   position: absolute;
   white-space: nowrap;
@@ -65,7 +64,6 @@
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
-
 .switcherInput {
   clip: rect(0 0 0 0);
   clip-path: inset(100%);
@@ -73,14 +71,12 @@
   position: absolute;
   white-space: nowrap;
 }
-
 .switcherIcon {
   display: block;
   width: 100%;
   transition: scale 200ms cubic-bezier(0.5, 0, 0, 1);
   color: var(--fg-primary, rgba(255, 255, 255, 0.8));
 }
-
 .switcherText {
   display: block;
   font-size: 0.875rem;
@@ -89,14 +85,12 @@
   transition: scale 200ms cubic-bezier(0.5, 0, 0, 1);
   white-space: nowrap;
 }
-
 .switcherFilter {
   position: absolute;
   width: 0;
   height: 0;
   z-index: -1;
 }
-
 .switcherOption {
   display: flex;
   justify-content: center;
@@ -112,27 +106,22 @@
   position: relative;
   z-index: 2;
 }
-
 .switcherOption:hover {
   color: var(--color-primary, #baffe9);
 }
-
 .switcherOption:hover .switcherIcon,
 .switcherOption:hover .switcherText {
   scale: 1.2;
   color: var(--color-primary, #baffe9);
 }
-
 .switcherOption:has(input:checked) {
   cursor: auto;
 }
-
 .switcherOption:has(input:checked) .switcherIcon,
 .switcherOption:has(input:checked) .switcherText {
   scale: 1;
   color: var(--fg-primary, rgba(255, 255, 255, 0.95));
 }
-
 /* Sliding indicator - dynamically positioned via JS */
 .indicator {
   position: absolute;
@@ -183,7 +172,6 @@
     box-shadow 400ms cubic-bezier(1, 0, 0.4, 1);
   pointer-events: none;
 }
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .switcher {
@@ -191,12 +179,10 @@
     min-width: 240px;
     padding: 0.2em;
   }
-
   .indicator {
     height: calc(100% - 10px);
     left: -1px;
   }
-
   .switcherText {
     font-size: 0.8125rem;
   }

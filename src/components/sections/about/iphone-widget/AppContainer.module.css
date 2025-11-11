@@ -1,5 +1,4 @@
 /* AppContainer Component Styles */
-
 .appContainer {
   position: absolute;
   top: 46px;
@@ -16,24 +15,19 @@
   user-select: none;
   cursor: grab;
 }
-
 /* Theme-based backgrounds */
 .appContainer.lightTheme {
   background: var(--bg-secondary);
 }
-
 .appContainer.darkTheme {
   background: rgba(0, 0, 0, 0.95);
 }
-
 .appContainer.lightTheme .contentArea {
   background: var(--bg-primary);
 }
-
 .appContainer:active {
   cursor: grabbing;
 }
-
 /* Navigation Bar */
 .navBar {
   position: relative;
@@ -50,7 +44,6 @@
     0 2px 8px rgba(0, 0, 0, 0.1);
   z-index: 10;
 }
-
 /* Back Button */
 .backButton {
   position: relative;
@@ -76,21 +69,17 @@
   user-select: none;
   -webkit-user-select: none;
 }
-
 .backButton:hover {
   background: rgba(0, 122, 255, 0.1);
 }
-
 .backButton:active {
   background: rgba(0, 122, 255, 0.2);
   transform: scale(0.98);
 }
-
 .backButton:focus-visible {
   outline: 2px solid #007aff;
   outline-offset: 2px;
 }
-
 /* App Title */
 .appTitle {
   position: absolute;
@@ -103,7 +92,6 @@
   letter-spacing: -0.4px;
   pointer-events: none;
 }
-
 /* Close Button */
 .closeButton {
   display: flex;
@@ -129,7 +117,6 @@
   user-select: none;
   -webkit-user-select: none;
 }
-
 .closeButton:hover {
   background: rgba(255, 255, 255, 0.15);
   transform: scale(1.05);
@@ -137,17 +124,14 @@
     inset 0 1px 1px rgba(255, 255, 255, 0.3),
     0 4px 12px rgba(0, 0, 0, 0.15);
 }
-
 .closeButton:active {
   transform: scale(0.95);
   background: rgba(255, 255, 255, 0.2);
 }
-
 .closeButton:focus-visible {
   outline: 2px solid #007aff;
   outline-offset: 2px;
 }
-
 /* Swipe Indicator */
 .swipeIndicator {
   display: flex;
@@ -160,11 +144,9 @@
   touch-action: pan-y;
   cursor: grab;
 }
-
 .swipeIndicator:active {
   cursor: grabbing;
 }
-
 .swipeBar {
   width: 36px;
   height: 5px;
@@ -173,7 +155,6 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   pointer-events: none;
 }
-
 /* Content Area */
 .contentArea {
   flex: 1;
@@ -194,27 +175,22 @@
   /* Optimize touch scrolling */
   touch-action: pan-y;
 }
-
 /* Custom scrollbar styling */
 .contentArea::-webkit-scrollbar {
   width: 6px;
 }
-
 .contentArea::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 3px;
 }
-
 .contentArea::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 3px;
   transition: background 0.2s ease;
 }
-
 .contentArea::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.3);
 }
-
 /* Glassmorphism enhancement for content */
 .contentArea::before {
   content: '';
@@ -231,14 +207,12 @@
   );
   pointer-events: none;
 }
-
 /* Mobile optimizations */
 @media (max-width: 768px) {
   .navBar {
     padding: 10px 12px;
     min-height: 52px;
   }
-
   .backButton {
     font-size: 15px;
     padding: 6px;
@@ -247,11 +221,9 @@
     min-height: 44px;
     left: -14px;
   }
-
   .appTitle {
     font-size: 16px;
   }
-
   .closeButton {
     /* Maintain minimum touch target */
     width: 36px;
@@ -259,43 +231,36 @@
     min-width: 36;
     min-height: 36;
   }
-
   .swipeIndicator {
     padding: 8px 0;
     /* Make swipe area more prominent on mobile */
     min-height: 32px;
   }
-
   .swipeBar {
     width: 40px;
     height: 5px;
   }
-
   /* Optimize animations for mobile performance */
   .appContainer {
     /* Use only transform and opacity for animations */
     will-change: transform, opacity;
   }
-
   .contentArea {
     /* Improve scroll performance on mobile */
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
   }
 }
-
 /* Tablet optimizations */
 @media (min-width: 769px) and (max-width: 1024px) {
   .navBar {
     padding: 11px 14px;
     min-height: 54px;
   }
-
   .appTitle {
     font-size: 16.5px;
   }
 }
-
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .appContainer,
@@ -303,64 +268,52 @@
   .closeButton {
     transition-duration: 0.1s;
   }
-
   .backButton:hover,
   .closeButton:hover {
     transform: none;
   }
-
   .backButton:active,
   .closeButton:active {
     transform: none;
   }
 }
-
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   .navBar {
     border-bottom: 2px solid rgba(255, 255, 255, 0.3);
   }
-
   .backButton {
     color: #0a84ff;
     font-weight: 600;
   }
-
   .closeButton {
     border: 2px solid rgba(255, 255, 255, 0.4);
   }
-
   .swipeBar {
     background: rgba(255, 255, 255, 0.5);
   }
 }
-
 /* Dark mode adjustments (if needed) */
 @media (prefers-color-scheme: dark) {
   .appContainer {
     background: rgba(0, 0, 0, 0.98);
   }
-
   .navBar {
     background: rgba(255, 255, 255, 0.03);
   }
-
   .contentArea {
     background: rgba(0, 0, 0, 0.6);
   }
 }
-
 /* Focus visible styles for accessibility */
 .appContainer:focus-visible {
   outline: none;
 }
-
 /* Ensure proper layering */
 .appContainer {
   contain: layout style paint;
   will-change: transform, opacity;
 }
-
 /* Performance optimization */
 .navBar,
 .contentArea {

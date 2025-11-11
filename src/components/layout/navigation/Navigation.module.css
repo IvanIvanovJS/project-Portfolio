@@ -3,7 +3,6 @@
   display: flex;
   align-items: center;
 }
-
 .navList {
   display: flex;
   list-style: none;
@@ -11,11 +10,9 @@
   padding: 0;
   gap: var(--spacing-6, 2rem);
 }
-
 .navItem {
   position: relative;
 }
-
 .navLink {
   color: var(--fg-primary, rgba(255, 255, 255, 0.8));
   text-decoration: none;
@@ -30,7 +27,6 @@
   display: block;
   white-space: nowrap;
 }
-
 .navLink::before {
   content: '';
   position: absolute;
@@ -39,20 +35,18 @@
   right: 0;
   bottom: 0;
   background: var(--glass-bg, rgba(255, 255, 255, 0.05));
-  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   border: 1px solid transparent;
   border-radius: 8px;
   opacity: 0;
   transition: all 0.3s ease;
   z-index: -1;
 }
-
 /* Animated underline effect */
 .navLink::after {
   content: '';
   position: absolute;
-
   bottom: 8px;
   left: 0;
   width: 100%;
@@ -62,55 +56,45 @@
   transform-origin: left;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .navLink:hover {
   color: var(--fg-secondary, rgba(255, 255, 255, 0.6));
 }
-
 .navLink:hover::after {
   transform: scaleX(1);
   transform-origin: left;
 }
-
 .navLink:not(:hover)::after {
   transform: scaleX(0);
   transform-origin: left;
 }
-
 .navLink.active {
   color: var(--color-primary, #baffe9);
   text-shadow: 0 0 10px var(--color-primary, #baffe9);
 }
-
 /* Mobile Navigation Styles */
 .mobile .navList {
   flex-direction: column;
   gap: var(--spacing-2, 0.5rem);
   width: 100%;
 }
-
 .mobile .navLink {
   padding: var(--spacing-4, 1rem) var(--spacing-5, 1.25rem);
   font-size: var(--font-size-base, 1rem);
   text-align: center;
   border-radius: 12px;
 }
-
 .mobile .navLink::before {
   border-radius: 12px;
 }
-
 .mobile .navLink:hover {
   transform: scale(1.02);
 }
-
 /* Animation for mobile menu items */
 .mobile .navItem {
   animation: slideInFromTop 0.3s ease forwards;
   opacity: 0;
   transform: translateY(-20px);
 }
-
 .mobile .navItem:nth-child(1) {
   animation-delay: 0.1s;
 }
@@ -123,21 +107,18 @@
 .mobile .navItem:nth-child(4) {
   animation-delay: 0.4s;
 }
-
 @keyframes slideInFromTop {
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .navigation:not(.mobile) {
     display: none;
   }
 }
-
 @media (max-width: 480px) {
   .mobile .navLink {
     padding: var(--spacing-3, 0.75rem) var(--spacing-4, 1rem);
