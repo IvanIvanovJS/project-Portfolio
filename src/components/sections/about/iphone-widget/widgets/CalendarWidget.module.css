@@ -1,0 +1,160 @@
+/**
+ * CalendarWidget Styles
+ *
+ * Light glassmorphism design matching iOS Calendar widget
+ * Requirements: 3.4, 3.5, 9.2, 9.3, 9.4, 9.5
+ */
+
+.calendarWidget {
+  /* Light glassmorphism background */
+  background: rgba(255, 250, 240, 0.95);
+
+  /* Backdrop filter with blur and saturation */
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+
+  /* Layered box-shadows for depth */
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.5),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.05),
+    0 8px 32px rgba(0, 0, 0, 0.08);
+
+  /* Subtle border */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  /* Rounded corners matching iOS */
+  border-radius: 20px;
+
+  /* Widget sizing */
+  width: 170px;
+  height: 170px;
+  padding: 16px;
+
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  /* Smooth transitions */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Performance optimization */
+  contain: layout style paint;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.dayOfWeek {
+  /* Uppercase, orange/red color */
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #ff3b30;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+}
+
+.dayNumber {
+  /* Large, bold, dark gray */
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1;
+  color: #1c1c1e;
+  margin-bottom: 12px;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+}
+
+.eventText {
+  /* Placeholder text */
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(60, 60, 67, 0.6);
+  margin-bottom: 8px;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+}
+
+.appName {
+  /* App name at bottom */
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(60, 60, 67, 0.5);
+  margin-top: auto;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+}
+
+/* Responsive sizing for mobile */
+@media (max-width: 768px) {
+  .calendarWidget {
+    width: 150px;
+    height: 150px;
+    padding: 14px;
+  }
+
+  .dayOfWeek {
+    font-size: 11px;
+  }
+
+  .dayNumber {
+    font-size: 48px;
+  }
+
+  .eventText {
+    font-size: 12px;
+  }
+
+  .appName {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .calendarWidget {
+    width: 140px;
+    height: 140px;
+    padding: 12px;
+  }
+
+  .dayOfWeek {
+    font-size: 10px;
+  }
+
+  .dayNumber {
+    font-size: 42px;
+  }
+
+  .eventText {
+    font-size: 11px;
+  }
+
+  .appName {
+    font-size: 9px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .calendarWidget {
+    transition-duration: 0.1s;
+  }
+}
+
+/* Fallback for browsers without backdrop-filter support */
+@supports not (backdrop-filter: blur(20px)) {
+  .calendarWidget {
+    background: rgba(255, 250, 240, 0.98);
+  }
+}

@@ -154,3 +154,122 @@ export interface ErrorState {
   field?: string;
   recoverable: boolean;
 }
+
+/**
+ * Weather icon types based on weather conditions
+ */
+export type WeatherIcon =
+  | 'sun'
+  | 'moon'
+  | 'cloud'
+  | 'cloud-sun'
+  | 'cloud-moon'
+  | 'cloud-rain'
+  | 'cloud-drizzle'
+  | 'cloud-snow'
+  | 'cloud-lightning'
+  | 'fog';
+
+/**
+ * Current weather data structure
+ */
+export interface CurrentWeather {
+  temperature: number;
+  condition: string;
+  icon: WeatherIcon;
+  high: number;
+  low: number;
+  humidity: number;
+  windSpeed: number;
+}
+
+/**
+ * Daily forecast data structure
+ */
+export interface DailyForecast {
+  date: Date;
+  dayName: string;
+  high: number;
+  low: number;
+  condition: string;
+  icon: WeatherIcon;
+  precipitationChance: number;
+}
+
+/**
+ * City information for geocoding
+ */
+export interface City {
+  name: string;
+  country: string;
+  lat: number;
+  lon: number;
+}
+
+/**
+ * Geographic coordinates
+ */
+export interface Coordinates {
+  lat: number;
+  lon: number;
+}
+
+/**
+ * Weather widget component props
+ */
+export interface WeatherWidgetProps {
+  city: string;
+  onWidgetClick: () => void;
+  className?: string;
+}
+
+/**
+ * Calendar widget component props
+ */
+export interface CalendarWidgetProps {
+  className?: string;
+}
+
+/**
+ * Open-Meteo API current weather response
+ */
+export interface OpenMeteoCurrentResponse {
+  current: {
+    time: string;
+    temperature_2m: number;
+    weathercode: number;
+    windspeed_10m: number;
+    relativehumidity_2m: number;
+  };
+  daily: {
+    time: string[];
+    temperature_2m_max: number[];
+    temperature_2m_min: number[];
+  };
+}
+
+/**
+ * Open-Meteo API forecast response
+ */
+export interface OpenMeteoForecastResponse {
+  daily: {
+    time: string[];
+    weathercode: number[];
+    temperature_2m_max: number[];
+    temperature_2m_min: number[];
+    precipitation_probability_max: number[];
+  };
+}
+
+/**
+ * Open-Meteo API geocoding response
+ */
+export interface OpenMeteoGeocodingResponse {
+  results?: Array<{
+    name: string;
+    country: string;
+    latitude: number;
+    longitude: number;
+    admin1?: string;
+  }>;
+}
