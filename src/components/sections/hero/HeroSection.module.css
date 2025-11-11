@@ -342,9 +342,6 @@
     display: none;
   }
 
-  .scrollButton {
-    bottom: 3rem;
-  }
   .heroSection {
     height: auto;
     min-height: 100vh;

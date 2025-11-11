@@ -9,11 +9,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(
-    180deg,
-    rgba(30, 30, 35, 0.95) 0%,
-    rgba(20, 20, 25, 0.98) 100%
-  );
+  background: var(--bg-secondary);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   backdrop-filter: blur(20px) saturate(180%);
   animation: appOpen 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
@@ -36,7 +32,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--glass-border);
   flex-shrink: 0;
 }
 
@@ -57,15 +53,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.9);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--fg-primary);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .cityButton:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--glass-bg-hover);
   transform: scale(1.05);
 }
 
@@ -102,8 +98,8 @@
 .loadingSpinner {
   width: 40px;
   height: 40px;
-  border: 3px solid rgba(255, 255, 255, 0.1);
-  border-top-color: rgba(255, 255, 255, 0.6);
+  border: 3px solid var(--glass-border);
+  border-top-color: var(--fg-secondary);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -130,10 +126,10 @@
 .retryButton {
   padding: 12px 24px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--glass-bg);
   -webkit-backdrop-filter: blur(10px) saturate(180%);
   backdrop-filter: blur(10px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--glass-border-hover);
   color: var(--fg-primary);
   font-size: 16px;
   font-weight: 600;
@@ -142,7 +138,7 @@
 }
 
 .retryButton:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--glass-bg-hover);
   transform: scale(1.05);
 }
 
@@ -219,7 +215,7 @@
 /* Forecast Section */
 .forecastSection {
   padding: 24px 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--glass-border);
 }
 
 .forecastTitle {
@@ -244,14 +240,14 @@
   gap: 12px;
   padding: 12px 16px;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--glass-bg);
   -webkit-backdrop-filter: blur(10px) saturate(180%);
   backdrop-filter: blur(10px) saturate(180%);
   box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.3),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-    0 8px 32px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+    inset 0 1px 1px var(--glass-highlight),
+    inset 0 -1px 1px var(--glass-shadow),
+    0 8px 32px var(--glass-shadow);
+  border: 1px solid var(--glass-border);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   animation: slideIn 0.4s ease-out backwards;
 }
@@ -268,11 +264,11 @@
 }
 
 .forecastCard:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--glass-bg-hover);
   box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.4),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-    0 12px 48px rgba(0, 0, 0, 0.15);
+    inset 0 1px 1px var(--glass-highlight),
+    inset 0 -1px 1px var(--glass-shadow),
+    0 12px 48px var(--glass-shadow-hover);
   transform: translateY(-2px);
 }
 
@@ -425,15 +421,15 @@
   width: 100%;
   max-width: 400px;
   max-height: 80%;
-  background: rgba(30, 30, 35, 0.95);
+  background: var(--bg-secondary);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   backdrop-filter: blur(20px) saturate(180%);
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--glass-border);
   box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.3),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-    0 20px 60px rgba(0, 0, 0, 0.3);
+    inset 0 1px 1px var(--glass-highlight),
+    inset 0 -1px 1px var(--glass-shadow),
+    0 20px 60px var(--glass-shadow-hover);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -456,7 +452,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--glass-border);
   flex-shrink: 0;
 }
 
@@ -474,15 +470,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.9);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--fg-primary);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .closeButton:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--glass-bg-hover);
   transform: scale(1.05);
 }
 
@@ -493,7 +489,7 @@
 /* Search Container */
 .searchContainer {
   padding: 16px 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--glass-border);
   flex-shrink: 0;
 }
 
@@ -501,22 +497,22 @@
   position: relative;
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--glass-bg);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--glass-border);
   transition: all 0.2s ease;
 }
 
 .searchInputWrapper:focus-within {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+  box-shadow: 0 0 0 3px var(--glass-shadow);
 }
 
 .searchIcon {
   position: absolute;
   left: 12px;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--fg-tertiary);
   pointer-events: none;
 }
 
@@ -532,7 +528,7 @@
 }
 
 .searchInput::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--fg-muted);
 }
 
 .clearButton {
@@ -544,16 +540,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--glass-bg);
   border: none;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--fg-secondary);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .clearButton:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.9);
+  background: var(--glass-bg-hover);
+  color: var(--fg-primary);
 }
 
 /* Search Results */
@@ -586,8 +582,8 @@
 .searchSpinner {
   width: 32px;
   height: 32px;
-  border: 3px solid rgba(255, 255, 255, 0.1);
-  border-top-color: rgba(255, 255, 255, 0.6);
+  border: 3px solid var(--glass-border);
+  border-top-color: var(--fg-secondary);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -621,18 +617,18 @@
   padding: 16px;
   margin-bottom: 8px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--glass-bg);
   -webkit-backdrop-filter: blur(10px) saturate(180%);
   backdrop-filter: blur(10px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--glass-border);
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: left;
 }
 
 .cityItem:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
   transform: translateX(4px);
 }
 

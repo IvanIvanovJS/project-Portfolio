@@ -173,8 +173,8 @@
   height: 100%;
   border-radius: clamp(24px, 6vw, 40px);
   overflow: hidden;
-  /* Black screen background */
-  background: var(--bg-primary);
+  /* Black screen background - always dark regardless of theme */
+  background: #4d4d4d;
   /* Glassmorphism bezel effect */
   box-shadow:
     /* Inner screen bezel highlight */

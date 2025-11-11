@@ -473,7 +473,7 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({ theme, isVisible }) => {
       <Canvas
         camera={{
           position: [0, 0, 7],
-          fov: isMobile ? 50 : 52,
+          fov: isMobile ? 55 : 52,
         }}
         gl={{
           antialias: true,
