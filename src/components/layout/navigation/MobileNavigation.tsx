@@ -40,23 +40,23 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
 
     switch (item.id) {
       case 'hero':
-        icon = <Home size={18} />;
+        icon = <Home size={24} />;
         description = 'Welcome & Introduction';
         break;
       case 'projects':
-        icon = <Briefcase size={18} />;
+        icon = <Briefcase size={24} />;
         description = 'View Case Studies';
         break;
       case 'about':
-        icon = <User size={18} />;
+        icon = <User size={24} />;
         description = 'Read Bio';
         break;
       case 'contact':
-        icon = <Mail size={18} />;
+        icon = <Mail size={24} />;
         description = 'Get In Touch';
         break;
       default:
-        icon = <Menu size={18} />;
+        icon = <Menu size={24} />;
         description = 'Navigation';
     }
 
@@ -143,7 +143,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
           onClick={onClose}
           aria-label="Close navigation"
         >
-          <X size={20} />
+          <X size={26} />
         </button>
 
         {/* Navigation Content */}
@@ -154,7 +154,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
                 <li
                   key={item.id}
                   className={styles.navItem}
-                  style={{ animationDelay: `${index * 0.1}s` }}
+                  style={{ animationDelay: `${0.3 + index * 0.5}s` }}
                 >
                   <a
                     href={item.href}
