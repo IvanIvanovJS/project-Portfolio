@@ -28,7 +28,7 @@
   align-items: center;
   flex: 1;
   min-width: 0;
-  left: 16px;
+  left: 12px;
 }
 .time {
   font-size: 15px;
@@ -122,7 +122,7 @@
   display: none;
 }
 /* Responsive adjustments */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .systemBar {
     padding: 6px 16px;
     font-size: 13px;
@@ -132,6 +132,9 @@
   }
   .time {
     font-size: 14px;
+  }
+  .leftSection {
+    left: 8px;
   }
   .date {
     font-size: 11px;
