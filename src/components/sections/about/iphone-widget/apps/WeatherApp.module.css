@@ -40,29 +40,6 @@
   flex-shrink: 0;
 }
 
-.backButton {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.9);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.backButton:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: scale(1.05);
-}
-
-.backButton:active {
-  transform: scale(0.95);
-}
-
 .cityName {
   display: flex;
   align-items: center;
@@ -70,6 +47,7 @@
   font-size: 18px;
   font-weight: 600;
   color: var(--fg-primary);
+  flex: 1;
 }
 
 .cityButton {

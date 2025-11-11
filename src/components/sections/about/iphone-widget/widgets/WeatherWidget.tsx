@@ -80,11 +80,11 @@ function getIconColor(icon: WeatherIcon): string {
  * @param props - WeatherWidgetProps
  */
 export const WeatherWidget: React.FC<WeatherWidgetProps> = ({
-  city,
+  city: _city,
   onWidgetClick,
   className = '',
 }) => {
-  const { weather, isLoading, error } = useWeather();
+  const { weather, isLoading, error, city } = useWeather();
 
   const handleClick = () => {
     if (!isLoading && !error) {

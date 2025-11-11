@@ -174,7 +174,7 @@
   border-radius: clamp(24px, 6vw, 40px);
   overflow: hidden;
   /* Black screen background */
-  background: #000000;
+  background: var(--bg-primary);
   /* Glassmorphism bezel effect */
   box-shadow:
     /* Inner screen bezel highlight */

@@ -7,7 +7,12 @@
 
 .weatherWidget {
   /* Dark glassmorphism background */
-  background: linear-gradient(320deg, #56ccf2 0%, #2f80ed 50%, #003f8a 100%);
+  background: linear-gradient(
+    320deg,
+    rgb(86, 204, 242, 0.6) 0%,
+    rgb(47, 128, 237, 0.55) 50%,
+    rgb(0, 63, 138, 0.5) 100%
+  );
   /* Backdrop filter with blur and saturation */
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   backdrop-filter: blur(20px) saturate(180%);

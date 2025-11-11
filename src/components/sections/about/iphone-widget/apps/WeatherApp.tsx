@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, MapPin, Search, X } from 'lucide-react';
+import { MapPin, Search, X } from 'lucide-react';
 import {
   getCurrentWeather,
   getForecast,
@@ -21,8 +21,8 @@ import styles from './WeatherApp.module.css';
  * - 7-day forecast with daily cards
  * - City selector for changing location
  * - Scrollable forecast list
- * - Back button to return to home screen
  * - Loading and error states
+ * - Syncs selected city with WeatherWidget via localStorage
  *
  * @param props - WeatherApp props
  */
@@ -52,18 +52,18 @@ export const WeatherApp: React.FC<WeatherAppProps> = ({
   const [isSearching, setIsSearching] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
 
-  // Load saved city from session storage on mount
+  // Load saved city from localStorage on mount
   useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
-        const savedCity = sessionStorage.getItem('selectedCity');
+        const savedCity = localStorage.getItem('selectedCity');
         if (savedCity) {
           const city: City = JSON.parse(savedCity);
           setSelectedCity(city.name);
           setCoordinates({ lat: city.lat, lon: city.lon });
         }
       } catch (err) {
-        console.error('Failed to load city from session storage:', err);
+        console.error('Failed to load city from localStorage:', err);
       }
     }
   }, []);
@@ -94,10 +94,6 @@ export const WeatherApp: React.FC<WeatherAppProps> = ({
     fetchWeatherData();
   }, [coordinates]);
 
-  const handleBackClick = () => {
-    onClose();
-  };
-
   const handleCitySelectorOpen = () => {
     setShowCitySelector(true);
     setSearchQuery('');
@@ -117,10 +113,10 @@ export const WeatherApp: React.FC<WeatherAppProps> = ({
     setSelectedCity(city.name);
     setCoordinates({ lat: city.lat, lon: city.lon });
 
-    // Store selected city in session storage
+    // Store selected city in localStorage
     if (typeof window !== 'undefined') {
       try {
-        sessionStorage.setItem(
+        localStorage.setItem(
           'selectedCity',
           JSON.stringify({
             name: city.name,
@@ -129,8 +125,10 @@ export const WeatherApp: React.FC<WeatherAppProps> = ({
             lon: city.lon,
           })
         );
+        // Dispatch custom event to notify WeatherWidget
+        window.dispatchEvent(new Event('cityChanged'));
       } catch (err) {
-        console.error('Failed to save city to session storage:', err);
+        console.error('Failed to save city to localStorage:', err);
       }
     }
 
@@ -185,13 +183,6 @@ export const WeatherApp: React.FC<WeatherAppProps> = ({
     >
       {/* Header */}
       <div className={styles.header}>
-        <button
-          className={styles.backButton}
-          onClick={handleBackClick}
-          aria-label="Back to home screen"
-        >
-          <ChevronLeft size={24} strokeWidth={2} />
-        </button>
         <div className={styles.cityName}>
           <MapPin size={16} strokeWidth={2} />
           <span>{selectedCity}</span>
