@@ -295,8 +295,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
                     repoUrl: project.links.github,
                   })
                 )}
-                githubUrl="https://github.com/yourusername"
-                linkedinUrl="https://linkedin.com/in/yourusername"
+                githubUrl="https://github.com/IvanIvanovJS"
+                linkedinUrl="https://linkedin.com/in/ivanov-webmorphism"
                 className={styles.iphoneWidget}
               />
             </motion.div>

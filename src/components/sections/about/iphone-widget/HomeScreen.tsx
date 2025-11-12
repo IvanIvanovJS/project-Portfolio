@@ -46,7 +46,6 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           alt="iPhone wallpaper"
           fill
           style={{ objectFit: 'cover', objectPosition: 'center' }}
-          priority={false}
         />
       </div>
 

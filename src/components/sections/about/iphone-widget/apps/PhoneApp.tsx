@@ -43,7 +43,6 @@ export const PhoneApp: React.FC<PhoneAppProps> = ({ personalInfo }) => {
             width={120}
             height={120}
             className={styles.profilePicture}
-            priority
           />
         </div>
 

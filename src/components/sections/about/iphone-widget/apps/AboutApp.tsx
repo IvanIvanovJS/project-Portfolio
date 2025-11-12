@@ -38,7 +38,6 @@ export const AboutApp: React.FC<AboutAppProps> = ({ personalInfo }) => {
             width={96}
             height={96}
             className={styles.profilePicture}
-            priority
           />
         </div>
 
