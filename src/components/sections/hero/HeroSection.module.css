@@ -341,6 +341,9 @@
   .ctaButton {
     display: none;
   }
+  .scrollButton {
+    margin-bottom: 2.5rem;
+  }
 
   .heroSection {
     height: auto;
@@ -348,12 +351,12 @@
     padding: 0;
     display: flex;
     flex-direction: column;
-    margin-bottom: 4rem;
+    margin-bottom: 5rem;
   }
   .sceneBackground {
     position: relative;
     width: 100%;
-    height: 60vh;
+    height: 55vh;
     margin-bottom: var(--spacing-lg);
   }
   .contentContainer {
@@ -364,7 +367,7 @@
     bottom: 0;
     transform: none;
     width: 100%;
-    max-height: 40vh;
+    max-height: 45vh;
     padding: 0 var(--spacing-md) var(--spacing-xl);
     align-items: center;
     text-align: center;
