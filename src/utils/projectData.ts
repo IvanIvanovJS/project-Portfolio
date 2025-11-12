@@ -111,8 +111,7 @@ export const MOCK_PROJECTS: ProjectData[] = [
       'Content management system for portfolio websites with drag-and-drop page builder.',
     longDescription:
       'Built a flexible CMS specifically designed for portfolio websites, featuring a visual page builder, media management, and SEO optimization tools. Supports multiple themes and custom component creation.',
-    image:
-      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
+    image: '/images/Kirka-Landing.png',
     technologies: [
       { name: 'Next.js', color: '#000000' },
       { name: 'TypeScript', color: '#3178C6' },
@@ -123,9 +122,7 @@ export const MOCK_PROJECTS: ProjectData[] = [
     category: 'web',
     status: 'planned',
     startDate: '2024-07-01',
-    links: {
-      github: 'https://github.com/username/portfolio-cms',
-    },
+    links: {},
     features: [
       'Visual drag-and-drop page builder',
       'Media library management',

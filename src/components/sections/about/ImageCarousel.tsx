@@ -301,6 +301,16 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't handle keyboard events if user is typing in an input/textarea
+      const target = e.target as HTMLElement;
+      if (
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.isContentEditable
+      ) {
+        return;
+      }
+
       if (e.key === 'ArrowLeft') {
         goToPrevious();
       } else if (e.key === 'ArrowRight') {

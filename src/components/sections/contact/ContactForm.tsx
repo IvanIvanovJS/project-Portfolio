@@ -40,7 +40,6 @@ export const ContactForm: React.FC<ContactFormProps> = () => {
   >('idle');
   const [rateLimitResetAt, setRateLimitResetAt] = useState<number | null>(null);
   const [retryAfter, setRetryAfter] = useState<number>(0);
-  const [showToast, setShowToast] = useState(false);
 
   // Countdown timer for rate limiting
   useEffect(() => {
@@ -62,17 +61,6 @@ export const ContactForm: React.FC<ContactFormProps> = () => {
       return () => clearInterval(interval);
     }
   }, [submitStatus, rateLimitResetAt]);
-
-  // Toast notification for success
-  useEffect(() => {
-    if (submitStatus === 'success') {
-      setShowToast(true);
-      const timer = setTimeout(() => {
-        setShowToast(false);
-      }, 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [submitStatus]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -375,7 +363,7 @@ export const ContactForm: React.FC<ContactFormProps> = () => {
       )}
 
       {/* Toast Notification */}
-      {showToast && submitStatus === 'success' && (
+      {submitStatus === 'success' && (
         <div className={styles.toast} role="status" aria-live="polite">
           <CheckCircle size={20} />
           <span>Message sent successfully!</span>

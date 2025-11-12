@@ -78,6 +78,9 @@
   /* Optimize for touch */
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  /* Allow text selection and input */
+  user-select: text;
+  -webkit-user-select: text;
 }
 .input::placeholder,
 .textarea::placeholder {
