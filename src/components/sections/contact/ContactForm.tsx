@@ -62,6 +62,21 @@ export const ContactForm: React.FC<ContactFormProps> = () => {
     }
   }, [submitStatus, rateLimitResetAt]);
 
+  // Auto-hide success, network-error, and error messages after 5 seconds
+  useEffect(() => {
+    if (
+      submitStatus === 'success' ||
+      submitStatus === 'network-error' ||
+      submitStatus === 'error'
+    ) {
+      const timer = setTimeout(() => {
+        setSubmitStatus('idle');
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [submitStatus]);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -359,14 +374,6 @@ export const ContactForm: React.FC<ContactFormProps> = () => {
           >
             Try Again
           </button>
-        </div>
-      )}
-
-      {/* Toast Notification */}
-      {submitStatus === 'success' && (
-        <div className={styles.toast} role="status" aria-live="polite">
-          <CheckCircle size={20} />
-          <span>Message sent successfully!</span>
         </div>
       )}
     </form>
