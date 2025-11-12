@@ -127,9 +127,7 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
               {activeApp === 'phone' && (
                 <PhoneApp personalInfo={personalInfo} />
               )}
-              {activeApp === 'email' && (
-                <EmailApp personalInfo={personalInfo} />
-              )}
+              {activeApp === 'email' && <EmailApp />}
               {activeApp === 'weather' && (
                 <WeatherApp onClose={handleAppClose} />
               )}

@@ -2,7 +2,6 @@
 
 import React, { useState, FormEvent } from 'react';
 import { Mail, Send, CheckCircle, AlertCircle } from 'lucide-react';
-import { PersonalInfo } from '../types';
 import styles from './EmailApp.module.css';
 
 /**
@@ -16,18 +15,17 @@ import styles from './EmailApp.module.css';
  * - Send button with loading state
  * - Success/error feedback with glassmorphism toast
  * - iOS Mail app styling with glassmorphism
- *
- * @param props - EmailApp props
+ * - Integration with /api/contact endpoint
+ * - Honeypot spam protection
+ * - Shake animation for validation errors
  */
-export interface EmailAppProps {
-  personalInfo: PersonalInfo;
-}
 
 interface FormData {
   name: string;
   email: string;
   subject: string;
   message: string;
+  _honeypot?: string;
 }
 
 interface FormErrors {
@@ -39,12 +37,13 @@ interface FormErrors {
 
 type ToastType = 'success' | 'error' | null;
 
-export const EmailApp: React.FC<EmailAppProps> = ({ personalInfo }) => {
+export const EmailApp: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     subject: '',
     message: '',
+    _honeypot: '',
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -63,37 +62,43 @@ export const EmailApp: React.FC<EmailAppProps> = ({ personalInfo }) => {
   };
 
   /**
-   * Validate form fields
+   * Validate form fields (matching main contact form validation)
    */
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
 
-    // Name validation
+    // Name validation (2-100 characters)
     if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+      newErrors.name = 'This field is required';
     } else if (formData.name.trim().length < 2) {
       newErrors.name = 'Name must be at least 2 characters';
+    } else if (formData.name.trim().length > 100) {
+      newErrors.name = 'Name must not exceed 100 characters';
     }
 
     // Email validation
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = 'This field is required';
     } else if (!isValidEmail(formData.email)) {
       newErrors.email = 'Please enter a valid email address';
     }
 
-    // Subject validation
+    // Subject validation (3-200 characters)
     if (!formData.subject.trim()) {
-      newErrors.subject = 'Subject is required';
+      newErrors.subject = 'This field is required';
     } else if (formData.subject.trim().length < 3) {
       newErrors.subject = 'Subject must be at least 3 characters';
+    } else if (formData.subject.trim().length > 200) {
+      newErrors.subject = 'Subject must not exceed 200 characters';
     }
 
-    // Message validation
+    // Message validation (10-5000 characters)
     if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
+      newErrors.message = 'This field is required';
     } else if (formData.message.trim().length < 10) {
       newErrors.message = 'Message must be at least 10 characters';
+    } else if (formData.message.trim().length > 5000) {
+      newErrors.message = 'Message must not exceed 5000 characters';
     }
 
     setErrors(newErrors);
@@ -126,13 +131,17 @@ export const EmailApp: React.FC<EmailAppProps> = ({ personalInfo }) => {
   };
 
   /**
-   * Handle form submission
+   * Handle form submission via API endpoint
    */
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Validate form
     if (!validateForm()) {
+      // Add shake animation to form
+      const formElement = e.currentTarget;
+      formElement.classList.add(styles.shake);
+      setTimeout(() => formElement.classList.remove(styles.shake), 500);
       showToast('error', 'Please fix the errors in the form');
       return;
     }
@@ -140,18 +149,43 @@ export const EmailApp: React.FC<EmailAppProps> = ({ personalInfo }) => {
     setIsSubmitting(true);
 
     try {
-      // Create mailto link with form data
-      const mailtoLink = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
-        formData.subject
-      )}&body=${encodeURIComponent(
-        `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-      )}`;
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-      // Open default mail client
-      window.location.href = mailtoLink;
+      const data = await response.json();
 
-      // Show success message
-      showToast('success', 'Opening your email client...');
+      if (!response.ok) {
+        // Handle different error types
+        if (response.status === 429) {
+          // Rate limit error
+          const retryAfter = data.retryAfter || 60;
+          const minutes = Math.ceil(retryAfter / 60);
+          showToast(
+            'error',
+            `Too many attempts. Please wait ${minutes} minute${minutes > 1 ? 's' : ''} before trying again.`
+          );
+        } else if (response.status === 400 && data.details) {
+          // Validation errors from server
+          setErrors(data.details);
+          showToast('error', 'Please fix the errors in the form');
+        } else {
+          // Generic error
+          showToast(
+            'error',
+            data.message || 'Failed to send message. Please try again.'
+          );
+        }
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Success - show checkmark animation
+      showToast('success', 'Message sent successfully!');
 
       // Reset form after short delay
       setTimeout(() => {
@@ -160,12 +194,16 @@ export const EmailApp: React.FC<EmailAppProps> = ({ personalInfo }) => {
           email: '',
           subject: '',
           message: '',
+          _honeypot: '',
         });
         setIsSubmitting(false);
-      }, 1000);
+      }, 1500);
     } catch (error) {
       console.error('Error sending email:', error);
-      showToast('error', 'Failed to open email client. Please try again.');
+      showToast(
+        'error',
+        'Network error. Please check your connection and try again.'
+      );
       setIsSubmitting(false);
     }
   };
@@ -281,6 +319,18 @@ export const EmailApp: React.FC<EmailAppProps> = ({ personalInfo }) => {
             </span>
           )}
         </div>
+
+        {/* Honeypot Field - Hidden from users, visible to bots */}
+        <input
+          type="text"
+          name="_honeypot"
+          value={formData._honeypot}
+          onChange={handleChange}
+          className={styles.honeypot}
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+        />
 
         {/* Send Button */}
         <button
