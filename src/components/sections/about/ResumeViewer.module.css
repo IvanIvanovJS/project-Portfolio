@@ -1,0 +1,213 @@
+/* Resume Viewer Modal Styles */
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  backdrop-filter: blur(8px) saturate(120%);
+  z-index: 9998;
+  cursor: pointer;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: 90vw;
+  max-width: 1200px;
+  height: 85vh;
+  min-height: 75vh;
+  max-height: 85vh;
+  background: var(--glass-bg, rgba(255, 255, 255, 0.08));
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.15));
+  border-radius: 20px;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.3),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+    0 20px 60px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-lg, 1.5rem) var(--spacing-xl, 2rem);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3, 0.75rem);
+}
+
+.headerIcon {
+  color: var(--color-primary, #baffe9);
+  flex-shrink: 0;
+}
+
+.headerTitle {
+  font-size: var(--font-size-xl, 1.25rem);
+  font-weight: 600;
+  color: var(--fg-primary, rgba(255, 255, 255, 0.9));
+  margin: 0;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3, 0.75rem);
+}
+
+/* Buttons */
+.downloadButton,
+.closeButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2, 0.5rem);
+  padding: var(--spacing-2, 0.5rem) var(--spacing-4, 1rem);
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  color: var(--fg-primary, rgba(255, 255, 255, 0.9));
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.3),
+    0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.downloadButton:hover,
+.closeButton:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.4),
+    0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.downloadButton:active,
+.closeButton:active {
+  transform: translateY(0);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.2),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.downloadButton:focus-visible,
+.closeButton:focus-visible {
+  outline: 2px solid var(--color-primary, #baffe9);
+  outline-offset: 2px;
+}
+
+.closeButton {
+  padding: var(--spacing-2, 0.5rem);
+}
+
+/* Iframe Container */
+.iframeContainer {
+  flex: 1;
+  padding: var(--spacing-lg, 1.5rem);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .modal {
+    width: 95vw;
+    height: 90vh;
+    border-radius: 16px;
+  }
+
+  .header {
+    padding: var(--spacing-md, 1rem) var(--spacing-lg, 1.5rem);
+  }
+
+  .headerTitle {
+    font-size: var(--font-size-lg, 1.125rem);
+  }
+
+  .downloadButton span {
+    display: none;
+  }
+
+  .downloadButton {
+    padding: var(--spacing-2, 0.5rem);
+  }
+
+  .iframeContainer {
+    padding: var(--spacing-md, 1rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .modal {
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+    max-width: none;
+  }
+
+  .header {
+    padding: var(--spacing-3, 0.75rem) var(--spacing-md, 1rem);
+  }
+
+  .headerIcon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .headerTitle {
+    font-size: var(--font-size-base, 1rem);
+  }
+
+  .headerActions {
+    gap: var(--spacing-2, 0.5rem);
+  }
+
+  .downloadButton,
+  .closeButton {
+    padding: var(--spacing-2, 0.5rem);
+  }
+
+  .downloadButton svg,
+  .closeButton svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .iframeContainer {
+    padding: var(--spacing-3, 0.75rem);
+  }
+}

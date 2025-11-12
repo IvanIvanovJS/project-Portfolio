@@ -2,10 +2,11 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Phone, Github } from 'lucide-react';
+import { Mail, MapPin, Phone, Github, FileText } from 'lucide-react';
 import styles from './AboutSection.module.css';
 import { ImageCarousel } from './ImageCarousel';
 import { IPhoneWidget } from './iphone-widget/IPhoneWidget';
+import { ResumeViewer } from './ResumeViewer';
 import { getAllProjects } from '@/utils/projectData';
 import type { AboutData } from '@/types';
 import type { Project } from './iphone-widget/types';
@@ -98,6 +99,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
     undefined
   );
   const [isCarouselVisible, setIsCarouselVisible] = useState(false);
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
   const hasBeenVisible = useRef(false);
 
   useEffect(() => {
@@ -179,7 +181,18 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
                   <Github size={26} />
                 </a>
               </div>
-              <p className={styles.jobTitle}>{personalInfo.title}</p>
+              <div className={styles.jobTitleRow}>
+                <p className={styles.jobTitle}>{personalInfo.title}</p>
+                <button
+                  onClick={() => setIsResumeOpen(true)}
+                  className={styles.resumeButton}
+                  aria-label="View resume"
+                  title="View Resume"
+                >
+                  <FileText size={18} />
+                  <span>Resume</span>
+                </button>
+              </div>
               <p className={styles.bio}>{personalInfo.bio}</p>
 
               <div className={styles.contactInfo} role="list">
@@ -335,6 +348,12 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
           </motion.div>
         </div>
       </div>
+
+      {/* Resume Viewer Modal */}
+      <ResumeViewer
+        isOpen={isResumeOpen}
+        onClose={() => setIsResumeOpen(false)}
+      />
     </section>
   );
 };
