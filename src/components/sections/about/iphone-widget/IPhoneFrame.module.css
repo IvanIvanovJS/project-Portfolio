@@ -11,7 +11,7 @@
   outline-offset: 3px;
   border-radius: clamp(24px, 6vw, 40px);
   scale: 0.6;
-  top: -130px;
+  margin-top: -130px;
   overflow: visible;
 }
 .iphoneFrame:hover {
@@ -263,7 +263,7 @@
 @media (max-width: 768px) {
   .iphoneFrame {
     scale: 1;
-    top: 0;
+    margin-top: 0;
   }
   .iphoneFrame:hover {
     scale: 1;

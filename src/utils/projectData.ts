@@ -7,13 +7,12 @@ import { ProjectData } from '@/types/project';
 export const MOCK_PROJECTS: ProjectData[] = [
   {
     id: 'project-1',
-    title: 'E-Commerce Platform',
+    title: 'xArtify - Art Platform',
     description:
-      'A modern e-commerce platform with real-time inventory management and seamless checkout experience.',
+      'Modern art marketplace and learning platform designed to connect artists with art enthusiasts worldwide.',
     longDescription:
-      'Built a full-stack e-commerce solution featuring real-time inventory tracking, secure payment processing, and an intuitive admin dashboard. Implemented advanced search and filtering capabilities with optimized performance.',
-    image:
-      'https://images.unsplash.com/photo-1592210454359-9043f067919b?w=800&h=600&fit=crop',
+      'xArtify is a comprehensive art marketplace and learning platform designed to connect artists with art enthusiasts worldwide. Built with modern web technologies, it provides a seamless experience for discovering, purchasing, and learning about art while empowering artists with professional tools to showcase and monetize their work.',
+    image: '/images/xArtify-pricing.png',
     gallery: [
       '/images/projects/ecommerce-1.jpg',
       '/images/projects/ecommerce-2.jpg',
@@ -29,11 +28,11 @@ export const MOCK_PROJECTS: ProjectData[] = [
     ],
     category: 'web',
     status: 'completed',
-    startDate: '2024-01-15',
-    endDate: '2024-06-30',
+    startDate: '2025-08-30',
+    endDate: '',
     links: {
-      live: 'https://example-ecommerce.com',
-      github: 'https://github.com/username/ecommerce-platform',
+      live: 'https://xartify.com',
+      github: 'https://github.com/IvanIvanovJS/xArtify-structure-preview',
     },
     features: [
       'Real-time inventory management',
@@ -45,9 +44,9 @@ export const MOCK_PROJECTS: ProjectData[] = [
   },
   {
     id: 'project-2',
-    title: 'Task Management App',
+    title: 'Webmorphism - Portfolio',
     description:
-      'Collaborative task management application with real-time updates and team collaboration features.',
+      'Portfolio website built with Next.js 14, TypeScript, and glassmorphism design. Features interactive 3D elements, responsive design, and smooth animations',
     longDescription:
       'Developed a comprehensive task management solution with drag-and-drop functionality, real-time collaboration, and advanced project tracking. Features include Kanban boards, Gantt charts, and team analytics.',
     image:

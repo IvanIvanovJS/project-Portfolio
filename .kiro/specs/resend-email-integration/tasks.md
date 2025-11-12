@@ -1,0 +1,146 @@
+# Implementation Plan
+
+- [x] 1. Install dependencies and setup project structure
+  - Install `resend` npm package
+  - Verify `.env` file contains `RESEND_API_KEY`
+  - Create directory structure for email utilities (`src/lib/email/`, `src/lib/validation/`, `src/lib/security/`)
+  - _Requirements: 4.1, 4.4_
+
+- [ ] 2. Create email service and templates
+  - [ ] 2.1 Create email template utilities
+    - Write `src/lib/email/templates.ts` with notification and auto-reply HTML templates
+    - Include Google Fonts link for Lavishly Yours font in auto-reply template
+    - Implement signature styling in bottom right corner
+    - Add proper HTML escaping for user inputs
+    - _Requirements: 2.2, 2.3, 2.4, 2.5, 7.3, 7.5_
+  - [ ] 2.2 Implement email service
+    - Write `src/lib/email/emailService.ts` with EmailService class
+    - Initialize Resend client with API key from environment
+    - Implement `sendNotificationEmail()` method to send to ivanov@webmorphism.com
+    - Implement `sendAutoReplyEmail()` method to send to submitter
+    - Add error handling for Resend API failures
+    - Set proper reply-to headers
+    - _Requirements: 1.1, 1.2, 2.1, 4.1, 4.2, 7.2_
+
+- [ ] 3. Create validation and security utilities
+  - [ ] 3.1 Implement form validation utilities
+    - Write `src/lib/validation/contactValidation.ts`
+    - Implement `validateContactForm()` with all validation rules
+    - Implement `sanitizeInput()` for HTML escaping
+    - Implement `isValidEmail()` for email format validation
+    - Add validation error messages
+    - _Requirements: 6.1, 6.2, 6.3, 6.4, 7.5_
+  - [ ] 3.2 Implement rate limiter
+    - Write `src/lib/security/rateLimiter.ts` with RateLimiter class
+    - Implement in-memory Map storage for rate limit tracking
+    - Configure 3 requests per 60 minutes per IP
+    - Implement automatic cleanup of expired entries
+    - Add methods to check and update rate limits
+    - _Requirements: 3.3, 3.4, 3.5_
+
+- [ ] 4. Create API route handler
+  - [ ] 4.1 Implement main API route
+    - Create `src/app/api/contact/route.ts` with POST handler
+    - Parse and validate request body
+    - Extract IP address from request headers
+    - Implement honeypot field check (reject if filled)
+    - Apply rate limiting per IP address
+    - _Requirements: 3.1, 3.2, 3.3, 3.4, 4.2, 4.3, 4.4, 4.5_
+  - [ ] 4.2 Integrate email sending in API route
+    - Call EmailService to send notification and auto-reply in parallel
+    - Handle success responses
+    - Handle validation errors (400 status)
+    - Handle rate limit errors (429 status)
+    - Handle server errors (500 status)
+    - Return appropriate JSON responses
+    - _Requirements: 1.1, 1.2, 1.3, 1.4, 2.1, 4.5_
+
+- [ ] 5. Update main contact form
+  - [ ] 5.1 Add honeypot field to main contact form
+    - Add hidden `_honeypot` field to ContactForm component
+    - Style field to be invisible but accessible to bots (position: absolute, left: -9999px)
+    - Ensure field is not in tab order
+    - _Requirements: 3.1, 3.2_
+  - [ ] 5.2 Implement form submission logic
+    - Update `handleSubmit` to call `/api/contact` endpoint
+    - Include honeypot field in submission data
+    - Handle loading state (disable button, show spinner)
+    - Handle success response (show success message, clear form)
+    - Handle validation errors (display inline errors)
+    - Handle rate limit errors (show countdown timer)
+    - Handle network errors (show retry button)
+    - Clear validation errors when user types
+    - _Requirements: 1.1, 1.3, 1.4, 1.5, 6.4, 6.5_
+  - [ ] 5.3 Enhance error handling UI
+    - Add error icons to inline validation messages
+    - Implement toast notifications for success/error feedback
+    - Add retry button for network errors
+    - Add countdown timer for rate limit errors
+    - Add smooth transitions for error/success states
+    - Improve loading indicator with progress animation
+    - _Requirements: 1.3, 1.4, 6.1, 6.2, 6.3_
+
+- [ ] 6. Create or update iPhone Mail App
+  - [ ] 6.1 Check if MailApp exists, create if needed
+    - Check for existing `src/components/sections/about/iphone-widget/apps/MailApp.tsx`
+    - If exists, update it; if not, create new component
+    - Ensure component follows existing iPhone app patterns
+    - _Requirements: 5.1, 5.2_
+  - [ ] 6.2 Implement Mail App form functionality
+    - Add form fields for name, email, subject, message (if not present)
+    - Add hidden honeypot field
+    - Implement form validation matching main contact form
+    - Implement form submission to `/api/contact` endpoint
+    - Handle loading state with iOS-style overlay
+    - Handle success with checkmark animation
+    - Handle errors with iOS-style alert dialogs
+    - Add shake animation for validation errors
+    - Clear form on successful submission
+    - _Requirements: 5.1, 5.3, 5.4, 5.5, 1.2, 1.3, 1.4_
+  - [ ] 6.3 Register Mail App in app configuration
+    - Update `src/components/sections/about/iphone-widget/utils/appConfig.ts` if needed
+    - Ensure Mail app is marked as functional
+    - Verify app icon and color configuration
+    - Update AppContainer to handle 'email' app type
+    - _Requirements: 5.1_
+
+- [ ] 7. Testing and validation
+  - [ ] 7.1 Test main contact form
+    - Test successful submission flow
+    - Test validation errors for each field
+    - Test honeypot detection (should fail silently)
+    - Test rate limiting (submit 4 times quickly)
+    - Verify notification email received at ivanov@webmorphism.com
+    - Verify auto-reply email received with correct formatting
+    - Test error handling for network failures
+    - _Requirements: 1.1, 1.3, 1.4, 2.1, 3.2, 3.4, 6.1, 6.2, 6.3_
+  - [ ] 7.2 Test iPhone Mail App
+    - Test successful submission from widget
+    - Test validation errors
+    - Test honeypot detection
+    - Test rate limiting
+    - Verify emails sent correctly
+    - Test iOS-style error animations
+    - Test on mobile viewport
+    - _Requirements: 1.2, 5.3, 5.4, 5.5_
+  - [ ] 7.3 Verify security measures
+    - Confirm API key not exposed in client code
+    - Confirm API key not in network responses
+    - Test honeypot with automated tools
+    - Verify rate limiting works across both forms
+    - Check HTML sanitization in emails
+    - _Requirements: 4.1, 4.2, 4.3, 3.1, 3.2, 7.5_
+
+- [ ] 8. Documentation and cleanup
+  - [ ] 8.1 Update environment variables documentation
+    - Document required `RESEND_API_KEY` in README or .env.example
+    - Add setup instructions for Resend API
+    - Document rate limiting configuration
+    - _Requirements: 4.1_
+  - [ ] 8.2 Code cleanup and optimization
+    - Remove console.logs and debug code
+    - Optimize email sending (parallel execution)
+    - Add JSDoc comments to utility functions
+    - Ensure TypeScript types are properly defined
+    - Run linting and type checking
+    - _Requirements: All_
