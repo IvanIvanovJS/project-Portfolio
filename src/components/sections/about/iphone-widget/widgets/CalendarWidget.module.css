@@ -89,6 +89,7 @@
   margin-bottom: 4px;
   font-family:
     -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+  text-wrap: nowrap;
 }
 
 .dayNumber {
@@ -110,6 +111,7 @@
   margin-bottom: 4px;
   font-family:
     -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+  text-wrap: nowrap;
 }
 
 .appName {

@@ -62,7 +62,7 @@ const defaultData: AboutData = {
     },
     {
       id: '2',
-      src: '/images/gardeningHobby.jpg',
+      src: '/images/gardeningHobby.png',
       alt: 'Bell pepper garden',
       caption: '🌱 This is one of my hobbies - growing my own natural veggies',
       subCaption:

@@ -106,6 +106,7 @@
   color: rgba(255, 255, 255, 0.9);
   font-family:
     -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+  text-wrap: nowrap;
 }
 
 .temperature {
@@ -124,6 +125,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
+  text-wrap: nowrap;
 }
 
 .weatherIcon {
