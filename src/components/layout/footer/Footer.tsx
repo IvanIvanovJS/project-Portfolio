@@ -46,7 +46,7 @@ const socialLinks: SocialLink[] = [
   },
   {
     name: 'Twitter',
-    url: 'https://twitter.com/username',
+    url: 'https://x.com/IvanIvanov29303',
     icon: <Twitter size={20} />,
     ariaLabel: 'Visit Twitter profile',
   },
