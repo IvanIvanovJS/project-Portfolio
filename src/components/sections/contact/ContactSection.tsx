@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Phone, GithubIcon, LinkedinIcon } from 'lucide-react';
 import { ContactForm } from './ContactForm';
+import { OptimizedImage } from '@/components/ui/optimized-image/OptimizedImage';
 import styles from './ContactSection.module.css';
 
 interface ContactSectionProps {
@@ -29,6 +30,16 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 }) => {
   return (
     <section id="contact" className={styles.contactSection}>
+      {/* Optimized background image */}
+      <div className={styles.backgroundImage}>
+        <OptimizedImage
+          src="contactBackgroundV5"
+          alt="Contact section background"
+          fill
+          style={{ objectFit: 'cover', objectPosition: 'center' }}
+          priority={false}
+        />
+      </div>
       <div className={styles.container}>
         <motion.h2
           className={styles.title}

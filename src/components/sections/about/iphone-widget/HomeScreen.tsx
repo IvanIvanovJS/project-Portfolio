@@ -5,6 +5,7 @@ import { HomeScreenProps } from './types';
 import { APPS, DOCK_APPS } from './utils/appConfig';
 import { AppIcon } from './AppIcon';
 import { WidgetGrid } from './widgets';
+import { OptimizedImage } from '@/components/ui/optimized-image/OptimizedImage';
 import styles from './HomeScreen.module.css';
 
 /**
@@ -38,8 +39,16 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
   return (
     <div className={styles.homeScreen}>
-      {/* Animated gradient background */}
-      <div className={styles.wallpaper} aria-hidden="true" />
+      {/* Optimized wallpaper background */}
+      <div className={styles.wallpaper} aria-hidden="true">
+        <OptimizedImage
+          src="iphoneBackground"
+          alt="iPhone wallpaper"
+          fill
+          style={{ objectFit: 'cover', objectPosition: 'center' }}
+          priority={false}
+        />
+      </div>
 
       {/* Widget Grid - Weather and Calendar widgets */}
       <WidgetGrid onWeatherClick={handleWeatherClick} />

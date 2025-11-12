@@ -19,10 +19,6 @@
 .wallpaper {
   position: absolute;
   inset: 0;
-  background-image: url('/images/iphoneBackground.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   z-index: 0;
   /* Use hardware acceleration */
   transform: translateZ(0);

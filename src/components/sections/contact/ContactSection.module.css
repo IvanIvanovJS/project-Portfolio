@@ -9,17 +9,12 @@
   overflow: hidden;
 }
 
-/* Futuristic background image with creative blend */
-.contactSection::before {
-  content: '';
+/* Optimized background image container */
+.backgroundImage {
   position: absolute;
   inset: 0;
-  background-image: url('/images/contactBackgroundV5.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   opacity: 0.15;
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
 }
 
@@ -42,23 +37,18 @@
       transparent 85%,
       var(--bg-primary) 100%
     );
-  z-index: 1;
+  z-index: 2;
   pointer-events: none;
 }
 
-/* Additional radial gradient for depth */
-.contactSection > * {
-  position: relative;
-  z-index: 2;
-}
-
+/* Content above background and gradient */
 .container {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
   padding: 0 var(--spacing-xl, 2rem);
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
 .title {
