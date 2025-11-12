@@ -304,6 +304,7 @@
 @media (max-width: 768px) {
   .aboutSection {
     padding: var(--spacing-2xl, 3rem) 0;
+    margin-bottom: 4rem;
   }
   .container {
     padding: 0 var(--spacing-lg, 1.5rem);
@@ -329,6 +330,7 @@
   .personalInfoCard {
     order: 1;
     padding: var(--spacing-lg, 2rem);
+    margin-bottom: 2rem;
   }
   .experienceSection {
     order: 3;
@@ -336,6 +338,7 @@
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border-radius: 16px;
+    margin-bottom: 2rem;
   }
   .carouselColumn {
     position: relative;
@@ -350,11 +353,12 @@
     order: 1;
     width: 100%;
     padding: 0;
+    margin-bottom: 2rem;
   }
   .iphoneWidgetSection {
     order: 4;
     padding: var(--spacing-lg, 2rem);
-    margin-bottom: 4em;
+    margin-bottom: 0;
   }
   .timeline {
     padding-left: var(--spacing-4, 1.5rem);

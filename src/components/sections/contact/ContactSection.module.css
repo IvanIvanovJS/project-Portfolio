@@ -255,6 +255,7 @@
 @media (max-width: 768px) {
   .contactSection {
     padding: var(--spacing-2xl, 3rem) 0;
+    margin-bottom: 0;
   }
 
   .container {
