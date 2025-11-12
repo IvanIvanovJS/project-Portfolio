@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
+import { OptimizedImage } from '@/components/ui/optimized-image';
 import { motion } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
 import { ProjectData } from '@/types/project';
@@ -86,16 +86,15 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
           <div className={styles.backgroundImageLayer} aria-hidden="true">
             {project.image && !imageError ? (
               <div className={styles.imageContainer}>
-                <Image
+                <OptimizedImage
                   src={project.image}
                   alt=""
                   fill
+                  responsive
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
                   className={styles.projectImage}
                   style={{ objectFit: 'cover' }}
-                  loading="lazy"
                   onError={() => setImageError(true)}
-                  quality={85}
                 />
               </div>
             ) : (

@@ -1,5 +1,5 @@
 # Optimized Images Usage Guide
-Generated: 2025-11-12T13:11:36.983Z
+Generated: 2025-11-12T13:55:54.639Z
 
 ## How to Use
 Use Next.js `<Image>` component with `<picture>` for format fallbacks:

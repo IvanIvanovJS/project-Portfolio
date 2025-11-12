@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Pause, Play } from 'lucide-react';
-import Image from 'next/image';
+import { OptimizedImage } from '@/components/ui/optimized-image';
 import styles from './ImageCarousel.module.css';
 import type { CarouselImage } from '@/types';
 
@@ -352,10 +352,11 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
         >
           {/* Clone of last image for infinite loop */}
           <div key="clone-last" className={styles.slideItem}>
-            <Image
+            <OptimizedImage
               src={images[images.length - 1].src}
               alt={images[images.length - 1].alt}
               fill
+              responsive
               className={styles.carouselImage}
               style={{ objectFit: 'cover', objectPosition: 'center' }}
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -378,10 +379,11 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
           {/* Original images */}
           {images.map((image, index) => (
             <div key={index} className={styles.slideItem}>
-              <Image
+              <OptimizedImage
                 src={image.src}
                 alt={image.alt}
                 fill
+                responsive
                 className={styles.carouselImage}
                 style={{ objectFit: 'cover', objectPosition: 'center' }}
                 priority={index === 0}
@@ -400,10 +402,11 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
 
           {/* Clone of first image for infinite loop */}
           <div key="clone-first" className={styles.slideItem}>
-            <Image
+            <OptimizedImage
               src={images[0].src}
               alt={images[0].alt}
               fill
+              responsive
               className={styles.carouselImage}
               style={{ objectFit: 'cover', objectPosition: 'center' }}
               sizes="(max-width: 768px) 100vw, 50vw"

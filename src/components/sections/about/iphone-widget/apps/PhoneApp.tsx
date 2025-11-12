@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
+import { OptimizedImage } from '@/components/ui/optimized-image';
 import { Phone } from 'lucide-react';
 import { PersonalInfo } from '../types';
 import styles from './PhoneApp.module.css';
@@ -37,8 +37,8 @@ export const PhoneApp: React.FC<PhoneAppProps> = ({ personalInfo }) => {
       <div className={styles.contactCard}>
         {/* Profile Picture */}
         <div className={styles.avatarContainer}>
-          <Image
-            src="/images/iconProfilePicture.png"
+          <OptimizedImage
+            src="iconProfilePicture"
             alt={name}
             width={120}
             height={120}

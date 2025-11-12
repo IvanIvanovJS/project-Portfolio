@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
+import { OptimizedImage } from '@/components/ui/optimized-image';
 import { ExternalLink, Github } from 'lucide-react';
 import { Project } from '../types';
 import styles from './ProjectsApp.module.css';
@@ -42,10 +42,11 @@ export const ProjectsApp: React.FC<ProjectsAppProps> = ({ projects }) => {
               {/* Project Image */}
               {project.image && (
                 <div className={styles.imageContainer}>
-                  <Image
+                  <OptimizedImage
                     src={project.image}
                     alt={`${project.title} screenshot`}
                     fill
+                    responsive
                     style={{ objectFit: 'cover' }}
                     sizes="(max-width: 393px) 100vw, 393px"
                     className={styles.projectImage}

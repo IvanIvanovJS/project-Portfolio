@@ -54,15 +54,15 @@ const defaultData: AboutData = {
   images: [
     {
       id: '1',
-      src: '/images/mainPicture1.png',
-      alt: 'My profile picture',
+      src: 'gardeningHobby',
+      alt: 'My main hobby',
       caption: "👋 Hey, it's me! I'm glad you're here!",
       subCaption:
         'Coding is my passion — feel free to reach out for a collaboration',
     },
     {
       id: '2',
-      src: '/images/gardeningHobby.png',
+      src: 'mainHobby-min',
       alt: 'Bell pepper garden',
       caption: '🌱 This is one of my hobbies - growing my own natural veggies',
       subCaption:
@@ -70,7 +70,7 @@ const defaultData: AboutData = {
     },
     {
       id: '3',
-      src: '/images/familyBrunch.png',
+      src: 'familyBrunch',
       alt: 'Family moments - brunch time',
       caption:
         "❤️ One of my favorite things to do for my family — it's brunch time!",
@@ -79,7 +79,7 @@ const defaultData: AboutData = {
     },
     {
       id: '4',
-      src: '/images/dubaiSunraise.png',
+      src: 'dubaiSunraise',
       alt: 'Sunraise on Palm Jumeirah',
       caption: '🛫 When a 5 AM sunrise makes you smile!',
       subCaption:

@@ -12,7 +12,7 @@ export const MOCK_PROJECTS: ProjectData[] = [
       'Modern art marketplace and learning platform designed to connect artists with art enthusiasts worldwide.',
     longDescription:
       'xArtify is a comprehensive art marketplace and learning platform designed to connect artists with art enthusiasts worldwide. Built with modern web technologies, it provides a seamless experience for discovering, purchasing, and learning about art while empowering artists with professional tools to showcase and monetize their work.',
-    image: '/images/xArtify-pricing.png',
+    image: 'xArtify-pricing',
     gallery: [
       '/images/projects/ecommerce-1.jpg',
       '/images/projects/ecommerce-2.jpg',
@@ -49,7 +49,7 @@ export const MOCK_PROJECTS: ProjectData[] = [
       'Portfolio website - Features interactive 3D elements, responsive design, and smooth animations',
     longDescription:
       'Portfolio website built with Next.js 14, TypeScript, and glassmorphism design. Features interactive 3D elements, responsive design, and smooth animations',
-    image: '/images/Portfolio-HomeV2.png',
+    image: 'Portfolio-HomeV2',
     gallery: [
       '/images/projects/taskmanager-1.jpg',
       '/images/projects/taskmanager-2.jpg',
@@ -81,7 +81,7 @@ export const MOCK_PROJECTS: ProjectData[] = [
       'Web application for managing myths and legends, developed as a final exam project.',
     longDescription:
       ' Web application for managing myths and legends, developed as a final exam project',
-    image: '/images/Myth-and-Legends-Banner.png',
+    image: 'Myth-and-Legends-Banner',
     technologies: [
       { name: 'Node.js', color: '' },
       { name: 'JavaScript', color: '' },
@@ -111,7 +111,7 @@ export const MOCK_PROJECTS: ProjectData[] = [
       'Visual AI Agent for creating websites, focusing on component-based design and an interactive AI assistant.',
     longDescription:
       'Built a flexible CMS specifically designed for portfolio websites, featuring a visual page builder, media management, and SEO optimization tools. Supports multiple themes and custom component creation.',
-    image: '/images/Kirka-Landing.png',
+    image: 'Kirka-Landing',
     technologies: [
       { name: 'React', color: '' },
       { name: 'JavaScript', color: '' },

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
+import { OptimizedImage } from '@/components/ui/optimized-image';
 import { MapPin, Mail, Phone } from 'lucide-react';
 import { PersonalInfo } from '../types';
 import styles from './AboutApp.module.css';
@@ -32,8 +32,8 @@ export const AboutApp: React.FC<AboutAppProps> = ({ personalInfo }) => {
       {/* Profile Section */}
       <div className={styles.profileSection}>
         <div className={styles.avatarContainer}>
-          <Image
-            src="/images/iconProfilePicture.png"
+          <OptimizedImage
+            src="iconProfilePicture"
             alt={name}
             width={96}
             height={96}

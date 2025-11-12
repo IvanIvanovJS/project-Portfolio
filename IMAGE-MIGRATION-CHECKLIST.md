@@ -11,72 +11,57 @@
 
 ### AboutSection.tsx
 
-- [ ] Намерете всички `<img>` или `<Image>` тагове
-- [ ] Заменете с `<OptimizedImage>`
-- [ ] Добавете `responsive` prop за големи изображения
+- [x] Намерете всички `<img>` или `<Image>` тагове
+- [x] Заменете с `<OptimizedImage>`
+- [x] Добавете `responsive` prop за големи изображения
 - [ ] Тествайте визуално
 
 **Изображения в AboutSection:**
 
-- `familyBrunch.png` → `familyBrunch`
-- `gardeningHobby.png` → `gardeningHobby`
-- `mainHobby-min.png` → `mainHobby-min`
-
-### ContactSection.tsx
-
-- [ ] Намерете background изображения
-- [ ] Заменете с `<OptimizedImage fill>`
-- [ ] Добавете `priority` ако е above-the-fold
-- [ ] Тествайте визуално
-
-**Изображения в ContactSection:**
-
-- `contactBackgroundV5.png` → `contactBackgroundV5`
+- `familyBrunch.png` → `familyBrunch` ✅
+- `gardeningHobby.png` → `gardeningHobby` ✅
+- `mainHobby-min.png` → `mainHobby-min` ✅
+- `dubaiSunraise.png` → `dubaiSunraise` ✅
 
 ### ImageCarousel.tsx
 
-- [ ] Намерете carousel изображения
-- [ ] Заменете с `<OptimizedImage responsive>`
-- [ ] Добавете подходящ `sizes` атрибут
+- [x] Намерете carousel изображения
+- [x] Заменете с `<OptimizedImage responsive>`
+- [x] Добавете подходящ `sizes` атрибут
 - [ ] Тествайте carousel функционалността
 
 **Изображения в Carousel:**
 
-- `dubaiSunraise.png` → `dubaiSunraise`
-- Други carousel изображения...
+- Всички carousel изображения ✅
 
 ### ProjectCard компоненти
 
-- [ ] Намерете project screenshots
-- [ ] Заменете с `<OptimizedImage responsive>`
-- [ ] Добавете `sizes="(max-width: 768px) 100vw, 50vw"`
+- [x] Намерете project screenshots
+- [x] Заменете с `<OptimizedImage responsive>`
+- [x] Добавете `sizes="(max-width: 768px) 100vw, 50vw"`
 - [ ] Тествайте grid layout
 
 **Project изображения:**
 
-- `Portfolio-Home.png` → `Portfolio-Home`
-- `Portfolio-HomeV2.png` → `Portfolio-HomeV2`
-- `Kirka-Landing.png` → `Kirka-Landing`
-- `Myth-and-Legends-Banner.png` → `Myth-and-Legends-Banner`
-- `xArtify-pricing.png` → `xArtify-pricing`
+- `Portfolio-Home.png` → `Portfolio-Home` ✅
+- `Portfolio-HomeV2.png` → `Portfolio-HomeV2` ✅
+- `Kirka-Landing.png` → `Kirka-Landing` ✅
+- `Myth-and-Legends-Banner.png` → `Myth-and-Legends-Banner` ✅
+- `xArtify-pricing.png` → `xArtify-pricing` ✅
 
-### Header/Navigation
+### iPhone Widget Apps
 
-- [ ] Намерете logo или profile изображения
-- [ ] Заменете с `<OptimizedImage>`
-- [ ] Добавете `priority` за logo
-- [ ] Тествайте навигацията
+- [x] AboutApp.tsx - profile picture ✅
+- [x] PhoneApp.tsx - profile picture ✅
+- [x] ProjectsApp.tsx - project images ✅
 
-**Изображения в Header:**
+**Изображения в iPhone Widget:**
 
-- `iconProfilePicture.png` → `iconProfilePicture`
+- `iconProfilePicture.png` → `iconProfilePicture` ✅
 
-### Hero Section
+### ContactSection.tsx
 
-- [ ] Намерете hero background
-- [ ] Заменете с `<OptimizedImage fill priority>`
-- [ ] Добавете `style={{ objectFit: 'cover' }}`
-- [ ] Тествайте на различни екрани
+- [x] Няма background изображения за миграция ✅
 
 **Hero изображения:**
 

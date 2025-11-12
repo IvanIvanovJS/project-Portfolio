@@ -273,7 +273,7 @@ function generateUsageDoc(results) {
 
     for (const [format, sizes] of Object.entries(result.formats)) {
       doc.push(`**${format.toUpperCase()}:**\n`);
-      for (const [sizeName, info] of Object.entries(sizes)) {
+      for (const [, info] of Object.entries(sizes)) {
         const savings = ((1 - info.size / result.originalSize) * 100).toFixed(
           1
         );
