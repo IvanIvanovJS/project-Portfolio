@@ -1,7 +1,14 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Send, AlertCircle, CheckCircle, Clock, WifiOff } from 'lucide-react';
+import {
+  Send,
+  AlertCircle,
+  CheckCircle,
+  Clock,
+  WifiOff,
+  X,
+} from 'lucide-react';
 import styles from './ContactForm.module.css';
 
 // Props interface - onSubmit will be used in subtask 3.3
@@ -62,13 +69,9 @@ export const ContactForm: React.FC<ContactFormProps> = () => {
     }
   }, [submitStatus, rateLimitResetAt]);
 
-  // Auto-hide success, network-error, and error messages after 5 seconds
+  // Auto-hide success message after 5 seconds
   useEffect(() => {
-    if (
-      submitStatus === 'success' ||
-      submitStatus === 'network-error' ||
-      submitStatus === 'error'
-    ) {
+    if (submitStatus === 'success') {
       const timer = setTimeout(() => {
         setSubmitStatus('idle');
       }, 5000);
@@ -325,20 +328,40 @@ export const ContactForm: React.FC<ContactFormProps> = () => {
       {/* Status Messages */}
       {submitStatus === 'success' && (
         <div className={styles.successMessage} role="status">
-          <CheckCircle size={18} />
-          <span>
-            Message sent successfully! I&apos;ll get back to you soon.
-          </span>
+          <div className={styles.messageContent}>
+            <CheckCircle size={18} />
+            <span>
+              Message sent successfully! I&apos;ll get back to you soon.
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setSubmitStatus('idle')}
+            className={styles.closeButton}
+            aria-label="Close message"
+          >
+            <X size={18} />
+          </button>
         </div>
       )}
 
       {submitStatus === 'rate-limit' && (
         <div className={styles.rateLimitMessage} role="alert">
-          <Clock size={18} />
-          <span>
-            Too many attempts. Please wait {Math.floor(retryAfter / 60)}:
-            {String(retryAfter % 60).padStart(2, '0')} before trying again.
-          </span>
+          <div className={styles.messageContent}>
+            <Clock size={18} />
+            <span>
+              Too many attempts. Please wait {Math.floor(retryAfter / 60)}:
+              {String(retryAfter % 60).padStart(2, '0')} before trying again.
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setSubmitStatus('idle')}
+            className={styles.closeButton}
+            aria-label="Close message"
+          >
+            <X size={18} />
+          </button>
         </div>
       )}
 
@@ -348,13 +371,23 @@ export const ContactForm: React.FC<ContactFormProps> = () => {
             <WifiOff size={18} />
             <p>Connection lost. Please check your internet and try again.</p>
           </div>
-          <button
-            type="button"
-            onClick={() => setSubmitStatus('idle')}
-            className={styles.retryButton}
-          >
-            Retry
-          </button>
+          <div className={styles.errorActions}>
+            <button
+              type="button"
+              onClick={() => setSubmitStatus('idle')}
+              className={styles.retryButton}
+            >
+              Retry
+            </button>
+            <button
+              type="button"
+              onClick={() => setSubmitStatus('idle')}
+              className={styles.closeButton}
+              aria-label="Close message"
+            >
+              <X size={18} />
+            </button>
+          </div>
         </div>
       )}
 
@@ -367,13 +400,23 @@ export const ContactForm: React.FC<ContactFormProps> = () => {
               directly at ivanov@webmorphism.com
             </p>
           </div>
-          <button
-            type="button"
-            onClick={() => setSubmitStatus('idle')}
-            className={styles.retryButton}
-          >
-            Try Again
-          </button>
+          <div className={styles.errorActions}>
+            <button
+              type="button"
+              onClick={() => setSubmitStatus('idle')}
+              className={styles.retryButton}
+            >
+              Try Again
+            </button>
+            <button
+              type="button"
+              onClick={() => setSubmitStatus('idle')}
+              className={styles.closeButton}
+              aria-label="Close message"
+            >
+              <X size={18} />
+            </button>
+          </div>
         </div>
       )}
     </form>

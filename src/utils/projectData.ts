@@ -46,7 +46,7 @@ export const MOCK_PROJECTS: ProjectData[] = [
     id: 'project-2',
     title: 'Webmorphism Portfolio',
     description:
-      'Portfolio website built with Next.js 14, TypeScript, and glassmorphism design. Features interactive 3D elements, responsive design, and smooth animations',
+      'Portfolio website - Features interactive 3D elements, responsive design, and smooth animations',
     longDescription:
       'Portfolio website built with Next.js 14, TypeScript, and glassmorphism design. Features interactive 3D elements, responsive design, and smooth animations',
     image: '/images/Portfolio-HomeV2.png',
@@ -106,9 +106,9 @@ export const MOCK_PROJECTS: ProjectData[] = [
   },
   {
     id: 'project-4',
-    title: 'Portfolio CMS',
+    title: 'Kirka - AI Agent',
     description:
-      'Content management system for portfolio websites with drag-and-drop page builder.',
+      'Visual AI Agent for creating websites, focusing on component-based design and an interactive AI assistant.',
     longDescription:
       'Built a flexible CMS specifically designed for portfolio websites, featuring a visual page builder, media management, and SEO optimization tools. Supports multiple themes and custom component creation.',
     image: '/images/Kirka-Landing.png',
@@ -120,78 +120,12 @@ export const MOCK_PROJECTS: ProjectData[] = [
     ],
     category: 'web',
     status: 'planned',
-    startDate: '2024-07-01',
+    startDate: '2025-11-13',
     links: {},
     features: [
-      'Visual drag-and-drop page builder',
-      'Media library management',
+      'Personalized AI assistant',
+      'Component-based design',
       'SEO optimization tools',
-      'Custom component system',
-      'Multi-theme support',
-    ],
-  },
-  {
-    id: 'project-5',
-    title: 'Fitness Tracker API',
-    description:
-      'RESTful API for fitness tracking applications with comprehensive workout and nutrition data.',
-    longDescription:
-      'Developed a robust API service for fitness applications, providing endpoints for workout tracking, nutrition logging, and progress analytics. Includes authentication, rate limiting, and comprehensive documentation.',
-    image:
-      'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&h=600&fit=crop',
-    technologies: [
-      { name: 'Node.js', color: '#339933' },
-      { name: 'Express', color: '#000000' },
-      { name: 'TypeScript', color: '#3178C6' },
-      { name: 'PostgreSQL', color: '#4169E1' },
-      { name: 'Redis', color: '#DC382D' },
-      { name: 'Docker', color: '#2496ED' },
-    ],
-    category: 'api',
-    status: 'completed',
-    startDate: '2023-03-01',
-    endDate: '2023-07-15',
-    links: {
-      github: 'https://github.com/username/fitness-tracker-api',
-      demo: 'https://api-docs.example-fitness.com',
-    },
-    features: [
-      'RESTful API architecture',
-      'JWT authentication',
-      'Rate limiting and caching',
-      'Comprehensive API documentation',
-      'Workout and nutrition tracking',
-    ],
-  },
-  {
-    id: 'project-6',
-    title: 'Social Media Analytics',
-    description:
-      'Analytics dashboard for social media metrics with AI-powered insights and recommendations.',
-    longDescription:
-      'Created an advanced analytics platform that aggregates data from multiple social media platforms, providing actionable insights through machine learning algorithms and interactive visualizations.',
-    image:
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
-    technologies: [
-      { name: 'React', color: '#61DAFB' },
-      { name: 'Python', color: '#3776AB' },
-      { name: 'TensorFlow', color: '#FF6F00' },
-      { name: 'PostgreSQL', color: '#4169E1' },
-      { name: 'Chart.js', color: '#FF6384' },
-    ],
-    category: 'web',
-    status: 'completed',
-    startDate: '2023-10-01',
-    endDate: '2024-02-28',
-    links: {
-      live: 'https://example-analytics.com',
-    },
-    features: [
-      'Multi-platform data aggregation',
-      'AI-powered insights',
-      'Interactive data visualizations',
-      'Custom report generation',
-      'Automated recommendations',
     ],
   },
 ];
