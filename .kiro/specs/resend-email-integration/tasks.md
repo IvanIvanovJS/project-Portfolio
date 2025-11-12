@@ -55,13 +55,13 @@
     - Return appropriate JSON responses
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 2.1, 4.5_
 
-- [ ] 5. Update main contact form
-  - [ ] 5.1 Add honeypot field to main contact form
+- [x] 5. Update main contact form
+  - [x] 5.1 Add honeypot field to main contact form
     - Add hidden `_honeypot` field to ContactForm component
     - Style field to be invisible but accessible to bots (position: absolute, left: -9999px)
     - Ensure field is not in tab order
     - _Requirements: 3.1, 3.2_
-  - [ ] 5.2 Implement form submission logic
+  - [x] 5.2 Implement form submission logic
     - Update `handleSubmit` to call `/api/contact` endpoint
     - Include honeypot field in submission data
     - Handle loading state (disable button, show spinner)
@@ -71,7 +71,7 @@
     - Handle network errors (show retry button)
     - Clear validation errors when user types
     - _Requirements: 1.1, 1.3, 1.4, 1.5, 6.4, 6.5_
-  - [ ] 5.3 Enhance error handling UI
+  - [x] 5.3 Enhance error handling UI
     - Add error icons to inline validation messages
     - Implement toast notifications for success/error feedback
     - Add retry button for network errors

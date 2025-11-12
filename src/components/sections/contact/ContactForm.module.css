@@ -156,6 +156,10 @@
   font-size: var(--font-size-sm, 0.875rem);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2, 0.5rem);
+  animation: slideIn 0.3s ease-out;
 }
 .errorMessageBox {
   padding: var(--spacing-4, 1rem);
@@ -166,6 +170,128 @@
   font-size: var(--font-size-sm, 0.875rem);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3, 0.75rem);
+  animation: slideIn 0.3s ease-out;
+}
+.errorContent {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2, 0.5rem);
+}
+.errorContent p {
+  margin: 0;
+  flex: 1;
+}
+.rateLimitMessage {
+  padding: var(--spacing-4, 1rem);
+  background: rgba(255, 193, 7, 0.1);
+  border: 1px solid rgba(255, 193, 7, 0.3);
+  border-radius: 12px;
+  color: #ffc107;
+  font-size: var(--font-size-sm, 0.875rem);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2, 0.5rem);
+  font-weight: 500;
+  animation: slideIn 0.3s ease-out;
+}
+.retryButton {
+  align-self: flex-start;
+  padding: var(--spacing-2, 0.5rem) var(--spacing-4, 1rem);
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: 600;
+  font-family: var(--font-family-primary);
+  color: var(--fg-primary);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+.retryButton:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--color-primary);
+  transform: translateY(-1px);
+}
+.retryButton:active {
+  transform: translateY(0);
+}
+/* Honeypot field - hidden from users but accessible to bots */
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+/* Toast Notification */
+.toast {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  padding: var(--spacing-4, 1rem) var(--spacing-5, 1.25rem);
+  background: rgba(76, 175, 80, 0.95);
+  border: 1px solid rgba(76, 175, 80, 1);
+  border-radius: 12px;
+  color: white;
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: 500;
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2, 0.5rem);
+  z-index: 9999;
+  animation:
+    toastSlideIn 0.3s ease-out,
+    toastFadeOut 0.3s ease-in 4.7s;
+}
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes toastFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+/* Responsive toast */
+@media (max-width: 768px) {
+  .toast {
+    top: 1rem;
+    right: 1rem;
+    left: 1rem;
+    max-width: calc(100% - 2rem);
+  }
 }
 /* Responsive Design */
 @media (max-width: 768px) {
