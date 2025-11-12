@@ -37,6 +37,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           alt="Contact section background"
           fill
           style={{ objectFit: 'cover', objectPosition: 'center' }}
+          sizes="100vw"
         />
       </div>
       <div className={styles.container}>

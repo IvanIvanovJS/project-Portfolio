@@ -275,6 +275,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
               transition={{ duration: 0.6, delay: 0.4 }}
             >
               <h3 className={styles.sectionHeading}>Mobile Solution</h3>
+              <p className={styles.widgetParagraph}>Tap to explore!</p>
+
               <IPhoneWidget
                 personalInfo={{
                   name: personalInfo.name,
