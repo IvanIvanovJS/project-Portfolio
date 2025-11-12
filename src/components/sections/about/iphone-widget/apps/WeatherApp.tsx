@@ -32,7 +32,7 @@ export interface WeatherAppProps {
 }
 
 export const WeatherApp: React.FC<WeatherAppProps> = ({
-  onClose,
+  onClose: _onClose,
   initialCity = 'Sofia',
 }) => {
   const [currentWeather, setCurrentWeather] = useState<CurrentWeather | null>(
@@ -51,8 +51,9 @@ export const WeatherApp: React.FC<WeatherAppProps> = ({
   const [searchResults, setSearchResults] = useState<City[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
 
-  // Load saved city from localStorage on mount
+  // Load saved city and forecast from localStorage on mount
   useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
@@ -62,14 +63,72 @@ export const WeatherApp: React.FC<WeatherAppProps> = ({
           setSelectedCity(city.name);
           setCoordinates({ lat: city.lat, lon: city.lon });
         }
+
+        // Load saved forecast if available and recent (within 2 hours)
+        const savedForecast = localStorage.getItem('weatherForecast');
+        if (savedForecast) {
+          const forecastData = JSON.parse(savedForecast);
+          const isRecent =
+            Date.now() - forecastData.timestamp < 2 * 60 * 60 * 1000;
+
+          if (isRecent && forecastData.forecast && forecastData.city) {
+            // Check if the saved forecast matches the current city
+            const cityMatches = savedCity
+              ? JSON.parse(savedCity).name === forecastData.city
+              : forecastData.city === initialCity;
+
+            if (cityMatches) {
+              // Reconstruct Date objects
+              const forecast = forecastData.forecast.map(
+                (day: DailyForecast) => ({
+                  ...day,
+                  date: new Date(day.date),
+                })
+              );
+              setForecast(forecast);
+              setIsLoading(false);
+              setIsInitialized(true);
+              return;
+            }
+          }
+        }
       } catch (err) {
-        console.error('Failed to load city from localStorage:', err);
+        console.error('Failed to load data from localStorage:', err);
       }
     }
-  }, []);
+    setIsInitialized(true);
+  }, [initialCity]);
 
   // Fetch weather data on mount and when coordinates change
   useEffect(() => {
+    // Don't fetch until initialization is complete
+    if (!isInitialized) return;
+
+    // Check if we already have recent cached data for these coordinates
+    if (typeof window !== 'undefined') {
+      try {
+        const savedForecast = localStorage.getItem('weatherForecast');
+        if (savedForecast) {
+          const forecastData = JSON.parse(savedForecast);
+          const isRecent =
+            Date.now() - forecastData.timestamp < 2 * 60 * 60 * 1000;
+
+          // Check if cached data matches current coordinates
+          const coordsMatch =
+            forecastData.coordinates &&
+            Math.abs(forecastData.coordinates.lat - coordinates.lat) < 0.01 &&
+            Math.abs(forecastData.coordinates.lon - coordinates.lon) < 0.01;
+
+          // If we have recent cached data for these coordinates, skip fetch
+          if (isRecent && coordsMatch && forecast.length > 0) {
+            return;
+          }
+        }
+      } catch (err) {
+        console.error('Error checking cache:', err);
+      }
+    }
+
     const fetchWeatherData = async () => {
       setIsLoading(true);
       setError(null);
@@ -83,6 +142,23 @@ export const WeatherApp: React.FC<WeatherAppProps> = ({
 
         setCurrentWeather(current);
         setForecast(forecastData);
+
+        // Save forecast to localStorage for persistence
+        if (typeof window !== 'undefined') {
+          try {
+            localStorage.setItem(
+              'weatherForecast',
+              JSON.stringify({
+                city: selectedCity,
+                coordinates,
+                forecast: forecastData,
+                timestamp: Date.now(),
+              })
+            );
+          } catch (err) {
+            console.error('Failed to save forecast to localStorage:', err);
+          }
+        }
       } catch (err) {
         console.error('Failed to fetch weather data:', err);
         setError('Unable to load weather data');
@@ -92,7 +168,7 @@ export const WeatherApp: React.FC<WeatherAppProps> = ({
     };
 
     fetchWeatherData();
-  }, [coordinates]);
+  }, [coordinates, selectedCity, isInitialized, forecast.length]);
 
   const handleCitySelectorOpen = () => {
     setShowCitySelector(true);
