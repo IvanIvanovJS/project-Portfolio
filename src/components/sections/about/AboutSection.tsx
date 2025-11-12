@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Phone } from 'lucide-react';
+import { Mail, MapPin, Phone, Github } from 'lucide-react';
 import styles from './AboutSection.module.css';
 import { ImageCarousel } from './ImageCarousel';
 import { IPhoneWidget } from './iphone-widget/IPhoneWidget';
@@ -167,7 +167,18 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div ref={personalInfoRef} className={styles.personalInfoCard}>
-              <h3 className={styles.sectionHeading}>{personalInfo.name}</h3>
+              <div className={styles.nameHeader}>
+                <h3 className={styles.sectionHeading}>{personalInfo.name}</h3>
+                <a
+                  href="https://github.com/IvanIvanovJS"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.githubLink}
+                  aria-label="Visit GitHub profile"
+                >
+                  <Github size={26} />
+                </a>
+              </div>
               <p className={styles.jobTitle}>{personalInfo.title}</p>
               <p className={styles.bio}>{personalInfo.bio}</p>
 
