@@ -6,7 +6,9 @@
 import { Resend } from 'resend';
 import {
   getNotificationTemplate,
+  getNotificationTextTemplate,
   getAutoReplyTemplate,
+  getAutoReplyTextTemplate,
   type NotificationTemplateData,
   type AutoReplyTemplateData,
 } from './templates';
@@ -53,12 +55,14 @@ export class EmailService {
       };
 
       const html = getNotificationTemplate(templateData);
+      const text = getNotificationTextTemplate(templateData);
 
       await this.resend.emails.send({
-        from: 'Portfolio Contact Form <noreply@webmorphism.com>',
+        from: 'Ivan Ivanov <ivanov@webmorphism.com>',
         to: this.ownerEmail,
         subject: `New Contact: ${data.subject}`,
         html,
+        text,
         replyTo: data.email,
       });
     } catch (error) {
@@ -79,12 +83,14 @@ export class EmailService {
       };
 
       const html = getAutoReplyTemplate(templateData);
+      const text = getAutoReplyTextTemplate(templateData);
 
       await this.resend.emails.send({
         from: 'Ivan Ivanov <ivanov@webmorphism.com>',
         to: data.email,
         subject: 'Thank you for reaching out!',
         html,
+        text,
       });
     } catch (error) {
       console.error('Failed to send auto-reply email:', error);

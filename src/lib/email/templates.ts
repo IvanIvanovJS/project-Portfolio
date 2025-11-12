@@ -16,6 +16,53 @@ export interface AutoReplyTemplateData {
 }
 
 /**
+ * Generates plain text version of notification email
+ */
+export function getNotificationTextTemplate(
+  data: NotificationTemplateData
+): string {
+  const { name, email, subject, message, timestamp } = data;
+
+  return `NEW CONTACT FORM SUBMISSION
+
+You have received a new message from your portfolio website contact form.
+
+FROM: ${name} <${email}>
+
+SUBJECT: ${subject}
+
+MESSAGE:
+${message}
+
+RECEIVED: ${timestamp}
+
+---
+This message was sent from the contact form on webmorphism.com`;
+}
+
+/**
+ * Generates plain text version of auto-reply email
+ */
+export function getAutoReplyTextTemplate(data: AutoReplyTemplateData): string {
+  const { name } = data;
+
+  return `Hi ${name},
+
+Thank you for contacting me through my portfolio website. I've received your message and appreciate you taking the time to reach out.
+
+⚠️ Please Note: This is an automated confirmation email. Please do not reply to this message.
+
+I will review your message and get back to you as soon as possible, typically within 24 hours (often much sooner).
+
+Looking forward to connecting with you!
+
+Ivan Ivanov
+
+---
+This email was sent from ivanov@webmorphism.com`;
+}
+
+/**
  * Escapes HTML special characters to prevent injection
  */
 function escapeHtml(text: string): string {
@@ -75,6 +122,11 @@ export function getNotificationTemplate(
         border: 1px solid #e5e7eb;
         border-top: none;
       }
+      .intro {
+        margin-bottom: 25px;
+        font-size: 16px;
+        color: #374151;
+      }
       .field {
         margin-bottom: 20px;
       }
@@ -105,14 +157,20 @@ export function getNotificationTemplate(
         color: #9ca3af;
         font-size: 14px;
       }
+      .footer a {
+        color: #667eea;
+        text-decoration: none;
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <div class="header">
-        <h1>📬 New Contact Form Submission</h1>
+        <h1>New Contact Form Submission</h1>
       </div>
       <div class="content">
+        <p class="intro">You have received a new message from your portfolio website contact form.</p>
+        
         <div class="field">
           <span class="label">From</span>
           <div class="value">${escapeHtml(name)} &lt;${escapeHtml(email)}&gt;</div>
@@ -131,7 +189,7 @@ export function getNotificationTemplate(
         </div>
       </div>
       <div class="footer">
-        Sent from your portfolio contact form
+        This message was sent from the contact form on <a href="https://webmorphism.com">webmorphism.com</a>
       </div>
     </div>
   </body>
