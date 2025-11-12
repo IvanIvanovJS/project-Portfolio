@@ -7,7 +7,7 @@ import { ProjectData } from '@/types/project';
 export const MOCK_PROJECTS: ProjectData[] = [
   {
     id: 'project-1',
-    title: 'xArtify - Art Platform',
+    title: 'xArtify Art Platform',
     description:
       'Modern art marketplace and learning platform designed to connect artists with art enthusiasts worldwide.',
     longDescription:
@@ -44,13 +44,12 @@ export const MOCK_PROJECTS: ProjectData[] = [
   },
   {
     id: 'project-2',
-    title: 'Webmorphism - Portfolio',
+    title: 'Webmorphism Portfolio',
     description:
       'Portfolio website built with Next.js 14, TypeScript, and glassmorphism design. Features interactive 3D elements, responsive design, and smooth animations',
     longDescription:
       'Developed a comprehensive task management solution with drag-and-drop functionality, real-time collaboration, and advanced project tracking. Features include Kanban boards, Gantt charts, and team analytics.',
-    image:
-      'https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=800&h=600&fit=crop',
+    image: '/images/Portfolio-Home.png',
     gallery: [
       '/images/projects/taskmanager-1.jpg',
       '/images/projects/taskmanager-2.jpg',
@@ -67,15 +66,11 @@ export const MOCK_PROJECTS: ProjectData[] = [
     startDate: '2023-09-01',
     endDate: '2023-12-15',
     links: {
-      live: 'https://example-taskmanager.com',
-      github: 'https://github.com/username/task-manager',
-      demo: 'https://demo.example-taskmanager.com',
+      github: 'https://github.com/IvanIvanovJS/project-Portfolio',
     },
     features: [
-      'Drag-and-drop Kanban boards',
-      'Real-time collaboration',
-      'Team analytics and reporting',
-      'Custom workflows',
+      'Advanced 3D elements',
+      'Custom made',
       'Mobile-responsive interface',
     ],
   },

@@ -6,14 +6,14 @@
   - Create directory structure for email utilities (`src/lib/email/`, `src/lib/validation/`, `src/lib/security/`)
   - _Requirements: 4.1, 4.4_
 
-- [ ] 2. Create email service and templates
-  - [ ] 2.1 Create email template utilities
+- [x] 2. Create email service and templates
+  - [x] 2.1 Create email template utilities
     - Write `src/lib/email/templates.ts` with notification and auto-reply HTML templates
     - Include Google Fonts link for Lavishly Yours font in auto-reply template
     - Implement signature styling in bottom right corner
     - Add proper HTML escaping for user inputs
     - _Requirements: 2.2, 2.3, 2.4, 2.5, 7.3, 7.5_
-  - [ ] 2.2 Implement email service
+  - [x] 2.2 Implement email service
     - Write `src/lib/email/emailService.ts` with EmailService class
     - Initialize Resend client with API key from environment
     - Implement `sendNotificationEmail()` method to send to ivanov@webmorphism.com
