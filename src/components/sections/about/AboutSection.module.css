@@ -355,6 +355,7 @@
   }
   .iphoneWidgetSection {
     order: 4;
+    align-self: center;
     padding: var(--spacing-lg, 2rem);
     margin-bottom: 0;
   }
