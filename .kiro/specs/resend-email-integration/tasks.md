@@ -38,15 +38,15 @@
     - Add methods to check and update rate limits
     - _Requirements: 3.3, 3.4, 3.5_
 
-- [ ] 4. Create API route handler
-  - [ ] 4.1 Implement main API route
+- [x] 4. Create API route handler
+  - [x] 4.1 Implement main API route
     - Create `src/app/api/contact/route.ts` with POST handler
     - Parse and validate request body
     - Extract IP address from request headers
     - Implement honeypot field check (reject if filled)
     - Apply rate limiting per IP address
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 4.2, 4.3, 4.4, 4.5_
-  - [ ] 4.2 Integrate email sending in API route
+  - [x] 4.2 Integrate email sending in API route
     - Call EmailService to send notification and auto-reply in parallel
     - Handle success responses
     - Handle validation errors (400 status)

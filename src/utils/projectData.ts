@@ -76,11 +76,11 @@ export const MOCK_PROJECTS: ProjectData[] = [
   },
   {
     id: 'project-3',
-    title: 'Weather Dashboard',
+    title: 'Simple Express.js App ',
     description:
-      'Interactive weather dashboard with real-time data visualization and location-based forecasts.',
+      'Web application for managing myths and legends, developed as a final exam project.',
     longDescription:
-      'Created an elegant weather dashboard featuring interactive maps, detailed forecasts, and historical weather data analysis. Integrated multiple weather APIs for accurate and comprehensive weather information.',
+      ' Web application for managing myths and legends, developed as a final exam project',
     image:
       'https://images.unsplash.com/photo-1592210454359-9043f067919b?w=800&h=600&fit=crop',
     technologies: [
