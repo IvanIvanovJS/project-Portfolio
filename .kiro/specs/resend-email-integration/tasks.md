@@ -22,15 +22,15 @@
     - Set proper reply-to headers
     - _Requirements: 1.1, 1.2, 2.1, 4.1, 4.2, 7.2_
 
-- [ ] 3. Create validation and security utilities
-  - [ ] 3.1 Implement form validation utilities
+- [x] 3. Create validation and security utilities
+  - [x] 3.1 Implement form validation utilities
     - Write `src/lib/validation/contactValidation.ts`
     - Implement `validateContactForm()` with all validation rules
     - Implement `sanitizeInput()` for HTML escaping
     - Implement `isValidEmail()` for email format validation
     - Add validation error messages
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 7.5_
-  - [ ] 3.2 Implement rate limiter
+  - [x] 3.2 Implement rate limiter
     - Write `src/lib/security/rateLimiter.ts` with RateLimiter class
     - Implement in-memory Map storage for rate limit tracking
     - Configure 3 requests per 60 minutes per IP

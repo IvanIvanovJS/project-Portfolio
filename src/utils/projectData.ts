@@ -48,8 +48,8 @@ export const MOCK_PROJECTS: ProjectData[] = [
     description:
       'Portfolio website built with Next.js 14, TypeScript, and glassmorphism design. Features interactive 3D elements, responsive design, and smooth animations',
     longDescription:
-      'Developed a comprehensive task management solution with drag-and-drop functionality, real-time collaboration, and advanced project tracking. Features include Kanban boards, Gantt charts, and team analytics.',
-    image: '/images/Portfolio-Home.png',
+      'Portfolio website built with Next.js 14, TypeScript, and glassmorphism design. Features interactive 3D elements, responsive design, and smooth animations',
+    image: '/images/Portfolio-HomeV2.png',
     gallery: [
       '/images/projects/taskmanager-1.jpg',
       '/images/projects/taskmanager-2.jpg',
@@ -57,14 +57,14 @@ export const MOCK_PROJECTS: ProjectData[] = [
     technologies: [
       { name: 'React', color: '#61DAFB' },
       { name: 'TypeScript', color: '#3178C6' },
-      { name: 'Firebase', color: '#FFCA28' },
-      { name: 'Material-UI', color: '#007FFF' },
-      { name: 'Redux', color: '#764ABC' },
+      { name: 'Three.js', color: '#000' },
+      { name: 'Chakra-UI', color: '#007FFF' },
+      { name: 'Resend', color: '#000' },
     ],
     category: 'web',
     status: 'completed',
-    startDate: '2023-09-01',
-    endDate: '2023-12-15',
+    startDate: '2025-10-27',
+    endDate: '2025-11-12',
     links: {
       github: 'https://github.com/IvanIvanovJS/project-Portfolio',
     },
