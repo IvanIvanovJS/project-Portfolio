@@ -5,6 +5,8 @@ import { ThemeProvider } from '../providers/ThemeProvider';
 import { ChakraProvider } from '../providers/ChakraProvider';
 import { NavigationProvider } from '../providers/NavigationProvider';
 import { LayoutWrapper } from '../components/layout/LayoutWrapper';
+import { defaultMetadata } from '../config/seo';
+import { StructuredData } from '../components/seo/StructuredData';
 
 const ibmPlexSans = IBM_Plex_Sans({
   weight: ['300', '400', '500', '600', '700'],
@@ -14,11 +16,7 @@ const ibmPlexSans = IBM_Plex_Sans({
   variable: '--font-ibm-plex-sans',
 });
 
-export const metadata: Metadata = {
-  title: 'Ivan Ivanov - Portfolio',
-  description:
-    'Modern portfolio showcasing web development projects with glassmorphism design',
-};
+export const metadata: Metadata = defaultMetadata;
 
 export default function RootLayout({
   children,
@@ -28,6 +26,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={ibmPlexSans.variable} suppressHydrationWarning>
       <head>
+        <link rel="canonical" href="https://webmorphism.com" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=5"
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -111,6 +114,7 @@ export default function RootLayout({
         */}
       </head>
       <body className={ibmPlexSans.className} suppressHydrationWarning>
+        <StructuredData type="person" />
         <ThemeProvider>
           <ChakraProvider>
             <NavigationProvider>

@@ -61,7 +61,11 @@ export const ProjectsSection: React.FC = () => {
   };
 
   return (
-    <section id="projects" className={styles.projectsSection}>
+    <section
+      id="projects"
+      className={styles.projectsSection}
+      aria-labelledby="projects-heading"
+    >
       <div className={styles.container}>
         {/* Section header */}
         <motion.div
@@ -71,7 +75,9 @@ export const ProjectsSection: React.FC = () => {
           viewport={{ once: true, margin: '-100px' }}
           variants={titleVariants}
         >
-          <h2 className={styles.title}>Featured Projects</h2>
+          <h2 id="projects-heading" className={styles.title}>
+            Featured Projects
+          </h2>
           <p className={styles.subtitle}>
             A showcase of my recent work and personal projects
           </p>
@@ -101,7 +107,7 @@ export const ProjectsSection: React.FC = () => {
 
         {/* Error state */}
         {error && (
-          <div className={styles.errorState}>
+          <div className={styles.errorState} role="alert" aria-live="assertive">
             <p className={styles.errorMessage}>{error}</p>
             <button
               className={styles.retryButton}
@@ -109,6 +115,7 @@ export const ProjectsSection: React.FC = () => {
                 setError(null);
                 setIsLoading(false);
               }}
+              aria-label="Retry loading projects"
             >
               Try Again
             </button>
@@ -117,8 +124,8 @@ export const ProjectsSection: React.FC = () => {
 
         {/* Loading state */}
         {isLoading && (
-          <div className={styles.loadingState}>
-            <div className={styles.spinner} />
+          <div className={styles.loadingState} role="status" aria-live="polite">
+            <div className={styles.spinner} aria-hidden="true" />
             <p>Loading projects...</p>
           </div>
         )}
@@ -131,6 +138,8 @@ export const ProjectsSection: React.FC = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-50px' }}
+            role="list"
+            aria-label="Projects list"
           >
             {filteredProjects.length > 0 ? (
               filteredProjects.map((project, index) => (

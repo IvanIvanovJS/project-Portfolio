@@ -49,7 +49,7 @@ export const HeroSection: React.FC = () => {
       ref={sectionRef}
       className={styles.heroSection}
       id="hero"
-      aria-label="Hero section"
+      aria-labelledby="hero-heading"
     >
       {/* Full-width 3D Scene Background */}
       <div className={styles.sceneBackground}>
@@ -64,10 +64,12 @@ export const HeroSection: React.FC = () => {
         {/* Right side - Content (40%) */}
         <div className={styles.contentContainer}>
           <div className={styles.textContent}>
-            <h1 className={styles.name}>Ivan Ivanov</h1>
+            <h1 id="hero-heading" className={styles.name}>
+              Ivan Ivanov
+            </h1>
             <h2 className={styles.title}>FRONT-END AND UI/UX DEVELOPER</h2>
             <p className={styles.tagline}>
-              <span className={styles.blinkingDot}></span>
+              <span className={styles.blinkingDot} aria-hidden="true"></span>
               Accepting full-time or freelance job offers
             </p>
           </div>

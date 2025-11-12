@@ -29,12 +29,16 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
   contactInfo = defaultContactInfo,
 }) => {
   return (
-    <section id="contact" className={styles.contactSection}>
+    <section
+      id="contact"
+      className={styles.contactSection}
+      aria-labelledby="contact-heading"
+    >
       {/* Optimized background image */}
-      <div className={styles.backgroundImage}>
+      <div className={styles.backgroundImage} aria-hidden="true">
         <OptimizedImage
           src="contactBackgroundV5"
-          alt="Contact section background"
+          alt=""
           fill
           style={{ objectFit: 'cover', objectPosition: 'center' }}
           sizes="100vw"
@@ -42,6 +46,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
       </div>
       <div className={styles.container}>
         <motion.h2
+          id="contact-heading"
           className={styles.title}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -76,9 +81,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               get back to you as soon as possible.
             </p>
 
-            <div className={styles.infoItems}>
-              <div className={styles.infoItem}>
-                <div className={styles.iconWrapper}>
+            <div className={styles.infoItems} role="list">
+              <div className={styles.infoItem} role="listitem">
+                <div className={styles.iconWrapper} aria-hidden="true">
                   <Mail className={styles.icon} size={20} />
                 </div>
                 <div className={styles.infoContent}>
@@ -93,8 +98,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               </div>
 
               {contactInfo.phone && (
-                <div className={styles.infoItem}>
-                  <div className={styles.iconWrapper}>
+                <div className={styles.infoItem} role="listitem">
+                  <div className={styles.iconWrapper} aria-hidden="true">
                     <Phone className={styles.icon} size={20} />
                   </div>
                   <div className={styles.infoContent}>
@@ -110,8 +115,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               )}
 
               {contactInfo.location && (
-                <div className={styles.infoItem}>
-                  <div className={styles.iconWrapper}>
+                <div className={styles.infoItem} role="listitem">
+                  <div className={styles.iconWrapper} aria-hidden="true">
                     <MapPin className={styles.icon} size={20} />
                   </div>
                   <div className={styles.infoContent}>
@@ -122,8 +127,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               )}
 
               {contactInfo.github && (
-                <div className={styles.infoItem}>
-                  <div className={styles.iconWrapper}>
+                <div className={styles.infoItem} role="listitem">
+                  <div className={styles.iconWrapper} aria-hidden="true">
                     <GithubIcon className={styles.icon} size={20} />
                   </div>
                   <div className={styles.infoContent}>
@@ -142,8 +147,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
               )}
 
               {contactInfo.linkedin && (
-                <div className={styles.infoItem}>
-                  <div className={styles.iconWrapper}>
+                <div className={styles.infoItem} role="listitem">
+                  <div className={styles.iconWrapper} aria-hidden="true">
                     <LinkedinIcon className={styles.icon} size={20} />
                   </div>
                   <div className={styles.infoContent}>

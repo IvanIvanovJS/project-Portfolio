@@ -140,9 +140,14 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
   }, []);
 
   return (
-    <section id="about" className={styles.aboutSection}>
+    <section
+      id="about"
+      className={styles.aboutSection}
+      aria-labelledby="about-heading"
+    >
       <div className={styles.container}>
         <motion.h2
+          id="about-heading"
           className={styles.title}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -166,21 +171,35 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
               <p className={styles.jobTitle}>{personalInfo.title}</p>
               <p className={styles.bio}>{personalInfo.bio}</p>
 
-              <div className={styles.contactInfo}>
-                <div className={styles.contactItem}>
-                  <MapPin className={styles.icon} size={18} />
+              <div className={styles.contactInfo} role="list">
+                <div className={styles.contactItem} role="listitem">
+                  <MapPin
+                    className={styles.icon}
+                    size={18}
+                    aria-hidden="true"
+                  />
                   <span>{personalInfo.location}</span>
                 </div>
-                <div className={styles.contactItem}>
-                  <Mail className={styles.icon} size={18} />
-                  <a href={`mailto:${personalInfo.email}`}>
+                <div className={styles.contactItem} role="listitem">
+                  <Mail className={styles.icon} size={18} aria-hidden="true" />
+                  <a
+                    href={`mailto:${personalInfo.email}`}
+                    aria-label={`Email ${personalInfo.email}`}
+                  >
                     {personalInfo.email}
                   </a>
                 </div>
                 {personalInfo.phone && (
-                  <div className={styles.contactItem}>
-                    <Phone className={styles.icon} size={18} />
-                    <a href={`tel:${personalInfo.phone}`}>
+                  <div className={styles.contactItem} role="listitem">
+                    <Phone
+                      className={styles.icon}
+                      size={18}
+                      aria-hidden="true"
+                    />
+                    <a
+                      href={`tel:${personalInfo.phone}`}
+                      aria-label={`Call ${personalInfo.phone}`}
+                    >
                       {personalInfo.phone}
                     </a>
                   </div>

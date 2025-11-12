@@ -128,6 +128,9 @@ export const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
 
       {/* Main Content */}
       <main
+        id="main-content"
+        role="main"
+        aria-label="Main content"
         className={`${styles.mainContent} ${
           navigationMode === 'vertical' && isVerticalNavOpen && !isMobile
             ? styles.withVerticalNav
