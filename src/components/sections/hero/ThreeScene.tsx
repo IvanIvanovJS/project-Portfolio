@@ -143,7 +143,7 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
 
   // Animation state
   const animationProgress = useRef(0);
-  const targetProgress = useRef(1); // 0 = cube, 1 = sphere
+  const targetProgress = useRef(0); // 0 = cube, 1 = sphere - start as cube
 
   // Load atlas on component mount (Subtask 10.1)
   useEffect(() => {
@@ -156,6 +156,15 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
       .catch(() => {
         // Fallback: render without icons (existing material will be used)
       });
+  }, []);
+
+  // Start sphere expansion animation after splash screen (3 seconds)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      targetProgress.current = 1; // Trigger cube-to-sphere animation
+    }, 1300); // Match splash screen COMPLETE timing
+
+    return () => clearTimeout(timer);
   }, []);
 
   // Setup materials and attributes when atlas loads (Subtasks 10.2, 10.3, 10.4, 10.5)
