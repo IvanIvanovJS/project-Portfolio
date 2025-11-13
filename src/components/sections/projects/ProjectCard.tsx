@@ -104,17 +104,19 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
 
           <div className={styles.infoLayer}>
             <div className={styles.projectInfo}>
-              <h3 className={styles.title}>{project.title}</h3>
-              <span className={styles.visuallyHidden}>
-                {project.status === 'completed' &&
-                  'Project status: Completed. '}
-                {project.status === 'in-progress' &&
-                  'Project status: In Progress. '}
-                {project.status === 'planned' && 'Project status: Planned. '}
-                {project.links.github && 'GitHub repository available. '}
-                {project.links.live && 'Live demo available. '}
-              </span>
-              <p className={styles.description}>{project.description}</p>
+              <div>
+                <h3 className={styles.title}>{project.title}</h3>
+                <span className={styles.visuallyHidden}>
+                  {project.status === 'completed' &&
+                    'Project status: Completed. '}
+                  {project.status === 'in-progress' &&
+                    'Project status: In Progress. '}
+                  {project.status === 'planned' && 'Project status: Planned. '}
+                  {project.links.github && 'GitHub repository available. '}
+                  {project.links.live && 'Live demo available. '}
+                </span>
+                <p className={styles.description}>{project.description}</p>
+              </div>
 
               {project.technologies && project.technologies.length > 0 && (
                 <div className={styles.technologies}>

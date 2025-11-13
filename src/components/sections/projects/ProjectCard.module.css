@@ -14,6 +14,7 @@
   position: relative;
   width: 100%;
   max-width: 100%;
+  min-height: 400px;
   max-height: 450px;
   display: flex;
   justify-content: center;
@@ -137,12 +138,12 @@
   );
   border-radius: 12px;
 }
-/* Action buttons - positioned at bottom, hidden by default on desktop */
+/* Action buttons - positioned in the middle, hidden by default on desktop */
 .actionButtons {
   position: absolute;
-  bottom: var(--spacing-6);
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   display: flex;
   gap: 16px;
   z-index: 20;
@@ -220,12 +221,11 @@
 /* Project info */
 .projectInfo {
   padding: var(--spacing-6);
-  padding-bottom: 120px;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-4);
   height: 100%;
-  justify-content: center;
+  justify-content: space-between;
   pointer-events: none;
   overflow: hidden;
 }
@@ -277,12 +277,12 @@
   margin: 0;
   opacity: 0.9;
 }
-/* Technology tags - visible by default, hidden on hover */
+/* Technology tags - positioned at bottom, visible by default, hidden on hover */
 .technologies {
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-2);
-  margin-top: var(--spacing-4);
+  margin-top: auto;
   opacity: 1;
   transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -353,42 +353,55 @@
 @media (max-width: 768px) {
   .projectCard {
     max-width: 100%;
+    min-height: 450px;
     height: 450px;
   }
   .projectInfo {
-    padding: var(--spacing-4);
-    gap: var(--spacing-3);
+    padding: var(--spacing-6);
+    gap: var(--spacing-5);
   }
   .title {
-    font-size: var(--font-size-3xl);
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--spacing-2);
   }
   .description {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-xl);
+    line-height: var(--line-height-relaxed);
+  }
+  .technologies {
+    gap: var(--spacing-2);
+    margin-top: var(--spacing-3);
+  }
+  .techTag {
+    font-size: var(--font-size-sm);
+    padding: 6px 12px;
   }
 }
 /* Mobile specific - smaller screens */
 @media (max-width: 480px) {
   .projectCard {
-    height: 400px;
+    min-height: 450px;
+    height: 450px;
   }
   .projectInfo {
-    padding: var(--spacing-3);
-    gap: var(--spacing-2);
+    padding: var(--spacing-5);
+    gap: var(--spacing-4);
   }
   .title {
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--spacing-2);
   }
   .description {
-    font-size: var(--font-size-base);
-    line-height: var(--line-height-normal);
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-relaxed);
   }
   .technologies {
-    gap: var(--spacing-1);
+    gap: var(--spacing-2);
     margin-top: var(--spacing-2);
   }
   .techTag {
-    font-size: var(--font-size-xs);
-    padding: 4px 8px;
+    font-size: var(--font-size-sm);
+    padding: 6px 12px;
   }
 }
 /* Mobile/Touch device specific styles */
@@ -481,7 +494,8 @@
   /* Ensure action buttons are properly sized for touch */
   .actionButtons {
     gap: 12px;
-    bottom: var(--spacing-4);
+    top: 50%;
+    transform: translate(-50%, -50%);
     width: calc(100% - var(--spacing-8));
     max-width: 280px;
   }
@@ -503,7 +517,8 @@
 /* Additional mobile-specific adjustments for small screens */
 @media (hover: none) and (pointer: coarse) and (max-width: 768px) {
   .actionButtons {
-    bottom: var(--spacing-3);
+    top: 50%;
+    transform: translate(-50%, -50%);
     gap: 10px;
     max-width: 260px;
   }
@@ -517,9 +532,6 @@
   .comingSoon {
     padding: 12px 24px;
     font-size: var(--font-size-sm);
-  }
-  .projectInfo {
-    padding-bottom: 110px;
   }
 }
 /* Accessibility - Reduced motion support */
