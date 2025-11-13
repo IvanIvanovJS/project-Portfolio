@@ -179,6 +179,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
                   aria-label="Visit GitHub profile"
                 >
                   <Github size={26} />
+                  <span>GitHub</span>
                 </a>
               </div>
               <div className={styles.jobTitleRow}>
