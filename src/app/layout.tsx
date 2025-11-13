@@ -5,6 +5,7 @@ import { ThemeProvider } from '../providers/ThemeProvider';
 import { ChakraProvider } from '../providers/ChakraProvider';
 import { NavigationProvider } from '../providers/NavigationProvider';
 import { LayoutWrapper } from '../components/layout/LayoutWrapper';
+import { SplashScreen } from '../components/splash/SplashScreen';
 import { defaultMetadata } from '../config/seo';
 import { StructuredData } from '../components/seo/StructuredData';
 
@@ -26,6 +27,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={ibmPlexSans.variable} suppressHydrationWarning>
       <head>
+        {/* Rubik Glitch Font for Splash Screen */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap"
+          rel="stylesheet"
+        />
         <link rel="canonical" href="https://webmorphism.com" />
         <meta
           name="viewport"
@@ -118,6 +130,10 @@ export default function RootLayout({
         <ThemeProvider>
           <ChakraProvider>
             <NavigationProvider>
+              {/* Splash screen OUTSIDE LayoutWrapper - covers everything */}
+              <SplashScreen />
+
+              {/* LayoutWrapper with navigation and content - loads normally */}
               <LayoutWrapper>{children}</LayoutWrapper>
             </NavigationProvider>
           </ChakraProvider>

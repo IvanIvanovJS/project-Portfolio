@@ -1,0 +1,143 @@
+'use client';
+
+import { useEffect, useState, useRef } from 'react';
+import styles from './SplashScreen.module.css';
+
+type AnimationPhase = 'text-in' | 'hold' | 'fade-out' | 'complete';
+
+export const SplashScreen: React.FC = () => {
+  const [isVisible, setIsVisible] = useState(true);
+  const [phase, setPhase] = useState<AnimationPhase>('text-in');
+  const [showAssembling, setShowAssembling] = useState(false);
+  const [showTechnicalStack, setShowTechnicalStack] = useState(false);
+  const [showCompiling, setShowCompiling] = useState(false);
+  const [typedText, setTypedText] = useState('');
+  const [fadingOut, setFadingOut] = useState(false);
+  const timersRef = useRef<NodeJS.Timeout[]>([]);
+
+  // Main animation timeline effect
+  useEffect(() => {
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    // Timeline configuration
+    const TIMELINE = prefersReducedMotion
+      ? {
+          ASSEMBLING_IN: 0,
+          TECHNICAL_STACK_IN: 100,
+          COMPILING_IN: 200,
+          TYPING_START: 200,
+          TYPING_DURATION: 100,
+          FADE_OUT_START: 400,
+          FADE_OUT_DURATION: 100,
+          COMPLETE: 500,
+        }
+      : {
+          ASSEMBLING_IN: 0,
+          TECHNICAL_STACK_IN: 500,
+          COMPILING_IN: 700,
+          TYPING_START: 700,
+          TYPING_DURATION: 1700, // 1.7 seconds for typing effect
+          FADE_OUT_START: 2500,
+          FADE_OUT_DURATION: 500,
+          COMPLETE: 3000,
+        };
+
+    const fullText = 'Compiling innovation...';
+
+    // Start text animations sequence
+    const timer1 = setTimeout(() => {
+      setShowAssembling(true);
+    }, TIMELINE.ASSEMBLING_IN);
+
+    const timer2 = setTimeout(() => {
+      setShowTechnicalStack(true);
+    }, TIMELINE.TECHNICAL_STACK_IN);
+
+    const timer3 = setTimeout(() => {
+      setShowCompiling(true);
+    }, TIMELINE.COMPILING_IN);
+
+    // Store timer references for cleanup
+    const timers: NodeJS.Timeout[] = [timer1, timer2, timer3];
+
+    // Typing effect for subtext
+    if (!prefersReducedMotion) {
+      const charDelay = TIMELINE.TYPING_DURATION / fullText.length;
+      for (let i = 0; i <= fullText.length; i++) {
+        const typingTimer = setTimeout(
+          () => {
+            setTypedText(fullText.slice(0, i));
+          },
+          TIMELINE.TYPING_START + i * charDelay
+        );
+        timers.push(typingTimer);
+      }
+    } else {
+      // Show full text immediately for reduced motion
+      const instantTimer = setTimeout(() => {
+        setTypedText(fullText);
+      }, TIMELINE.TYPING_START);
+      timers.push(instantTimer);
+    }
+
+    // Start fade-out
+    const timer5 = setTimeout(() => {
+      setPhase('fade-out');
+      setFadingOut(true);
+    }, TIMELINE.FADE_OUT_START);
+    timers.push(timer5);
+
+    // Remove splash from DOM
+    const timer6 = setTimeout(() => {
+      setPhase('complete');
+      setIsVisible(false);
+    }, TIMELINE.COMPLETE);
+    timers.push(timer6);
+
+    timersRef.current = timers;
+
+    // Cleanup function
+    return () => {
+      timersRef.current.forEach((timer) => clearTimeout(timer));
+      timersRef.current = [];
+    };
+  }, []);
+
+  if (!isVisible) {
+    return null;
+  }
+
+  return (
+    <div
+      role="status"
+      aria-live="polite"
+      aria-label="Loading application"
+      className={`${styles.splashContainer} ${fadingOut ? styles.fadeOutSplash : ''}`}
+    >
+      <div aria-hidden="true" className={styles.textContainer}>
+        <div
+          className={`${styles.mainText} ${showAssembling ? styles.slideInLeft : ''} ${phase === 'fade-out' ? styles.fadeOutText : ''}`}
+        >
+          Assembling
+        </div>
+        <div
+          className={`${styles.mainText} ${showTechnicalStack ? styles.slideInRight : ''} ${phase === 'fade-out' ? styles.fadeOutText : ''}`}
+        >
+          Technical Stack
+        </div>
+        <div
+          className={`${styles.subText} ${showCompiling ? styles.visible : ''} ${phase === 'fade-out' ? styles.fadeOutText : ''}`}
+        >
+          {typedText}
+          <span className={styles.cursor}>|</span>
+        </div>
+      </div>
+      <span className={styles.srOnly}>
+        Assembling Technical Stack. Compiling innovation. Please wait.
+      </span>
+    </div>
+  );
+};
