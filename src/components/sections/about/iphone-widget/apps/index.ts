@@ -15,3 +15,6 @@ export { EmailApp } from './EmailApp';
 
 export { WeatherApp } from './WeatherApp';
 export type { WeatherAppProps } from './WeatherApp';
+
+export { ResumeApp } from './ResumeApp';
+export type { ResumeAppProps } from './ResumeApp';
