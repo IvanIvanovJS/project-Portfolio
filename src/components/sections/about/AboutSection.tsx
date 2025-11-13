@@ -180,7 +180,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
                   className={styles.githubLink}
                   aria-label="Visit GitHub profile"
                 >
-                  <Github size={26} />
+                  <Github size={24} />
                   <span>GitHub</span>
                 </a>
               </div>
@@ -192,7 +192,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
                   aria-label="View resume"
                   title="View Resume"
                 >
-                  <FileText size={18} />
+                  <FileText size={22} />
                   <span>Resume</span>
                 </button>
               </div>
