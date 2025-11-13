@@ -11,7 +11,6 @@ export const SplashScreen: React.FC = () => {
   const [phase, setPhase] = useState<AnimationPhase>('text-in');
   const [showAssembling, setShowAssembling] = useState(false);
   const [showTechnicalStack, setShowTechnicalStack] = useState(false);
-  const [showCompiling, setShowCompiling] = useState(false);
   const [typedText, setTypedText] = useState('');
   const [fadingOut, setFadingOut] = useState(false);
   const timersRef = useRef<NodeJS.Timeout[]>([]);
@@ -34,7 +33,6 @@ export const SplashScreen: React.FC = () => {
       ? {
           ASSEMBLING_IN: 0,
           TECHNICAL_STACK_IN: 100,
-          COMPILING_IN: 200,
           TYPING_START: 200,
           TYPING_DURATION: 100,
           FADE_OUT_START: 400,
@@ -44,9 +42,8 @@ export const SplashScreen: React.FC = () => {
       : {
           ASSEMBLING_IN: 0,
           TECHNICAL_STACK_IN: 500,
-          COMPILING_IN: 700,
-          TYPING_START: 700,
-          TYPING_DURATION: 1700, // 1.7 seconds for typing effect
+          TYPING_START: 1000,
+          TYPING_DURATION: 1500, // 1.5 seconds for typing effect
           FADE_OUT_START: 2500,
           FADE_OUT_DURATION: 500,
           COMPLETE: 3000,
@@ -63,12 +60,8 @@ export const SplashScreen: React.FC = () => {
       setShowTechnicalStack(true);
     }, TIMELINE.TECHNICAL_STACK_IN);
 
-    const timer3 = setTimeout(() => {
-      setShowCompiling(true);
-    }, TIMELINE.COMPILING_IN);
-
     // Store timer references for cleanup
-    const timers: NodeJS.Timeout[] = [timer1, timer2, timer3];
+    const timers: NodeJS.Timeout[] = [timer1, timer2];
 
     // Typing effect for subtext
     if (!prefersReducedMotion) {
@@ -137,10 +130,10 @@ export const SplashScreen: React.FC = () => {
           Technical Stack
         </div>
         <div
-          className={`${styles.subText} ${showCompiling ? styles.visible : ''} ${phase === 'fade-out' ? styles.fadeOutText : ''}`}
+          className={`${styles.subText} ${typedText ? styles.visible : ''} ${phase === 'fade-out' ? styles.fadeOutText : ''}`}
         >
           {typedText}
-          <span className={styles.cursor}>|</span>
+          {typedText && <span className={styles.cursor}>|</span>}
         </div>
       </div>
       <span className={styles.srOnly}>
