@@ -78,7 +78,7 @@
 .cursor {
   display: inline-block;
   margin-left: 2px;
-  animation: blink 1s step-end infinite;
+  animation: blink 0s step-end infinite;
   color: rgba(186, 255, 233, 0.8);
 }
 

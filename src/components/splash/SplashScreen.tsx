@@ -6,6 +6,7 @@ import styles from './SplashScreen.module.css';
 type AnimationPhase = 'text-in' | 'hold' | 'fade-out' | 'complete';
 
 export const SplashScreen: React.FC = () => {
+  const [isMounted, setIsMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [phase, setPhase] = useState<AnimationPhase>('text-in');
   const [showAssembling, setShowAssembling] = useState(false);
@@ -15,8 +16,14 @@ export const SplashScreen: React.FC = () => {
   const [fadingOut, setFadingOut] = useState(false);
   const timersRef = useRef<NodeJS.Timeout[]>([]);
 
+  // Mount effect - only render on client
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   // Main animation timeline effect
   useEffect(() => {
+    if (!isMounted) return;
     // Check for reduced motion preference
     const prefersReducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
@@ -104,9 +111,10 @@ export const SplashScreen: React.FC = () => {
       timersRef.current.forEach((timer) => clearTimeout(timer));
       timersRef.current = [];
     };
-  }, []);
+  }, [isMounted]);
 
-  if (!isVisible) {
+  // Don't render anything on server or after splash is hidden
+  if (!isMounted || !isVisible) {
     return null;
   }
 
