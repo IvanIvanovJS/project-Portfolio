@@ -140,8 +140,13 @@ export default function RootLayout({
             </NavigationProvider>
           </ChakraProvider>
         </ThemeProvider>
-        <Analytics />
-        <SpeedInsights />
+        {/* Vercel Analytics - placed outside providers to avoid hydration issues */}
+        {process.env.NODE_ENV === 'production' && (
+          <>
+            <Analytics />
+            <SpeedInsights />
+          </>
+        )}
       </body>
     </html>
   );
