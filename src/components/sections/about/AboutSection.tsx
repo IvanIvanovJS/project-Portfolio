@@ -170,7 +170,9 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
           >
             <div ref={personalInfoRef} className={styles.personalInfoCard}>
               <div className={styles.nameHeader}>
-                <h3 className={styles.sectionHeading}>{personalInfo.name}</h3>
+                <h3 className={styles.sectionHeadingName}>
+                  {personalInfo.name}
+                </h3>
                 <a
                   href="https://github.com/IvanIvanovJS"
                   target="_blank"

@@ -158,11 +158,34 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
       });
   }, []);
 
-  // Start sphere expansion animation after splash screen (3 seconds)
+  // Start sphere expansion animation after splash screen
   useEffect(() => {
+    // Check if sphere has already been expanded in this session
+    const sphereExpanded =
+      typeof window !== 'undefined' &&
+      sessionStorage.getItem('sphere-expanded') === 'true';
+
+    if (sphereExpanded) {
+      // Already expanded once, show immediately
+      targetProgress.current = 1;
+      return;
+    }
+
+    // Check for reduced motion preference
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Match splash screen timing: 1350ms normal, 50ms reduced motion
+    const delay = prefersReducedMotion ? 50 : 1750;
+
     const timer = setTimeout(() => {
       targetProgress.current = 1; // Trigger cube-to-sphere animation
-    }, 1300); // Match splash screen COMPLETE timing
+      // Mark sphere as expanded for this session
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('sphere-expanded', 'true');
+      }
+    }, delay);
 
     return () => clearTimeout(timer);
   }, []);

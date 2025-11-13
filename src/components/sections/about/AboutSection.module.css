@@ -77,6 +77,14 @@
   font-size: var(--font-size-3xl, 1.8rem);
   font-weight: 600;
   margin-bottom: 0;
+  color: var(--color-primary, rgba(255, 255, 255, 0.8));
+  letter-spacing: var(--letter-spacing-wide, 0.025em);
+}
+
+.sectionHeadingName {
+  font-size: var(--font-size-3xl, 1.8rem);
+  font-weight: 600;
+  margin-bottom: 0;
   color: var(--fg-primary, rgba(255, 255, 255, 0.8));
   letter-spacing: var(--letter-spacing-wide, 0.025em);
 }

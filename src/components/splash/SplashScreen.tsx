@@ -17,6 +17,10 @@ export const SplashScreen: React.FC = () => {
 
   // Mount effect - only render on client
   useEffect(() => {
+    // Reset sphere expansion state when splash screen mounts (on page refresh)
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('sphere-expanded', 'false');
+    }
     setIsMounted(true);
   }, []);
 
