@@ -177,7 +177,7 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // Match splash screen timing: 1350ms normal, 50ms reduced motion
-    const delay = prefersReducedMotion ? 50 : 1750;
+    const delay = prefersReducedMotion ? 50 : 2450;
 
     const timer = setTimeout(() => {
       targetProgress.current = 1; // Trigger cube-to-sphere animation

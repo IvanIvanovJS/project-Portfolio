@@ -131,7 +131,7 @@
     inset 0 -1px 1px rgba(0, 0, 0, 0.1),
     0 8px 32px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  color: var(--fg-primary);
+  color: rgb(255, 255, 255, 0.8);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
@@ -162,6 +162,7 @@
     inset 0 -1px 1px rgba(0, 0, 0, 0.1),
     0 12px 48px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px);
+  color: var(--color-primary);
 }
 .ctaButton:active {
   transform: translateY(0);

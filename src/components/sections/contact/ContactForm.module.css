@@ -82,18 +82,22 @@
   align-items: center;
   justify-content: center;
   gap: var(--spacing-2, 0.5rem);
-  padding: var(--spacing-3, 0.75rem) var(--spacing-6, 1.5rem);
-  font-size: var(--font-size-base, 1rem);
+  padding: 16px 40px;
+  font-size: 1.1rem;
   font-weight: 600;
   font-family: var(--font-family-primary);
-  color: var(--fg-primary);
-  background: var(--glass-bg, rgba(255, 255, 255, 0.1));
-  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
+  color: rgb(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 12px;
-  -webkit-backdrop-filter: blur(15px);
-  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  backdrop-filter: blur(10px) saturate(180%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.4),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+    0 8px 32px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
   position: relative;
   overflow: hidden;
@@ -103,28 +107,35 @@
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(
-    135deg,
+    90deg,
     transparent,
-    rgba(var(--color-primary-rgb, 186, 255, 233), 0.1)
+    rgba(255, 255, 255, 0.2),
+    transparent
   );
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-.submitButton:hover:not(:disabled) {
-  transform: translateY(-2px);
-  border-color: var(--color-primary);
-  box-shadow: 0 0 20px 2px var(--color-primary-40);
-  letter-spacing: var(--letter-spacing-wide, 0.025em);
+  transition: left 0.5s ease;
 }
 .submitButton:hover:not(:disabled)::before {
-  opacity: 1;
+  left: 100%;
+}
+.submitButton:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.5),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+    0 12px 48px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  color: var(--color-primary);
 }
 .submitButton:active:not(:disabled) {
   transform: translateY(0);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.2),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.15),
+    0 4px 16px rgba(0, 0, 0, 0.1);
 }
 .submitButton:disabled {
   opacity: 0.6;
@@ -132,7 +143,13 @@
   transform: none;
 }
 .submitButton:focus-visible {
-  box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb, 186, 255, 233), 0.3);
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.4),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+    0 12px 48px rgba(0, 0, 0, 0.15),
+    0 0 0 4px rgba(var(--color-primary-rgb, 99, 102, 241), 0.2);
 }
 .spinner {
   width: 18px;
