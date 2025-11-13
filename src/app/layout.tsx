@@ -8,6 +8,8 @@ import { LayoutWrapper } from '../components/layout/LayoutWrapper';
 import { SplashScreen } from '../components/splash/SplashScreen';
 import { defaultMetadata } from '../config/seo';
 import { StructuredData } from '../components/seo/StructuredData';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const ibmPlexSans = IBM_Plex_Sans({
   weight: ['300', '400', '500', '600', '700'],
@@ -138,6 +140,8 @@ export default function RootLayout({
             </NavigationProvider>
           </ChakraProvider>
         </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
