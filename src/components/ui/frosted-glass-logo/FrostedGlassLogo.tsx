@@ -60,10 +60,11 @@ export const FrostedGlassLogo: React.FC<FrostedGlassLogoProps> = ({
   const shouldBeExpanded = isExpanded && !collapseWhen;
 
   const handleClick = (e: React.MouseEvent) => {
+    // Always prevent default to avoid adding #hero to URL
+    e.preventDefault();
+
     // Handle touch device toggle behavior
     if (isTouchDevice) {
-      e.preventDefault();
-
       // Clear any existing timeout
       if (collapseTimeoutRef.current) {
         clearTimeout(collapseTimeoutRef.current);
@@ -97,7 +98,6 @@ export const FrostedGlassLogo: React.FC<FrostedGlassLogoProps> = ({
       if (onClick) {
         onClick();
       } else if (href) {
-        e.preventDefault();
         const targetId = href.replace('#', '');
         const element = document.getElementById(targetId);
         if (element) {
