@@ -1,6 +1,6 @@
 'use client';
-import React, { useLayoutEffect, useRef, useState } from 'react';
-import { Sun, Moon, LayoutGrid, Menu } from 'lucide-react';
+import React, { useLayoutEffect, useRef, useState, useEffect } from 'react';
+import { Sun, Moon, LayoutGrid, ListCollapse, Menu } from 'lucide-react';
 import { useThemeContext } from '../../../providers/ThemeProvider';
 import { useNavigation } from '../../../providers/NavigationProvider';
 import styles from './UnifiedSwitcher.module.css';
@@ -19,6 +19,7 @@ export const UnifiedSwitcher: React.FC<UnifiedSwitcherProps> = ({
   const switcherRef = useRef<HTMLFieldSetElement>(null);
   const prevIndexRef = useRef<number | null>(null);
   const isInitialMount = useRef(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Generate unique ID for this instance
   const [uniqueId] = useState(
@@ -29,6 +30,18 @@ export const UnifiedSwitcher: React.FC<UnifiedSwitcherProps> = ({
 
   // Current index based on theme (0 for light, 1 for dark)
   const currentIndex = theme === 'light' ? 0 : 1;
+
+  // Detect mobile devices
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Use useLayoutEffect to ensure synchronous updates before paint
   useLayoutEffect(() => {
@@ -73,7 +86,11 @@ export const UnifiedSwitcher: React.FC<UnifiedSwitcherProps> = ({
   // Determine which navigation icon to show
   const navigationIcon =
     navigationMode === 'horizontal' ? (
-      <LayoutGrid size={18} />
+      isMobile ? (
+        <ListCollapse size={18} />
+      ) : (
+        <LayoutGrid size={18} />
+      )
     ) : (
       <Menu size={18} />
     );

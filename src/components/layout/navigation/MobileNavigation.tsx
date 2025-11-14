@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { UnifiedSwitcher } from '../../ui/unified-switcher/UnifiedSwitcher';
-import { X, Home, User, Briefcase, Mail, Menu } from 'lucide-react';
+import { X, Home, User, FolderGit2, Mail, Menu } from 'lucide-react';
 import { useNavigation } from '../../../providers/NavigationProvider';
 import styles from './MobileNavigation.module.css';
 
@@ -44,7 +44,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
         description = 'Welcome & Introduction';
         break;
       case 'projects':
-        icon = <Briefcase size={24} />;
+        icon = <FolderGit2 size={24} />;
         description = 'View Case Studies';
         break;
       case 'about':

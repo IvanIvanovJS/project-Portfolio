@@ -21,7 +21,7 @@ export const APPS: AppConfig[] = [
   {
     id: 'projects',
     name: 'Projects',
-    icon: 'Briefcase',
+    icon: 'FolderGit2',
     color: '#5856D6',
     colorDark: '#5E5CE6',
     functional: true,

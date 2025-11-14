@@ -2,7 +2,7 @@
 import React from 'react';
 import { UnifiedSwitcher } from '../../ui/unified-switcher/UnifiedSwitcher';
 import { FrostedGlassLogo } from '../../ui/frosted-glass-logo';
-import { Menu, X, Home, User, Briefcase, Mail } from 'lucide-react';
+import { Menu, X, Home, User, FolderGit2, Mail } from 'lucide-react';
 import styles from './VerticalNavigation.module.css';
 
 interface NavigationItem {
@@ -44,7 +44,7 @@ export const VerticalNavigation: React.FC<VerticalNavigationProps> = ({
         description = 'Welcome & Introduction';
         break;
       case 'projects':
-        icon = <Briefcase size={26} />;
+        icon = <FolderGit2 size={26} />;
         description = 'View Case Studies';
         break;
       case 'about':
