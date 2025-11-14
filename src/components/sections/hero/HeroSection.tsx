@@ -67,7 +67,7 @@ export const HeroSection: React.FC = () => {
             <h1 id="hero-heading" className={styles.name}>
               Ivan Ivanov
             </h1>
-            <h2 className={styles.title}>FRONT-END AND UI/UX DEVELOPER</h2>
+            <h2 className={styles.title}>FULL STACK AND UI/UX DEVELOPER</h2>
             <p className={styles.tagline}>
               <span className={styles.blinkingDot} aria-hidden="true"></span>
               Accepting full-time or freelance job offers

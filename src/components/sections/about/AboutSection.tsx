@@ -18,7 +18,7 @@ interface AboutSectionProps {
 const defaultData: AboutData = {
   personalInfo: {
     name: 'Ivan D. Ivanov',
-    title: 'Front-End Developer',
+    title: 'Full Stack Developer',
     bio: 'React software engineer with expertise in modern web technologies. I specialize in creating beautiful, performant, and accessible web applications using React, TypeScript, and Next.js. With a keen eye for design and a commitment to clean code, I bring ideas to life through elegant solutions.',
     location: 'Varna, Bulgaria',
     email: 'ivanov@webmorphism.com',
@@ -27,12 +27,12 @@ const defaultData: AboutData = {
 
   experience: [
     {
-      company: 'Front End Developer',
+      company: 'Full Stack Developer',
       position: 'Personal Pprojects',
       startDate: '2025-08',
       endDate: undefined,
       description:
-        'Developing front-end applications as part of my personal portfolio',
+        'Developing web applications as part of my personal portfolio',
       technologies: ['React', 'TypeScript', 'Next.js', 'CSS', 'UI/UX'],
     },
     {
@@ -59,7 +59,7 @@ const defaultData: AboutData = {
       alt: 'My main hobby',
       caption: "👋 Hey, it's me! I'm glad you're here!",
       subCaption:
-        'Coding is my passion — feel free to reach out for a collaboration',
+        'Coding is my passion - feel free to reach out for a collaboration',
     },
     {
       id: '2',
@@ -74,9 +74,9 @@ const defaultData: AboutData = {
       src: 'familyBrunch',
       alt: 'Family moments - brunch time',
       caption:
-        "❤️ One of my favorite things to do for my family — it's brunch time!",
+        "❤️ One of my favorite things to do for my family - it's brunch time!",
       subCaption:
-        'The best part of the week — preparing Sunday brunch for my family',
+        'The best part of the week - preparing Sunday brunch for my family',
     },
     {
       id: '4',
@@ -84,7 +84,7 @@ const defaultData: AboutData = {
       alt: 'Sunraise on Palm Jumeirah',
       caption: '🛫 When a 5 AM sunrise makes you smile!',
       subCaption:
-        "Some people say money can't buy happiness — they've clearly never traveled",
+        "Some people say money can't buy happiness - they've clearly never traveled",
     },
   ],
 };
