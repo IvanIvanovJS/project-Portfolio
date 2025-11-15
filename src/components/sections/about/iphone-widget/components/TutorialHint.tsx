@@ -63,6 +63,33 @@ export const TutorialHint: React.FC<TutorialHintProps> = ({
   const isAnimatingRef = useRef(false);
   const frozenTargetsRef = useRef<TargetPositions>(targetPositions);
 
+  // Update position dynamically when targetPositions change (e.g., on hover)
+  useEffect(() => {
+    if (phase !== 'idle' && isAnimatingRef.current) {
+      frozenTargetsRef.current = targetPositions;
+
+      // Update position based on current phase
+      const updatePosition = () => {
+        if (
+          phase === 'appearing' ||
+          phase === 'on-about' ||
+          phase === 'clicking-about'
+        ) {
+          setPosition(targetPositions.aboutApp);
+        } else if (
+          phase === 'moving-to-back' ||
+          phase === 'clicking-back' ||
+          phase === 'disappearing'
+        ) {
+          setPosition(targetPositions.backButton);
+        }
+      };
+
+      // Use microtask to avoid synchronous setState
+      Promise.resolve().then(updatePosition);
+    }
+  }, [targetPositions, phase]);
+
   useEffect(() => {
     if (isVisible && !isAnimatingRef.current) {
       frozenTargetsRef.current = targetPositions;
@@ -121,7 +148,6 @@ export const TutorialHint: React.FC<TutorialHintProps> = ({
 
   const config = PHASE_CONFIG[phase];
 
-  // 👇 IMPORTANT: animation class is applied only on the HAND element
   const handAnimationClass = config.animationClass
     ? styles[config.animationClass]
     : '';

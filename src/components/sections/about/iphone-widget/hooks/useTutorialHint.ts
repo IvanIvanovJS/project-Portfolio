@@ -99,7 +99,7 @@ function calculateTargetPositions(
   };
 
   // Icon size from appConfig: 60px
-  const iconSize = 60;
+  const iconSize = 40;
 
   // Calculate available width for grid (inside the frame)
   const screenWidth = frameWidth - frameBorder * 2;
@@ -107,8 +107,8 @@ function calculateTargetPositions(
   const columnWidth = (availableWidth - gridGap.column * 3) / 4;
 
   // Hand cursor icon size (from TutorialHint.module.css)
-  const handIconSize = isMobile ? 56 : 48;
-  const handOffset = handIconSize / 2;
+  const handIconSize = 28;
+  const handOffset = handIconSize;
 
   // About app is in first row, first column (index 0)
   // Position calculation:
@@ -122,7 +122,8 @@ function calculateTargetPositions(
   const aboutAppYInFrame = frameBorder + gridPadding.top + iconSize / 2;
 
   const aboutAppX = aboutAppXInFrame * frameScale + frameOffsetX - handOffset;
-  const aboutAppY = aboutAppYInFrame * frameScale + frameOffsetY - handOffset;
+  const aboutAppY =
+    aboutAppYInFrame * frameScale + frameOffsetY + handOffset / 2;
 
   // Back button position in AppContainer
   // From AppContainer.module.css:
