@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { Hand } from 'lucide-react';
+import { Pointer } from 'lucide-react';
 import styles from './TutorialHint.module.css';
 
 export interface TargetPositions {
@@ -32,20 +32,20 @@ interface PhaseConfig {
 const PHASE_CONFIG: Record<AnimationPhase, PhaseConfig> = {
   idle: { duration: 0, nextPhase: null },
   appearing: { duration: 300, nextPhase: 'on-about' },
-  'on-about': { duration: 500, nextPhase: 'clicking-about' },
+  'on-about': { duration: 1000, nextPhase: 'clicking-about' },
   'clicking-about': {
     duration: 500,
     nextPhase: 'moving-to-back',
     animationClass: 'clicking',
   },
-  'moving-to-back': { duration: 1000, nextPhase: 'clicking-back' },
+  'moving-to-back': { duration: 1500, nextPhase: 'clicking-back' },
   'clicking-back': {
-    duration: 500,
+    duration: 1000,
     nextPhase: 'disappearing',
     animationClass: 'clicking',
   },
   disappearing: {
-    duration: 500,
+    duration: 1000,
     nextPhase: null,
     animationClass: 'disappearing',
   },
@@ -165,7 +165,7 @@ export const TutorialHint: React.FC<TutorialHintProps> = ({
         transform: `translate(${position.x}px, ${position.y}px)`,
       }}
     >
-      <Hand className={`${styles.handIcon} ${handAnimationClass}`} />
+      <Pointer className={`${styles.handIcon} ${handAnimationClass}`} />
     </div>
   );
 };

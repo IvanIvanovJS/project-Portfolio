@@ -23,10 +23,12 @@ import type { TargetPositions } from '../components/TutorialHint';
  * based on the widget layout and dimensions
  *
  * @param widgetElement - The widget container element
+ * @param isHovered - Whether the widget is currently hovered (desktop only)
  * @returns Target positions for About app icon and back button
  */
 function calculateTargetPositions(
-  widgetElement: HTMLElement | null
+  widgetElement: HTMLElement | null,
+  isHovered: boolean = false
 ): TargetPositions {
   // Default positions if widget element is not available
   if (!widgetElement) {
@@ -36,12 +38,8 @@ function calculateTargetPositions(
     };
   }
 
-  // Get widget dimensions
-  const widgetRect = widgetElement.getBoundingClientRect();
-  const widgetWidth = widgetRect.width;
-
   // Detect if mobile viewport (widget width < 400px)
-  const isMobile = widgetWidth < 400;
+  const isMobile = window.innerWidth < 769;
 
   // Find the IPhoneFrame element to get its actual transform
   const iphoneFrame = widgetElement.querySelector(
@@ -49,7 +47,9 @@ function calculateTargetPositions(
   ) as HTMLElement;
 
   // Calculate actual frame scale and position from the DOM
-  let frameScale = isMobile ? 1.0 : 0.65;
+  // On desktop: 0.65 default, 0.95 when hovered
+  // On mobile: always 1.0
+  let frameScale = isMobile ? 1.0 : isHovered ? 0.95 : 0.65;
   let frameOffsetX = 0;
   let frameOffsetY = 0;
 
@@ -121,9 +121,14 @@ function calculateTargetPositions(
   const aboutAppXInFrame = frameBorder + gridPadding.left + columnWidth / 2;
   const aboutAppYInFrame = frameBorder + gridPadding.top + iconSize / 2;
 
-  const aboutAppX = aboutAppXInFrame * frameScale + frameOffsetX - handOffset;
-  const aboutAppY =
-    aboutAppYInFrame * frameScale + frameOffsetY + handOffset / 2;
+  const aboutAppX = isHovered
+    ? aboutAppXInFrame - 4
+    : isMobile
+      ? aboutAppXInFrame * frameScale + frameOffsetX - handOffset / 2 - 6
+      : aboutAppXInFrame * frameScale + frameOffsetX - handOffset / 2 + 6;
+  const aboutAppY = isHovered
+    ? aboutAppYInFrame * 0.5 - frameOffsetY
+    : aboutAppYInFrame * frameScale + frameOffsetY;
 
   // Back button position in AppContainer
   // From AppContainer.module.css:
@@ -145,10 +150,13 @@ function calculateTargetPositions(
   const backButtonYInFrame =
     frameBorder + systemBarHeight + navBarPadding.top + backButtonSize / 2;
 
-  const backButtonX =
-    backButtonXInFrame * frameScale + frameOffsetX - handOffset;
-  const backButtonY =
-    backButtonYInFrame * frameScale + frameOffsetY - handOffset;
+  const backButtonX = isHovered
+    ? backButtonXInFrame * 0.5 + handOffset
+    : backButtonXInFrame * frameScale + frameOffsetX + handOffset / 2;
+
+  const backButtonY = isHovered
+    ? -backButtonYInFrame * 0.5 + 6
+    : backButtonYInFrame * frameScale + frameOffsetY;
 
   return {
     aboutApp: {
@@ -252,10 +260,30 @@ export function useTutorialHint({
   });
   const [isInViewport, setIsInViewport] = useState(false);
   const [animationCycle, setAnimationCycle] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
   const [targetPositions, setTargetPositions] = useState<TargetPositions>({
     aboutApp: { x: 0, y: 0 },
     backButton: { x: 0, y: 0 },
   });
+
+  // Track hover state for desktop
+  useEffect(() => {
+    const widgetElement = widgetRef.current;
+    if (!widgetElement) {
+      return;
+    }
+
+    const handleMouseEnter = () => setIsHovered(true);
+    const handleMouseLeave = () => setIsHovered(false);
+
+    widgetElement.addEventListener('mouseenter', handleMouseEnter);
+    widgetElement.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      widgetElement.removeEventListener('mouseenter', handleMouseEnter);
+      widgetElement.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, [widgetRef]);
 
   // Calculate target positions based on widget dimensions
   // This must be done in an effect to avoid accessing refs during render
@@ -267,7 +295,7 @@ export function useTutorialHint({
     }
 
     const updatePositions = () => {
-      const positions = calculateTargetPositions(widgetElement);
+      const positions = calculateTargetPositions(widgetElement, isHovered);
       setTargetPositions(positions);
     };
 
@@ -285,7 +313,7 @@ export function useTutorialHint({
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [widgetRef, isInViewport]);
+  }, [widgetRef, isInViewport, isHovered]);
 
   // Determine if hint should be shown
   // Show hint when visible and user hasn't interacted
@@ -334,35 +362,47 @@ export function useTutorialHint({
 
   // Task 8: Animation cycle timing with intervals
   useEffect(() => {
-    // Don't start timers if user has already interacted or modal is open
-    if (hasInteracted || isModalOpen) {
-      return;
-    }
+    if (animationCycle > 0) return; // <-- prevent reruns
+    if (hasInteracted || isModalOpen) return;
+    if (!isInViewport) return;
 
-    // Don't start timers if widget is not in viewport
-    if (!isInViewport) {
-      return;
-    }
-
-    // Initial delay: 2 seconds before first animation
     const initialTimer = setTimeout(() => {
       setIsVisible(true);
     }, 2000);
 
-    // Repeat timer: 15 seconds between animation cycles
-    const repeatTimer = setInterval(() => {
+    return () => clearTimeout(initialTimer);
+  }, [isInViewport, hasInteracted, isModalOpen, animationCycle]);
+
+  // Separate effect for repeat timer that triggers after animation completes
+  useEffect(() => {
+    // Don't start repeat timer on initial mount (animationCycle === 0)
+    if (animationCycle === 0) {
+      return;
+    }
+
+    // Don't start timer if user has already interacted or modal is open
+    if (hasInteracted || isModalOpen) {
+      return;
+    }
+
+    // Don't start timer if widget is not in viewport
+    if (!isInViewport) {
+      return;
+    }
+
+    // Repeat timer: 15 seconds after animation completes
+    const repeatTimer = setTimeout(() => {
       // Only trigger animation if still in viewport and not interacted
       if (isInViewport && !hasInteracted && !isModalOpen) {
         setIsVisible(true);
       }
-    }, 15000);
+    }, 8000);
 
-    // Cleanup: clear all timers on component unmount or when dependencies change
+    // Cleanup: clear timer on component unmount or when dependencies change
     return () => {
-      clearTimeout(initialTimer);
-      clearInterval(repeatTimer);
+      clearTimeout(repeatTimer);
     };
-  }, [isInViewport, hasInteracted, isModalOpen, animationCycle]);
+  }, [animationCycle, isInViewport, hasInteracted, isModalOpen]);
 
   /**
    * Handle animation cycle completion
