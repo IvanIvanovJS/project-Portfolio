@@ -29,17 +29,58 @@ export default function RootLayout({
   return (
     <html lang="en" className={ibmPlexSans.variable} suppressHydrationWarning>
       <head>
-        {/* Rubik Glitch Font for Splash Screen */}
+        {/* Preconnect to font CDN - start DNS lookup early */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+
+        {/* Preload critical assets for hero section */}
+        <link
+          rel="preload"
+          href="/textures/icons.v1.png"
+          as="image"
+          type="image/png"
+          fetchPriority="high"
+        />
+        <link
+          rel="preload"
+          href="/textures/icons.v1.json"
+          as="fetch"
+          type="application/json"
+          crossOrigin="anonymous"
+        />
+
+        {/* Preload Rubik Glitch font for splash screen */}
+        <link
+          rel="preload"
+          href="https://fonts.gstatic.com/s/rubikglitch/v2/qkBSXv8b_srFRYQVYrDKh9ZfkiTGCNg.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+
+        {/* Rubik Glitch Font CSS - with display=swap */}
         <link
           href="https://fonts.googleapis.com/css2?family=Rubik+Glitch&display=swap"
           rel="stylesheet"
         />
+
+        {/* 
+          Note: modulepreload hints for Three.js chunks would be added here after production build
+          to preload specific chunk files. Next.js automatically code-splits these modules:
+          - @react-three/fiber
+          - @react-three/drei  
+          - three
+          
+          Example (actual chunk names determined at build time):
+          <link rel="modulepreload" href="/_next/static/chunks/[hash].js" />
+          
+          The chunks are already optimized through Next.js automatic code splitting.
+        */}
+
         <link rel="canonical" href="https://webmorphism.com" />
         <meta
           name="viewport"

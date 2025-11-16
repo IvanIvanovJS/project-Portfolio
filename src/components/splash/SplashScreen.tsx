@@ -2,10 +2,20 @@
 
 import { useEffect, useState, useRef } from 'react';
 import styles from './SplashScreen.module.css';
+import { preloadAssets, type PreloadedAssets } from '@/utils/assetPreloader';
+import { loadThreeJsModules } from '@/utils/lazyThreeLoader';
 
 type AnimationPhase = 'text-in' | 'hold' | 'fade-out' | 'complete';
 
-export const SplashScreen: React.FC = () => {
+export interface SplashScreenProps {
+  onComplete?: () => void;
+  onAssetsReady?: (assets: PreloadedAssets) => void;
+}
+
+export const SplashScreen: React.FC<SplashScreenProps> = ({
+  onComplete,
+  onAssetsReady,
+}) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [phase, setPhase] = useState<AnimationPhase>('text-in');
@@ -13,6 +23,7 @@ export const SplashScreen: React.FC = () => {
   const [showTechnicalStack, setShowTechnicalStack] = useState(false);
   const [typedText, setTypedText] = useState('');
   const [fadingOut, setFadingOut] = useState(false);
+  const [assetsReady, setAssetsReady] = useState(false);
   const timersRef = useRef<NodeJS.Timeout[]>([]);
 
   // Mount effect - only render on client
@@ -24,6 +35,36 @@ export const SplashScreen: React.FC = () => {
     }
     setIsMounted(true);
   }, []);
+
+  // Asset preloading effect - runs in parallel with animation
+  useEffect(() => {
+    if (!isMounted) return;
+
+    const loadAssets = async () => {
+      try {
+        // Start preloading assets immediately
+        const [assets, threeModules] = await Promise.all([
+          preloadAssets(),
+          loadThreeJsModules(),
+        ]);
+
+        // Combine assets with Three.js modules
+        const completeAssets: PreloadedAssets = {
+          ...assets,
+          threeModules,
+        };
+
+        setAssetsReady(true);
+        onAssetsReady?.(completeAssets);
+      } catch (error) {
+        console.error('Asset preloading failed:', error);
+        // Continue anyway - graceful degradation
+        // The scene will load assets synchronously as fallback
+      }
+    };
+
+    loadAssets();
+  }, [isMounted, onAssetsReady]);
 
   // Main animation timeline effect
   useEffect(() => {
@@ -47,11 +88,11 @@ export const SplashScreen: React.FC = () => {
       : {
           ASSEMBLING_IN: 0,
           TECHNICAL_STACK_IN: 500,
-          TYPING_START: 1000,
-          TYPING_DURATION: 1500, // 1.5 seconds for typing effect
-          FADE_OUT_START: 2500,
-          FADE_OUT_DURATION: 500,
-          COMPLETE: 3000,
+          TYPING_START: 800,
+          TYPING_DURATION: 1200, // 1.5 seconds for typing effect
+          FADE_OUT_START: 2000,
+          FADE_OUT_DURATION: 300,
+          COMPLETE: 2300,
         };
 
     const fullText = 'Compiling innovation...';
@@ -99,6 +140,7 @@ export const SplashScreen: React.FC = () => {
     const timer6 = setTimeout(() => {
       setPhase('complete');
       setIsVisible(false);
+      onComplete?.();
     }, TIMELINE.COMPLETE);
     timers.push(timer6);
 
@@ -109,7 +151,7 @@ export const SplashScreen: React.FC = () => {
       timersRef.current.forEach((timer) => clearTimeout(timer));
       timersRef.current = [];
     };
-  }, [isMounted]);
+  }, [isMounted, onComplete]);
 
   // Don't render anything on server or after splash is hidden
   if (!isMounted || !isVisible) {
@@ -141,6 +183,26 @@ export const SplashScreen: React.FC = () => {
           {typedText && <span className={styles.cursor}>|</span>}
         </div>
       </div>
+
+      {/* Optional: Visual indicator when assets are ready */}
+      {assetsReady && (
+        <div
+          className={styles.readyIndicator}
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            bottom: '20px',
+            right: '20px',
+            color: 'rgba(186, 255, 233, 0.6)',
+            fontSize: '14px',
+            opacity: phase === 'fade-out' ? 0 : 1,
+            transition: 'opacity 0.3s ease',
+          }}
+        >
+          ✓
+        </div>
+      )}
+
       <span className={styles.srOnly}>
         Assembling Technical Stack. Compiling innovation. Please wait.
       </span>
