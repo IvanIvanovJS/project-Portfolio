@@ -7,14 +7,22 @@ import { setupTileAttributes } from './utils/tileAttributes';
 import { TileMaterial } from './materials/TileMaterial';
 import { AnimationController } from './controllers/AnimationController';
 import { InteractionHandler } from './controllers/InteractionHandler';
+import type { PreloadedAssets } from '@/utils/assetPreloader';
 
 interface ThreeSceneProps {
   theme: 'light' | 'dark';
   isVisible: boolean;
+  preloadedAssets?: PreloadedAssets | null;
 }
 
 // Rubik's Cube style sphere
-function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
+function RubikSphere({
+  theme,
+  preloadedAssets,
+}: {
+  theme: 'light' | 'dark';
+  preloadedAssets?: PreloadedAssets | null;
+}) {
   const groupRef = useRef<THREE.Group>(null);
   const tilesRef = useRef<THREE.InstancedMesh>(null);
   const [atlas, setAtlas] = useState<LoadedAtlas | null>(null);
@@ -43,15 +51,37 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
-  // Create material when atlas is available
-  const tileMaterial = useMemo(() => {
-    if (!atlas) return null;
+  // Create texture from preloaded ImageBitmap (no re-decode)
+  const texture = useMemo(() => {
+    if (!preloadedAssets || !preloadedAssets.iconAtlas) {
+      return null;
+    }
 
-    const material = new TileMaterial(atlas.texture, atlas.metadata.meta.size);
+    // Create texture directly from ImageBitmap - no decoding needed
+    const tex = new THREE.Texture(preloadedAssets.iconAtlas);
+    tex.minFilter = THREE.LinearMipMapLinearFilter;
+    tex.magFilter = THREE.LinearFilter;
+    tex.anisotropy = 16;
+    tex.generateMipmaps = true;
+    tex.flipY = false;
+    tex.needsUpdate = true;
+
+    return tex;
+  }, [preloadedAssets]);
+
+  // Create material when texture is available
+  const tileMaterial = useMemo(() => {
+    if (!texture || !preloadedAssets || !preloadedAssets.atlasMetadata)
+      return null;
+
+    const material = new TileMaterial(
+      texture,
+      preloadedAssets.atlasMetadata.meta.size
+    );
     material.updateThemeColor(theme === 'dark');
 
     return material;
-  }, [atlas, theme]);
+  }, [texture, preloadedAssets, theme]);
 
   // Generate cube grid positions and sphere positions
   const { cubePositions, spherePositions, rotations, sphereRadius } =
@@ -145,18 +175,53 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
   const animationProgress = useRef(0);
   const targetProgress = useRef(0); // 0 = cube, 1 = sphere - start as cube
 
-  // Load atlas on component mount (Subtask 10.1)
+  // Use preloaded assets if available, otherwise load synchronously as fallback
   useEffect(() => {
-    loadIconAtlas()
-      .then((loadedAtlas) => {
-        if (loadedAtlas) {
+    let mounted = true;
+
+    const loadAtlas = async () => {
+      if (
+        preloadedAssets?.iconAtlas &&
+        preloadedAssets?.atlasMetadata &&
+        texture
+      ) {
+        // Assets already preloaded - create LoadedAtlas structure
+        const loadedAtlas: LoadedAtlas = {
+          texture: texture,
+          metadata: {
+            meta: {
+              version: preloadedAssets.atlasMetadata.meta.version,
+              size: preloadedAssets.atlasMetadata.meta.size,
+              iconSize: preloadedAssets.atlasMetadata.meta.iconSize,
+              padding: preloadedAssets.atlasMetadata.meta.padding,
+              count: preloadedAssets.atlasMetadata.meta.count,
+            },
+            frames: preloadedAssets.atlasMetadata.frames,
+          },
+          iconNames: Object.keys(preloadedAssets.atlasMetadata.frames),
+        };
+        if (mounted) {
           setAtlas(loadedAtlas);
         }
-      })
-      .catch(() => {
-        // Fallback: render without icons (existing material will be used)
-      });
-  }, []);
+      } else if (!preloadedAssets) {
+        // Fallback: load synchronously if preloading failed
+        try {
+          const loadedAtlas = await loadIconAtlas();
+          if (loadedAtlas && mounted) {
+            setAtlas(loadedAtlas);
+          }
+        } catch {
+          // Fallback: render without icons
+        }
+      }
+    };
+
+    loadAtlas();
+
+    return () => {
+      mounted = false;
+    };
+  }, [preloadedAssets, texture]);
 
   // Start sphere expansion animation after splash screen
   useEffect(() => {
@@ -190,16 +255,19 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
     return () => clearTimeout(timer);
   }, []);
 
-  // Setup materials and attributes when atlas loads (Subtasks 10.2, 10.3, 10.4, 10.5)
+  // Setup materials and attributes when atlas loads - optimized with batching
   useEffect(() => {
     if (!atlas || !tilesRef.current) return;
 
-    try {
-      // Subtask 10.3: Set up tile attributes FIRST (before changing material)
-      setupTileAttributes(tilesRef.current, atlas, tileCount);
+    const mesh = tilesRef.current;
+    let idleCallbackId: number | null = null;
 
-      // Subtask 10.4: Initialize animation controller
-      const geometry = tilesRef.current.geometry;
+    try {
+      // Critical: Set up tile attributes immediately (batched updates)
+      setupTileAttributes(mesh, atlas, tileCount);
+
+      // Batch geometry attribute updates together
+      const geometry = mesh.geometry;
       const glowAttribute = geometry.getAttribute(
         'glowIntensity'
       ) as THREE.InstancedBufferAttribute;
@@ -208,30 +276,47 @@ function RubikSphere({ theme }: { theme: 'light' | 'dark' }) {
         return;
       }
 
+      // Critical: Initialize animation controller immediately
       animationControllerRef.current = new AnimationController(
         tileCount,
         glowAttribute,
-        tilesRef.current,
+        mesh,
         spherePositions,
         rotations,
         sphereRadius,
         reducedMotion
       );
 
-      // Subtask 10.5: Initialize interaction handler
-      const canvas = gl.domElement;
-      interactionHandlerRef.current = new InteractionHandler(
-        camera,
-        tilesRef.current,
-        canvas,
-        animationControllerRef.current
-      );
+      // Non-critical: Initialize interaction handler during idle time
+      const setupInteractionHandler = () => {
+        const canvas = gl.domElement;
+        interactionHandlerRef.current = new InteractionHandler(
+          camera,
+          mesh,
+          canvas,
+          animationControllerRef.current!
+        );
+      };
+
+      // Use requestIdleCallback for non-critical setup
+      if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+        idleCallbackId = window.requestIdleCallback(
+          setupInteractionHandler,
+          { timeout: 1000 } // Fallback after 1s
+        );
+      } else {
+        // Fallback for browsers without requestIdleCallback
+        setTimeout(setupInteractionHandler, 0);
+      }
     } catch {
       // Silent error handling
     }
 
     // Cleanup function
     return () => {
+      if (idleCallbackId !== null && typeof window !== 'undefined') {
+        window.cancelIdleCallback(idleCallbackId);
+      }
       if (interactionHandlerRef.current) {
         interactionHandlerRef.current.dispose();
         interactionHandlerRef.current = null;
@@ -437,7 +522,11 @@ function ErrorFallback() {
   );
 }
 
-export const ThreeScene: React.FC<ThreeSceneProps> = ({ theme, isVisible }) => {
+export const ThreeScene: React.FC<ThreeSceneProps> = ({
+  theme,
+  isVisible,
+  preloadedAssets,
+}) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -529,7 +618,7 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({ theme, isVisible }) => {
         {/* Main content */}
         {isVisible && (
           <>
-            <RubikSphere theme={theme} />
+            <RubikSphere theme={theme} preloadedAssets={preloadedAssets} />
             <Particles theme={theme} />
           </>
         )}

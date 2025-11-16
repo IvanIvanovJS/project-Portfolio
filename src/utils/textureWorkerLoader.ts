@@ -14,9 +14,14 @@ export interface TextureLoadError {
 }
 
 export interface AtlasMetadata {
-  frames: Record<string, unknown>;
+  frames: Record<string, { x: number; y: number; w: number; h: number }>;
   meta: {
-    size: { w: number; h: number };
+    version: string;
+    size: number;
+    iconSize: number;
+    padding: number;
+    count: number;
+    generated?: string;
   };
 }
 

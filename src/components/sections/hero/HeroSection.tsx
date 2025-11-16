@@ -1,9 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ThreeScene } from './ThreeScene';
 import { useTheme } from '../../../hooks/useTheme';
+import type { PreloadedAssets } from '@/utils/assetPreloader';
 import styles from './HeroSection.module.css';
 
-export const HeroSection: React.FC = () => {
+export interface HeroSectionProps {
+  preloadedAssets?: PreloadedAssets | null;
+}
+
+export const HeroSection: React.FC<HeroSectionProps> = ({
+  preloadedAssets,
+}) => {
   const { theme } = useTheme();
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -53,7 +60,11 @@ export const HeroSection: React.FC = () => {
     >
       {/* Full-width 3D Scene Background */}
       <div className={styles.sceneBackground}>
-        <ThreeScene theme={theme} isVisible={isVisible} />
+        <ThreeScene
+          theme={theme}
+          isVisible={isVisible}
+          preloadedAssets={preloadedAssets}
+        />
       </div>
 
       {/* Content container */}

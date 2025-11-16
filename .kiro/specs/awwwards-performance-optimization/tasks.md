@@ -24,7 +24,7 @@
   - Update font-display to 'swap' for Rubik Glitch font
   - _Requirements: 4.1, 4.2, 4.3, 2.2_
 
-- [ ] 4. Optimize Three.js scene initialization with preloaded assets
+- [x] 4. Optimize Three.js scene initialization with preloaded assets
   - Update `ThreeScene.tsx` to accept preloadedAssets prop
   - Create texture directly from ImageBitmap (no re-decode)
   - Remove synchronous texture loading from component
@@ -36,7 +36,6 @@
   - Detect mobile devices using window.innerWidth
   - Reduce particle count from 300 to 100 on mobile
   - Reduce tile size from 0.45 to 0.35 on mobile
-  - Disable auto-rotation on mobile devices
   - Lower DPR to [1, 1.5] on mobile (from [1, 2])
   - Simplify fragment shader for mobile (remove expensive glow calculations)
   - _Requirements: 3.5_
