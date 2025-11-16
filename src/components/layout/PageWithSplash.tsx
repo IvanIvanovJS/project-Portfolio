@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { SplashScreen } from '../splash/SplashScreen';
 import type { PreloadedAssets } from '@/utils/assetPreloader';
 
@@ -16,23 +16,34 @@ export const PageWithSplash: React.FC<PageWithSplashProps> = ({ children }) => {
   const [preloadedAssets, setPreloadedAssets] =
     useState<PreloadedAssets | null>(null);
 
+  // Hide body content immediately on mount
+  useEffect(() => {
+    document.body.classList.add('splash-active');
+    return () => {
+      document.body.classList.remove('splash-active');
+    };
+  }, []);
+
   const handleAssetsReady = useCallback((assets: PreloadedAssets) => {
     setPreloadedAssets(assets);
   }, []);
 
   const handleSplashComplete = useCallback(() => {
     setSplashComplete(true);
+    // Remove the class to show content
+    document.body.classList.remove('splash-active');
   }, []);
 
   return (
     <>
-      {!splashComplete && (
+      {!splashComplete ? (
         <SplashScreen
           onComplete={handleSplashComplete}
           onAssetsReady={handleAssetsReady}
         />
+      ) : (
+        children(preloadedAssets)
       )}
-      {children(preloadedAssets)}
     </>
   );
 };

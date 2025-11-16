@@ -1,5 +1,16 @@
 /* Import glassmorphism styles */
 @import '../styles/glassmorphism.css';
+
+/* Splash screen active state - hide all content except splash */
+body.splash-active > *:not([role='status']) {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+body.splash-active [role='status'] {
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
 /* Custom Fonts */
 @font-face {
   font-family: 'Gagalin';
