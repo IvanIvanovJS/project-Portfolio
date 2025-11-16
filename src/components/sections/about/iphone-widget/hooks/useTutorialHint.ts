@@ -355,7 +355,7 @@ export function useTutorialHint({
 
     const initialTimer = setTimeout(() => {
       setIsVisible(true);
-    }, 2000);
+    }, 1200);
 
     return () => clearTimeout(initialTimer);
   }, [isInViewport, hasInteracted, isModalOpen, animationCycle]);
@@ -383,7 +383,7 @@ export function useTutorialHint({
       if (isInViewport && !hasInteracted && !isModalOpen) {
         setIsVisible(true);
       }
-    }, 8000);
+    }, 6000);
 
     // Cleanup: clear timer on component unmount or when dependencies change
     return () => {
