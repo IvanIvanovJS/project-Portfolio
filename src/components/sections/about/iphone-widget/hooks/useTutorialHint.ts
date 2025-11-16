@@ -126,7 +126,6 @@ function calculateTargetPositions(
     ? aboutAppXInFrame * frameScale + frameOffsetX - handOffset / 2
     : aboutAppXInFrame * frameScale + frameOffsetX - handOffset / 2 + 6;
   const aboutAppY = aboutAppYInFrame * frameScale + frameOffsetY;
-  console.log('isHovered', isHovered);
   // Back button position in AppContainer
   // From AppContainer.module.css:
   // - AppContainer top: 46px (SystemBar height)
@@ -296,7 +295,7 @@ export function useTutorialHint({
       setTimeout(() => {
         const positions = calculateTargetPositions(widgetElement, isHovered);
         setTargetPositions(positions);
-      }, 350);
+      }, 400);
     };
 
     // Initial calculation
