@@ -24,15 +24,15 @@
 }
 /* Theme-aware properties */
 :global([data-theme='dark']) .glassButton {
-  color: rgba(255, 255, 255, 0.8);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 :global([data-theme='light']) .glassButton {
-  color: rgba(23, 23, 23, 0.8);
-  background: rgba(255, 255, 255, 0.25);
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  color: rgba(23, 23, 23, 0.95);
+  background: rgba(255, 255, 255, 0.4);
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 }
 /* Button content wrapper */
 .buttonContent {
@@ -94,10 +94,14 @@
     0 0 30px var(--glow-color, var(--color-primary, #baffe9)),
     0 0 60px var(--glow-color, var(--color-primary, #baffe9));
 }
-/* Focus styles for accessibility */
+/* Focus styles for accessibility - Enhanced with 3:1 contrast */
 .glassButton:focus-visible {
-  outline: 2px solid var(--color-primary, #baffe9);
+  outline: 2px solid var(--focus-ring-color, var(--color-primary, #baffe9));
   outline-offset: 2px;
+  box-shadow:
+    0 15px 15px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 0 0 4px var(--focus-ring-shadow, rgba(186, 255, 233, 0.3));
 }
 /* Disabled state */
 .disabled {

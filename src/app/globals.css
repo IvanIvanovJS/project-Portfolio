@@ -1,5 +1,27 @@
 /* Import glassmorphism styles */
 @import '../styles/glassmorphism.css';
+
+/* Splash screen active state - hide content but allow it to load in background */
+body.splash-active .layout-wrapper {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Splash screen positioning - only when splash is active */
+body.splash-active [role='status'] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+}
+
+/* Show content when splash is not active */
+body:not(.splash-active) .layout-wrapper {
+  visibility: visible;
+  pointer-events: auto;
+}
 /* Custom Fonts */
 @font-face {
   font-family: 'Gagalin';
@@ -115,10 +137,11 @@
   --bg-secondary: #1f1f1f;
   --bg-tertiary: #2a2a2a;
   --bg-fourtriary: #4d4d4d;
-  --fg-primary: rgba(255, 255, 255, 0.8);
-  --fg-secondary: rgba(255, 255, 255, 0.6);
-  --fg-tertiary: rgba(255, 255, 255, 0.4);
-  --fg-muted: rgba(255, 255, 255, 0.2);
+  --fg-primary: rgba(255, 255, 255, 0.95);
+  --fg-primary-rgb: 255, 255, 255;
+  --fg-secondary: rgba(255, 255, 255, 0.8);
+  --fg-tertiary: rgba(255, 255, 255, 0.6);
+  --fg-muted: rgba(255, 255, 255, 0.4);
   /* Brand Colors */
   --color-primary: #baffe9;
   --color-primary-60: rgba(186, 255, 233, 0.6);
@@ -173,10 +196,11 @@
   --bg-secondary: #ffffff;
   --bg-tertiary: #ecebeb;
   --bg-fourtriary: #dcdcdc;
-  --fg-primary: rgba(23, 23, 23, 0.8);
-  --fg-secondary: rgba(23, 23, 23, 0.6);
-  --fg-tertiary: rgba(23, 23, 23, 0.4);
-  --fg-muted: rgba(23, 23, 23, 0.2);
+  --fg-primary: rgba(23, 23, 23, 0.95);
+  --fg-primary-rgb: 23, 23, 23;
+  --fg-secondary: rgba(23, 23, 23, 0.8);
+  --fg-tertiary: rgba(23, 23, 23, 0.6);
+  --fg-muted: rgba(23, 23, 23, 0.4);
   /* Brand Colors */
   --color-primary: rgba(48, 92, 222, 1);
   --color-primary-60: rgba(48, 92, 222, 0.6);
@@ -385,10 +409,22 @@ li {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--glass-highlight);
 }
-/* Focus styles */
+/* Focus styles - Enhanced for accessibility with 3:1 contrast */
 :focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
+  border-radius: var(--border-radius-sm);
+}
+
+/* Ensure focus indicators have sufficient contrast */
+:root[data-theme='dark'] {
+  --focus-ring-color: #baffe9;
+  --focus-ring-shadow: rgba(186, 255, 233, 0.3);
+}
+
+:root[data-theme='light'] {
+  --focus-ring-color: rgba(48, 92, 222, 1);
+  --focus-ring-shadow: rgba(48, 92, 222, 0.3);
 }
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
@@ -429,6 +465,40 @@ li {
     --glass-border: rgba(0, 0, 0, 0.3);
   }
 }
+/* Screen reader only utility class */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Skip link for keyboard navigation */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: var(--color-primary);
+  color: var(--bg-primary);
+  padding: 12px 24px;
+  text-decoration: none;
+  font-weight: 600;
+  z-index: 10000;
+  border-radius: 0 0 8px 0;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 2px solid var(--focus-ring-color);
+  outline-offset: 2px;
+}
+
 /* Print styles */
 @media print {
   body {

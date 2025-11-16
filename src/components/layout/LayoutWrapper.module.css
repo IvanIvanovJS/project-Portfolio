@@ -6,6 +6,32 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Skip to main content link - keyboard only visibility */
+.skipLink {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: var(--color-primary);
+  color: var(--bg-primary);
+  padding: 12px 24px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  z-index: 10000;
+  border-radius: 0 0 8px 0;
+  transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.skipLink:focus {
+  top: 0;
+  outline: 2px solid var(--focus-ring-color, var(--color-primary));
+  outline-offset: 2px;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    0 0 0 4px var(--focus-ring-shadow, rgba(186, 255, 233, 0.3));
+}
+
 /* Horizontal Navigation Mode */
 .horizontalMode {
   padding-top: 0;

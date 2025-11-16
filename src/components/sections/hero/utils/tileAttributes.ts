@@ -69,11 +69,18 @@ export function setupTileAttributes(
     1
   );
 
-  // Attach attributes to mesh geometry
-  mesh.geometry.setAttribute('uvOffset', uvOffsetAttr);
-  mesh.geometry.setAttribute('uvScale', uvScaleAttr);
-  mesh.geometry.setAttribute('glowIntensity', glowIntensityAttr);
-  mesh.geometry.setAttribute('animationPhase', animationPhaseAttr);
+  // Batch all geometry attribute updates together to minimize reflows
+  const geometry = mesh.geometry;
+  geometry.setAttribute('uvOffset', uvOffsetAttr);
+  geometry.setAttribute('uvScale', uvScaleAttr);
+  geometry.setAttribute('glowIntensity', glowIntensityAttr);
+  geometry.setAttribute('animationPhase', animationPhaseAttr);
+
+  // Mark attributes as needing update in a single batch
+  uvOffsetAttr.needsUpdate = true;
+  uvScaleAttr.needsUpdate = true;
+  glowIntensityAttr.needsUpdate = true;
+  animationPhaseAttr.needsUpdate = true;
 
   return {
     uvOffset,
