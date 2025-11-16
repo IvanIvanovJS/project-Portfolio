@@ -270,11 +270,14 @@
 
 @media (max-width: 768px) {
   .iphoneFrame {
-    scale: 1;
+    transform: scale(1) !important;
     margin-top: 0;
+    transition: none !important; /* важно */
   }
+
+  /* Мобилните нямат hover, но браузърите понякога симулират → изключваме го насила */
   .iphoneFrame:hover {
-    scale: 1;
+    transform: scale(1) !important;
   }
   .frameOuter {
     padding: 1.5px;
