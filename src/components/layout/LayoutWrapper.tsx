@@ -84,10 +84,15 @@ export const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
     return null;
   }
 
-  const wrapperClassName = `${styles.layoutWrapper} ${navigationMode === 'vertical' ? styles.verticalMode : styles.horizontalMode}`;
+  const wrapperClassName = `${styles.layoutWrapper} layout-wrapper ${navigationMode === 'vertical' ? styles.verticalMode : styles.horizontalMode}`;
 
   return (
     <div className={wrapperClassName}>
+      {/* Skip to main content link for keyboard navigation */}
+      <a href="#main-content" className={styles.skipLink}>
+        Skip to main content
+      </a>
+
       {/* Desktop Vertical Navigation */}
       {navigationMode === 'vertical' && !isMobile && (
         <VerticalNavigation

@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import styles from './SplashScreen.module.css';
+import { preloadAssets, type PreloadedAssets } from '@/utils/assetPreloader';
+import { loadThreeJsModules } from '@/utils/lazyThreeLoader';
 
 export const SplashScreen: React.FC = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -113,6 +115,26 @@ export const SplashScreen: React.FC = () => {
           {isMounted && typedText && <span className={styles.cursor}>|</span>}
         </div>
       </div>
+
+      {/* Optional: Visual indicator when assets are ready */}
+      {assetsReady && (
+        <div
+          className={styles.readyIndicator}
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            bottom: '20px',
+            right: '20px',
+            color: 'rgba(186, 255, 233, 0.6)',
+            fontSize: '14px',
+            opacity: phase === 'fade-out' ? 0 : 1,
+            transition: 'opacity 0.3s ease',
+          }}
+        >
+          ✓
+        </div>
+      )}
+
       <span className={styles.srOnly}>
         Assembling Technical Stack. Compiling innovation. Please wait.
       </span>

@@ -1,6 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import { PageWithSplash } from '../components/layout/PageWithSplash';
 import { HeroSection } from '../components/sections/hero/HeroSection';
 
 // Lazy load sections that are below the fold
@@ -39,17 +40,21 @@ const ContactSection = dynamic(
 
 export default function Home() {
   return (
-    <>
-      <HeroSection />
+    <PageWithSplash>
+      {(preloadedAssets) => (
+        <>
+          <HeroSection preloadedAssets={preloadedAssets} />
 
-      {/* About Section with Image Carousel */}
-      <AboutSection />
+          {/* About Section with Image Carousel */}
+          <AboutSection />
 
-      {/* Projects Gallery Section */}
-      <ProjectsSection />
+          {/* Projects Gallery Section */}
+          <ProjectsSection />
 
-      {/* Contact Section */}
-      <ContactSection />
-    </>
+          {/* Contact Section */}
+          <ContactSection />
+        </>
+      )}
+    </PageWithSplash>
   );
 }
