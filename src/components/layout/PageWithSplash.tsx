@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { SplashScreen } from '../splash/SplashScreen';
 import type { PreloadedAssets } from '@/utils/assetPreloader';
 
@@ -15,6 +15,7 @@ export const PageWithSplash: React.FC<PageWithSplashProps> = ({ children }) => {
   const [splashComplete, setSplashComplete] = useState(false);
   const [preloadedAssets, setPreloadedAssets] =
     useState<PreloadedAssets | null>(null);
+  const mainContentRef = useRef<HTMLDivElement>(null);
 
   // Hide body content immediately on mount
   useEffect(() => {
@@ -23,6 +24,19 @@ export const PageWithSplash: React.FC<PageWithSplashProps> = ({ children }) => {
       document.body.classList.remove('splash-active');
     };
   }, []);
+
+  // Focus management after splash completes
+  useEffect(() => {
+    if (splashComplete && mainContentRef.current) {
+      // Small delay to ensure content is rendered
+      const timer = setTimeout(() => {
+        // Focus the main content area for screen readers
+        mainContentRef.current?.focus();
+      }, 100);
+
+      return () => clearTimeout(timer);
+    }
+  }, [splashComplete]);
 
   const handleAssetsReady = useCallback((assets: PreloadedAssets) => {
     setPreloadedAssets(assets);
@@ -42,7 +56,14 @@ export const PageWithSplash: React.FC<PageWithSplashProps> = ({ children }) => {
           onAssetsReady={handleAssetsReady}
         />
       ) : (
-        children(preloadedAssets)
+        <div
+          ref={mainContentRef}
+          tabIndex={-1}
+          style={{ outline: 'none' }}
+          aria-label="Main content"
+        >
+          {children(preloadedAssets)}
+        </div>
       )}
     </>
   );

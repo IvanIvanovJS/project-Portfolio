@@ -118,7 +118,13 @@
   z-index: 1;
   background: transparent;
   border: none;
-  color: var(--fg-primary, rgba(255, 255, 255, 0.8));
+  color: var(--fg-primary, rgba(255, 255, 255, 0.95));
+}
+
+.switcherButton:focus-visible {
+  outline: 2px solid var(--focus-ring-color, var(--color-primary));
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--focus-ring-shadow, rgba(186, 255, 233, 0.3));
 }
 .switcherOption:hover,
 .switcherButton:hover {

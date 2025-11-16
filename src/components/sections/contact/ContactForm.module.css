@@ -13,7 +13,7 @@
 }
 .label {
   font-size: var(--font-size-sm, 0.875rem);
-  font-weight: 500;
+  font-weight: 600;
   color: var(--fg-primary);
   letter-spacing: var(--letter-spacing-wide, 0.025em);
   transition: color 0.3s ease;
@@ -30,7 +30,7 @@
   font-family: var(--font-family-primary);
   color: var(--fg-primary);
   background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
@@ -39,13 +39,16 @@
 }
 .input::placeholder,
 .textarea::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.6);
 }
 .input:focus,
 .textarea:focus {
-  border-color: var(--color-primary);
+  border-color: var(--focus-ring-color, var(--color-primary));
+  border-width: 2px;
   background: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 0 0 3px rgba(186, 255, 233, 0.15);
+  box-shadow: 0 0 0 3px var(--focus-ring-shadow, rgba(186, 255, 233, 0.3));
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 .input:hover:not(:focus):not(:disabled),
 .textarea:hover:not(:focus):not(:disabled) {
@@ -63,15 +66,18 @@
   line-height: var(--line-height-relaxed, 1.625em);
 }
 .inputError {
-  border-color: #ff4444;
-  background: rgba(255, 68, 68, 0.05);
+  border-color: #ff6b6b;
+  border-width: 2px;
+  background: rgba(255, 68, 68, 0.08);
 }
 .inputError:focus {
-  box-shadow: 0 0 0 3px rgba(255, 68, 68, 0.1);
+  border-color: #ff6b6b;
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.3);
 }
 .errorMessage {
   font-size: var(--font-size-xs, 0.75rem);
-  color: #ff4444;
+  font-weight: 500;
+  color: #ff6b6b;
   display: flex;
   align-items: center;
   gap: 0.25rem;
@@ -143,13 +149,13 @@
   transform: none;
 }
 .submitButton:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--focus-ring-color, var(--color-primary));
   outline-offset: 2px;
   box-shadow:
     inset 0 1px 1px rgba(255, 255, 255, 0.4),
     inset 0 -1px 1px rgba(0, 0, 0, 0.1),
     0 12px 48px rgba(0, 0, 0, 0.15),
-    0 0 0 4px rgba(var(--color-primary-rgb, 99, 102, 241), 0.2);
+    0 0 0 4px var(--focus-ring-shadow, rgba(186, 255, 233, 0.3));
 }
 .spinner {
   width: 18px;
@@ -400,23 +406,24 @@
 /* Light theme specific adjustments */
 :root[data-theme='light'] .input,
 :root[data-theme='light'] .textarea {
-  background: rgba(255, 255, 255, 0.6);
-  border: 2px solid rgba(48, 92, 222, 0.2);
-  color: rgba(23, 23, 23, 0.9);
-  box-shadow: 0 2px 8px rgba(48, 92, 222, 0.05);
+  background: rgba(255, 255, 255, 0.7);
+  border: 2px solid rgba(48, 92, 222, 0.3);
+  color: rgba(23, 23, 23, 0.95);
+  box-shadow: 0 2px 8px rgba(48, 92, 222, 0.08);
 }
 :root[data-theme='light'] .input:hover:not(:focus):not(:disabled),
 :root[data-theme='light'] .textarea:hover:not(:focus):not(:disabled) {
-  border-color: rgba(48, 92, 222, 0.4);
-  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(48, 92, 222, 0.5);
+  background: rgba(255, 255, 255, 0.8);
 }
 :root[data-theme='light'] .input:focus,
 :root[data-theme='light'] .textarea:focus {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.9);
   border-color: rgba(48, 92, 222, 1);
-  box-shadow: 0 0 0 3px rgba(48, 92, 222, 0.15);
+  border-width: 2px;
+  box-shadow: 0 0 0 3px rgba(48, 92, 222, 0.3);
 }
 :root[data-theme='light'] .input::placeholder,
 :root[data-theme='light'] .textarea::placeholder {
-  color: rgba(23, 23, 23, 0.5);
+  color: rgba(23, 23, 23, 0.6);
 }

@@ -25,8 +25,11 @@
 
 .skipLink:focus {
   top: 0;
-  outline: 3px solid var(--color-accent);
+  outline: 2px solid var(--focus-ring-color, var(--color-primary));
   outline-offset: 2px;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    0 0 0 4px var(--focus-ring-shadow, rgba(186, 255, 233, 0.3));
 }
 
 /* Horizontal Navigation Mode */

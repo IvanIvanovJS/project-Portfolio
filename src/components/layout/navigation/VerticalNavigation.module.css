@@ -96,7 +96,7 @@
   transform: translateX(-20px);
 }
 .navLink {
-  color: var(--fg-primary, rgba(255, 255, 255, 0.8));
+  color: var(--fg-primary, rgba(255, 255, 255, 0.95));
   text-decoration: none;
   padding: var(--spacing-4, 1rem);
   border-radius: 12px;
@@ -105,6 +105,12 @@
   display: block;
   width: 100%;
   overflow: hidden;
+}
+
+.navLink:focus-visible {
+  outline: 2px solid var(--focus-ring-color, var(--color-primary));
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--focus-ring-shadow, rgba(186, 255, 233, 0.3));
 }
 .navLink::before {
   content: '';
