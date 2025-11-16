@@ -129,12 +129,13 @@ export default function RootLayout({
       </head>
       <body className={ibmPlexSans.className} suppressHydrationWarning>
         <StructuredData type="person" />
+
+        {/* Splash screen OUTSIDE all providers to avoid hydration issues */}
+        <SplashScreen />
+
         <ThemeProvider>
           <ChakraProvider>
             <NavigationProvider>
-              {/* Splash screen OUTSIDE LayoutWrapper - covers everything */}
-              <SplashScreen />
-
               {/* LayoutWrapper with navigation and content - loads normally */}
               <LayoutWrapper>{children}</LayoutWrapper>
             </NavigationProvider>

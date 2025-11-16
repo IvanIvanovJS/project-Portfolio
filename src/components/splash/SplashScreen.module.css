@@ -1,11 +1,8 @@
-/* Splash Screen Container */
-.splashContainer {
-  /* Full viewport overlay - covers everything including navigation */
+/* Splash Screen Overlay - Fixed positioning for LCP optimization */
+.splashOverlay {
+  /* Fixed overlay - doesn't affect DOM flow */
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  inset: 0;
   z-index: 9999; /* Above all content */
 
   /* Match ThreeScene background */
@@ -17,17 +14,12 @@
   justify-content: center;
   flex-direction: column;
 
-  /* Block all interactions during splash */
-  pointer-events: auto;
+  /* Start visible, will fade via inline style */
+  opacity: 1;
+  pointer-events: none; /* Don't block LCP measurement */
 
   /* Smooth fade transition */
-  opacity: 1;
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.splashContainer.fadeOutSplash {
-  opacity: 0;
-  pointer-events: none; /* Allow interactions after fade starts */
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Text Container */
@@ -121,8 +113,8 @@
   }
 }
 
-/* Prevent scroll and touch interactions during splash */
-body:has(.splashContainer) {
+/* Prevent scroll during splash - using ID selector for specificity */
+body:has(#splash-overlay) {
   overflow: hidden;
   touch-action: none;
 }

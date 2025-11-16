@@ -1,39 +1,28 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './SplashScreen.module.css';
-
-type AnimationPhase = 'text-in' | 'hold' | 'fade-out' | 'complete';
 
 export const SplashScreen: React.FC = () => {
   const [isMounted, setIsMounted] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [phase, setPhase] = useState<AnimationPhase>('text-in');
   const [showAssembling, setShowAssembling] = useState(false);
   const [showTechnicalStack, setShowTechnicalStack] = useState(false);
   const [typedText, setTypedText] = useState('');
-  const [fadingOut, setFadingOut] = useState(false);
-  const timersRef = useRef<NodeJS.Timeout[]>([]);
 
-  // Mount effect - only render on client
   useEffect(() => {
-    // Reset sphere expansion state when splash screen mounts (on page refresh)
-    if (typeof window !== 'undefined') {
-      sessionStorage.setItem('sphere-expanded', 'false');
-      sessionStorage.setItem('iphone-widget-interacted', 'false');
-    }
     setIsMounted(true);
-  }, []);
 
-  // Main animation timeline effect
-  useEffect(() => {
-    if (!isMounted) return;
-    // Check for reduced motion preference
+    // Reset session storage
+    sessionStorage.setItem('sphere-expanded', 'false');
+    sessionStorage.setItem('iphone-widget-interacted', 'false');
+
+    const splash = document.getElementById('splash-overlay');
+    if (!splash) return;
+
     const prefersReducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
     ).matches;
 
-    // Timeline configuration
     const TIMELINE = prefersReducedMotion
       ? {
           ASSEMBLING_IN: 0,
@@ -41,104 +30,87 @@ export const SplashScreen: React.FC = () => {
           TYPING_START: 200,
           TYPING_DURATION: 100,
           FADE_OUT_START: 400,
-          FADE_OUT_DURATION: 100,
-          COMPLETE: 500,
+          FADE_OUT_DURATION: 700,
         }
       : {
           ASSEMBLING_IN: 0,
           TECHNICAL_STACK_IN: 500,
           TYPING_START: 500,
-          TYPING_DURATION: 1200, // 1.5 seconds for typing effect
+          TYPING_DURATION: 1200,
           FADE_OUT_START: 1700,
-          FADE_OUT_DURATION: 300,
-          COMPLETE: 2000,
+          FADE_OUT_DURATION: 700,
         };
 
     const fullText = 'Compiling innovation...';
+    const timers: NodeJS.Timeout[] = [];
 
-    // Start text animations sequence
-    const timer1 = setTimeout(() => {
-      setShowAssembling(true);
-    }, TIMELINE.ASSEMBLING_IN);
+    // Text animations
+    timers.push(
+      setTimeout(() => setShowAssembling(true), TIMELINE.ASSEMBLING_IN)
+    );
+    timers.push(
+      setTimeout(() => setShowTechnicalStack(true), TIMELINE.TECHNICAL_STACK_IN)
+    );
 
-    const timer2 = setTimeout(() => {
-      setShowTechnicalStack(true);
-    }, TIMELINE.TECHNICAL_STACK_IN);
-
-    // Store timer references for cleanup
-    const timers: NodeJS.Timeout[] = [timer1, timer2];
-
-    // Typing effect for subtext
+    // Typing effect
     if (!prefersReducedMotion) {
       const charDelay = TIMELINE.TYPING_DURATION / fullText.length;
       for (let i = 0; i <= fullText.length; i++) {
-        const typingTimer = setTimeout(
-          () => {
-            setTypedText(fullText.slice(0, i));
-          },
-          TIMELINE.TYPING_START + i * charDelay
+        timers.push(
+          setTimeout(
+            () => setTypedText(fullText.slice(0, i)),
+            TIMELINE.TYPING_START + i * charDelay
+          )
         );
-        timers.push(typingTimer);
       }
     } else {
-      // Show full text immediately for reduced motion
-      const instantTimer = setTimeout(() => {
-        setTypedText(fullText);
-      }, TIMELINE.TYPING_START);
-      timers.push(instantTimer);
+      timers.push(
+        setTimeout(() => setTypedText(fullText), TIMELINE.TYPING_START)
+      );
     }
 
-    // Start fade-out
-    const timer5 = setTimeout(() => {
-      setPhase('fade-out');
-      setFadingOut(true);
-    }, TIMELINE.FADE_OUT_START);
-    timers.push(timer5);
+    // Fade out splash
+    timers.push(
+      setTimeout(() => {
+        splash.style.opacity = '0';
+      }, TIMELINE.FADE_OUT_START)
+    );
 
-    // Remove splash from DOM
-    const timer6 = setTimeout(() => {
-      setPhase('complete');
-      setIsVisible(false);
-    }, TIMELINE.COMPLETE);
-    timers.push(timer6);
+    // Remove from DOM
+    timers.push(
+      setTimeout(() => {
+        splash.style.display = 'none';
+      }, TIMELINE.FADE_OUT_START + TIMELINE.FADE_OUT_DURATION)
+    );
 
-    timersRef.current = timers;
-
-    // Cleanup function
-    return () => {
-      timersRef.current.forEach((timer) => clearTimeout(timer));
-      timersRef.current = [];
-    };
-  }, [isMounted]);
-
-  // Don't render anything on server or after splash is hidden
-  if (!isMounted || !isVisible) {
-    return null;
-  }
+    return () => timers.forEach((timer) => clearTimeout(timer));
+  }, []);
 
   return (
     <div
+      id="splash-overlay"
       role="status"
       aria-live="polite"
       aria-label="Loading application"
-      className={`${styles.splashContainer} ${fadingOut ? styles.fadeOutSplash : ''}`}
+      className={styles.splashOverlay}
+      suppressHydrationWarning
     >
       <div aria-hidden="true" className={styles.textContainer}>
         <div
-          className={`${styles.mainText} ${showAssembling ? styles.slideInLeft : ''} ${phase === 'fade-out' ? styles.fadeOutText : ''}`}
+          className={`${styles.mainText} ${isMounted && showAssembling ? styles.slideInLeft : ''}`}
         >
           Assembling
         </div>
         <div
-          className={`${styles.mainText} ${showTechnicalStack ? styles.slideInRight : ''} ${phase === 'fade-out' ? styles.fadeOutText : ''}`}
+          className={`${styles.mainText} ${isMounted && showTechnicalStack ? styles.slideInRight : ''}`}
         >
           Technical Stack
         </div>
         <div
-          className={`${styles.subText} ${typedText ? styles.visible : ''} ${phase === 'fade-out' ? styles.fadeOutText : ''}`}
+          className={`${styles.subText} ${isMounted && typedText ? styles.visible : ''}`}
         >
-          {typedText}
-          {typedText && <span className={styles.cursor}>|</span>}
+          {isMounted ? typedText : ''}
+          {isMounted && typedText && <span className={styles.cursor}>|</span>}
         </div>
       </div>
       <span className={styles.srOnly}>
