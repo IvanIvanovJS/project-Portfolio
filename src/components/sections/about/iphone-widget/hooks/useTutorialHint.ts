@@ -69,6 +69,7 @@ function calculateTargetPositions(
     }
 
     // Get the actual bounding rect to calculate offset
+
     const frameRect = iphoneFrame.getBoundingClientRect();
     const widgetRect = widgetElement.getBoundingClientRect();
 
@@ -121,15 +122,11 @@ function calculateTargetPositions(
   const aboutAppXInFrame = frameBorder + gridPadding.left + columnWidth / 2;
   const aboutAppYInFrame = frameBorder + gridPadding.top + iconSize / 2;
 
-  const aboutAppX = isHovered
-    ? aboutAppXInFrame - 4
-    : isMobile
-      ? aboutAppXInFrame * frameScale + frameOffsetX - handOffset / 2 - 6
-      : aboutAppXInFrame * frameScale + frameOffsetX - handOffset / 2 + 6;
-  const aboutAppY = isHovered
-    ? aboutAppYInFrame * 0.5 - frameOffsetY
-    : aboutAppYInFrame * frameScale + frameOffsetY;
-
+  const aboutAppX = isMobile
+    ? aboutAppXInFrame * frameScale + frameOffsetX - handOffset / 2 - 6
+    : aboutAppXInFrame * frameScale + frameOffsetX - handOffset / 2 + 6;
+  const aboutAppY = aboutAppYInFrame * frameScale + frameOffsetY;
+  console.log('isHovered', isHovered);
   // Back button position in AppContainer
   // From AppContainer.module.css:
   // - AppContainer top: 46px (SystemBar height)
@@ -150,13 +147,10 @@ function calculateTargetPositions(
   const backButtonYInFrame =
     frameBorder + systemBarHeight + navBarPadding.top + backButtonSize / 2;
 
-  const backButtonX = isHovered
-    ? backButtonXInFrame * 0.5 + handOffset
-    : backButtonXInFrame * frameScale + frameOffsetX + handOffset / 2;
+  const backButtonX =
+    backButtonXInFrame * frameScale + frameOffsetX + handOffset / 2;
 
-  const backButtonY = isHovered
-    ? -backButtonYInFrame * 0.5 + 6
-    : backButtonYInFrame * frameScale + frameOffsetY;
+  const backButtonY = backButtonYInFrame * frameScale + frameOffsetY;
 
   return {
     aboutApp: {
@@ -295,24 +289,15 @@ export function useTutorialHint({
     }
 
     const updatePositions = () => {
-      const positions = calculateTargetPositions(widgetElement, isHovered);
-      setTargetPositions(positions);
+      // Wait for CSS transition to complete (300ms) before reading DOM
+      setTimeout(() => {
+        const positions = calculateTargetPositions(widgetElement, isHovered);
+        setTargetPositions(positions);
+      }, 350);
     };
 
     // Initial calculation
     updatePositions();
-
-    // Recalculate on window resize
-    const handleResize = () => {
-      updatePositions();
-    };
-
-    // Only listen to resize, no RAF checking during animation
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
   }, [widgetRef, isInViewport, isHovered]);
 
   // Determine if hint should be shown
