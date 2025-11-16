@@ -242,7 +242,7 @@ function RubikSphere({
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // Match splash screen timing: 1350ms normal, 50ms reduced motion
-    const delay = prefersReducedMotion ? 50 : 100;
+    const delay = prefersReducedMotion ? 50 : 1350;
 
     const timer = setTimeout(() => {
       targetProgress.current = 1; // Trigger cube-to-sphere animation

@@ -7,7 +7,8 @@ body.splash-active .layout-wrapper {
   pointer-events: none !important;
 }
 
-body [role='status'] {
+/* Splash screen positioning - only when splash is active */
+body.splash-active [role='status'] {
   position: fixed;
   top: 0;
   left: 0;
