@@ -15,6 +15,29 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
+  // Compute loading state based on preloaded assets
+  const loadingState = (() => {
+    if (preloadedAssets) {
+      return 'ready';
+    }
+
+    // Check if WebGL is supported
+    if (typeof window === 'undefined') {
+      return 'loading';
+    }
+
+    try {
+      const canvas = document.createElement('canvas');
+      const hasWebGL = !!(
+        window.WebGLRenderingContext &&
+        (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
+      );
+      return hasWebGL ? 'loading' : 'error';
+    } catch {
+      return 'error';
+    }
+  })();
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -58,6 +81,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       id="hero"
       aria-labelledby="hero-heading"
     >
+      {/* Loading state announcement for screen readers */}
+      <div
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        className={styles.srOnly}
+      >
+        {loadingState === 'loading' && 'Loading 3D scene and technology stack'}
+        {loadingState === 'ready' && '3D scene loaded and ready'}
+        {loadingState === 'error' &&
+          'Scene unavailable, showing alternative content'}
+      </div>
+
       {/* Full-width 3D Scene Background */}
       <div className={styles.sceneBackground}>
         <ThreeScene
@@ -65,6 +101,29 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           isVisible={isVisible}
           preloadedAssets={preloadedAssets}
         />
+      </div>
+
+      {/* Screen reader only technology list as keyboard alternative */}
+      <div className={styles.srOnly}>
+        <h2>Technology Stack</h2>
+        <ul>
+          <li>React - JavaScript library for building user interfaces</li>
+          <li>TypeScript - Typed superset of JavaScript</li>
+          <li>Next.js - React framework for production</li>
+          <li>Node.js - JavaScript runtime environment</li>
+          <li>Three.js - 3D graphics library</li>
+          <li>CSS3 - Styling and animations</li>
+          <li>HTML5 - Semantic markup</li>
+          <li>Git - Version control system</li>
+          <li>Docker - Containerization platform</li>
+          <li>PostgreSQL - Relational database</li>
+          <li>MongoDB - NoSQL database</li>
+          <li>GraphQL - Query language for APIs</li>
+          <li>REST APIs - Web service architecture</li>
+          <li>Webpack - Module bundler</li>
+          <li>Jest - Testing framework</li>
+          <li>Figma - Design and prototyping tool</li>
+        </ul>
       </div>
 
       {/* Content container */}

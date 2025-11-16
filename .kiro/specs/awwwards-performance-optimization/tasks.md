@@ -49,7 +49,7 @@
   - Report long tasks to console with duration and timestamp
   - _Requirements: 10.1, 10.2, 10.3_
 
-- [ ] 7. Improve accessibility - ARIA labels and semantic HTML
+- [x] 7. Improve accessibility - ARIA labels and semantic HTML
   - Add role="img" and aria-label to Canvas element in ThreeScene
   - Add screen reader only technology list as keyboard alternative
   - Add aria-live region for loading state announcements

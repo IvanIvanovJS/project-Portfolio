@@ -592,6 +592,9 @@ export const ThreeScene: React.FC<ThreeSceneProps> = ({
       }}
     >
       <Canvas
+        role="img"
+        aria-label="Interactive 3D visualization of technology stack featuring animated tiles with React, TypeScript, Node.js, and other technologies"
+        tabIndex={-1}
         camera={{
           position: [0, 0, 7],
           fov: isMobile ? 55 : 52,
