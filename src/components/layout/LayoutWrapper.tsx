@@ -8,6 +8,7 @@ import { MobileNavigation } from './navigation/MobileNavigation';
 import { useNavigation } from '../../providers/NavigationProvider';
 import { useScrollSpy } from '../../hooks/useScrollSpy';
 import styles from './LayoutWrapper.module.css';
+import { SplashScreen } from '../splash/SplashScreen';
 
 interface LayoutWrapperProps {
   children: React.ReactNode;
@@ -137,6 +138,7 @@ export const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
             : ''
         }`}
       >
+        <SplashScreen />
         {children}
       </main>
 

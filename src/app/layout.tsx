@@ -5,7 +5,6 @@ import { ThemeProvider } from '../providers/ThemeProvider';
 import { ChakraProvider } from '../providers/ChakraProvider';
 import { NavigationProvider } from '../providers/NavigationProvider';
 import { LayoutWrapper } from '../components/layout/LayoutWrapper';
-import { SplashScreen } from '../components/splash/SplashScreen';
 import { defaultMetadata } from '../config/seo';
 import { StructuredData } from '../components/seo/StructuredData';
 import { Analytics } from '@vercel/analytics/next';
@@ -131,7 +130,6 @@ export default function RootLayout({
         <StructuredData type="person" />
 
         {/* Splash screen OUTSIDE all providers to avoid hydration issues */}
-        <SplashScreen />
 
         <ThemeProvider>
           <ChakraProvider>

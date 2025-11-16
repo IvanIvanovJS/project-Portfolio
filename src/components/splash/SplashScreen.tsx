@@ -30,7 +30,7 @@ export const SplashScreen: React.FC = () => {
           TYPING_START: 200,
           TYPING_DURATION: 100,
           FADE_OUT_START: 400,
-          FADE_OUT_DURATION: 700,
+          FADE_OUT_DURATION: 100,
         }
       : {
           ASSEMBLING_IN: 0,
@@ -38,7 +38,7 @@ export const SplashScreen: React.FC = () => {
           TYPING_START: 500,
           TYPING_DURATION: 1200,
           FADE_OUT_START: 1700,
-          FADE_OUT_DURATION: 700,
+          FADE_OUT_DURATION: 100,
         };
 
     const fullText = 'Compiling innovation...';
