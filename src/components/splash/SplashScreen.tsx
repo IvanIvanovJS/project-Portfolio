@@ -48,9 +48,9 @@ export const SplashScreen: React.FC = () => {
           ASSEMBLING_IN: 0,
           TECHNICAL_STACK_IN: 500,
           TYPING_START: 500,
-          TYPING_DURATION: 1000, // 1.5 seconds for typing effect
-          FADE_OUT_START: 1500,
-          FADE_OUT_DURATION: 500,
+          TYPING_DURATION: 1200, // 1.5 seconds for typing effect
+          FADE_OUT_START: 1700,
+          FADE_OUT_DURATION: 300,
           COMPLETE: 2000,
         };
 
