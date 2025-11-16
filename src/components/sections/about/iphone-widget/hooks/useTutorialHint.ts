@@ -123,7 +123,7 @@ function calculateTargetPositions(
   const aboutAppYInFrame = frameBorder + gridPadding.top + iconSize / 2;
 
   const aboutAppX = isMobile
-    ? aboutAppXInFrame * frameScale + frameOffsetX - handOffset / 2 - 6
+    ? aboutAppXInFrame * frameScale + frameOffsetX - handOffset / 2
     : aboutAppXInFrame * frameScale + frameOffsetX - handOffset / 2 + 6;
   const aboutAppY = aboutAppYInFrame * frameScale + frameOffsetY;
   console.log('isHovered', isHovered);
@@ -147,8 +147,11 @@ function calculateTargetPositions(
   const backButtonYInFrame =
     frameBorder + systemBarHeight + navBarPadding.top + backButtonSize / 2;
 
-  const backButtonX =
-    backButtonXInFrame * frameScale + frameOffsetX + handOffset / 2;
+  const backButtonX = isMobile
+    ? backButtonXInFrame * frameScale + frameOffsetX + 6
+    : isHovered
+      ? backButtonXInFrame * frameScale + frameOffsetX + handOffset / 2 + 4
+      : backButtonXInFrame * frameScale + frameOffsetX + handOffset / 2 - 4;
 
   const backButtonY = backButtonYInFrame * frameScale + frameOffsetY;
 
