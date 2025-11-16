@@ -308,7 +308,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
               <ImageCarousel
                 images={images}
                 autoPlay={isCarouselVisible}
-                interval={7000}
+                interval={8000}
               />
             </div>
 

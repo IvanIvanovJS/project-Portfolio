@@ -20,6 +20,7 @@ export const SplashScreen: React.FC = () => {
     // Reset sphere expansion state when splash screen mounts (on page refresh)
     if (typeof window !== 'undefined') {
       sessionStorage.setItem('sphere-expanded', 'false');
+      sessionStorage.setItem('iphone-widget-interacted', 'false');
     }
     setIsMounted(true);
   }, []);

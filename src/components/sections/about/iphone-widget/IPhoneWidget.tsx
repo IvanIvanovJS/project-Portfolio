@@ -1,14 +1,16 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, RefObject } from 'react';
 import { IPhoneWidgetProps, AppType } from './types';
 import { useIPhoneState } from './hooks/useIPhoneState';
 import { useToast } from './hooks/useToast';
+import { useTutorialHint } from './hooks/useTutorialHint';
 import { IPhoneFrame } from './IPhoneFrame';
 import { SystemBar } from './SystemBar';
 import { HomeScreen } from './HomeScreen';
 import { AppContainer } from './AppContainer';
 import { Toast } from './Toast';
+import { TutorialHint } from './components';
 import { APPS } from './utils/appConfig';
 import {
   AboutApp,
@@ -51,6 +53,23 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
     x: number;
     y: number;
   } | null>(null);
+
+  // Ref for widget container (for tutorial hint)
+  const widgetRef = useRef<HTMLDivElement>(null);
+
+  // Tutorial hint hook
+  const {
+    shouldShowHint,
+    targetPositions,
+    handleAnimationComplete,
+    handleUserInteraction,
+    onAnimationPhase,
+  } = useTutorialHint({
+    widgetRef: widgetRef as RefObject<HTMLElement>,
+    isModalOpen: activeApp !== null,
+    onOpenAbout: () => handleAppClick('about'),
+    onCloseApp: handleAppClose,
+  });
 
   /**
    * Open external link with visual feedback
@@ -113,10 +132,23 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
     handleAppClick(appId as AppType);
   };
 
+  /**
+   * Handle widget interaction (click or touch)
+   * Marks the widget as interacted to hide tutorial hint
+   */
+  const handleWidgetInteraction = () => {
+    handleUserInteraction();
+  };
+
   return (
     <>
       {/* Single iPhone widget - no modal, direct navigation */}
-      <div className={`${styles.thumbnail} ${className}`}>
+      <div
+        ref={widgetRef}
+        className={`${styles.thumbnail} ${className}`}
+        onClick={handleWidgetInteraction}
+        onTouchStart={handleWidgetInteraction}
+      >
         <IPhoneFrame isExpanded={false}>
           <SystemBar currentTime={currentTime} showNotch={true} />
           {activeApp === null ? (
@@ -153,6 +185,16 @@ export const IPhoneWidget: React.FC<IPhoneWidgetProps> = ({
             </AppContainer>
           )}
         </IPhoneFrame>
+
+        {/* Tutorial hint - shows animated hand cursor to guide users */}
+        {shouldShowHint && (
+          <TutorialHint
+            isVisible={shouldShowHint}
+            targetPositions={targetPositions}
+            onAnimationComplete={handleAnimationComplete}
+            onAnimationPhase={onAnimationPhase}
+          />
+        )}
       </div>
 
       {/* Toast notifications - fixed position, outside iPhone frame */}

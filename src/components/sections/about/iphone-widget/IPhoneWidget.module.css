@@ -1,6 +1,7 @@
 /* IPhoneWidget Component Styles */
 /* Thumbnail state */
 .thumbnail {
+  position: relative;
   width: 300px;
   max-width: 100%;
   cursor: pointer;
