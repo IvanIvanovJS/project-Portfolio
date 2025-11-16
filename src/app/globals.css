@@ -1,15 +1,25 @@
 /* Import glassmorphism styles */
 @import '../styles/glassmorphism.css';
 
-/* Splash screen active state - hide all content except splash */
-body.splash-active > *:not([role='status']) {
+/* Splash screen active state - hide content but allow it to load in background */
+body.splash-active .layout-wrapper {
   visibility: hidden !important;
   pointer-events: none !important;
 }
 
-body.splash-active [role='status'] {
-  visibility: visible !important;
-  pointer-events: auto !important;
+body [role='status'] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+}
+
+/* Show content when splash is not active */
+body:not(.splash-active) .layout-wrapper {
+  visibility: visible;
+  pointer-events: auto;
 }
 /* Custom Fonts */
 @font-face {

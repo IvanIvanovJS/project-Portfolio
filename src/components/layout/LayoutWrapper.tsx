@@ -83,7 +83,7 @@ export const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
     return null;
   }
 
-  const wrapperClassName = `${styles.layoutWrapper} ${navigationMode === 'vertical' ? styles.verticalMode : styles.horizontalMode}`;
+  const wrapperClassName = `${styles.layoutWrapper} layout-wrapper ${navigationMode === 'vertical' ? styles.verticalMode : styles.horizontalMode}`;
 
   return (
     <div className={wrapperClassName}>

@@ -13,9 +13,9 @@ export interface SplashScreenProps {
 }
 
 export const SplashScreen: React.FC<SplashScreenProps> = ({
-  onComplete,
-  onAssetsReady,
-}) => {
+  onComplete = () => {},
+  onAssetsReady = () => {},
+} = {}) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [phase, setPhase] = useState<AnimationPhase>('text-in');
@@ -32,8 +32,17 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
     if (typeof window !== 'undefined') {
       sessionStorage.setItem('sphere-expanded', 'false');
       sessionStorage.setItem('iphone-widget-interacted', 'false');
+      // Add class to hide content during splash
+      document.body.classList.add('splash-active');
     }
     setIsMounted(true);
+
+    return () => {
+      // Remove class when splash unmounts
+      if (typeof window !== 'undefined') {
+        document.body.classList.remove('splash-active');
+      }
+    };
   }, []);
 
   // Asset preloading effect - runs in parallel with animation
@@ -56,6 +65,13 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
 
         setAssetsReady(true);
         onAssetsReady?.(completeAssets);
+
+        // Dispatch custom event for PageWithSplash to receive assets
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(
+            new CustomEvent('splash-assets-ready', { detail: completeAssets })
+          );
+        }
       } catch (error) {
         console.error('Asset preloading failed:', error);
         // Continue anyway - graceful degradation
@@ -64,7 +80,8 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
     };
 
     loadAssets();
-  }, [isMounted, onAssetsReady]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMounted]);
 
   // Main animation timeline effect
   useEffect(() => {
@@ -140,6 +157,10 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
     const timer6 = setTimeout(() => {
       setPhase('complete');
       setIsVisible(false);
+      // Remove splash-active class to show content
+      if (typeof window !== 'undefined') {
+        document.body.classList.remove('splash-active');
+      }
       onComplete?.();
     }, TIMELINE.COMPLETE);
     timers.push(timer6);
@@ -151,7 +172,8 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
       timersRef.current.forEach((timer) => clearTimeout(timer));
       timersRef.current = [];
     };
-  }, [isMounted, onComplete]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMounted]);
 
   // Don't render anything on server or after splash is hidden
   if (!isMounted || !isVisible) {

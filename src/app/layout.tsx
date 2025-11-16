@@ -5,6 +5,7 @@ import { ThemeProvider } from '../providers/ThemeProvider';
 import { ChakraProvider } from '../providers/ChakraProvider';
 import { NavigationProvider } from '../providers/NavigationProvider';
 import { LayoutWrapper } from '../components/layout/LayoutWrapper';
+import { SplashScreen } from '../components/splash/SplashScreen';
 import { defaultMetadata } from '../config/seo';
 import { StructuredData } from '../components/seo/StructuredData';
 import { Analytics } from '@vercel/analytics/next';
@@ -172,7 +173,10 @@ export default function RootLayout({
         <ThemeProvider>
           <ChakraProvider>
             <NavigationProvider>
-              {/* LayoutWrapper with navigation and content */}
+              {/* Splash screen OUTSIDE LayoutWrapper - covers everything */}
+              <SplashScreen />
+
+              {/* LayoutWrapper with navigation and content - loads in background */}
               <LayoutWrapper>{children}</LayoutWrapper>
             </NavigationProvider>
           </ChakraProvider>
