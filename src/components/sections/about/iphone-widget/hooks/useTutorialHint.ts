@@ -383,7 +383,7 @@ export function useTutorialHint({
       if (isInViewport && !hasInteracted && !isModalOpen) {
         setIsVisible(true);
       }
-    }, 6000);
+    }, 4000);
 
     // Cleanup: clear timer on component unmount or when dependencies change
     return () => {
