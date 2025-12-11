@@ -119,13 +119,14 @@ export const MOCK_PROJECTS: ProjectData[] = [
       { name: 'CSS', color: '' },
     ],
     category: 'web',
-    status: 'planned',
+    status: 'completed',
     startDate: '2025-11-13',
-    links: {},
+    endDate: '2025-12-10',
+    links: {github: 'https://github.com/IvanIvanovJS/Kirka-Coding-Agent',},
     features: [
       'Personalized AI assistant',
       'Component-based design',
-      'SEO optimization tools',
+      'Fast and robust template generator',
     ],
   },
 ];
