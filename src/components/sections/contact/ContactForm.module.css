@@ -86,7 +86,7 @@
   font-size: 1.1rem;
   font-weight: 600;
   font-family: var(--font-family-primary);
-  color: rgb(255, 255, 255, 0.8);
+  color: var(--fg-secondary);
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 12px;
